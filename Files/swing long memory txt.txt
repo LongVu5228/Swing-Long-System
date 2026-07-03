@@ -1,0 +1,699 @@
+ere’s a clean Claude Code memory blob you can paste into your project.
+
+# Project Memory: IPO Tank + Base Breakout Research System
+
+## Project Goal
+
+Build a historical swing-trading research system to study recent IPOs that:
+
+1. IPO/listed relatively recently.
+2. Dropped heavily from their post-IPO highs.
+3. Stopped free-falling.
+4. Formed a base/consolidation.
+5. Broke out or failed.
+6. Can be analyzed to determine which traits produced better breakout expectancy.
+
+The core research question is:
+
+> Among recent IPOs that tanked, based, and broke out, do the good breakouts have CAN SLIM-like traits? If not, what traits do they actually share?
+
+This project is not day trading. It is daily/weekly swing research.
+
+---
+
+## Current Data Plan
+
+Use two main data sources:
+
+### Portfolio123
+
+Portfolio123 is used mainly to generate the historical recent-IPO ticker universe.
+
+Do not rely on a single “current” export because that creates survivorship bias. Instead, use Portfolio123 historical `As Of` dates to capture which stocks qualified as recent IPOs at each point in time.
+
+The Portfolio123 API appears to have the needed endpoints:
+
+- `POST /auth`
+- `POST /screen/run`
+- `POST /data`
+- `POST /data/universe`
+- `GET /data/prices/{identifier}`
+
+Primary endpoint of interest:
+
+```text
+POST /screen/run
+
+Use this endpoint to run a saved recent-IPO screen across historical month-end or quarter-end dates.
+
+The output needed from Portfolio123 is minimal:
+
+as_of_date,ticker
+2023-01-31,ABC
+2023-01-31,XYZ
+2023-02-28,XYZ
+2023-02-28,NEWIPO
+
+Ticker alone is enough for the first version because Polygon/Massive will be used for prices and financials. Still, as_of_date must be preserved so we know which historical snapshot produced the ticker.
+
+Optional but useful debugging field:
+
+name
+
+Name helps identify ticker changes/reused tickers, but it is not required for the MVP.
+
+Polygon / Massive
+
+Polygon/Massive is the main data engine for:
+
+Daily OHLCV prices
+Adjusted and/or unadjusted historical bars
+Company reference data
+Ticker details
+Corporate actions
+Financial statements
+Point-in-time financials when possible
+
+Use Polygon/Massive to pull all relevant data for the deduplicated ticker list from Portfolio123.
+
+Portfolio123 Recent IPO Screen Logic
+
+Current recent-IPO proxy rules:
+
+Close(1260) = NA
+Close(120) != NA
+
+Meaning:
+
+Close(1260) = NA
+
+The stock did not have price data roughly 5 trading years ago, so it is probably a newer listing.
+
+Close(120) != NA
+
+The stock did have price data roughly 120 trading days ago, so it has at least around 6 months of trading history.
+
+Together this means:
+
+Find stocks that existed at least 120 trading days ago but did not exist 1260 trading days ago.
+
+This is a decent IPO/listing-age proxy.
+
+Other initial Portfolio123 screen filters can include:
+
+Close(0) > 3 or Close(0) > 5
+MktCap > 1000
+AvgDailyTot(30) > 5000000
+Common stocks only
+U.S. exchanges only
+Exclude ETFs, warrants, units, preferreds, rights, funds
+
+However, for broader research, it may be better to export a wider universe and apply tighter filters later in Python.
+
+Historical Snapshot Frequency
+
+Do not export only one current list.
+
+To capture historical IPO universe membership, run Portfolio123 screen snapshots over time.
+
+MVP
+
+Quarterly snapshots are acceptable for a quick test.
+
+Example:
+
+2023-01-01
+2023-04-01
+2023-07-01
+2023-10-01
+...
+Better
+
+Monthly snapshots are preferred.
+
+Example:
+
+2023-01-31
+2023-02-28
+2023-03-31
+...
+
+Monthly is better because an IPO can appear, break out, fail, delist, or change ticker within one year. Yearly snapshots are too coarse for swing-trading research.
+
+The goal of Portfolio123 monthly snapshots is not to find final candidates. It is only to build the historical eligible ticker universe.
+
+Important As-Of Date Behavior
+
+Portfolio123 As Of works like a time machine.
+
+Example:
+
+As of 2026-07-01, ARM may appear because it existed and had enough trading history by then.
+As of 2023-01-01, ARM would not appear because it had not IPO’d/listed yet.
+
+This is correct behavior.
+
+The IPO universe must change over time.
+
+Pipeline Overview
+
+Preferred MVP pipeline:
+
+1. Use Portfolio123 API to run recent-IPO screen on monthly historical dates.
+2. Save rows as as_of_date + ticker.
+3. Combine all monthly exports.
+4. Deduplicate tickers into a master ticker list.
+5. Use Polygon/Massive to pull daily OHLCV for each ticker.
+6. Use Polygon/Massive to pull company reference data, ticker details, and corporate actions.
+7. Pull financial statement data with filing dates if available.
+8. Build point-in-time features in Python.
+9. Detect tank/base setups.
+10. Detect breakouts.
+11. Label forward outcomes.
+12. Analyze which traits predict better breakout expectancy.
+Data Storage Structure
+
+Use simple local files first. Do not overbuild a database.
+
+Recommended structure:
+
+/data/raw/p123_snapshots/
+    p123_recent_ipo_2023-01-31.csv
+    p123_recent_ipo_2023-02-28.csv
+    ...
+
+/data/raw/polygon_prices/
+    TICKER.parquet or csv
+
+/data/raw/polygon_financials/
+    TICKER.parquet or csv
+
+/data/clean/
+    p123_recent_ipo_universe_monthly.parquet
+    unique_tickers.parquet
+    securities.parquet
+    prices_daily.parquet
+    financials_point_in_time.parquet
+    features_daily.parquet
+    signals.parquet
+    outcomes.parquet
+
+DuckDB + Parquet is preferred for local research.
+
+Key Tables
+p123_recent_ipo_universe_monthly
+
+Rows from monthly Portfolio123 snapshots.
+
+Columns:
+
+as_of_date
+ticker
+name optional
+securities
+
+Security master table.
+
+Columns:
+
+security_id
+ticker
+company_name
+cik
+composite_figi
+share_class_figi
+ipo_date/list_date
+exchange
+market
+locale
+active_status
+delisted_status
+sic/sector/industry if available
+
+Ticker alone is okay for MVP, but eventually use CIK/FIGI/security identifiers where possible because tickers can change or be reused.
+
+prices_daily
+
+Daily OHLCV table.
+
+Columns:
+
+ticker
+date
+open
+high
+low
+close
+volume
+vwap
+transactions
+adjusted flag
+
+Use adjusted data for returns, drawdowns, moving averages, and backtest calculations. Keep unadjusted data if possible for sanity-checking historical chart levels.
+
+financials_point_in_time
+
+Financial statement data.
+
+Columns:
+
+ticker
+cik
+fiscal_period
+fiscal_year
+period_end_date
+filing_date
+report_date if available
+revenue
+gross_profit
+operating_income
+net_income
+basic_eps
+diluted_eps
+cash_and_equivalents
+short_term_investments
+total_assets
+total_liabilities
+total_equity
+debt
+operating_cash_flow
+capital_expenditures
+free_cash_flow if available
+shares_outstanding if available
+
+Critical rule:
+
+In historical backtests, use filing_date <= scan_date, not period_end_date <= scan_date.
+
+Using period end date creates look-ahead bias because the market did not know the full financial statement on the quarter-end date.
+
+Main Setup: IPO Tank + Base
+
+The base universe is recent IPOs/listings that got crushed and then consolidated.
+
+Initial filters:
+
+IPO/list age >= 60 trading days
+IPO/list age <= 5 years
+Close >= 3 or 5
+Average dollar volume 30D >= 2M or 5M
+
+Tank/drawdown filters:
+
+Drawdown from 1Y high <= -50%
+OR
+Drawdown from since-IPO high <= -50%
+
+Definitions:
+
+drawdown_from_high_pct = (close - rolling_high) / rolling_high * 100
+
+Consolidation/base filters:
+
+30D change between -15% and +15%
+60D change between -30% and +30%
+30D range <= 25% to 35%
+60D range <= 40% to 60%
+
+Definitions:
+
+30D range % = (30D high - 30D low) / close * 100
+60D range % = (60D high - 60D low) / close * 100
+
+Optional stabilization filters:
+
+ADTV 7 / ADTV 30 <= 0.80
+Close within +/- 10% of 21 EMA
+Close within +/- 15% of 50 SMA
+
+Do not make the base too tight initially. IPOs can form valid bases with wider ranges.
+
+Breakout Logic
+
+Breakout rules should come after the base detection.
+
+Example breakout:
+
+Close > prior 30D high
+OR
+Close > prior 60D high
+
+Volume >= 1.5x ADTV 30
+Close > 21 EMA
+Close > 50 SMA
+Position in 60D range >= 80%
+
+Critical rule:
+
+When checking breakout above range high, use the prior range high, excluding today’s candle.
+
+Correct:
+
+breakout = today_close > max(high over prior 60 trading days excluding today)
+
+Wrong:
+
+breakout = today_close > max(high over current 60 days including today)
+Research Question
+
+Main question:
+
+Among IPOs that declined 50%+ and formed bases, do breakouts with stronger CAN SLIM-like traits show better 20D/60D/120D forward expectancy and lower failure rates?
+
+Do not assume CAN SLIM is automatically correct. The goal is to test whether winners actually have CAN SLIM traits or whether other traits matter more.
+
+CAN SLIM Trait Mapping
+
+O’Neil’s CAN SLIM traits:
+
+C = Current quarterly earnings/sales growth
+A = Annual earnings growth and ROE
+N = New products, new management, new highs
+S = Supply and demand, shares outstanding, volume demand
+L = Leader or laggard
+I = Institutional sponsorship
+M = Market direction
+
+For this project, create testable proxies.
+
+C: Current Quarterly Growth
+
+Possible proxies:
+
+latest quarter revenue growth YoY
+latest quarter EPS growth YoY
+sales acceleration
+EPS acceleration
+gross margin improvement
+operating loss narrowing
+
+For IPOs, EPS can be noisy or negative, so revenue growth and margin improvement may be more reliable than EPS.
+
+A: Annual Growth / ROE
+
+Possible proxies:
+
+3Y sales growth if available
+3Y EPS growth if available
+ROE
+operating margin
+gross margin
+positive or improving free cash flow
+
+For recent IPOs, do not overweight this too much because many do not have three public years of annual earnings.
+
+N: New / New Highs
+
+Possible proxies:
+
+IPO age
+breakout to new 30D high
+breakout to new 60D high
+breakout to new 52W high
+reclaiming key moving averages
+new product/news not in MVP unless manually added
+
+For tanked IPOs, “new highs” should often mean new base highs or 30D/60D highs, not necessarily 52-week highs.
+
+S: Supply and Demand
+
+Possible proxies:
+
+volume dry-up during base
+breakout volume expansion
+relative volume on breakout
+dollar volume
+shares outstanding
+float if available
+
+Example:
+
+volume_dryup_ratio = ADTV_7 / ADTV_30
+breakout_volume_ratio = breakout_day_volume / ADTV_30
+L: Leader or Laggard
+
+Possible proxies:
+
+relative strength 1M vs SPY
+relative strength 3M vs SPY
+relative strength 6M vs SPY
+relative strength vs QQQ
+relative strength vs sector ETF
+relative strength improvement before breakout
+price above 50 SMA
+price above 200 SMA
+
+Likely one of the most important groups.
+
+I: Institutional Sponsorship
+
+Possible proxies if available:
+
+number of institutions
+institutional ownership %
+institutional net purchases
+change in institutional ownership
+
+This may be useful but noisy for IPOs.
+
+M: Market Direction
+
+Possible proxies:
+
+SPY above 50 SMA
+SPY above 200 SMA
+QQQ above 50 SMA
+QQQ above 200 SMA
+SPY/QQQ 20D and 60D returns
+market breadth if available
+sector ETF trend
+
+This is probably very important. Good breakouts can fail in hostile markets.
+
+Expected High-Signal Traits
+
+Before testing, the likely strongest predictors of better breakout expectancy are:
+
+relative strength improvement before breakout
+base tightness / volatility contraction
+volume dry-up in base
+volume expansion on breakout
+reclaiming 50 SMA
+market/sector risk-on regime
+revenue growth or sales re-acceleration
+margin improvement or loss narrowing
+cash/debt survival profile
+positive estimate revisions if available
+
+Potentially weaker or less reliable for this niche:
+
+traditional low P/E value
+book value
+dividends
+3-year annual EPS history
+institutional ownership alone
+
+Reason: many recent IPOs are young, unprofitable, and do not have long public records.
+
+Outcome Labels
+
+For each setup/breakout, calculate forward outcomes.
+
+Columns:
+
+forward_5d_return
+forward_10d_return
+forward_20d_return
+forward_60d_return
+forward_120d_return
+max_gain_20d
+max_gain_60d
+max_gain_120d
+max_drawdown_20d
+max_drawdown_60d
+max_drawdown_120d
+failed_breakout_20d
+failed_breakout_60d
+time_to_20pct_gain
+time_to_50pct_gain
+time_to_failure
+
+Possible breakout failure definition:
+
+failed_breakout_20d = price closes back below breakout level or base low within 20 trading days
+
+Alternative:
+
+failed_breakout = max_drawdown_20d <= -8% or close below 50SMA/base low
+
+Test multiple definitions but do not overfit.
+
+Analysis Approach
+
+Create groups:
+
+Top 20% breakout outcomes
+Middle 60%
+Bottom 20% / failed breakouts
+
+Then compare the features at the breakout date.
+
+Questions to answer:
+
+Do winners have higher sales growth?
+Do winners have better RS before breakout?
+Do winners show volume dry-up before breakout?
+Do winners show stronger breakout volume?
+Do winners have tighter bases?
+Do winners have better cash/debt?
+Do winners happen in better market regimes?
+Do winners have improving margins or narrowing losses?
+Do winners have stronger institutional accumulation?
+
+Analyze by:
+
+mean return
+median return
+win rate
+average winner
+average loser
+payoff ratio
+profit factor
+failure rate
+max favorable excursion
+max adverse excursion
+
+Important:
+
+Mean can be distorted by huge winners.
+Median shows what usually happened.
+Right-tail behavior matters because CAN SLIM-style systems may rely on a few huge winners.
+Possible CAN SLIM Score
+
+Start simple:
+
+C score: 20 points
+A score: 10 points
+N score: 20 points
+S score: 15 points
+L score: 20 points
+I score: 5 points
+M score: 10 points
+
+For IPO tank/base breakouts, overweight:
+
+C = current growth
+N = breakout/new base high
+L = relative strength
+M = market regime
+S = volume behavior
+
+Underweight:
+
+A = annual history
+I = institutional sponsorship
+
+Reason: recent IPOs often lack clean annual history and institutional data may be noisy.
+
+But do not rely only on a composite score. Also test individual traits separately.
+
+Avoiding Bias
+
+Major backtesting pitfalls:
+
+survivorship bias
+look-ahead bias
+ticker-change issues
+using current tickers only
+using current market cap/liquidity for past dates
+using period_end instead of filing_date
+using future highs/lows to define historical setups
+using today's fundamentals for past breakouts
+overfitting too many parameters
+ignoring delisted names
+ignoring splits/corporate actions
+
+Correct rule:
+
+On each scan date, only use information available up to that date.
+
+The system should answer:
+
+What would I have known on this exact historical date, and what trade would I have taken using only that information?
+
+Not:
+
+What looks obvious today after knowing the future?
+
+First Coding Milestone
+
+Create a script:
+
+p123_recent_ipo_universe_export.py
+
+Purpose:
+
+Authenticate with Portfolio123 API.
+Loop through monthly snapshot dates.
+Run saved recent IPO screen using /screen/run.
+Save as_of_date + ticker rows.
+Combine all rows into one file.
+Create deduplicated ticker list for Polygon/Massive.
+
+Output files:
+
+/data/clean/p123_recent_ipo_universe_monthly.parquet
+/data/clean/unique_recent_ipo_tickers.parquet
+/data/clean/unique_recent_ipo_tickers.csv
+
+Second script:
+
+polygon_download_recent_ipo_data.py
+
+Purpose:
+
+Read unique ticker list.
+Pull daily OHLCV from Polygon/Massive.
+Pull ticker details/reference data.
+Pull financials if available.
+Save raw files.
+
+Third script:
+
+build_features.py
+
+Purpose:
+
+Calculate tank/base/breakout features.
+Build point-in-time fundamentals.
+Create feature rows by ticker/date.
+
+Fourth script:
+
+analyze_breakout_traits.py
+
+Purpose:
+
+Label outcomes.
+Compare top vs bottom breakout groups.
+Rank which CAN SLIM/general traits are associated with better expectancy.
+MVP Philosophy
+
+Do not build a full platform first.
+
+Build the simplest working research loop:
+
+P123 API ticker snapshots
+→ Polygon/Massive price + fundamentals
+→ Python feature table
+→ breakout outcome labels
+→ trait comparison
+→ charts/manual review
+
+First goal:
+
+Create a historical library of IPO tank/base/breakout examples and see what traits separated winners from losers.
+
+Not goal:
+
+Build a perfect automated trading system immediately.
