@@ -23,7 +23,7 @@ if not POLYGON_API_KEY:
     sys.exit("POLYGON_API_KEY not found. Check your .env file.")
 
 INPUT_CSV = os.path.join("Downloads", "IPO as of 7-1-25.csv")
-OUTPUT_CSV = os.path.join("Output", "polygon_ipo_dry_run.csv")
+OUTPUT_XLSX = os.path.join("Output", "polygon_ipo_dry_run.xlsx")
 
 BASE_URL = "https://api.polygon.io"
 MAX_RETRIES = 5
@@ -180,8 +180,8 @@ def main():
                 pbar.update(1)
 
     os.makedirs("Output", exist_ok=True)
-    pd.DataFrame(rows).to_csv(OUTPUT_CSV, index=False)
-    print(f"\nWrote {len(rows)} rows to {OUTPUT_CSV}")
+    pd.DataFrame(rows).to_excel(OUTPUT_XLSX, index=False)
+    print(f"\nWrote {len(rows)} rows to {OUTPUT_XLSX}")
 
 
 if __name__ == "__main__":
