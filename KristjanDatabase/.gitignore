@@ -1,0 +1,18 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Scratch subtitle files from the yt-dlp fallback path and log files are
+# transient/regenerable - not the database itself, so keep them out of git.
+data/raw/
+logs/
+
+!data/raw/.gitkeep
+!logs/.gitkeep
+
+# data/transcripts/ and data/metadata/ ARE tracked - they're the searchable
+# database this project exists to build.

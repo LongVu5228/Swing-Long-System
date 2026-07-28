@@ -1,0 +1,66 @@
+video_id,title,upload_date,transcript_status,retrieval_method,transcript_language,is_generated,segment_count,output_json_path,output_txt_path,error_type,error_message
+JNVA5cd_m7M,Speculation money is back!,20231215,success,youtube_transcript_api,English (auto-generated),True,405,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20231215_JNVA5cd_m7M.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20231215_JNVA5cd_m7M.txt,,
+TZnX1qEiOkM,EP party!,20231201,success,youtube_transcript_api,English (auto-generated),True,689,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20231201_TZnX1qEiOkM.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20231201_TZnX1qEiOkM.txt,,
+VdQSDGZBLQE,"Market mechanics, setups and more",20230609,success,youtube_transcript_api,English (auto-generated),True,989,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230609_VdQSDGZBLQE.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230609_VdQSDGZBLQE.txt,,
+SLhbpNuHegw,"EPs, AI and quantum computing stocks",20230608,success,youtube_transcript_api,English (auto-generated),True,941,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230608_SLhbpNuHegw.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230608_SLhbpNuHegw.txt,,
+C7ZZhSxYYLk,Zzzlow,20230605,success,youtube_transcript_api,English (auto-generated),True,257,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230605_C7ZZhSxYYLk.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230605_C7ZZhSxYYLk.txt,,
+30ksgwzWboo,Lots of fades,20230602,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=30ksgwzWboo! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for 30ksgwzWboo"
+1HFPeLD2zwc,"AI and the shittier the stock, the bigger the move.",20230601,success,youtube_transcript_api,English (auto-generated),True,476,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230601_1HFPeLD2zwc.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230601_1HFPeLD2zwc.txt,,
+2UgJ5CvVVK4,EPs good follow through. AI and Quantum names waking up,20230523,success,youtube_transcript_api,English (auto-generated),True,404,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230523_2UgJ5CvVVK4.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230523_2UgJ5CvVVK4.txt,,
+8Pa6cllRZNw,May 22 Stream,20230522,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=8Pa6cllRZNw! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for 8Pa6cllRZNw"
+_y9Wo0eBP4A,"Episodic Pivots, Kenny boy and old times",20230519,success,youtube_transcript_api,English (auto-generated),True,1305,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230519_y9Wo0eBP4A.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230519_y9Wo0eBP4A.txt,,
+1AJIzXSkfyM,Episodic Pivots galore,20230518,success,youtube_transcript_api,English (auto-generated),True,740,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230518_1AJIzXSkfyM.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230518_1AJIzXSkfyM.txt,,
+GdMs1y_RTnM,New BULL?,20230126,success,youtube_transcript_api,English (auto-generated),True,459,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230126_GdMs1y_RTnM.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20230126_GdMs1y_RTnM.txt,,
+sN_vorSS83c,Gap down and bounce day,20221117,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=sN_vorSS83c! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for sN_vorSS83c"
+xtDinDnf3-o,Gap and fade,20221104,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=xtDinDnf3-o! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for xtDinDnf3-o"
+9lzYgB-b9yE,I'm BACK! 2022-11-03,20221104,success,youtube_transcript_api,English (auto-generated),True,478,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20221104_9lzYgB-b9yE.json,C:\Users\longv\Trading\Personal Wealth\Swing Long System\KristjanDatabase\data\transcripts\20221104_9lzYgB-b9yE.txt,,
+faG8Mb_tV9g,Meltdown scenario or dhort term bottom?,20220614,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=faG8Mb_tV9g! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for faG8Mb_tV9g"
+MWiFMdc6fBo,Speculation money coming back,20220608,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=MWiFMdc6fBo! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for MWiFMdc6fBo"
+i0Iq83_54Xs,Energy sector going parabolic?,20220607,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=i0Iq83_54Xs! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for i0Iq83_54Xs"
+ST8lvpOVjeM,Some things setting up,20220606,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=ST8lvpOVjeM! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for ST8lvpOVjeM"
+aaIlqb7HUJQ,Some things setting up,20220606,no_transcript,,,,0,,,TranscriptUnavailable,"primary=
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=aaIlqb7HUJQ! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=No English subtitles or automatic captions found for aaIlqb7HUJQ"
