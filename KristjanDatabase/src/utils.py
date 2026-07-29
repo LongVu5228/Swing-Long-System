@@ -30,6 +30,10 @@ LATEST_VIDEOS_CSV = METADATA_DIR / "latest_20_videos.csv"
 TRANSCRIPT_REPORT_JSON = METADATA_DIR / "transcript_report.json"
 TRANSCRIPT_REPORT_CSV = METADATA_DIR / "transcript_report.csv"
 
+# The repo-root .env (one level above this project) holds shared secrets for
+# every tool in the repo, e.g. POLYGON_API_KEY. It's gitignored at the repo root.
+ENV_FILE = PROJECT_ROOT.parent / ".env"
+
 PLACEHOLDER_MARKERS = ("PASTE_KRISTJAN_CHANNEL_VIDEOS_URL_HERE", "PASTE_", "CHANNEL_URL")
 
 
@@ -37,6 +41,27 @@ def ensure_directories() -> None:
     """Create every data/log directory the pipeline needs, if missing."""
     for directory in (RAW_DIR, TRANSCRIPTS_DIR, METADATA_DIR, LOGS_DIR):
         directory.mkdir(parents=True, exist_ok=True)
+
+
+def get_env(key: str, env_file: Path = ENV_FILE) -> str | None:
+    """Read a KEY=value entry from the repo-root .env file (no external dependency).
+
+    Falls back to a real environment variable of the same name if the .env
+    file doesn't define it, so either storage approach works.
+    """
+    if env_file.exists():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            file_key, _, value = line.partition("=")
+            if file_key.strip() == key:
+                value = value.strip().strip('"').strip("'")
+                if value:
+                    return value
+    import os
+
+    return os.environ.get(key) or None
 
 
 def is_placeholder_url(channel_url: str) -> bool:

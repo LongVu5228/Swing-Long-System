@@ -1,5 +1,5 @@
 """One-command pipeline: collect newest channel videos, fetch transcripts,
-and produce a report.
+produce a report, and build the searchable SQLite database.
 
 Usage:
     python src/run_pipeline.py --channel-url "https://www.youtube.com/@Someone/videos" --limit 20
@@ -16,6 +16,7 @@ import argparse
 import sys
 
 import collect_latest_videos
+import database
 import fetch_transcripts
 from utils import LATEST_VIDEOS_JSON, ensure_directories, is_placeholder_url, setup_logger
 
@@ -29,6 +30,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--buffer", type=int, default=10, help="Extra candidates fetched beyond --limit.")
     parser.add_argument("--delay-min", type=float, default=1.0, help="Minimum delay between transcript requests.")
     parser.add_argument("--delay-max", type=float, default=3.0, help="Maximum delay between transcript requests.")
+    parser.add_argument(
+        "--force", action="store_true", help="Refetch transcripts even if already saved on disk."
+    )
     return parser.parse_args(argv)
 
 
@@ -45,10 +49,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"\nERROR: {message}")
         return 1
 
-    print("Step 0/3: Ensuring project folders exist...")
+    print("Step 0/4: Ensuring project folders exist...")
     ensure_directories()
 
-    print(f"\nStep 1/3: Collecting the {args.limit} newest public videos from the channel...")
+    print(f"\nStep 1/4: Collecting the {args.limit} newest public videos from the channel...")
     try:
         records = collect_latest_videos.collect(
             args.channel_url, limit=args.limit, buffer=args.buffer, delay=args.delay_min
@@ -61,19 +65,28 @@ def main(argv: list[str] | None = None) -> int:
     collect_latest_videos.save_metadata(records)
     collect_latest_videos.print_video_list(records)
 
-    print("\nStep 2/3: Fetching transcripts for each video (this can take a while)...")
+    print("\nStep 2/4: Fetching transcripts for each video (this can take a while)...")
     try:
         report_rows = fetch_transcripts.run(
-            LATEST_VIDEOS_JSON, delay_min=args.delay_min, delay_max=args.delay_max
+            LATEST_VIDEOS_JSON, delay_min=args.delay_min, delay_max=args.delay_max, force=args.force
         )
     except Exception as exc:  # noqa: BLE001 - only raised for pipeline-level problems (e.g. missing metadata file)
         logger.error("Fatal error during transcript fetching: %s", exc)
         print(f"\nPIPELINE FAILED at transcript fetching: {exc}")
         return 1
 
-    print("\nStep 3/3: Writing transcript report...")
+    print("\nStep 3/4: Writing transcript report...")
     fetch_transcripts.save_report(report_rows)
     fetch_transcripts.print_summary(report_rows)
+
+    print("\nStep 4/4: Building the searchable SQLite database...")
+    try:
+        counts = database.build(LATEST_VIDEOS_JSON)
+    except Exception as exc:  # noqa: BLE001 - database build failure is pipeline-fatal
+        logger.error("Fatal error during database build: %s", exc)
+        print(f"\nPIPELINE FAILED at database build: {exc}")
+        return 1
+    print(f"Database built: {counts['videos']} videos, {counts['transcripts']} transcripts, {counts['segments']} segments.")
 
     print("\nPipeline complete.")
     return 0

@@ -1,0 +1,268 @@
+[00:00:00] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=0s) okay let's do a little video about my
+[00:00:02] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=2s) scanning and my scanning process so
+[00:00:06] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=5s) let's talk from the top I have a bunch
+[00:00:09] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=8s) of different scans but they're fairly
+[00:00:11] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=10s) similar so let's start from top so I
+[00:00:15] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=14s) have a different scan for a dr stocks
+[00:00:16] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=16s) because nowadays a dr stocks which are
+[00:00:20] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=20s) foreign stocks trade in the US markets
+[00:00:23] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=22s) they are sorted separately in TC 2000
+[00:00:26] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=26s) they did up until like a year ago they
+[00:00:31] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=30s) weren't so minimum price one volume
+[00:00:34] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=34s) 40,000 minimum dollar volume it's just
+[00:00:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=38s) 15,000 but it's actually 1.5 million and
+[00:00:41] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=40s) a dr average daily percent average daily
+[00:00:46] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=46s) range in percent the past 20 days is 2.2
+[00:00:51] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=50s) so I want the average daily range which
+[00:00:56] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=55s) is the intraday arrange it doesn't count
+[00:00:58] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=57s) for gaps so if its top caps up fifty
+[00:01:02] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=61s) percent that golf the gap up is not
+[00:01:04] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=64s) going to affect the average daily range
+[00:01:06] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=66s) well it will affect the average to range
+[00:01:10] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=70s) which is down here which is measured in
+[00:01:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=73s) dollars and cents and I have it down
+[00:01:18] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=78s) here and average daily range i have
+[00:01:23] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=83s) appeared so this httm which is a piece
+[00:01:27] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=86s) of micro-cap stock almost
+[00:01:31] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=90s) twenty-five percent in average daily
+[00:01:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=92s) range and that is absolutely insanely
+[00:01:35] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=95s) high for example stock like facebook
+[00:01:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=98s) only has one point 06 or Netflix which
+[00:01:41] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=101s) has one point 49 or Tesla which has to
+[00:01:45] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=104s) point 63 so the higher number the more
+[00:01:50] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=110s) volatile it is so 2.2 is my cut off
+[00:01:55] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=115s) let's look at the formula 3 quick so i
+[00:02:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=123s) got it from from from someone else I
+[00:02:06] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=126s) just converted it to the TC 2000 formats
+[00:02:09] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=129s) and
+[00:02:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=132s) yeah you can use it doesn't matter well
+[00:02:15] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=134s) you can use the 10 day or the third day
+[00:02:17] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=136s) or whatever you don't even have to use
+[00:02:18] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=138s) this indicate I'd just like it to weed
+[00:02:22] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=141s) with the most the slower moving stocks
+[00:02:28] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=147s) basically I want stocks that have range
+[00:02:33] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=152s) so I get seven days items in the scan I
+[00:02:36] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=156s) just go through this list force to get
+[00:02:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=158s) set ups every day I go through this list
+[00:02:40] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=160s) so the biggest one month gainers basic
+[00:02:46] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=165s) the same scan a little bit higher dollar
+[00:02:48] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=168s) volume a little bit higher ADR and i
+[00:02:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=173s) also want stocks that a price growth one
+[00:02:57] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=176s) month this is basically a rank you can
+[00:03:00] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=179s) choose it then when you make a scanning
+[00:03:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=183s) pc 2086 something you can choose you
+[00:03:07] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=186s) know you can rank stocks space for
+[00:03:11] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=190s) different criteria and I want the three
+[00:03:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=192s) percent strongest starts in the past
+[00:03:16] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=195s) what one month and this is a trend
+[00:03:19] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=199s) intensity this is also a custom
+[00:03:21] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=201s) indicator I got from a site called stock
+[00:03:25] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=205s) p dot blogspot com yuh his name is
+[00:03:33] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=212s) pradeep it's a great trader and he has a
+[00:03:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=217s) free blog on stock p dot blogspot com
+[00:03:41] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=220s) and also has a free members and not
+[00:03:45] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=224s) sorry had not free members each other
+[00:03:46] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=226s) site for the paid membership site called
+[00:03:50] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=229s) the stock bead dot bees and that's where
+[00:03:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=233s) I got this indicator it's basically say
+[00:03:59] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=239s) how much I think it's a 13 day moving
+[00:04:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=242s) average has how many percent that is
+[00:04:06] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=246s) above or below the 65 day moving average
+[00:04:11] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=250s) is something like that it's basically a
+[00:04:12] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=252s) trend indicator you can read up on it on
+[00:04:15] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=255s) this blog or on this sites if you want
+[00:04:18] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=257s) to so 20 density the 90 it means the
+[00:04:24] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=263s) lower
+[00:04:26] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=265s) shorter moving average is no more than
+[00:04:29] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=269s) ten percent below there the faster
+[00:04:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=272s) moving average is no more than ten
+[00:04:34] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=273s) percent below that slower moving average
+[00:04:37] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=277s) while a number like hundred ten would
+[00:04:40] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=279s) mean that the faster moving averages at
+[00:04:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=283s) least ten percent above the slower one
+[00:04:46] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=285s) so I like to scan for momentum this is a
+[00:04:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=293s) pure hiding trend hi trending attend to
+[00:04:56] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=296s) the scan it all the stocks that are
+[00:05:00] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=300s) weighted too trendy densities over 108
+[00:05:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=302s) and then my liquidity criteria and ADR
+[00:05:05] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=305s) correct area and then I also have
+[00:05:10] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=309s) different time frames please i do once
+[00:05:12] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=311s) per week these be scams so the biggest
+[00:05:17] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=316s) their highest ranked stocks i think it's
+[00:05:19] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=318s) worth to three percent on all of these
+[00:05:21] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=320s) time frames i stand for it's the same
+[00:05:25] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=324s) scan like this one month gainer but the
+[00:05:27] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=326s) statement time frame I'm OTC scan scan
+[00:05:31] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=331s) photo to see stock so a little bit lower
+[00:05:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=338s) price right there a little bit higher
+[00:05:40] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=340s) ADR criteria a little bit lower volume
+[00:05:44] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=343s) criteria just because these are more
+[00:05:47] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=346s) volatile start the most the time they
+[00:05:49] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=348s) are seeing their names they're not very
+[00:05:51] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=350s) liquid most of the time recent IPOs if
+[00:05:56] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=355s) you've been seeing my videos you know I
+[00:05:58] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=358s) like recent I pickles because they they
+[00:06:00] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=360s) can really make big moves and they tend
+[00:06:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=363s) to fall like technical analysis works
+[00:06:06] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=366s) really well on like momentum kind of
+[00:06:08] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=368s) trading works really well on imperious
+[00:06:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=372s) at least on the reasons I feel to get
+[00:06:15] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=374s) make it insane moves for reasons I'm not
+[00:06:19] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=378s) going to talk about right now but I may
+[00:06:20] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=380s) do it in a later video so this is a scam
+[00:06:24] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=383s) oh and then I put a column here price
+[00:06:29] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=389s) growth rate one year and what I look for
+[00:06:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=391s) our East I fields that are younger than
+[00:06:35] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=394s) a year they won't have a number here
+[00:06:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=397s) because they have
+[00:06:39] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=398s) traded for a year so there's about the
+[00:06:46] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=406s) little bit over a hundred reasons I feel
+[00:06:49] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=408s) to this scam but it's my criteria this
+[00:06:56] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=415s) one I don't really use this one I don't
+[00:06:57] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=417s) really use can I add this one I don't
+[00:06:59] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=419s) really use so Friday gainers another
+[00:07:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=423s) very short term momentum scam here on a
+[00:07:08] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=427s) criteria and these are just you know
+[00:07:11] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=430s) stocks that be strong the past five days
+[00:07:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=433s) and this is where I usually find my best
+[00:07:16] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=435s) short ideas pi day losers I don't
+[00:07:20] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=440s) usually find many good setups here but
+[00:07:22] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=442s) in some sometimes I found find some good
+[00:07:25] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=445s) meaner version loans in these this scam
+[00:07:30] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=450s) biggest one you losers like this scan
+[00:07:33] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=453s) has given me a lot of winners or
+[00:07:35] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=455s) actually this one and the biggest
+[00:07:37] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=456s) two-year losers basically the same thing
+[00:07:39] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=459s) as my other scams but instead of
+[00:07:41] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=461s) standing for winners at Stanford losers
+[00:07:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=463s) so I scan for a three-point 45% weakest
+[00:07:48] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=468s) stocks in the past few years and in this
+[00:07:50] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=470s) one yeah in the past one and two years
+[00:07:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=474s) so these council starts have really
+[00:07:57] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=477s) worked very well lately actually the
+[00:08:00] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=479s) past year since the market bottomed
+[00:08:02] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=481s) februari last year there the scanners
+[00:08:05] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=484s) had a lot of big winners because there's
+[00:08:07] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=487s) been a lot of stocks beaten down the
+[00:08:09] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=489s) dole large from double digits to maybe
+[00:08:12] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=491s) that's all lower or something and then
+[00:08:14] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=493s) they double triple because they get so
+[00:08:17] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=496s) she / so those are this gas and the many
+[00:08:26] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=506s) of these scams I put in one watch list
+[00:08:29] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=508s) today's momentum watch list which i also
+[00:08:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=511s) have a scan for intraday where I scan
+[00:08:35] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=515s) for stocks that are up in this list
+[00:08:37] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=517s) that's why pick certain criteria today's
+[00:08:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=522s) momentum watch this scan so it scans
+[00:08:45] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=525s) please watch list only so the criteria
+[00:08:49] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=529s) are at the high of the day has to be
+[00:08:52] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=531s) above you
+[00:08:53] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=532s) today's closing price and today's range
+[00:08:58] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=537s) % praises average daily range so let's
+[00:09:01] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=540s) say this the average daily range for a
+[00:09:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=542s) stock is just to keep it simple at age
+[00:09:07] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=547s) ten percent which is very high number so
+[00:09:10] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=550s) this can picks up all the stocks that
+[00:09:12] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=552s) are up at least fifty five percent of
+[00:09:19] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=559s) the average daily range so in this case
+[00:09:22] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=561s) it would mean at least five and a half
+[00:09:23] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=563s) percent now this is an extreme scenario
+[00:09:27] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=566s) but just to industry this is like these
+[00:09:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=572s) are intraday scans like these scans
+[00:09:34] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=574s) please I do nicely or once a week and
+[00:09:37] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=576s) these are intraday so this is a scam for
+[00:09:40] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=580s) micro cap names basically micro and
+[00:09:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=582s) small gap names these are this is the
+[00:09:47] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=587s) criteria nothing fancy this is I scary
+[00:09:52] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=592s) starter up at me seven percent these are
+[00:09:55] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=595s) usually starts with news breakouts and
+[00:09:59] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=598s) he's a similar to that average discount
+[00:10:02] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=601s) here that I should just showed you but
+[00:10:05] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=604s) it scans for every stock in the US stock
+[00:10:09] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=608s) market and well here's the criteria for
+[00:10:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=613s) it then I have also an internet scam for
+[00:10:19] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=618s) my for the am a dr stocks just to see
+[00:10:23] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=622s) which ones are off on the day because
+[00:10:25] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=624s) that's what I'm interested in whatever
+[00:10:29] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=629s) scan to scan for the OTC names in today
+[00:10:36] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=636s) to see what's moving like these are
+[00:10:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=638s) these stands like to see what's moving
+[00:10:40] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=640s) on the day and define breakouts early
+[00:10:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=643s) and then I also have a scan folder
+[00:10:45] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=644s) biggest one and two-year losers because
+[00:10:48] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=647s) Stokes that I scanned for here every
+[00:10:51] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=650s) every night every evening or actually
+[00:10:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=653s) every morning for me since I'm in Europe
+[00:10:58] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=657s) these are more defined stocks to
+[00:11:01] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=660s) anticipate breakouts or you know stuff
+[00:11:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=663s) like that
+[00:11:05] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=665s) to have on my watch list where these
+[00:11:07] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=667s) scans these are like to see if I find
+[00:11:11] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=670s) something a good break out that I didn't
+[00:11:14] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=673s) pick up on my scans so this is to find
+[00:11:19] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=678s) stuff to break out in real time or that
+[00:11:21] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=681s) gap up on news etc etc stuff that's not
+[00:11:25] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=684s) on my watch list then also having a DPF
+[00:11:28] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=688s) scan and canadian stocks by the tree a
+[00:11:31] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=690s) trade canadian stocks but sometimes it's
+[00:11:33] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=692s) just fun to look at them SoDo sort this
+[00:11:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=697s) gas pretty much I'm a little bit pressed
+[00:11:42] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=701s) on time so i can't really talk much more
+[00:11:45] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=704s) about them just I'm just going to do a
+[00:11:48] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=708s) little bit stand for 5 minutes I've done
+[00:11:51] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=710s) most of my scans but not all of this
+[00:11:55] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=714s) talk so just kind of so this is uh I'm
+[00:12:01] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=720s) actually longest thing in one of my
+[00:12:02] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=722s) accounts at great great earnings this is
+[00:12:09] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=729s) a ultra-low flowed stock making big move
+[00:12:12] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=732s) distant really nothing here no volume if
+[00:12:15] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=735s) this thing gave up going up is let's say
+[00:12:17] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=736s) it goes to penn box today picks up more
+[00:12:20] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=739s) volume say over a million then i would
+[00:12:22] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=741s) be interested too short for tomorrow
+[00:12:24] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=744s) possibly to have it on my short watch
+[00:12:27] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=747s) list this one other earnings the better
+[00:12:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=752s) by would have obviously in either here
+[00:12:34] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=753s) or here this is the third earning step
+[00:12:36] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=755s) up not big full probability of
+[00:12:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=763s) follow-through this one had some random
+[00:12:47] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=767s) move up on friday this one I'm long up
+[00:12:52] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=771s) the actual they have data any day I
+[00:12:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=773s) forgot to check so I hope they don't
+[00:12:56] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=776s) release data fast data premarket I'm
+[00:12:59] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=778s) guessing it's going to sell like today
+[00:13:03] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=782s) yeah because this thing good gap up
+[00:13:05] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=785s) there for a gap down fifty percent and
+[00:13:07] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=787s) fast data and I have a bunch of shares
+[00:13:09] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=789s) on this thing so I don't want to lose
+[00:13:13] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=792s) would people five figures
+[00:13:17] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=797s) no setup here now this one I was
+[00:13:20] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=800s) thinking about buying on what is it
+[00:13:22] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=802s) friday thursday this is wednesday
+[00:13:26] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=806s) thinking about buying but you know it's
+[00:13:29] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=808s) hard these things that have that are a
+[00:13:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=812s) few weeks from data they can have big
+[00:13:34] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=813s) moves but you never know which day the
+[00:13:36] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=815s) data is released so it's a little bit of
+[00:13:38] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=817s) a gamble right this thing was very easy
+[00:13:40] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=820s) good seven eight nine before the data
+[00:13:43] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=822s) and then gap down fifty percent on the
+[00:13:45] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=825s) data we got about fifty percent but just
+[00:13:47] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=826s) too much of a gamble mmm it's around on
+[00:13:50] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=830s) biotechnol fire tix have been very
+[00:13:52] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=832s) strong a lot of biotechs broke out last
+[00:13:54] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=834s) week this one is my short watch later
+[00:14:02] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=842s) one so i'm gonna do video about what to
+[00:14:10] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=850s) look for exactly and set up
+[00:14:22] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=861s) well this is just that's what I do you
+[00:14:25] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=864s) can use the down arrow spacebar to just
+[00:14:27] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=867s) go through a hundreds hundreds of shorts
+[00:14:29] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=869s) in like 30 minutes for 20 minutes or so
+[00:14:32] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=871s) I really like this platform for scanning
+[00:14:35] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=874s) both in today and he is daily scanning i
+[00:14:39] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=878s) watch this management like I have a lot
+[00:14:41] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=881s) of watch list like different kinds you
+[00:14:44] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=884s) know about these watchlist my daily
+[00:14:46] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=886s) tracking watch list and then I different
+[00:14:49] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=888s) kind of sectors and just ran a watch
+[00:14:52] (https://www.youtube.com/watch?v=nm8iNDjHRoE&t=892s) list that I use ok that's it for today

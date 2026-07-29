@@ -206,6 +206,44 @@ def _write_outputs(
 # Per-video orchestration
 # ---------------------------------------------------------------------------
 
+def _expected_output_paths(video: dict[str, Any]) -> tuple[Any, Any]:
+    upload_date = video.get("upload_date") or "00000000"
+    stem = safe_filename(f"{upload_date}_{video.get('video_id')}")
+    return TRANSCRIPTS_DIR / f"{stem}.json", TRANSCRIPTS_DIR / f"{stem}.txt"
+
+
+def _load_confirmed_no_transcript_rows(report_path=TRANSCRIPT_REPORT_JSON) -> dict[str, dict[str, Any]]:
+    """Video IDs whose last run confirmed (via both methods) there's no English
+    transcript at all - as opposed to a rate-limit/network failure, which
+    should still be retried. Skipping these on rerun avoids re-hammering
+    YouTube for videos we already know the answer for.
+    """
+    if not report_path.exists():
+        return {}
+    with report_path.open("r", encoding="utf-8") as f:
+        rows = json.load(f)
+    return {row["video_id"]: row for row in rows if row.get("transcript_status") == "no_transcript"}
+
+
+def _cached_report_row(video: dict[str, Any], json_path: Any, txt_path: Any) -> dict[str, Any]:
+    with json_path.open("r", encoding="utf-8") as f:
+        payload = json.load(f)
+    return {
+        "video_id": video.get("video_id"),
+        "title": video.get("title"),
+        "upload_date": video.get("upload_date"),
+        "transcript_status": "success",
+        "retrieval_method": "cached",
+        "transcript_language": payload.get("language", ""),
+        "is_generated": payload.get("is_generated", ""),
+        "segment_count": len(payload.get("segments", [])),
+        "output_json_path": str(json_path),
+        "output_txt_path": str(txt_path),
+        "error_type": "",
+        "error_message": "",
+    }
+
+
 def process_video(video: dict[str, Any]) -> dict[str, Any]:
     video_id = video.get("video_id")
     title = video.get("title")
@@ -292,7 +330,31 @@ def process_video(video: dict[str, Any]) -> dict[str, Any]:
 # Batch driver + report
 # ---------------------------------------------------------------------------
 
-def run(metadata_path=LATEST_VIDEOS_JSON, delay_min: float = 1.0, delay_max: float = 3.0) -> list[dict[str, Any]]:
+# Errors that mean "YouTube is throttling/blocking us right now", as opposed to
+# "this specific video genuinely has no English captions". Retrying the latter
+# immediately is pointless; the former just needs a real cooldown.
+_RATE_LIMIT_ERROR_TYPES = {"IpBlocked", "RequestBlocked"}
+_RATE_LIMIT_MESSAGE_MARKERS = ("429", "Too Many Requests", "blocking requests")
+
+RATE_LIMIT_BASE_COOLDOWN = 20.0
+RATE_LIMIT_MAX_COOLDOWN = 240.0
+
+
+def _looks_rate_limited(row: dict[str, Any]) -> bool:
+    if row.get("error_type") in _RATE_LIMIT_ERROR_TYPES:
+        return True
+    message = row.get("error_message", "") or ""
+    return any(marker in message for marker in _RATE_LIMIT_MESSAGE_MARKERS)
+
+
+def run(
+    metadata_path=LATEST_VIDEOS_JSON,
+    delay_min: float = 1.0,
+    delay_max: float = 3.0,
+    force: bool = False,
+    batch_size: int | None = None,
+    batch_cooldown: float = 90.0,
+) -> list[dict[str, Any]]:
     ensure_directories()
 
     if not metadata_path.exists():
@@ -306,11 +368,62 @@ def run(metadata_path=LATEST_VIDEOS_JSON, delay_min: float = 1.0, delay_max: flo
     if not videos:
         raise RuntimeError(f"Metadata file {metadata_path} is empty; nothing to transcribe.")
 
+    confirmed_no_transcript = {} if force else _load_confirmed_no_transcript_rows()
+
     report_rows: list[dict[str, Any]] = []
+    consecutive_rate_limit_hits = 0
+    processed_since_batch_start = 0
+
     for i, video in enumerate(videos, start=1):
-        logger.info("[%d/%d] Processing %s (%s)", i, len(videos), video.get("video_id"), video.get("title"))
-        report_rows.append(process_video(video))
-        if i < len(videos):
+        json_path, txt_path = _expected_output_paths(video)
+        video_id = video.get("video_id")
+
+        if not force and json_path.exists() and txt_path.exists():
+            logger.info(
+                "[%d/%d] Skipping %s (%s): transcript already on disk (use --force to refetch).",
+                i, len(videos), video_id, video.get("title"),
+            )
+            report_rows.append(_cached_report_row(video, json_path, txt_path))
+            continue
+
+        if video_id in confirmed_no_transcript:
+            logger.info(
+                "[%d/%d] Skipping %s (%s): confirmed no English transcript last run (use --force to recheck).",
+                i, len(videos), video_id, video.get("title"),
+            )
+            report_rows.append(confirmed_no_transcript[video_id])
+            continue
+
+        logger.info("[%d/%d] Processing %s (%s)", i, len(videos), video_id, video.get("title"))
+        row = process_video(video)
+        report_rows.append(row)
+        processed_since_batch_start += 1
+
+        if row["transcript_status"] != "success" and _looks_rate_limited(row):
+            consecutive_rate_limit_hits += 1
+            cooldown = min(
+                RATE_LIMIT_BASE_COOLDOWN * (2 ** (consecutive_rate_limit_hits - 1)),
+                RATE_LIMIT_MAX_COOLDOWN,
+            )
+            logger.warning(
+                "Rate limit detected (%d in a row). Cooling down for %.0fs before continuing...",
+                consecutive_rate_limit_hits, cooldown,
+            )
+            time.sleep(cooldown)
+            continue
+
+        consecutive_rate_limit_hits = 0
+        if i >= len(videos):
+            continue
+
+        if batch_size and processed_since_batch_start >= batch_size:
+            logger.info(
+                "Processed a batch of %d videos. Cooling down for %.0fs before the next batch...",
+                processed_since_batch_start, batch_cooldown,
+            )
+            time.sleep(batch_cooldown)
+            processed_since_batch_start = 0
+        else:
             time.sleep(random.uniform(delay_min, delay_max))
 
     return report_rows
@@ -349,6 +462,24 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--metadata-file", default=str(LATEST_VIDEOS_JSON), help="Path to latest_20_videos.json")
     parser.add_argument("--delay-min", type=float, default=1.0, help="Minimum delay between videos (seconds)")
     parser.add_argument("--delay-max", type=float, default=3.0, help="Maximum delay between videos (seconds)")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Refetch transcripts even if an output file already exists on disk.",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=None,
+        help="Process this many videos, then pause for --batch-cooldown seconds before continuing "
+        "(cached/skipped videos don't count). Helps avoid tripping YouTube's rate limiting on large runs.",
+    )
+    parser.add_argument(
+        "--batch-cooldown",
+        type=float,
+        default=90.0,
+        help="Seconds to pause between batches when --batch-size is set (default: 90).",
+    )
     return parser.parse_args(argv)
 
 
@@ -357,7 +488,14 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parse_args(argv)
     try:
-        report_rows = run(Path(args.metadata_file), delay_min=args.delay_min, delay_max=args.delay_max)
+        report_rows = run(
+            Path(args.metadata_file),
+            delay_min=args.delay_min,
+            delay_max=args.delay_max,
+            force=args.force,
+            batch_size=args.batch_size,
+            batch_cooldown=args.batch_cooldown,
+        )
     except Exception as exc:  # noqa: BLE001
         logger.error("Fatal error while fetching transcripts: %s", exc)
         print(f"\nERROR: {exc}")
