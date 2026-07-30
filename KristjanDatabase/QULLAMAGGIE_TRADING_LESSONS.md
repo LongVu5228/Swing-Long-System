@@ -73,6 +73,16 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [4.10 When overriding the rules is actually correct](#410-when-overriding-the-rules-is-actually-correct)
    - [4.11 Execution mechanics](#411-execution-mechanics)
 5. [Profit Taking & Exit Strategy](#5-profit-taking--exit-strategy)
+   - [5.1 "Let the stock tell you" — why fixed price targets get rejected almost universally](#51-let-the-stock-tell-you--why-fixed-price-targets-get-rejected-almost-universally)
+   - [5.2 The core trade-off — sell a little too late, not a lot too early](#52-the-core-trade-off--sell-a-little-too-late-not-a-lot-too-early)
+   - [5.3 Selling too early — the self-rated weak spot](#53-selling-too-early--the-self-rated-weak-spot)
+   - [5.4 Defending large open profits actively](#54-defending-large-open-profits-actively)
+   - [5.5 Home-run trading — the Pareto principle](#55-home-run-trading--the-pareto-principle)
+   - [5.6 Exit mechanics change at size — "get out when I can, not when I want to"](#56-exit-mechanics-change-at-size--get-out-when-i-can-not-when-i-want-to)
+   - [5.7 Trading price over opinion — the Tesla short-to-long flip](#57-trading-price-over-opinion--the-tesla-short-to-long-flip)
+   - [5.8 Reframing losses against total account size](#58-reframing-losses-against-total-account-size)
+   - [5.9 Exit style is a trade-off, not a universal rule](#59-exit-style-is-a-trade-off-not-a-universal-rule)
+   - [5.10 "Silly season" runners — the trail that gives back too much](#510-silly-season-runners--the-trail-that-gives-back-too-much)
 6. [Market Timing & Regime Reading](#6-market-timing--regime-reading)
 7. [Watchlist & Stock Selection Criteria](#7-watchlist--stock-selection-criteria)
 8. [Psychology & Mindset](#8-psychology--mindset)
@@ -691,13 +701,89 @@ Neither of these is a strategic decision in the way the rest of Section 4 is —
 
 ## 5. Profit Taking & Exit Strategy
 
-**No fixed price targets.** Consistently rejects setting a specific price target in advance, since on a fresh breakout or new IPO with no trading history, any target is described as "a random number." Instead, the trailing moving-average stop described above functions as the entire exit mechanism — hold until the rule says to sell, not until an arbitrary number is hit.
+Where Section 4 covers the mechanics of trimming and trailing, this section is the strategy layer underneath it — how much conviction to give a winner, when the mechanical rule should bend, and how he thinks about exits at a portfolio level rather than trade by trade.
 
-**Profit-taking pace scales with perceived potential.** A trade expected to move a modest 15-25% is trimmed faster and in fewer stages; a trade the trader believes could double or triple is sold far more slowly, in small increments, over a much longer stretch — explicitly framed as "letting the stock tell you" how much conviction to hold rather than deciding in advance.
+**Citation format:** same as Sections 1-4 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
 
-**Selling is harder than buying.** Stated directly and repeated across multiple periods: entries are "the easy part" of trading; disciplined, unemotional exits are the actual skill that separates profitable traders from everyone else, which is precisely why the trailing-stop system is kept as mechanical and rule-based as possible rather than left to feel or discretion.
+### 5.1 "Let the stock tell you" — why fixed price targets get rejected almost universally
 
-**Defending large open profits actively.** One notable cautionary story: roughly $200,000 of unrealized profit on a position was given back in about fifteen minutes during a fast earnings reaction, specifically because the position wasn't being watched closely enough in the moment. The lesson drawn is that outsized open profits need active attention during volatile windows, not "set and forget" trailing stops alone.
+- **A recent IPO, and the case against setting any target at all.** Asked directly what his target is on a fresh IPO already up nearly 5% from entry: "target? There's no target, just trail it. It's a recent IPO in a hot sector — there's no target for it, it could go to infinity and beyond, or it could just go straight down, I don't know. Just pull a random number out of your ass, that's the target — I mean, it's a recent IPO, there's nothing to go on here." The point isn't that price targets are lazy or unsophisticated — it's that on a stock with no trading history, any specific number is *definitionally* unfounded, since there's no prior price action to derive it from.
+  - *2020-05-29, t=1687s*
+
+The trailing moving-average stop (4.2) functions as the entire exit mechanism instead: hold until the rule says to sell, not until an arbitrary number is hit. A trade he expects to move a modest 15-25% gets trimmed faster and in fewer stages; a trade he thinks could double or triple gets sold far more slowly, in small increments, over a much longer stretch — the pace of selling is itself a signal of how much conviction he's willing to give the position, decided as the trade develops rather than fixed in advance.
+
+### 5.2 The core trade-off — sell a little too late, not a lot too early
+
+- **MRNA, live and genuinely undecided.** Talking through an extended position in real time: "extended, like MRNA right now — I'm a little bit conflicted here, should I sell it all? It looks vulnerable, it looks like it could pull back to the mid-200s any time... on the other hand it could go to $400." He resolves the conflict by stating the underlying rule rather than guessing: "you're either gonna sell too late or too early, but I'd rather sell a little bit too late, after the stock has gone up 100 or 200%, rather than sell too early on a stock that's about to go up 200%." He makes the trade-off concrete with a hypothetical: "let's say a small-cap stock goes up 200%, breaks out of a perfect flag, and then goes down — I'd rather sell it here, 20% off the highs, rather than sell it after it's only gone up 20% total. I'd rather sell a little bit too late than a lot too early, that's the point I'm trying to make. This is why it's so important to have some kind of trailing stop."
+  - *2021-07-20, t=2934s*
+- **The narrow exception — Shopify, sold ahead of its own formal stop.** Not every position gets the benefit of the doubt equally. Comparing a lagging position to a strong one held simultaneously: "I'm thinking about selling my Shopify, it's just not performing well — if Shopify closes weak, I'd rather keep my TQQ, because this one had a big, big move, I'd rather keep this one even if it pulls back to the 20-day, I'd be fine with it. The Shopify, it's kind of close to stopping me out anyway, I'm gonna move my stop to breakeven... if it closes weak, I'll get out of it." This is discretion operating *within* the trailing-stop framework, not against it — he's tightening a specific underperformer's effective stop because it's already showing relative weakness against a stronger name in the same book, not overriding the rule on a whim.
+  - *2021-04-14, t=4068s*
+
+The two examples together show the actual shape of the trade-off: give a genuinely strong, still-working position (MRNA, TQQ) the most benefit of the doubt and risk selling a little late, while a merely-adequate position that's already lagging (Shopify) gets the tighter leash. It's not "always hold longer" — it's "hold longer in proportion to how much the position has actually earned that patience."
+
+### 5.3 Selling too early — the self-rated weak spot
+
+Selling is far harder than entering — entries are "the easy part," which is why mechanical, simple sell rules matter more than clever ones. He rates his own entries near 5/5 and his exits closer to 3.5/5, and the gap shows up constantly in real, named trades.
+
+- **MRNA and UPST, both sold "too early" in the same stretch.** "The moral of the story is I haven't been able to outsmart my sell rules, even though I always try to — so far it hasn't worked. I always think I can outsmart my own sell rules, and I keep making the same mistakes. I always complain about selling too early because I think things look extended — I sold MRNA, where I bought it at like $235, sold it in the $330s-340s. It went up another almost 50% in the next few weeks. UPST, another one — I sold it at like $285, thought it looked extended, it went up another 43% in the next month. I don't know why I keep doing that." His own explanation, only half-joking: "imagination is the greatest superpower you can have in the stock market — forget about discipline, discipline is for losers. You need to be able to imagine a stock making an enormous move, you have to believe it. Sometimes I lack in imagination, that's when these kinds of things happen."
+  - *2021-10-21, t=3509s*
+
+The "discipline is for losers, imagination is the superpower" line is deliberately provocative — everywhere else in this document he argues the opposite (mechanical rules beat gut feel, see 4.4). Taken together with 4.4's BILI/Workhorse examples and 4.5's SC/Twilio/Fastly/Livongo/GUSH casualties, the honest picture is that this specific failure mode — discretionary early selling driven by a story ("it looks extended") rather than the actual trailing-stop signal — is the single most repeated, cross-year, named-ticker weakness in his entire trading history, and by his own account still not fully solved even after naming and studying it for years.
+
+### 5.4 Defending large open profits actively
+
+- **FCEL — $200,000 given back in fifteen minutes, and the exact cause named.** Opening the stream already down from where he'd been: "I gave back $200,000 in profits — I was long, sold some on the way up, sold some at like $3.93 market, and then earnings hit it. I didn't see it, I was slacking, I was doing other stuff, I was very sloppy. It's easy to get complacent in a market like this." He quantifies exactly where the profit went: "I was up like $250K on it total, including shares from the day before — now I'm only up maybe $50K on it, which is still a decent trade, but $200K is a pretty significant sum, I'm not happy about it." The root cause, stated without hedging: "I got sloppy, that's what happened. I should have watched the chart, that's what I should have done — as soon as it started selling off on earnings, I should have [reacted]. Mistakes were made. But that's okay, I'll survive, I'm just $200,000 poorer than I was a couple of hours ago."
+  - *2020-01-22, "I gave back $200K in profits on $FCEL in 15 minutes...", t=205s*
+
+The lesson isn't "trail your stop and walk away" — it's the opposite, and specific to outsized open profits during a known volatile window (here, an earnings reaction he'd simply lost track of). A large unrealized gain needs active, eyes-on attention precisely when it's most vulnerable, not "set and forget" trailing-stop discipline alone; a mechanical stop still eventually protects the position, but by the time it triggers on a violent enough move, a meaningful chunk of the gain is already gone.
+
+### 5.5 Home-run trading — the Pareto principle
+
+- **"95% of my profits come from 5% of my trades."** Asked whether the Pareto principle applies to his own results: "oh yeah, definitely, the Pareto rule is very real in trading — I would say 95% of my profits come from 5% of my trades." He adds a genuinely useful nuance rather than treating it as a universal constant: "it depends on what type of trader you are. If you're more of a day trader, it's probably gonna be like 80/20; if you're a swing trader or position trader, it's gonna be like 5/95 or something; and if you're a scalper, it's probably gonna be maybe 60/40." The ratio itself is a function of holding period — the longer you're willing to hold, the more concentrated your profits get in a small number of trades.
+  - *2022-01-27, t=1766s*
+- **X, COPX, FCX, and NUGT — what "10-15x initial risk" actually looks like in a live portfolio.** Making the case that large multiples aren't theoretical: "15 times risk is very possible in the US stock market — just look at some of the things in my portfolio. Look at X, for example — when I bought it initially, my average was $24.94, let's call it $25. I had less than a dollar of risk on it, and I'm up like 12, 13, 14 times my initial risk on it. Same thing with COPX and FCX — I'm up 10-15 times my initial risk on them. NUGT, my initial buy — this one too, I'm probably up 10-15 times my initial risk on it."
+  - *2022-04-12, t=1800s*
+
+Both points describe the same underlying reality from different angles: most trades in a given year will roughly wash, and the entire year's return is effectively decided by a small handful of positions he simply never sold early on (5.3) and let compound into double-digit multiples of the original risk (3.3). The job, as he frames it elsewhere, isn't to make every trade a winner — it's to make sure the rare 10-15x trade is never capped by an unnecessary early exit.
+
+### 5.6 Exit mechanics change at size — "get out when I can, not when I want to"
+
+- **Selling a "big move" that's only 20%, explained live.** Trimming a position that most of his audience would consider barely worth touching: "chill here, guys, I'm selling tiny, tiny bits — I'm up more than 20% on it. It's not one of these low-float micro-caps that goes up 500%, so 20% is a big move [for a name this size]. Selling a tiny bit, just locking in — I don't have the luxury of a small account, I need to get out when I can, not when I want to." He generalizes it directly to his audience: "I don't have the luxury like you guys have, I'd have to trade a bit differently."
+  - *2021-03-18, "Setups developing but they need more work", t=4842s*
+
+This is the exit-side mirror of 3.2's small-account-edge and 3.10's liquidity-driven concentration limits: a small account can wait for its exact preferred exit level because its size doesn't move the stock, while a large position has to be sold in pieces, opportunistically, whenever the market actually offers the liquidity to absorb it — "when I can" rather than at a chosen target. The 5.1-5.5 philosophy of letting a winner run as long as possible still applies, but the *execution* of taking profit becomes a liquidity-management problem at size, not just a conviction call.
+
+### 5.7 Trading price over opinion — the Tesla short-to-long flip
+
+- **$6 million short to $4 million long, inside a few seconds.** Going through his positions live: "Tesla — sold some pre-market, looks like it's capping down a bit now, but we're acting really well. I went from being short 3,900 shares to being long 2,300 shares inside of a few seconds. So I went from being $6 million short to being about $4 million long. That's probably my biggest position switch ever." He immediately adds the honest, slightly rueful footnote rather than presenting it as a perfectly executed masterstroke: "now I wish I had done even more on the long side, but whatever, it's a decent position in case it wants to go higher."
+  - *2020-07-21, t=380s*
+
+The size of the swing is what makes the example instructive — a ~$10 million total reversal in position, executed in seconds, on a stock he'd apparently been confidently bearish on moments earlier. Nothing about his opinion of Tesla changed in those seconds; what changed was what price actually did, and the whole framework in this document (mechanical stops, no fixed targets, trailing rather than predicting) exists specifically to make a reversal like this possible without an ego cost — the position flips the instant the *evidence* flips, independent of how recently or how confidently the opposite thesis was held.
+
+### 5.8 Reframing losses against total account size
+
+- **A $900K GME loss, immediately weighed against a $1.5M Palantir gain from the same weekend.** Covering a losing GME short: "took a decent — okay, $900K loss, all right. Not even in the top five of my losses." He puts the number in context immediately, unprompted: "I'm gonna make it back on the next trade — like Palantir from Friday, I bought this a little bit before I stopped the stream, I'm up one and a half million on it. So that $900K loss is really nothing — I've literally done nothing since Friday, I'm up $1.5 million on it. Just to put things in perspective, it's not a big deal."
+  - *2021-01-25, t=3516s*
+- **The retrospective twist — the loss that turned out to have saved him millions.** Watching GME continue its historic squeeze after he'd already covered: "this could have been the best trade of my trading career — I would be down like $4-5 million at this point if I didn't take my loss. That $900K is the best loss I've ever taken in my life."
+  - *same clip, t=4780s*
+
+Both bullets are the same discipline from two different angles. In the moment, a large loss gets sized against total account performance rather than treated as a catastrophe on its own — a $900K loss next to a $1.5M gain the same weekend is, arithmetically and emotionally, a net-positive stretch, not a crisis. In hindsight, the same loss is reframed again: taking it mechanically, on schedule, rather than holding and hoping, is exactly what capped a position that could have cost several times more if he'd stayed in out of stubbornness. Reframing isn't about pretending a loss doesn't hurt — it's putting a single trade's dollar figure back into the context of the portfolio and the discipline that produced it, rather than judging it in isolation.
+
+### 5.9 Exit style is a trade-off, not a universal rule
+
+- **Cash flow vs. maximum growth, named as two legitimate, different goals.** Responding to a viewer's idea for a more aggressive selling approach: "that's a very good idea if you want to generate cash flow and not maximize account growth — selling aggressively is very important if you wanna prioritize consistency and cash flow over maximizing profits. You gotta be more aggressive in selling because you're gonna be more consistent throughout these different market cycles, while someone who looks for big moves may not make money in a choppy environment. You can still generate cash flow in a choppy environment — in a really good market you're not gonna generate as much money, but you will probably make money much more consistently."
+  - *2021-06-01, t=2310s*
+
+This directly qualifies 5.2's "sell a little too late" default — that preference is optimized for maximizing total account growth (which is what 5.5's Pareto-principle home runs require), not for the smoothest possible equity curve. A trader prioritizing consistent income over compounding the account as fast as possible has a legitimate reason to trim harder and earlier than everything else in this section recommends — the "right" exit style depends on which of those two goals is actually being optimized for, not on which one sounds more disciplined.
+
+### 5.10 "Silly season" runners — the trail that gives back too much
+
+On the rare stock that moves 100-500%+ in a matter of days, the standard moving-average trail (4.9) gives back so much of the move so fast that it stops being a sensible exit method at all — but the "fix" for that has its own failure mode, which he's careful to flag rather than present as a clean solution.
+
+- **INDO — the counter-example to his own "sell into strength" advice.** Reflecting on the wildest single-name runners: "runners like this go up 500, 1,000% in a week or two — we saw a lot of these in 2020, 2021, there was nothing to learn, I just messed it up, and this is why I don't really believe in this thing, 'oh, you have to sell into strength' — no, you don't. If you bought the EP here on INDO and you sold it the next day when it was up 130%, you missed out on some big money."
+  - *2023-12-01, t=2513s*
+
+Put next to 4.9's $13-to-$49 same-day example (where trailing on the daily chart was explicitly "just stupid" and selling into strength was the *right* call), the honest picture is that there's no single correct answer for the most extreme runners — a daily trail bleeds too much on a violent single-day spike, but reflexively selling into strength can just as easily cap a name that keeps compounding for weeks. Which failure mode you're more exposed to depends on whether the specific runner in front of you turns out to be a one-day spike or the start of a genuine multi-week move — something that, by his own admission, often can't be known in advance.
 
 ---
 
