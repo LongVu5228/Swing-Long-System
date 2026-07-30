@@ -1,8 +1,21 @@
 # Qullamaggie Trading Lessons: A Synthesized Playbook
 
 **Source:** Kristjan "Qullamaggie" Kullamägi's YouTube trading livestreams, distilled from transcripts.
-**Coverage:** 2017 through December 2023 — the complete channel history, all 27 source batches processed. Part I (Sections 1-10) synthesizes 2017 through September 2020. Part II synthesizes October 2020 through December 2023, focusing on what genuinely evolved, sharpened, or emerged as new emphasis in the later period rather than repeating principles already established in Part I.
-**Method:** Every transcript was read and paraphrased into discrete lessons by category, then this document synthesizes and deduplicates those notes into one coherent reference. This is a summary and paraphrase of his publicly stated views and trade narration on stream — not a verbatim transcript, and not financial advice.
+
+**Coverage:** 2017-01-22 through 2023-12-15 — the complete channel history. Part I (Sections 1-10) synthesizes 2017 through September 2020. Part II synthesizes October 2020 through December 2023, focusing on what genuinely evolved, sharpened, or emerged as new emphasis in the later period rather than repeating principles already established in Part I.
+
+**Scale of the underlying data:**
+- **588 videos** identified across the full channel history; **507 transcripts** successfully retrieved (~86% coverage — the rest had no captions available, were private/deleted, or were non-English). Retrieval used a two-stage pipeline: `youtube-transcript-api`/`yt-dlp` for the initial pass, then a paid third-party transcript API to get past YouTube's own IP-level rate limiting on the remainder.
+- **~3.24 million words** (roughly 68MB) of raw caption text across those transcripts — at a rough ~1.3 tokens/word, on the order of **4-4.5 million tokens** of raw source material.
+- **232,461 timestamped caption segments** indexed into a searchable local SQLite full-text database, independent of this document, for direct keyword lookup across the whole corpus.
+
+**Compilation method:**
+1. The transcript corpus was split chronologically into **27 batches**. Each batch was processed by a separate AI subagent that read its slice of raw transcripts directly and extracted discrete, dated, ticker-cited lessons into 10 fixed categories (setups, chart reading, risk management, psychology, mistakes, etc.), writing its own notes file rather than summarizing from memory.
+2. That produced **~45,900 words** of structured intermediate notes — roughly a **70x compression** of the raw transcript text, with every claim still traceable back to a specific date/video.
+3. This document is a second synthesis pass on top of those notes: deduplicating repeated principles across years, cross-referencing the same stock or lesson showing up in different sessions, and — through several rounds of review — going back to the original source transcripts to pull direct quotes, real named/dated trade examples, and clickable timestamped YouTube links for every claim, rather than relying on the paraphrased batch notes alone.
+4. Net result: **~14,200 words**, meaning the entire multi-year video archive is represented here at roughly **1/230th** its original raw transcript length — compressed and cross-referenced by AI across dozens of separate reading and writing passes, not manually skimmed or written from memory.
+
+This is a summary and paraphrase of his publicly stated views and trade narration on stream — not a verbatim transcript, and not financial advice.
 
 ---
 
