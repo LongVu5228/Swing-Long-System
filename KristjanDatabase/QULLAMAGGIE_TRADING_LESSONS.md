@@ -136,6 +136,18 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [9.11 Overtrading mediocre setups instead of waiting for genuinely tight ones](#911-overtrading-mediocre-setups-instead-of-waiting-for-genuinely-tight-ones)
    - [9.12 The opposite failure — hesitating on genuinely great setups](#912-the-opposite-failure--hesitating-on-genuinely-great-setups)
 10. [Other Notable Lessons](#10-other-notable-lessons)
+    - [10.1 Reading list and mentors — and the admission that none of it is original](#101-reading-list-and-mentors--and-the-admission-that-none-of-it-is-original)
+    - [10.2 The core skill-building method — building a personal, decades-deep chart database](#102-the-core-skill-building-method--building-a-personal-decades-deep-chart-database)
+    - [10.3 Day trading vs. swing/position trading — why the shift happens as an account scales](#103-day-trading-vs-swingposition-trading--why-the-shift-happens-as-an-account-scales)
+    - [10.4 Markets are not zero-sum](#104-markets-are-not-zero-sum)
+    - [10.5 News, politics, and macro treated as noise](#105-news-politics-and-macro-treated-as-noise)
+    - [10.6 Tools and platforms, and how the stack evolved](#106-tools-and-platforms-and-how-the-stack-evolved)
+    - [10.7 Realistic return expectations, benchmarked against real traders](#107-realistic-return-expectations-benchmarked-against-real-traders)
+    - [10.8 Short selling — roughly half his profits, but a structurally harder game to scale](#108-short-selling--roughly-half-his-profits-but-a-structurally-harder-game-to-scale)
+    - [10.9 The EP era compressed his actual trading day](#109-the-ep-era-compressed-his-actual-trading-day)
+    - [10.10 Structural and tax adjustments at scale](#1010-structural-and-tax-adjustments-at-scale)
+    - [10.11 Broker redundancy and commission structure as account insurance](#1011-broker-redundancy-and-commission-structure-as-account-insurance)
+    - [10.12 The anti-scam rule, and trading in strong currencies](#1012-the-anti-scam-rule-and-trading-in-strong-currencies)
 
 ---
 
@@ -1281,23 +1293,90 @@ These sit as the deliberate counterweight to every other entry in this section: 
 
 ## 10. Other Notable Lessons
 
-**Reading list.** *Reminiscences of a Stock Operator* (the Jesse Livermore biography) is named repeatedly as his all-time favorite trading book, along with William O'Neil's *How to Make Money in Stocks* (the source of the CAN SLIM framework — combining price momentum with earnings momentum), the *Market Wizards* series, and Michael Covel's *Trend Following*. Several specific Livermore rules are endorsed near-verbatim on stream: don't trade every day, distrust your own opinion until price confirms it, never let a trade quietly become an "investment" by ignoring your stop, and never average into a loser.
+**Citation format:** same as Sections 1-9 — date and timestamp in a sub-bullet under each example.
 
-**The core skill-building method.** Building a large personal database of historical winning (and losing) stock chart setups — cited at "thousands" of annotated examples accumulated over many years in a note-taking tool (Evernote is mentioned specifically) — is described as the single most valuable exercise for developing real pattern recognition, more useful than any course, mentor, or book alone. This is framed as requiring at least 1,000+ hours of dedicated study before a trader can expect to develop genuine, tested setups and the conviction to hold them through a drawdown.
+### 10.1 Reading list and mentors — and the admission that none of it is original
 
-**Day trading vs. swing/position trading.** Day trading is consistently described as a tool for growing a small account quickly, not a long-term destination — as the account grows into the high six or seven figures and beyond, day-trading strategies stop scaling and the natural shift is toward swing and position trading, which captures full-sized multi-week-to-multi-month moves instead of small intraday scalps. The transition is described as something that took over a year to make deliberately, not something to rush.
+- **"I've literally copied every single trading concept."** Explaining why he doesn't try to reinvent his methodology: "most people are just better off copying what works, but everyone wants to reinvent the wheel, and very few do... I've literally copied every single trading concept, every setup, everything — the average daily range, the EP setup, the breakout setup, the parabolic short — none of these things I discovered myself, even this new thing, the red line."
+  - *2021-05-11, t=3493s*
 
-**Markets are not zero-sum.** Unlike a poker table, aggregate equity returns are framed as driven by genuine value creation — companies converting capital and assets into something more valuable over time and distributing free cash flow via buybacks and dividends — which is offered as part of the underlying rationale for a fundamentally bullish long-term bias even amid frequent short-term trading in both directions.
+The named sources behind that borrowed toolkit recur consistently across the corpus: *Reminiscences of a Stock Operator* (the Jesse Livermore biography) as his all-time favorite trading book, William O'Neil's *How to Make Money in Stocks* (the source of the CAN SLIM framework), the *Market Wizards* series, Michael Covel's *Trend Following*, and Dan Sanger's audited newsletters (general principle, recurring across many videos in the batch notes). Several specific Livermore rules are endorsed near-verbatim on stream: don't trade every day, distrust your own opinion until price confirms it, never let a trade quietly become an "investment" by ignoring your stop, and never average into a loser. This is the origin-story companion to 8.7's "you can steal ideas, you can't borrow conviction" — the ideas themselves are explicitly, repeatedly credited elsewhere; conviction is the only part described as genuinely self-built.
 
-**News, politics, and macro are treated as noise.** A recurring, sometimes blunt refrain across nearly every year covered: politics, Fed policy, and general macro commentary are explicitly said to have no predictive value for his process, and time spent on them is framed as wasted. Price action and the specific setups on the screen are what matter; narratives and opinions — his own included — are subordinate to what price is actually doing.
+### 10.2 The core skill-building method — building a personal, decades-deep chart database
 
-**Tools.** The consistent platform stack for most of this history is TC2000 (used for scanning and charting, not execution) paired with a fast, stable execution platform (Sterling Trader Pro and/or Interactive Brokers), with a preference for speed, simplicity, and reliability over feature count — slower or buggier platforms (ThinkorSwim is criticized specifically) are avoided even when they offer more built-in tools. This shifts somewhat by 2023: TradingView gets adopted and praised for its interface and community despite weaker scanning tools than TC2000, ThinkorSwim is criticized further, and MarketSmith is dinged specifically for slow data updates.
+Building a large personal database of historical winning (and losing) stock chart setups — cited at "thousands" of annotated examples accumulated over many years in a note-taking tool (Evernote is mentioned specifically) — is described with striking consistency across dozens of separate videos spanning the full archive (general principle; no single clip is cited here since the claim is remarkably stable and repeated rather than concentrated in one memorable phrasing) as the single most valuable exercise for developing real pattern recognition, more useful than any course, mentor, or book alone. This is framed as requiring at least 1,000+ hours of dedicated study before a trader can expect to develop genuine, tested setups and the conviction to hold them through a drawdown.
 
-**The EP era compressed his actual trading day.** By 2023, with episodic pivots (1.3) as his dominant setup, he describes his own daily engagement as built almost entirely around that one pattern: roughly one hour of total daily screen time, split between pre-market/after-hours EP scanning and the first 30-45 minutes of regular trading — which by his own estimate captures 70-80% of his actual trading activity for the day. This is a marked contraction from the more varied, longer-session trading style described in the earlier years of the archive, and mirrors the account-scale shift below: less time spent, not more, as both skill and account size grew.
+The method described is consistent in its specifics: scroll every liquid US stock (later extended to historical stocks across decades and market cycles) on a monthly or weekly chart, tag every big historical mover, and study what the setup looked like immediately before the move started — the same process underlying 7.5's proactive theme-building and the "setup database" language that recurs throughout Sections 1 and 8. Reviewing past breakouts and gap-ups roughly a month later, to calibrate what actually followed through versus what failed, is described as a complementary habit that closes the loop on the same study process.
 
-**Structural and tax adjustments at scale.** As his account grew, he describes deliberately shifting a larger share of his trading into a tax-advantaged account structure and reducing his short-selling activity over time, citing both tax efficiency and reduced screen time as motivations — framing shorting as a strategy that scales poorly for a professional manager anyway, since a short's maximum gain is capped at 100% while a long's upside is theoretically unlimited.
+### 10.3 Day trading vs. swing/position trading — why the shift happens as an account scales
 
-**Anti-scam rule.** A blanket, explicitly stated rule against ever sending money to anyone who contacts him unsolicited, offered as general advice given how frequently his public profile attracts impersonation and fraud attempts (see also the impersonation-account exchange narrated in 1.9).
+Day trading is consistently described as a tool for growing a small account quickly, not a long-term destination — as the account grows into the high six or seven figures and beyond, day-trading strategies stop scaling and the natural shift is toward swing and position trading, which captures full-sized multi-week-to-multi-month moves instead of small intraday scalps (general principle, recurring across the batch notes; see also 8.12's origin story and Section 9's treatment of day trading's scaling limits). The transition itself is described as something that took over a year to make deliberately, not something to rush — day trading offers more frequent feedback and "instant gratification," which is part of why it's a reasonable place to start, but the same frequent feedback loop is exactly what stops scaling once size becomes the binding constraint rather than skill.
+
+The structural reason given is mechanical rather than psychological: intraday liquidity at any given moment caps how much size can be deployed and exited without moving the stock against the position, and that cap doesn't grow proportionally with account size the way a multi-day or multi-week holding period's capacity does. He describes day trading as, in effect, a beginner's tool that teaches a very fast, very cheap feedback loop — useful precisely because losing lessons are small and quick — but says explicitly he'd have started swing trading immediately if restarting his own career, since the compounding ceiling on a swing-trading account is structurally much higher than on a day-trading one of the same size.
+
+### 10.4 Markets are not zero-sum
+
+- **The direct rebuttal to a "someone has to lose for me to win" framing.** "That's literally not how markets work — markets are not a zero-sum game, it's not like poker, where if one guy wins a hundred bucks another guy loses. Markets are a wealth creation mechanism... if you make a hundred bucks doesn't mean someone else lost a hundred bucks." He grounds the claim in a specific mechanism, not just an assertion: companies distribute free cash flow to shareholders "in the form of buybacks or dividends, and some of that free cash flow gets invested in the business in the form of acquisitions or research and development — it's not a zero-sum game, this ain't poker."
+  - *2020-07-02, t=3854s, t=4337s*
+
+This is offered as part of the underlying rationale for a fundamentally bullish long-term bias even amid frequent short-term trading in both directions — the short-selling described extensively in 10.8 and Section 3.8 is a tactical response to individual overextended stocks, not a bet against the broader system, which he treats as a structurally different claim from a permabear's worldview.
+
+### 10.5 News, politics, and macro treated as noise
+
+- **"You've wasted two seconds of your life."** Dismissing a viewer's concern about a political headline moving markets: "who cares, just follow price action — if you spend more than two seconds on politics, you have wasted two seconds of your life." He grounds it in a specific historical example rather than just an opinion: "how many people didn't sell all their stocks when Trump got elected, and the market has been straight up since... these politicians, it doesn't matter who gets elected, the market is gonna do what the market is gonna do."
+  - *2020-07-02, t=1937s*
+
+A recurring, sometimes blunter version of this refrain runs across nearly every year covered: Fed policy, quad-witching, bond yields, and general macro commentary are explicitly said to have no predictive value for his process, and the stated approach is that if something like a real macro shift is actually happening, "you'll see it reflected in the setups — you don't need to know why" (general principle, recurring across the batch notes). Price action and the specific setups on the screen are what matter; narratives and opinions — his own included — are treated as subordinate to what price is actually doing, which is the same underlying instinct as 8.11's "react, don't predict."
+
+### 10.6 Tools and platforms, and how the stack evolved
+
+- **ThinkorSwim's decline, and what reliability is actually worth.** "ThinkorSwim used to be a great platform, until — who bought it? TD Ameritrade, I think around 2013 — since then it's pretty much downhill, how anyone still uses ThinkorSwim, you probably should get something better... in the past seven years it's been down all the time, slow, buggy." By contrast: "Interactive Brokers, I've had for like five, six years, never been down, not a single time — and I also use Sterling Trader, that thing has never been down either, maybe once in six or seven years." The stated priority is explicit: "I don't really care about any functionality, I just want it to be fast and stable."
+  - *2020-08-18, t=2568s, t=2654s, t=2759s*
+
+The consistent platform stack for most of this history is TC2000 (used for scanning and charting, not execution) paired with a fast, stable execution platform (Sterling Trader Pro and/or Interactive Brokers). This shifts somewhat by 2023: TradingView gets adopted and praised for its interface and community despite weaker scanning tools than TC2000 (general principle, recurring in the later batch notes), ThinkorSwim is criticized further, and MarketSmith is dinged specifically for slow fundamental-data updates, especially on Chinese ADRs — a detail that connects directly to 7.12's account of post-Luckin distrust of that entire data category.
+
+### 10.7 Realistic return expectations, benchmarked against real traders
+
+- **A stated floor, and the ceiling in a genuinely good year.** "What return can you expect as a decent swing trader? Easily 100 [percent] on average per year, just trading on the long side without using any leverage — if you're a good swing trader, you can average easily 100 percent, not every year, some years are gonna be tougher... that's like their floor. If you're a really good swing trader in a really good market, you can easily make 500, a thousand percent in a really good year — like last year, every good swing trader made at least 500 last year, or at least 300, without using any leverage."
+  - *2021-04-05, t=3457s, t=3488s*
+
+The number is offered as a benchmark against real, verifiable traders rather than a generic promise — the batch notes describe him repeatedly warning that any coach or service advertising a specific return figure needs audited results to back it up (see 9.10), and this 100%-floor/300-1000%-good-year range is presented in that same spirit: a claim he's willing to attach his own name and stream to, not a marketing number.
+
+### 10.8 Short selling — roughly half his profits, but a structurally harder game to scale
+
+- **The lifetime split between long and short profits, and why shorting is easier to find good setups for.** "Short selling is very important — I guess about half of the money I made is from shorting, and when I was a day trader I guess two-thirds, maybe three-quarters of my money was from short selling, but nowadays it's about half or a third." Asked why: "it's easier to find really, really good short setups than really good long setups — when you see something [extended], you just know it's gonna pull back, it could go higher, but you know it's gonna pull back eventually, so you just wait for those first cracks. But when you buy something, it's like, okay, it's a great setup, but is it gonna go? It could go to 100, but is it gonna do that? There's more uncertainty with longs."
+  - *2020-06-10, t=5947s, t=5971s*
+- **The supply imbalance stated as simple arithmetic.** "For every parabolic long setup there are like five parabolic short setups — it's just mathematics, the long ones you just don't get as often."
+  - *2020-06-12, t=3741s*
+
+This is the setup-quality and setup-frequency side of an asymmetry whose risk-mechanics side is covered in 3.8 — shorts are described as both more predictable to identify and simply more abundant, which is a different claim from 3.8's point about capped upside and unlimited downside risk on the short side. Both point toward the same practical conclusion reached at scale (10.10): shorting is a real edge, but one that becomes progressively less attractive to lean on as an account and a public track record both grow.
+
+### 10.9 The EP era compressed his actual trading day
+
+- **"You really only need like one hour of your day."** Describing his 2023 routine, built almost entirely around episodic pivots (1.3): "for those of you who are working, you really only need like one hour of your day — you start doing research, you make your entries, and then you're free, takes one hour every day." Asked to break down where the actual trading happens: "30 minutes usually, most of my trading happens in the first, say, 30-45 minutes, probably like 70-80 percent [of my activity]."
+  - *2023-05-23, t=2181s, t=2216s, t=2346s*
+
+This is a marked contraction from the more varied, longer-session trading style described in the earlier years of the archive, and it mirrors the account-scale shift covered in 10.10 — less time spent, not more, as both skill and account size grew, with a single high-conviction setup (the EP) doing the work that used to require actively managing several setup types across a full session.
+
+### 10.10 Structural and tax adjustments at scale
+
+- **Small, speculative positions deliberately routed into a tax-free account.** On a cluster of small quantum-computing positions: "these are very small, I have them in my tax-free accounts, because these are the ones that can double, triple, quadruple, five, ten bagger."
+  - *2023-06-08, t=2129s*
+
+As his account grew, he describes deliberately shifting a larger share of his trading into this tax-advantaged account structure and reducing his short-selling activity over time (general principle, recurring in the later batch notes), citing both tax efficiency and reduced screen time as motivations — framing shorting as a strategy that scales poorly for a professional manager anyway, since a short's maximum gain is capped at 100% while a long's upside is theoretically unlimited. Read alongside 10.8, the picture is a trader who built roughly half his lifetime edge on the short side while it was the more efficient use of his time and capital, then deliberately dialed it back once account size and tax structure made the long side comparatively more efficient — not because the short-side edge itself had stopped working.
+
+### 10.11 Broker redundancy and commission structure as account insurance
+
+- **A single trade's commission bill, in two different fee structures.** Comparing a percentage-based Swedish broker against his US, per-share broker on an identical trade: "commission percentage — that's the problem, anytime you pay a percentage in commissions you're getting ripped off, you should either get a flat fee or pay per share... my commissions on this trade would have been $13,200 [with the percentage broker], but with my US broker, I pay per share, including ECN fees — this is what I paid: $200. You can get your commissions down by like 99 percent if you switch to a US broker."
+  - *2021-02-19, t=1954s, t=2201s*
+
+The $13,000 gap on a single trade is the concrete version of a warning repeated across the batch notes in softer form: do the math on total dollar volume traded, not the headline percentage rate, since a fee structure that looks negligible on a small account becomes a direct, compounding tax on returns at real size. This sits alongside — but is a distinct concern from — the broker-*outage* redundancy covered in 3.11: 10.11 is about not overpaying for execution, 3.11 is about not being unable to execute at all; the discipline of running multiple brokers addresses both at once.
+
+### 10.12 The anti-scam rule, and trading in strong currencies
+
+A blanket, explicitly stated rule against ever sending money to anyone who contacts him unsolicited is offered as general advice given how frequently his public profile attracts impersonation and fraud attempts (see also the impersonation-account exchange narrated in 1.9). The rule is stated as absolute rather than case-by-case — no unsolicited contact, online or in person, however convincing, ever justifies sending money — on the reasoning that a legitimate opportunity never actually requires that specific channel, so the rule costs nothing to follow even in the rare case the request happens to be real.
+
+A related, less obvious piece of structural advice appears in the later batch notes: trade US markets in US dollars rather than a weaker home currency, even if it means eating a higher tax rate in the process (general principle, recurring in the 2022-2023 batch notes) — the reasoning given is that a persistently weak local currency is itself a hidden, uncompensated risk sitting underneath every trade, and the tax difference is a known, bounded cost next to that open-ended one. Both rules share the same underlying shape: a small, certain, easily-dismissed-as-excessive cost (refusing a plausible-sounding unsolicited offer, accepting a higher tax bill) traded off against a rare but potentially catastrophic and uncapped downside, which is the same risk-management logic that runs through the position-sizing rules in Section 3.
 
 ---
 
