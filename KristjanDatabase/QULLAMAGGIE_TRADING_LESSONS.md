@@ -19,6 +19,33 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
 
 ---
 
+## Table of Contents
+
+1. [Entries & Setups](#1-entries--setups)
+   - [1.1 The core setup — "high tide flag" / momentum breakout](#11-the-core-setup--high-tide-flag--momentum-breakout)
+   - [1.2 Pocket pivots](#12-pocket-pivots)
+   - [1.3 Episodic pivots (EPs) / earnings breakouts](#13-episodic-pivots-eps--earnings-breakouts)
+   - [1.4 IPO breakouts](#14-ipo-breakouts)
+   - [1.5 Parabolic shorts and parabolic longs (mean-reversion, multi-day)](#15-parabolic-shorts-and-parabolic-longs-mean-reversion-multi-day)
+   - [1.6 Mean-reversion day trades](#16-mean-reversion-day-trades-distinct-from-the-multi-day-parabolic-setups-above)
+   - [1.7 Weekly/monthly moving-average bounces (position trades)](#17-weeklymonthly-moving-average-bounces-position-trades)
+   - [1.8 Commodity and cyclical stocks — the exception to "never buy dips"](#18-commodity-and-cyclical-stocks--the-exception-to-never-buy-dips)
+   - [1.9 Failed-breakout resets](#19-failed-breakout-resets)
+   - [1.10 Distressed and bankruptcy-catalyst bounces](#110-distressed-and-bankruptcy-catalyst-bounces)
+   - [1.11 Sector sympathy and vehicle choice](#111-sector-sympathy-and-vehicle-choice)
+   - [1.12 What he avoids](#112-what-he-avoids)
+2. [Chart Reading & Technical Analysis](#2-chart-reading--technical-analysis)
+3. [Position Sizing & Risk Management](#3-position-sizing--risk-management)
+4. [Trade Management (Adds, Trims, Stops)](#4-trade-management-adds-trims-stops)
+5. [Profit Taking & Exit Strategy](#5-profit-taking--exit-strategy)
+6. [Market Timing & Regime Reading](#6-market-timing--regime-reading)
+7. [Watchlist & Stock Selection Criteria](#7-watchlist--stock-selection-criteria)
+8. [Psychology & Mindset](#8-psychology--mindset)
+9. [Common Mistakes / What Not To Do](#9-common-mistakes--what-not-to-do)
+10. [Other Notable Lessons](#10-other-notable-lessons)
+
+---
+
 ## 1. Entries & Setups
 
 Kullamägi's own shorthand — "I only trade three setups" — is real and gets repeated almost every year from 2020 onward. But that's his teaching simplification, not the full picture of what actually shows up across 27 batches of live trade narration. In practice there are at least ten distinct, separately-named patterns he trades, each with its own specific rules, plus several vehicle- and context-specific variations layered on top. This section covers all of them, anchored to real trades with real tickers and numbers wherever the source material provides them.
