@@ -5,11 +5,13 @@
 **Coverage:** 2017-01-22 through 2023-12-15 — the complete channel history, organized into 10 topic sections rather than split by time period. Each section spans the full seven years internally: where a setup, rule, or piece of vocabulary changed or sharpened over time (e.g. the shift toward episodic pivots, sell-rule discipline getting stricter, position sizing at larger account scale), that evolution is folded directly into the relevant section's examples rather than isolated in a separate "later years" section — every specific claim is still tagged with the date(s) it actually comes from.
 
 **Scale of the underlying data:**
+
 - **588 videos** identified across the full channel history; **507 transcripts** successfully retrieved (~86% coverage — the rest had no captions available, were private/deleted, or were non-English). Retrieval used a two-stage pipeline: `youtube-transcript-api`/`yt-dlp` for the initial pass, then a paid third-party transcript API to get past YouTube's own IP-level rate limiting on the remainder.
 - **~3.24 million words** (roughly 68MB) of raw caption text across those transcripts — at a rough ~1.3 tokens/word, on the order of **4-4.5 million tokens** of raw source material.
 - **232,461 timestamped caption segments** indexed into a searchable local SQLite full-text database, independent of this document, for direct keyword lookup across the whole corpus.
 
 **Compilation method:**
+
 1. The transcript corpus was split chronologically into **27 batches**. Each batch was processed by a separate AI subagent that read its slice of raw transcripts directly and extracted discrete, dated, ticker-cited lessons into 10 fixed categories (setups, chart reading, risk management, psychology, mistakes, etc.), writing its own notes file rather than summarizing from memory.
 2. That produced **~45,900 words** of structured intermediate notes — roughly a **70x compression** of the raw transcript text, with every claim still traceable back to a specific date/video.
 3. This document is a second synthesis pass on top of those notes: deduplicating repeated principles across years, cross-referencing the same stock or lesson showing up in different sessions, and — through several rounds of review — going back to the original source transcripts to pull direct quotes, real named/dated trade examples, and clickable timestamped YouTube links for every claim, rather than relying on the paraphrased batch notes alone.
@@ -21,41 +23,41 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
 
 ## Table of Contents
 
-1. [Entries & Setups](#1-entries--setups)
-   - [1.1 The core setup — "high tide flag" / momentum breakout](#11-the-core-setup--high-tide-flag--momentum-breakout)
+1. [Entries &amp; Setups](#1-entries--setups)
+   - [1.1 The core setup — &#34;high tide flag&#34; / momentum breakout](#11-the-core-setup--high-tide-flag--momentum-breakout)
    - [1.2 Pocket pivots](#12-pocket-pivots)
    - [1.3 Episodic pivots (EPs) / earnings breakouts](#13-episodic-pivots-eps--earnings-breakouts)
    - [1.4 IPO breakouts](#14-ipo-breakouts)
    - [1.5 Parabolic shorts and parabolic longs (mean-reversion, multi-day)](#15-parabolic-shorts-and-parabolic-longs-mean-reversion-multi-day)
    - [1.6 Mean-reversion day trades](#16-mean-reversion-day-trades-distinct-from-the-multi-day-parabolic-setups-above)
    - [1.7 Weekly/monthly moving-average bounces (position trades)](#17-weeklymonthly-moving-average-bounces-position-trades)
-   - [1.8 Commodity and cyclical stocks — the exception to "never buy dips"](#18-commodity-and-cyclical-stocks--the-exception-to-never-buy-dips)
+   - [1.8 Commodity and cyclical stocks — the exception to &#34;never buy dips&#34;](#18-commodity-and-cyclical-stocks--the-exception-to-never-buy-dips)
    - [1.9 Failed-breakout resets](#19-failed-breakout-resets)
    - [1.10 Distressed and bankruptcy-catalyst bounces](#110-distressed-and-bankruptcy-catalyst-bounces)
    - [1.11 Sector sympathy and vehicle choice](#111-sector-sympathy-and-vehicle-choice)
    - [1.12 What he avoids](#112-what-he-avoids)
-2. [Chart Reading & Technical Analysis](#2-chart-reading--technical-analysis)
+2. [Chart Reading &amp; Technical Analysis](#2-chart-reading--technical-analysis)
    - [2.1 The minimal toolkit, and what he explicitly rejects](#21-the-minimal-toolkit-and-what-he-explicitly-rejects)
    - [2.2 The moving-average framework](#22-the-moving-average-framework)
    - [2.3 Frontside vs. backside](#23-frontside-vs-backside)
    - [2.4 Undercut-and-reclaim](#24-undercut-and-reclaim)
    - [2.5 Relative strength — the central read](#25-relative-strength--the-central-read)
    - [2.6 Volume as the second core input](#26-volume-as-the-second-core-input)
-   - [2.7 "Resistance" is mostly a downtrend concept](#27-resistance-is-mostly-a-downtrend-concept)
+   - [2.7 &#34;Resistance&#34; is mostly a downtrend concept](#27-resistance-is-mostly-a-downtrend-concept)
    - [2.8 Multi-timeframe reading](#28-multi-timeframe-reading)
-   - [2.9 ADR — measuring a stock's technical character](#29-adr--measuring-a-stocks-technical-character)
+   - [2.9 ADR — measuring a stock&#39;s technical character](#29-adr--measuring-a-stocks-technical-character)
    - [2.10 Leveraged, proxy, and correlated instruments](#210-leveraged-proxy-and-correlated-instruments)
    - [2.11 Market-wide breadth and regime diagnostics](#211-market-wide-breadth-and-regime-diagnostics)
    - [2.12 Price leads fundamentals](#212-price-leads-fundamentals)
-3. [Position Sizing & Risk Management](#3-position-sizing--risk-management)
+3. [Position Sizing &amp; Risk Management](#3-position-sizing--risk-management)
    - [3.1 Risk per trade — the core percentage](#31-risk-per-trade--the-core-percentage)
    - [3.2 Position concentration limits](#32-position-concentration-limits)
    - [3.3 Asymmetric risk/reward — the whole game](#33-asymmetric-riskreward--the-whole-game)
    - [3.4 Starter positions vs. full-size entry — a real tension in his own rules](#34-starter-positions-vs-full-size-entry--a-real-tension-in-his-own-rules)
    - [3.5 Liquidity and borrow cost as sizing constraints](#35-liquidity-and-borrow-cost-as-sizing-constraints)
-   - [3.6 Margin discipline — "deserved, not entitled"](#36-margin-discipline--deserved-not-entitled)
+   - [3.6 Margin discipline — &#34;deserved, not entitled&#34;](#36-margin-discipline--deserved-not-entitled)
    - [3.7 Sizing stops to volatility (ADR-based stops)](#37-sizing-stops-to-volatility-adr-based-stops)
-   - [3.8 The short side's structural asymmetry](#38-the-short-sides-structural-asymmetry)
+   - [3.8 The short side&#39;s structural asymmetry](#38-the-short-sides-structural-asymmetry)
    - [3.9 Studying historical blowups](#39-studying-historical-blowups)
    - [3.10 Portfolio-level risk — position count as a personal stress indicator](#310-portfolio-level-risk--position-count-as-a-personal-stress-indicator)
    - [3.11 Platform and broker redundancy](#311-platform-and-broker-redundancy)
@@ -64,7 +66,7 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [4.1 The 3-to-5-day trim rule, and how it flexes with market conditions](#41-the-3-to-5-day-trim-rule-and-how-it-flexes-with-market-conditions)
    - [4.2 Default stop placement — the close, not the wick](#42-default-stop-placement--the-close-not-the-wick)
    - [4.3 Adding to winners — the mechanics of pyramiding into strength](#43-adding-to-winners--the-mechanics-of-pyramiding-into-strength)
-   - [4.4 "You cannot outsmart the moving average" — the recurring self-critique](#44-you-cannot-outsmart-the-moving-average--the-recurring-self-critique)
+   - [4.4 &#34;You cannot outsmart the moving average&#34; — the recurring self-critique](#44-you-cannot-outsmart-the-moving-average--the-recurring-self-critique)
    - [4.5 Deviating from the rules backfires — named casualties](#45-deviating-from-the-rules-backfires--named-casualties)
    - [4.6 Short-side exit mechanics — fundamentally different from longs](#46-short-side-exit-mechanics--fundamentally-different-from-longs)
    - [4.7 Willingness to re-enter after a stop-out](#47-willingness-to-re-enter-after-a-stop-out)
@@ -72,22 +74,22 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [4.9 Fast/extreme movers need a faster trail](#49-fastextreme-movers-need-a-faster-trail)
    - [4.10 When overriding the rules is actually correct](#410-when-overriding-the-rules-is-actually-correct)
    - [4.11 Execution mechanics](#411-execution-mechanics)
-5. [Profit Taking & Exit Strategy](#5-profit-taking--exit-strategy)
-   - [5.1 "Let the stock tell you" — why fixed price targets get rejected almost universally](#51-let-the-stock-tell-you--why-fixed-price-targets-get-rejected-almost-universally)
+5. [Profit Taking &amp; Exit Strategy](#5-profit-taking--exit-strategy)
+   - [5.1 &#34;Let the stock tell you&#34; — why fixed price targets get rejected almost universally](#51-let-the-stock-tell-you--why-fixed-price-targets-get-rejected-almost-universally)
    - [5.2 The core trade-off — sell a little too late, not a lot too early](#52-the-core-trade-off--sell-a-little-too-late-not-a-lot-too-early)
    - [5.3 Selling too early — the self-rated weak spot](#53-selling-too-early--the-self-rated-weak-spot)
    - [5.4 Defending large open profits actively](#54-defending-large-open-profits-actively)
    - [5.5 Home-run trading — the Pareto principle](#55-home-run-trading--the-pareto-principle)
-   - [5.6 Exit mechanics change at size — "get out when I can, not when I want to"](#56-exit-mechanics-change-at-size--get-out-when-i-can-not-when-i-want-to)
+   - [5.6 Exit mechanics change at size — &#34;get out when I can, not when I want to&#34;](#56-exit-mechanics-change-at-size--get-out-when-i-can-not-when-i-want-to)
    - [5.7 Trading price over opinion — the Tesla short-to-long flip](#57-trading-price-over-opinion--the-tesla-short-to-long-flip)
    - [5.8 Reframing losses against total account size](#58-reframing-losses-against-total-account-size)
    - [5.9 Exit style is a trade-off, not a universal rule](#59-exit-style-is-a-trade-off-not-a-universal-rule)
-   - [5.10 "Silly season" runners — the trail that gives back too much](#510-silly-season-runners--the-trail-that-gives-back-too-much)
-6. [Market Timing & Regime Reading](#6-market-timing--regime-reading)
-   - [6.1 The two-regime framework — "easy dollar" vs. "hard penny"](#61-the-two-regime-framework--easy-dollar-vs-hard-penny)
-   - [6.2 The hardest regime isn't a crash — it's chop](#62-the-hardest-regime-isnt-a-crash--its-chop)
+   - [5.10 &#34;Silly season&#34; runners — the trail that gives back too much](#510-silly-season-runners--the-trail-that-gives-back-too-much)
+6. [Market Timing &amp; Regime Reading](#6-market-timing--regime-reading)
+   - [6.1 The two-regime framework — &#34;easy dollar&#34; vs. &#34;hard penny&#34;](#61-the-two-regime-framework--easy-dollar-vs-hard-penny)
+   - [6.2 The hardest regime isn&#39;t a crash — it&#39;s chop](#62-the-hardest-regime-isnt-a-crash--its-chop)
    - [6.3 Reading breadth and correlation — the clearest regime-change signal](#63-reading-breadth-and-correlation--the-clearest-regime-change-signal)
-   - [6.4 Case study: "the rug pull"](#64-case-study-the-rug-pull)
+   - [6.4 Case study: &#34;the rug pull&#34;](#64-case-study-the-rug-pull)
    - [6.5 The best time to buy breakouts — right after a correction resolves](#65-the-best-time-to-buy-breakouts--right-after-a-correction-resolves)
    - [6.6 Position count and personal exposure as a sentiment gauge](#66-position-count-and-personal-exposure-as-a-sentiment-gauge)
    - [6.7 Euphoria is a warning sign, not a green light](#67-euphoria-is-a-warning-sign-not-a-green-light)
@@ -96,31 +98,31 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [6.10 Case study: the GameStop/meme-stock squeeze (January 2021)](#610-case-study-the-gamestopmeme-stock-squeeze-january-2021)
    - [6.11 Case study: the 2022 bear market](#611-case-study-the-2022-bear-market)
    - [6.12 Sitting out is a valid, even superior, strategy](#612-sitting-out-is-a-valid-even-superior-strategy)
-7. [Watchlist & Stock Selection Criteria](#7-watchlist--stock-selection-criteria)
+7. [Watchlist &amp; Stock Selection Criteria](#7-watchlist--stock-selection-criteria)
    - [7.1 The primary gate — ADR and dollar volume, before anything else](#71-the-primary-gate--adr-and-dollar-volume-before-anything-else)
    - [7.2 The actual scan mechanics — what the screens really look like](#72-the-actual-scan-mechanics--what-the-screens-really-look-like)
-   - [7.3 Fundamentals as "fuel," never the trigger](#73-fundamentals-as-fuel-never-the-trigger)
-   - [7.4 Institutional-quality names vs. pure pump stocks — knowing which bucket you're in](#74-institutional-quality-names-vs-pure-pump-stocks--knowing-which-bucket-youre-in)
+   - [7.3 Fundamentals as &#34;fuel,&#34; never the trigger](#73-fundamentals-as-fuel-never-the-trigger)
+   - [7.4 Institutional-quality names vs. pure pump stocks — knowing which bucket you&#39;re in](#74-institutional-quality-names-vs-pure-pump-stocks--knowing-which-bucket-youre-in)
    - [7.5 Proactive theme-building — watchlists made before the theme is obvious](#75-proactive-theme-building--watchlists-made-before-the-theme-is-obvious)
-   - [7.6 "The shittier the stock, the bigger the move"](#76-the-shittier-the-stock-the-bigger-the-move)
+   - [7.6 &#34;The shittier the stock, the bigger the move&#34;](#76-the-shittier-the-stock-the-bigger-the-move)
    - [7.7 Real-name-brand backing as a credibility signal — and its limits](#77-real-name-brand-backing-as-a-credibility-signal--and-its-limits)
    - [7.8 What gets filtered out entirely](#78-what-gets-filtered-out-entirely)
    - [7.9 The liquidity test — placing a real test order](#79-the-liquidity-test--placing-a-real-test-order)
-   - [7.10 "Our job is to be in the stocks other funds want"](#710-our-job-is-to-be-in-the-stocks-other-funds-want)
-   - [7.11 A stock's "personality" — reading repeated stop-outs as a fit problem](#711-a-stocks-personality--reading-repeated-stop-outs-as-a-fit-problem)
+   - [7.10 &#34;Our job is to be in the stocks other funds want&#34;](#710-our-job-is-to-be-in-the-stocks-other-funds-want)
+   - [7.11 A stock&#39;s &#34;personality&#34; — reading repeated stop-outs as a fit problem](#711-a-stocks-personality--reading-repeated-stop-outs-as-a-fit-problem)
    - [7.12 The Luckin Coffee fraud and its ripple effect on Chinese-ADR trust](#712-the-luckin-coffee-fraud-and-its-ripple-effect-on-chinese-adr-trust)
-8. [Psychology & Mindset](#8-psychology--mindset)
-   - [8.1 Emotion is not the enemy — channel it, don't suppress it](#81-emotion-is-not-the-enemy--channel-it-dont-suppress-it)
-   - [8.2 Discipline over being right — "love your stops, not your dogs"](#82-discipline-over-being-right--love-your-stops-not-your-dogs)
+8. [Psychology &amp; Mindset](#8-psychology--mindset)
+   - [8.1 Emotion is not the enemy — channel it, don&#39;t suppress it](#81-emotion-is-not-the-enemy--channel-it-dont-suppress-it)
+   - [8.2 Discipline over being right — &#34;love your stops, not your dogs&#34;](#82-discipline-over-being-right--love-your-stops-not-your-dogs)
    - [8.3 Patience and boredom tolerance as the central skill](#83-patience-and-boredom-tolerance-as-the-central-skill)
    - [8.4 Losses and drawdowns as the cost of doing business, not a personal failing](#84-losses-and-drawdowns-as-the-cost-of-doing-business-not-a-personal-failing)
    - [8.5 Reviewing and owning mistakes publicly, in real time](#85-reviewing-and-owning-mistakes-publicly-in-real-time)
    - [8.6 Complacency after success — danger peaks right after the easiest stretches](#86-complacency-after-success--danger-peaks-right-after-the-easiest-stretches)
-   - [8.7 Real skill isn't transferable secondhand — borrowed ideas vs. earned conviction](#87-real-skill-isnt-transferable-secondhand--borrowed-ideas-vs-earned-conviction)
-   - [8.8 "Psychology" problems are usually edge problems in disguise](#88-psychology-problems-are-usually-edge-problems-in-disguise)
+   - [8.7 Real skill isn&#39;t transferable secondhand — borrowed ideas vs. earned conviction](#87-real-skill-isnt-transferable-secondhand--borrowed-ideas-vs-earned-conviction)
+   - [8.8 &#34;Psychology&#34; problems are usually edge problems in disguise](#88-psychology-problems-are-usually-edge-problems-in-disguise)
    - [8.9 Extreme ownership — rejecting manipulation narratives and external blame](#89-extreme-ownership--rejecting-manipulation-narratives-and-external-blame)
    - [8.10 Chronic overtrading — his own most self-identified recurring leak](#810-chronic-overtrading--his-own-most-self-identified-recurring-leak)
-   - [8.11 React, don't predict — trader vs. investor mindset](#811-react-dont-predict--trader-vs-investor-mindset)
+   - [8.11 React, don&#39;t predict — trader vs. investor mindset](#811-react-dont-predict--trader-vs-investor-mindset)
    - [8.12 The origin story — blowing up the account early, and what actually changed](#812-the-origin-story--blowing-up-the-account-early-and-what-actually-changed)
 9. [Common Mistakes / What Not To Do](#9-common-mistakes--what-not-to-do)
    - [9.1 Stubbornness — refusing to cut a loss, and fighting the tape](#91-stubbornness--refusing-to-cut-a-loss-and-fighting-the-tape)
@@ -166,23 +168,23 @@ Kullamägi's own shorthand — "I only trade three setups" — is real and gets 
 
 A second tier of videos supplies one or two specific examples each, used in a single subsection and cited inline there. Listed here by which subsection they feed, for reference:
 
-| Used in | Example it supplies | Date | Link |
-|---|---|---|---|
-| 1.2 Pocket pivots | CrowdStrike (CRWD) walkthrough | 2021-05-26 | https://www.youtube.com/watch?v=A2gkEQC6O_Y |
-| 1.2 Pocket pivots | TDOC pocket-pivot cross-reference | 2021-01-20 | https://www.youtube.com/watch?v=jCvLY7F8g80 |
+| Used in                             | Example it supplies                                   | Date       | Link                                        |
+| ----------------------------------- | ----------------------------------------------------- | ---------- | ------------------------------------------- |
+| 1.2 Pocket pivots                   | CrowdStrike (CRWD) walkthrough                        | 2021-05-26 | https://www.youtube.com/watch?v=A2gkEQC6O_Y |
+| 1.2 Pocket pivots                   | TDOC pocket-pivot cross-reference                     | 2021-01-20 | https://www.youtube.com/watch?v=jCvLY7F8g80 |
 | 1.2 Pocket pivots / vocabulary note | Pinterest (PINS) pocket pivot, and the VCP definition | 2021-01-21 | https://www.youtube.com/watch?v=D1NMXfSXpYk |
-| 1.4 IPO breakouts | Day-one-risk caution | 2020-02-03 | https://www.youtube.com/watch?v=qmhLHCHRBnM |
-| 1.4 IPO breakouts | "Why IPO breakouts" framing | 2021-06-09 | https://www.youtube.com/watch?v=gwoJzKevjeY |
-| 1.3 Episodic pivots | 2023-era EP-dominance commentary | 2023-05-19 | https://www.youtube.com/watch?v=_y9Wo0eBP4A |
-| 1.7 Weekly/monthly MA bounces | DQ weekly-chart rescue | 2021-01-25 | https://www.youtube.com/watch?v=dvZBux4ffy0 |
-| 1.9 Failed-breakout resets | AMRS/EXEL false-breakout examples | 2021-02-05 | https://www.youtube.com/watch?v=FamRgrbApII |
-| 1.9 Failed-breakout resets | False-breakout principle restated | 2021-03-19 | https://www.youtube.com/watch?v=7jPFXy_nrBE |
-| 1.10 Distressed bounces | CCL distressed-bounce trade | 2020-04-17 | https://www.youtube.com/watch?v=SvTWDAao4pI |
-| 1.11 Sector sympathy | Coronavirus-stock sympathy watchlist | 2020-02-26 | https://www.youtube.com/watch?v=e5Cc6XHg-7E |
-| 1.11 Sector sympathy | Sympathy-play definition | 2020-09-29 | https://www.youtube.com/watch?v=JxOTlvGUSF0 |
-| 1.12 What he avoids | Beyond Meat gap-chasing refusal | 2020-02-19 | https://www.youtube.com/watch?v=AG226y4hi1E |
-| 1.12 What he avoids | GBTC hard-stop loss | 2020-06-02 | https://www.youtube.com/watch?v=uZFKiMA3M1I |
-| Vocabulary note | Tennis ball action definition | 2021-05-20 | https://www.youtube.com/watch?v=Pde5BeC0JEk |
+| 1.4 IPO breakouts                   | Day-one-risk caution                                  | 2020-02-03 | https://www.youtube.com/watch?v=qmhLHCHRBnM |
+| 1.4 IPO breakouts                   | "Why IPO breakouts" framing                           | 2021-06-09 | https://www.youtube.com/watch?v=gwoJzKevjeY |
+| 1.3 Episodic pivots                 | 2023-era EP-dominance commentary                      | 2023-05-19 | https://www.youtube.com/watch?v=_y9Wo0eBP4A |
+| 1.7 Weekly/monthly MA bounces       | DQ weekly-chart rescue                                | 2021-01-25 | https://www.youtube.com/watch?v=dvZBux4ffy0 |
+| 1.9 Failed-breakout resets          | AMRS/EXEL false-breakout examples                     | 2021-02-05 | https://www.youtube.com/watch?v=FamRgrbApII |
+| 1.9 Failed-breakout resets          | False-breakout principle restated                     | 2021-03-19 | https://www.youtube.com/watch?v=7jPFXy_nrBE |
+| 1.10 Distressed bounces             | CCL distressed-bounce trade                           | 2020-04-17 | https://www.youtube.com/watch?v=SvTWDAao4pI |
+| 1.11 Sector sympathy                | Coronavirus-stock sympathy watchlist                  | 2020-02-26 | https://www.youtube.com/watch?v=e5Cc6XHg-7E |
+| 1.11 Sector sympathy                | Sympathy-play definition                              | 2020-09-29 | https://www.youtube.com/watch?v=JxOTlvGUSF0 |
+| 1.12 What he avoids                 | Beyond Meat gap-chasing refusal                       | 2020-02-19 | https://www.youtube.com/watch?v=AG226y4hi1E |
+| 1.12 What he avoids                 | GBTC hard-stop loss                                   | 2020-06-02 | https://www.youtube.com/watch?v=uZFKiMA3M1I |
+| Vocabulary note                     | Tennis ball action definition                         | 2021-05-20 | https://www.youtube.com/watch?v=Pde5BeC0JEk |
 
 ### 1.1 The core setup — "high tide flag" / momentum breakout
 
@@ -209,6 +211,7 @@ A stock makes a large initial momentum move, then pulls back or goes sideways an
   - *2020-09-30, "Lack of good setups again", t=1182s*
 
 Putting the two clips together, the core setup is really a two-stage filter, not a single pattern. Stage one is structural — a stock has to actually be surfing a rising moving average with a series of higher lows (INO, BLDP, FAS, and SC in the walkthrough above all pass this test before he'll even consider them). Stage two is the live pass/fail scan — even a structurally valid base gets rejected instantly if the range in front of it isn't tight ("dude, this thing is up five days in a row, where's the setup here"), and a merely-decent chart gets upgraded from a pass to a genuine buy when the whole sector is confirming at once, as with the BLDP/fuel-cell pass. The FAS trade is the one that best shows what happens when the setup is *right* but the timing is off: he lost money on the first attempt at the open, took the stop without hesitation, and simply re-bought once the opening-range-high broke a second time — treating the failed first attempt as new information about the trigger, not as a reason to abandon the thesis.
+
 ### 1.2 Pocket pivots
 
 A pocket pivot is a breakout that happens *inside* an existing base or range, rather than off a clean multi-week consolidation into brand-new territory — a stock with prior momentum pulls back to a major moving average, builds a small range there, then breaks that smaller range on higher volume, all while still technically inside its larger pattern. Unlike most of the other setups in this section, he actually spells this one out in full, twice, on two different named stocks — so there's a real "textbook example" to learn from here, not just a definition.
@@ -405,7 +408,8 @@ His stated toolkit is price, volume, and moving averages — "the less you use, 
   - *2021-12-15, t=95s*
 
 Reading all five together, the pattern in what gets rejected isn't "complexity" per se — it's anything that either (a) restates information already visible in price and moving averages, just with extra lag or noise layered on top, or (b) makes a forward-looking claim (Volume Buzz's volume projection, a head-and-shoulders' implied reversal) that isn't actually supported by how the specific instrument behaves. His own summary line for the whole category: **90-95% of technical analysis as commonly taught is "garbage."**
-  - *2020-06-02, "Best swing trading market ever. Just activate autopilpot and all bad news gets absorbed"*
+
+- *2020-06-02, "Best swing trading market ever. Just activate autopilpot and all bad news gets absorbed"*
 
 ### 2.2 The moving-average framework
 
@@ -603,11 +607,13 @@ The two aren't simply contradictory once you notice what each is optimized for. 
 Position size should scale with a stock's dollar volume — a repeated heuristic is to never be more than roughly 1% of a stock's average daily dollar volume. On the short side specifically, borrow availability and cost are treated as a real, dollar-denominated constraint on the trade itself, not an afterthought.
 
 - **Nikola — a new personal record for locate fees, paid anyway.** Mid-position, he reports the cost live: "I paid $22,000 to borrow 30,000 shares — I've never paid this much in locate fees before, that was a new all-time high for me." Doing the exact math on stream: "they were pretty expensive... almost $23,000 bucks is what I paid for my locates on Nikola." His conclusion isn't regret, it's acceptance of the cost as the price of the trade: "you gotta pay to play sometimes, you gotta pay to play, that's just what it is."
+
   - *2020-06-09, t=6585s*
 - **SPCE — the honest counter-example, where avoiding the fee cost more than paying it would have.** Short 30,000 shares heading into a weekend, he covers the entire position specifically to dodge financing cost: "I was short 30,000 shares of SPCE, I covered it all because I didn't want to hold it over the weekend and pay borrow fees — I would have paid like $20,000 in borrow fees over the weekend, I didn't want to do that." The stock gapped down over the weekend anyway: "if I'd held it over the weekend, I would have literally paid $20K in borrow fees, but I would be up $20K on the trade just over the weekend. Well, it's what it is, a little bit frustrating." He doesn't retroactively call the decision wrong — the point isn't that avoiding financing cost is always correct, it's that it's a real, quantifiable trade-off weighed *before* the outcome is known, not an afterthought once the bill arrives.
-  - *2020-02-24, t=571s*
 
+  - *2020-02-24, t=571s*
 - **The two-year cautionary tale — why the real cost of a bad short isn't the fee, it's the sentence.** Recounting another trader's experience of getting stuck in a stuck short: "he was in it for two years... he paid $17,000 in short-loan payments over that two-year period. He was stuck in it for two years, imagine that — imagine the stress, even about the money, but the stress, because once you've been stuck in it for a few months, you don't know if it's gonna be six months or a year, you don't know if you're gonna be stuck in it for the rest of your life. It just pays $700 bucks [a month] but risks so much... shorting is so hard on so many levels, such a tough business." He gives the resulting preference directly: "that's why I love shorting stuff like Tesla — easy to borrow, high price, liquid, they're not gonna get delisted overnight, these are real companies."
+
   - *2020-01-14, t=4262s*
 
 Read together, the three show the same discipline from every angle: sometimes the right call is to pay a large, known locate cost because the setup justifies it (Nikola), sometimes it's to eat a smaller, certain cost (closing early) rather than risk a larger, uncertain one (holding through a weekend, SPCE), and the two-year story is the reason the whole discipline exists in the first place — an open-ended borrow-cost commitment isn't just a dollar figure, it's a position that can trap capital and attention for years with no defined exit. Preferring liquid, high-priced, "real" companies for the short side (Tesla-type names) over cheap, thin, delistable ones is a direct hedge against ever becoming the trader in that story.
@@ -1305,6 +1311,8 @@ Read together, the two stories complicate the tidy version of the origin story: 
 
 - **Fastly, repeatedly re-shorted against a runaway uptrend, for a cumulative six-figure loss in one session.** Convinced the stock was overextended after a 600% run: "Fastly, I'm gonna focus on the short side, can it go to 100 bucks? Sure it can, but right now this thing is up six hundred percent from the March lows... I just don't think the odds favor this thing." He shorts, gets stopped out for a loss, and re-shorts repeatedly through the day as the stock keeps grinding higher — "I lost 29K in like 30 seconds on this thing," then "I took a seventy-one thousand dollar loss on Fastly," then, still fighting the same thesis hours later: "I'm gonna take a nice loss on Fastly again — I'm down, closing in on 135K, my biggest loss in a couple of weeks."
   - *2020-06-23, t=616s, t=784s, t=1254s, t=3731s*
+- **The self-aware, generalized version — and the mechanical fix he uses against his own stubbornness.** "I can't believe some people are struggling with not taking losses, it's incredible... I mean, we can all be a little bit stubborn sometimes, sometimes they do [get attached to a position] a little bit, but you just gotta get out — just hit it with a market order, I do that, that's why I create all these wicks, as you have seen over the months." Naming his own visible chart "wicks" as the byproduct of forcing himself out at-market rather than trying to finesse a limit price is the honest tell: the fix for stubbornness isn't willpower in the moment, it's a mechanical habit that overrides the impulse before it can take hold.
+  - *2021-01-25, "Did I trade $100M worth of stocks today? YES!", t=4325s*
 
 The instructive part isn't the size of any single stop-out — it's that he kept re-entering the identical short thesis on the identical stock as it kept proving him wrong, rather than accepting that the tape itself was the disconfirming evidence. This is the mechanical version of the $700,000 stubbornness loss covered in 8.12 — the same flaw (refusing to let price override a fixed thesis), just visible here across several re-entries in a single session rather than one large position held too long.
 
@@ -1312,10 +1320,17 @@ The instructive part isn't the size of any single stop-out — it's that he kept
 
 - **The rule stated directly, mid-scan.** "It's very important to buy them as soon as they start breaking out, not on the second day after they're already up a bunch from the entry point." Moments later, passing on a name for exactly this reason: "chasing — it's not good, you know, just wait, there's so many other stocks that are starting to set up."
   - *2020-06-18, t=1120s, t=1657s*
+- **A real, confessed instance of breaking his own rule — on the third leg of an already-extended move.** Reviewing his own book live: "sometimes I break my rules — I bought SPCE two days ago, but you know, I shouldn't have done that. I knew better, but sometimes FOMO gets the better of me." He immediately supplies the technical reason it was a mistake, using the same leg-counting language he applies to other names in the same session: "now the 10-day is starting to catch up," on a stock already well into its move rather than an early flag. Admitting the FOMO motive by name, rather than reframing the trade as a considered exception, is what keeps this from reading as hindsight bias — he knew the rule and chased anyway.
+  - *2021-02-10, "Buy the lows and sell the top on $TLRY?", t=2707s*
 
 The mechanism is the same one covered in Section 1's entry criteria: a valid breakout has a specific, low-risk entry point close to the base, and every day past that point both raises the entry price and pushes the stop further away, degrading the risk/reward on what may still be a perfectly good stock. The Workhorse example in 4.5 shows the more expensive version of this same mistake — not just a slightly worse entry, but a full missed multi-bagger caused by exactly this kind of second-day hesitation.
 
 ### 9.3 Buying breakouts in a choppy, non-trending market
+
+- **The rule stated live, while watching the exact failure happen on screen.** Catching a name capping down right after a breakout attempt: "JD capping down — yeah, that's, that's why you never buy breakouts in a choppy market, or in a high-volatility market. That is a high-volatility market." The rule isn't offered in the abstract; it's stated at the moment the chart itself is proving it, on a name he's actively watching.
+  - *2020-04-15, t=2193s*
+- **The stakes named without hedging, a year and a half later, in a market he calls genuinely dangerous for the setup.** "Breakouts are nice when there's speculation money in the markets, when the markets are trending higher — not in an environment like this, you gotta be super, super careful. You're gonna get killed, you're gonna decimate your account if you keep buying breakouts. You come in every day excited for breakouts... two months in, you won't have an account." His own prescription is to stop trying the setup entirely rather than trade it smaller: "survive until the next market cycle... wait, the best thing that could happen — we get a decent sell-off, the big money is usually made after sell-offs, that's where you start buying breakouts."
+  - *2021-12-17, "Santa stopped buying", t=2582s*
 
 Cited repeatedly across the corpus (general principle, recurring across many videos in the batch notes) as one of the fastest ways to lose money: breakout strategies specifically require a market that's actually trending, and the same setup that works cleanly in a trending tape produces a string of same-day failed breakouts and whipsaw losses once the broader market shifts into chop. The batch notes describe this as a lesson he has had to "relearn" more than once rather than something solved permanently after the first costly stretch — a market correction is specifically named as the trigger, since the exact chart pattern that would resolve upward in a healthy tape instead reverses immediately once broader participation narrows.
 
@@ -1334,6 +1349,8 @@ Read together, these are the same mistake seven years apart, from both sides of 
 
 - **"Gambling, not trading" — the line drawn explicitly, in response to a viewer's suggestion.** Asked why not just buy before earnings reports for the extra pop: "well, go ahead, start buying stocks before earnings reports, you report back what will happen... that's gambling, not trading, and we are traders in this room — no gamblers welcome."
   - *2020-07-31, t=661s*
+- **A named ticker, dropped from the watchlist the moment a data date became known.** Explaining why he won't touch biotechs with a scheduled announcement, contrasted with ones that have already reported: "it's not like buying a biotech that has announced that they're gonna release data a week from now — that's not the same thing, no, that's just plain Russian roulette." He backs it with a live, specific example: "this is why — we talked about CRSP, you know, someone said they're gonna release data, was it next week? So immediately I just removed it from my [watchlist]." The distinction he draws is precise: a biotech that has *already* reported and is now trending on the result is a normal momentum trade; the same stock the week before that same report is an unpriced coin flip, and the fix is simply removing it from consideration the moment the date is known, not sizing down or hedging around it.
+  - *2023-06-09, "Market mechanics, setups and more", t=4027s*
 
 The distinction he draws isn't "never hold through an earnings report" — it's holding *purely out of habit or hope*, with no real thesis and no cushion, versus deliberately choosing to hold a partial, already-profitable position through a catalyst with a plan for both outcomes. The PDD earnings loss detailed in 4.8 (roughly $200,000, on a position held without that plan) is the concrete cost of ignoring this distinction rather than a separate lesson.
 
@@ -1343,6 +1360,8 @@ The same "gambling, not trading" label is applied elsewhere in the batch notes t
 
 - **Freezing during a live trade, named directly as unacceptable.** Reviewing a moment where he failed to execute a planned exit: "you froze and didn't execute well, that's not a good thing... you should never freeze. You should always have a plan for any scenario, should always have an out, and when that out triggers, you should just execute, no second thoughts."
   - *2020-09-04, t=240s*
+- **Two named trades, missed for the identical reason, a year and a half later.** Reviewing a rough week: "again, not following my own rules cost me a big trade — could have been the trade of the year, or one of the trades of the year. I missed two big trades, Boil and CASS, just because I didn't follow my own sell rules — it's so dumb, man. Every time I think I'm smarter than a 10- and 20-day moving average, this is what happens, every single time — well, not every time, sometimes I'm lucky — but just trusting the moving average, it's the hardest thing. It really is." The specific, named cost (two of the year's best trades, not a hypothetical) is what separates this from a general confession — overriding the rule is shown producing a concrete, quantifiable opportunity loss, not just an abstract discipline lapse.
+  - *2022-04-13, "F***ed by the oil & gas sector this whole week", t=2753s*
 
 This is the mechanical failure mode behind 9.4's PLUG story — "I added to a loser, I did all of these stupid things you shouldn't do" is a description of exactly this, abandoning a predefined plan mid-trade under pressure. Elsewhere in the corpus this same override shows up as "playing rocket scientist" — trying to outsmart a simple, mechanical trailing-stop rule with discretion in the moment (see 4.4) — and multiple narrated episodes across the years show the discretionary deviation consistently producing a worse outcome than simply following the system would have. The fix stated here is procedural, not motivational: define the "out" for every scenario in advance, so execution under pressure becomes a checklist item rather than a decision.
 
@@ -1350,6 +1369,8 @@ This is the mechanical failure mode behind 9.4's PLUG story — "I added to a lo
 
 - **Options named a "loser's game," with an honest hedge attached.** "I think options is a loser's game — but obviously there are people that make a lot of money in options, I just... can't recall a single person I've heard of, for every [winner], it's because it's so much harder."
   - *2021-02-03, t=1941s*
+- **CFDs, ruled out flatly by their mechanics rather than by track record.** Watching a viewer describe a CFD position: "incredible leverage in those things — I never traded any CFD, but I know people who do, and it's just — it's poison." Unlike the options line, this isn't hedged with "some people make it work" — the built-in leverage itself is treated as disqualifying, independent of anyone's individual skill.
+  - *2020-04-15, t=2249s*
 
 This is the softer, more qualified companion to the harder-edged options and CFD language already covered in 3.12 — the "sucker's game" framing there is about the lottery-ticket psychology options encourage, while this clip is specifically about the difficulty of the instrument itself: he doesn't claim options are unbeatable, only that he's never personally verified anyone doing it consistently, which is a meaningfully different and more careful claim. Forex gets folded into the same bucket in the batch notes with even less hedging (general principle, recurring across the corpus) — he says he's never seen or verified a profitable forex trader, versus many verified profitable stock swing traders, and treats that asymmetry itself as the reason to stay away from all three instruments until already consistently profitable trading straight equities.
 
@@ -1357,10 +1378,17 @@ This is the softer, more qualified companion to the harder-edged options and CFD
 
 - **A weekly habit, and the one time it became a $1.5 million loss.** In the aftermath of his largest publicized loss: "that was a really dumb trade... those of you who have been on my stream for a while, you know I fat-finger trades at least a couple of times per week — I oversell, I double-click on the sell or buy button, that happens a lot, almost every week." Asked if he'd change anything to prevent it happening again: "I'm never gonna make a fat-finger trade again? No — they're always gonna happen, it was just an extreme scenario, that could have happened on any stock... I fat-finger all the time, at least a few times per week, that I accidentally buy or sell twice the size, but they're usually not on these ultra-momentum stocks. I don't think I can adjust to a point where that will never happen again — you just have to be fine with it."
   - *2020-07-30, t=544s, t=6031s*
+- **A small, routine version of the same mistake, weeks earlier, at the exact moment it usually happens.** Mid-session, near the open: "I accidentally put the stop a dollar lower — okay, so I'm out of Fastly, even though I really didn't get stopped out of it, but I did — another fat-finger mistake. But whatever, I'm making a lot of fat-finger mistakes near open, not a good thing, it's been too many of them the past few weeks." The location matters: he names the open specifically as the recurring danger window, not a random time of day, which is what makes the $1.5 million loss a predictable tail event rather than a freak accident — the small, routine version of the mistake was already visible weeks before the large one.
+  - *2020-07-06, "Couple of rants about spending 1000+ hours studying how stocks move.", t=1246s*
 
 The framing is deliberately unheroic: he doesn't present the $1.5 million loss as a freak, unrepeatable event, he presents it as the tail risk of an error he makes routinely and has made peace with as a permanent cost of trading actively and at size — the same acceptance-of-structural-cost logic that runs through 8.4's treatment of drawdowns. The specific danger named is compounding this same habit with leverage: "imagine you do a highly leveraged options trade [and] fat-finger it — things can go south so fast," which is offered as one more concrete reason options in particular are avoided (9.7).
 
 ### 9.9 Ignoring liquidity and borrow constraints
+
+- **A live setup, wanted and then abandoned in the same breath — not over the chart, over the locate.** Eyeing a clean short candidate mid-session: "there could be a nice short on it... lazy, like the first red one-minute candle or the first red five-minute candle, there could be an entry there." Seconds later, the trade simply doesn't happen: "no, I'm not [taking it] — I can't get any shares... I couldn't find a locate." The setup itself was never in question; the trade died purely on availability, which is exactly the category of loss this rule is meant to prevent — not a bad read on the chart, a constraint that should have been checked before getting excited about the entry.
+  - *2020-10-06, t=6039s*
+- **The long-side version, stated as a personal filter rather than a one-off pass.** Explaining why he won't chase small, illiquid names even when the setup looks fine: "I don't want an adrenaline rush, I want to make real money — it's impossible to make any real money on these small ones, I can't get filled, and I get shaken out, and I have big slippage." Applied concretely in the same session to a name with a real, working setup: "I had an EP yesterday on [it], it also broke out of this nice triangle — but it's just too thin for me, so I totally ignored it." A confirmed, working chart pattern gets discarded outright, not sized down or traded cautiously, because the liquidity constraint makes the setup untradeable at any size worth the effort.
+  - *2021-03-23, "Not great action beneath the hood right now", t=1734s and t=4382s*
 
 Committing size to a name — long or short — without first checking whether that size can actually be deployed and exited cleanly is treated as a distinct category of avoidable loss from a bad entry or a bad thesis (general principle, recurring across the batch notes). On the short side specifically, several otherwise good-looking setups are described as skipped outright purely because shares were unborrowable or prohibitively expensive to locate — a discipline that only makes sense alongside 3.5's examples of the inverse mistake (paying $22,800 in Nikola locate fees rather than passing, and the SPCE weekend-borrow-cost trade-off), since the two only work together as a coherent rule: know the borrow cost and availability *before* sizing into a short, then make a deliberate, priced-in decision either way rather than discovering the constraint mid-trade.
 
@@ -1370,6 +1398,8 @@ On the long side, the same category of mistake shows up as trading illiquid micr
 
 - **"They better have audited returns... run the other way."** On trading educators and self-styled gurus: "99 percent of them are total frauds — if anyone is trying to sell you something, they better be able to back it up, they better have audited returns or something. If they can't back it up, run the other way." He connects this directly to his own low profile: "that's how I am so under the radar, because I don't market myself — I literally don't market myself."
   - *2020-10-30, t=3532s*
+- **The compounding-math sanity check, applied to two named, credentialed sellers.** Pushing back on a viewer defending a well-known figure's course: "it's kind of weird for someone who's been trading for 30 or 40 years — you have to understand, with simple math, compounding, if he had great returns for that long, he has to be a billionaire by now, yet he's selling courses and seminars... guys, use your brain, there's something very wrong there, it just doesn't make sense." He names a second, more specific case: a Swedish finance figure billed as "European hedge fund manager of the year" who "retired for five, six years and suddenly started selling courses" — "it's so pathetic, man, these guys are all liars." The conclusion he draws isn't just skepticism of the sales pitch, it's a testable arithmetic check: real audited long-term compounding at the returns being claimed is mathematically incompatible with needing course revenue, so the course itself is evidence the claimed track record isn't real.
+  - *2021-09-17, "Buy my course for $9999.99", t=3619s and t=3800s*
 
 This is the market-facing companion to 8.7's "you can steal ideas, you can't borrow conviction" — the batch notes describe the same skepticism applied specifically to copy-trading (following another trader's individual alerts instead of building personal rules, explicitly discouraged even toward his own trades) and to commentators who post ideas but trade tiny size themselves, with the alternative offered being to study traders with demonstrable size and long, verifiable track records instead of anyone whose actual returns can't be checked.
 
@@ -1377,6 +1407,8 @@ This is the market-facing companion to 8.7's "you can steal ideas, you can't bor
 
 - **A live trade-log review, ending in a hard numeric rule.** Reviewing a struggling trader's activity: "you're doing like four or five trades every single day — stop it, no more than one trade per day for you, no more than one trade per day, you're gonna blow up so fast." Generalizing the fix moments later, for a different reviewed trader: "the best thing you can do: stop trading altogether, learn what a good setup looks like, and then you start doing one trade per day, no more — because at this rate you're gonna blow up, you'll be making four, five, six trades per day, and almost all of them are losing trades."
   - *2021-04-19, t=3956s, t=4344s*
+- **The same failure, confessed as his own, two and a half years later — after the advice above had already been given to others.** Asked directly whether he manages to avoid overtrading: "look, I overtrade every year, every month, every week, that's probably my biggest weakness. I usually don't have many big losses because I'm very good at cutting losses, but my problem is I tend to trade — sometimes I just can't help myself, even though I know I shouldn't trade. I'm like, you know what, I'll just try this out, I'll take half size — but you do a half size in a market that's bad, and you do it ten times, it kind of adds up. That's always been my problem. I've gotten better, but it's still one of my biggest weaknesses — that's usually my biggest detractor every year." That the same trader who tells others "no more than one trade per day" still names this as his own single biggest annual drag, years into a highly profitable career, is the clearest evidence this isn't a beginner problem that experience simply resolves.
+  - *2023-12-15, "Speculation money is back!", t=995s*
 
 This is a distinct failure mode from 8.10's chronic overtrading, even though the visible behavior looks similar — 8.10 is about managing an emotional itch with small, deliberately contained trades that don't threaten the account, while this is about genuinely mediocre, low-quality setups taken at real size out of impatience, which is what actually produces the account-blowing loss rate. The one-trade-per-day prescription is a blunt instrument specifically for traders who haven't yet developed the discretion to tell the two apart.
 
