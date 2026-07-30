@@ -97,6 +97,18 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [6.11 Case study: the 2022 bear market](#611-case-study-the-2022-bear-market)
    - [6.12 Sitting out is a valid, even superior, strategy](#612-sitting-out-is-a-valid-even-superior-strategy)
 7. [Watchlist & Stock Selection Criteria](#7-watchlist--stock-selection-criteria)
+   - [7.1 The primary gate — ADR and dollar volume, before anything else](#71-the-primary-gate--adr-and-dollar-volume-before-anything-else)
+   - [7.2 The actual scan mechanics — what the screens really look like](#72-the-actual-scan-mechanics--what-the-screens-really-look-like)
+   - [7.3 Fundamentals as "fuel," never the trigger](#73-fundamentals-as-fuel-never-the-trigger)
+   - [7.4 Institutional-quality names vs. pure pump stocks — knowing which bucket you're in](#74-institutional-quality-names-vs-pure-pump-stocks--knowing-which-bucket-youre-in)
+   - [7.5 Proactive theme-building — watchlists made before the theme is obvious](#75-proactive-theme-building--watchlists-made-before-the-theme-is-obvious)
+   - [7.6 "The shittier the stock, the bigger the move"](#76-the-shittier-the-stock-the-bigger-the-move)
+   - [7.7 Real-name-brand backing as a credibility signal — and its limits](#77-real-name-brand-backing-as-a-credibility-signal--and-its-limits)
+   - [7.8 What gets filtered out entirely](#78-what-gets-filtered-out-entirely)
+   - [7.9 The liquidity test — placing a real test order](#79-the-liquidity-test--placing-a-real-test-order)
+   - [7.10 "Our job is to be in the stocks other funds want"](#710-our-job-is-to-be-in-the-stocks-other-funds-want)
+   - [7.11 A stock's "personality" — reading repeated stop-outs as a fit problem](#711-a-stocks-personality--reading-repeated-stop-outs-as-a-fit-problem)
+   - [7.12 The Luckin Coffee fraud and its ripple effect on Chinese-ADR trust](#712-the-luckin-coffee-fraud-and-its-ripple-effect-on-chinese-adr-trust)
 8. [Psychology & Mindset](#8-psychology--mindset)
 9. [Common Mistakes / What Not To Do](#9-common-mistakes--what-not-to-do)
 10. [Other Notable Lessons](#10-other-notable-lessons)
@@ -927,15 +939,113 @@ The reframe is deliberate: patience isn't presented as a special discipline rese
 
 ## 7. Watchlist & Stock Selection Criteria
 
-**Liquidity and volatility filters come before anything else.** Two numbers gate every other consideration: Average Daily Range (ADR%, a measure of how much a stock typically moves per day) and average dollar volume. Minimum ADR thresholds cited range from roughly 4% up to 6-7%+ depending on the period and account size discussed; low-ADR, low-volatility "blue chip" stocks (examples repeatedly cited include Microsoft, Apple, Visa, Costco) are explicitly ruled out as "not trading stocks" regardless of how good their charts look, because they simply can't move enough, fast enough, to be worth the capital. Minimum dollar-volume floors are cited anywhere from roughly $5M to $60M+ per day depending on account size and period, with the general principle that the floor should scale with how much capital needs to be deployed.
+This is the filtering layer that runs before any of Section 1's setups even get considered — what makes it onto the screen at all, and what gets dismissed before a chart is ever pulled up.
 
-**Momentum and relative strength, not value.** Scans are consistently built around price momentum — biggest percentage gainers over rolling 1-, 3-, 6-, 12-, and sometimes 18-24 month lookback windows, filtered by the liquidity criteria above and ranked by relative strength. Fundamental value screens (cheap valuation multiples, dividend yield, etc.) are never mentioned as a selection criterion; growth (particularly accelerating revenue growth, more so than current profitability or EPS) is used only as secondary supporting "fuel" for a technical setup already in place, never as a standalone reason to buy.
+**Citation format:** same as Sections 1-6 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
 
-**Institutional-quality names vs. pure pump stocks.** A recurring distinction is drawn between higher-priced, liquid "institutional quality" momentum leaders — the kind that smoothly obey moving averages because real funds are accumulating them — versus thin, illiquid, purely retail-driven "pump" stocks with no natural institutional buyer, which need constant news flow to keep moving and behave far less predictably. Both categories get traded, but with very different size and risk treatment; some sessions mention keeping a separate, small, deliberately isolated account specifically for speculative pump-stock trades so losses there can't touch the main portfolio.
+### 7.1 The primary gate — ADR and dollar volume, before anything else
 
-**Sector and theme awareness.** When a sector or theme is running (biotech, EV/SPACs, Chinese internet stocks, vaccine names, commodities, whatever is dominant in a given market cycle), the preference is to trade the single fastest, most liquid name within that theme rather than every look-alike, and sector-wide participation (several related names breaking out together) is treated as a stronger, more reliable signal than an isolated single-stock mover. Each market cycle is noted as having had its own dominant growth theme historically (commodities in the mid-2000s, biotech in the mid-2010s, software/internet more recently), and the discipline is to keep rotating attention to wherever the fastest current momentum actually is, rather than staying loyal to a theme that has stopped working.
+Before a chart is judged on pattern quality, it has to clear two numbers: average daily range (ADR%) and average dollar volume. Both are treated as binary gates, not soft preferences — a stock that fails either one doesn't get a second look regardless of how clean the setup looks.
 
-**What gets filtered out entirely.** Random illiquid microcaps and OTC "pump" names without an identifiable technical or earnings catalyst are passed on even when the chart looks superficially decent, on the grounds that there's no real institutional participation and therefore no durable edge. Binary biotech catalysts (FDA approval dates, trial data) are generally avoided as position risk because the outcome is a coin-flip regardless of chart quality. Insider buying/selling and short-seller "hit piece" reports (Citron, Muddy Waters, etc.) are both treated as largely irrelevant to the decision — the stated approach is to follow price action itself rather than any secondary informational signal.
+- **"Low ADR is equal to [garbage], high ADR is equal to gold."** Delivered while passing on an otherwise decent-looking setup for no reason other than its range: "like that, that would have been a good setup, but you know it doesn't matter how nice it looks if it's a low-ADR stock, it's [garbage], you shouldn't be trading this thing, you should never trade [garbage]. Low ADR is equal to [garbage], high ADR is equal to gold."
+  - *2020-08-10, t=3387s*
+- **Costco as the standing negative example.** Pulled up live and picked apart twice in the same session: "avoid stuff like Costco, the guys — don't even look at something like this, you will never make any money trading something like it, it's too slow... you want stocks that have an average daily range of at least four percent, maybe even five or six percent." Minutes later, with the number on screen: "ignore Costco, there's — ignore, just don't talk about it, there's nothing there, it's 1.5 percent ADR, no reason to trade something like this."
+  - *2020-08-03, t=2301s, t=2331s, t=2406s*
+- **The five percent ADR rule, codified.** By late 2021 the standing that guides screening gets stated as an explicit, named cutoff: "the five percent ADR rule is a very good cutoff for stock selection, you get rid of ninety-five percent of the time-wasting stocks — and even that is not a guarantee, you still have to do discretionary analysis."
+  - *2021-09-16, t=2410s*
+
+Put together, the throughline is that liquidity and volatility are prerequisites, not tiebreakers — they're checked before any pattern work begins, which is why Section 2.9's chart-reading treatment of ADR and Section 3.7's ADR-based stop sizing both assume this gate has already been cleared.
+
+### 7.2 The actual scan mechanics — what the screens really look like
+
+- **The dollar-volume cutoff scales with account size, not a fixed number.** Walking through the exact formula live: "take your account size and multiply it by 50, or multiply by a hundred even better — so if you have a fifty-thousand-dollar account, your volume cutoff should be five million. If you have a two-hundred-thousand-dollar account, your volume cutoff should be twenty million. And no one should have less than, say, two-three million dollar-volume cutoff on their scans — there's no reason to trade stocks that trade less than a few million dollars worth of stock, it's just too random." Later in the same session, building a new scan from scratch in TC2000: "no one should have less than five million in dollar volume, everyone should probably put at least ten million in dollar volume cutoff" — with Visa singled out as the standing example of a stock that clears every liquidity bar and is still "just a waste of time."
+  - *2020-08-12, t=2708s, t=3429s, t=3290s*
+- **The scans themselves are deliberately simple — three timeframes, nothing exotic.** Asked directly what scans he runs: "I just scan for the strongest stocks on every timeframe — one month, three months, six months. Scans are just scans, like anyone can scan, scans are the easy part, it doesn't really matter what scans you run." He mocks the opposite failure mode in the same breath — traders who "have like fifty things in their scans."
+  - *2020-07-08, t=2248s, t=2324s*
+
+The mechanics are almost anti-climactic on purpose: rank by relative strength across a handful of lookback windows (1/3/6 months, sometimes extended to 9/12/18), filter by the account-scaled dollar-volume and ADR cutoffs from 7.1, and stop there. The edge isn't in the scan's sophistication — it's in the discipline of actually running it every day and then applying the pattern recognition from Section 1 and 2 to whatever survives.
+
+### 7.3 Fundamentals as "fuel," never the trigger
+
+- **"Earnings are fuel" — the one-line summary of where fundamentals fit.** Reviewing a growth-stock watchlist live, triple- and quadruple-digit EPS and revenue growers side by side: "focus on the growth stocks, because earnings are fuel, okay, you need fuel, you need a reason for something to go up. Stocks don't go up just because — you find the stocks that have a reason to go up, and then you look for patterns on those stocks." In the same scan, a hot-sector name with weak revenue growth still gets included specifically because sector heat substitutes for the fundamental case — see 7.6.
+  - *2020-12-17, t=3616s*
+
+The consistent pattern across the corpus (see the batch notes on MarketSmith/Koyfin growth screens, general principle rather than a single re-verified clip) is that revenue and EPS growth are checked *after* a technical setup is already on the table, never used to source ideas on their own. A stock with no chart doesn't get bought because its growth numbers are exceptional, and a stock with a five-star chart doesn't get passed on because its fundamentals are thin or unknown — fundamentals raise conviction and holding power through a shakeout, they don't replace the pattern as the actual buy trigger.
+
+### 7.4 Institutional-quality names vs. pure pump stocks — knowing which bucket you're in
+
+- **The original framing, drawn live off a chart comparison.** "There's two types of stocks — you have the institutional-quality stocks, which I'm mostly in, and then there are the pure, like, pump stocks — the ones that are data-driven by retail buying, by chat rooms, by Wall Street Bets, you know, the Robinhood type of stocks... if it's a higher-priced stock that's trending and riding the rising 10- and 20-day moving averages, that's an institutional-quality stock."
+  - *2020-07-10, t=2101s, t=2151s*
+- **The same taxonomy, restated a year later with sharper language.** "There's two types of stocks that make big moves: global leaders, and — what should I call them — hype stocks, or pumps, and sometimes even outright frauds. And I have a combination of them, I have some pumps and I have some global leaders."
+  - *2021-03-31, t=3633s*
+
+The two clips are a year apart and use different vocabulary (institutional-quality vs. global leader, pump vs. hype stock), but they're the identical mental model: a deliberate two-bucket portfolio, held simultaneously, with each bucket getting different size and conviction treatment (see 3.2 on the small-account edge and 3.6 on margin discipline). The tell for which bucket a stock is in is mechanical, not narrative — price behavior around the 10/20-day moving averages, not the story behind the ticker.
+
+### 7.5 Proactive theme-building — watchlists made before the theme is obvious
+
+- **The coronavirus sector list, built and scolded into viewers in real time.** Frustrated that almost no one else was tracking it: "I have to say I'm a little bit disappointed, guys — how are you not monitoring these coronavirus stocks, it's the hottest sector, only one person saw it, and that person didn't even buy it... if you have a hot sector like this, you have to monitor it, you have to create a watchlist and scroll through all of the stocks during the day. I have 40 coronavirus stocks in my watchlist, sorted by dollar volume — most of them are too illiquid for me to trade, but I go through the liquid ones every day."
+  - *2020-03-04, t=2743s*
+- **The AI/quantum-computing list, built months ahead of the run.** Three years later, the identical discipline, with the payoff arriving on stream: "the list of AI and quantum computing stocks that I made back in January is finally starting to pay off, these stocks are starting to run one by one... it's all about preparation, guys. This list, AI and quantum computing names, I made this list back in January, I shared it on Twitter even." The catalyst he names for the theme is broad and structural, not stock-specific: "the market is waking up to the fact that AI is gonna need a lot of computing power" — the list existed before that realization was consensus.
+  - *2023-05-23, t=1213s, t=1507s*
+
+The three-year gap between the two examples is the point: proactive, hand-built theme lists aren't a one-off habit tied to one unusual market (2020's COVID crash), they're a standing practice applied to whatever the next speculative theme turns out to be. The work is manual and unglamorous — scrolling dozens of loosely related tickers daily, most of which never move — and it's explicitly framed as something "no one else is gonna do... you gotta put in the work" (general principle, recurring across many videos), which is also why it recurs as a competitive edge rather than a scan output.
+
+### 7.6 "The shittier the stock, the bigger the move"
+
+- **Blink Charging as the named illustration.** Comparing two speculative EV-charging names live: "SBE is a non-scam. Blink? Okay, all I needed to know — yeah, Blink is a super scam, and that's the leading one. That's what I keep telling — that the shittiest stock makes the biggest moves. It's kind of funny how it works."
+  - *2020-12-18, t=1137s*
+- **The GLP-1/weight-loss theme, flagged the same way in real time.** Naming the next hot theme as it's forming: "another theme that's really hot right now is the weight-loss, the weight-loss drugs, the GLP-1... I hope the weight-loss — like, smaller and mid-cap weight-loss-related stocks are going to wake up eventually and make you, you know, five, ten [baggers]." The batch notes describe the same logic applied to the list itself: every loosely related name gets added, since it's usually a handful of junk names, not the category leader, that end up being the 5-10x movers.
+  - *2023-12-01, t=2201s*
+
+The mechanism isn't superstition — it's supply and demand. A low-quality, high-share-count name with no natural institutional buyer has almost unlimited room to re-rate on pure speculative flow, while a well-owned quality name in the same theme already has a "fair" price largely set by funds that already hold it. That's also why this rule doesn't contradict 7.4's institutional-quality framework: it's a description of which *bucket* produces the largest percentage moves, not a reason to abandon risk discipline on the pump-stock side of the portfolio.
+
+### 7.7 Real-name-brand backing as a credibility signal — and its limits
+
+- **QuantumScape vs. Nikola — the same "big names behind it" heuristic, cutting opposite ways.** Reading up on QuantumScape live: "Volkswagen is a big owner, it's backed by Bill Gates, this thing is interesting... when you have multiple big names behind something, I think the odds of success are higher — obviously Nikola being the exception, they kind of duped everyone. GM — I wonder how much due diligence General Motors did on this company, what a bunch of overpaid idiots."
+  - *2020-12-03, t=2893s, t=2950s*
+
+Credible institutional or brand-name backing is used as a probability adjustment, not a guarantee — and the Nikola example is kept in the story specifically *because* it broke the rule, not despite it. The honest lesson isn't "big names mean it's safe," it's "big names raise the base rate enough to justify a closer look," which is a softer, more defensible claim than the pattern would suggest if only the QuantumScape half of the comparison were told.
+
+The signal is also treated as secondary to the technical setup, consistent with 7.3's "fundamentals as fuel" framing — brand-name backing is cited as a reason to hold a position with more conviction through a shakeout once a real setup is already in place, never as a standalone reason to buy a chart that isn't there yet. And the Nikola exception carries forward: the same skepticism toward loud institutional validation resurfaces in 7.12's account of Chinese-ADR distrust after the Luckin Coffee fraud, where a credible-seeming name (backed by real revenue claims and legitimate exchange listing) turned out to be the exact kind of story this heuristic is supposed to catch but occasionally misses.
+
+### 7.8 What gets filtered out entirely
+
+- **Short-seller hit pieces — mostly noise, occasionally right, never a standalone reason to avoid a stock.** Walking through a name that had been targeted repeatedly: "there's been short-seller pieces on it since many years back... 'we believe the stock is worth no more than a dollar and a cent per share,' this hit when the stock was six bucks, two years ago — and there's been several hit pieces since, Citron hit it here too, and now look at the stock... the market apparently doesn't agree, just follow the price. These hit pieces — GSX too, if you'd just traded the setups you would have made money, GSX was hit by both Citron and Muddy Waters and then boom, went up three hundred percent in a couple months." He immediately balances it with the times the short sellers were right: "sometimes they nail it, like Muddy Waters nailed Sino-Forest back in 2011, day two of my trading career, that thing went down ninety percent in two days" — and, elsewhere in the same session, Citron hitting Shopify near $100 and being "just so wrong."
+  - *2020-08-19, t=2716s, t=2795s, t=2820s, t=2918s*
+- **Fundamentals-blind trading, with one explicit exception: real halt risk.** Asked whether he'd bother checking the fundamentals on a speculative runner: "would I bother checking out the fundamentals for [it]? I don't need to, they're probably [garbage], doesn't matter. I made a lot of money trading [garbage] stocks, frauds, sketchy companies, doesn't matter — unless it's something that's a legit halt risk, now that's another thing." He grounds the exception in the Sino-Forest case specifically: "they had guys outside the factory filming the traffic for a month, and we think ninety-nine percent of this company's revenue is faked... it went down ninety percent in three days and got delisted. If someone comes out with a real short thesis, that's called halt risk — don't go long that stock, especially not overnight."
+  - *2021-03-12, t=5606s, t=7106s, t=7203s*
+
+The two filters aren't the same thing, and keeping them separate matters: a stock being low-quality, fraud-suspect, or hit by a short report is not by itself a reason to avoid it — the price action is. The one carve-out is *credible, evidence-based* fraud allegations (fabricated factory traffic, fabricated revenue) that carry real halt/delisting risk, which is a position-management problem (don't hold it overnight) rather than a watchlist-filtering one.
+
+### 7.9 The liquidity test — placing a real test order
+
+- **The test-order method, stated as a literal procedure.** "You set an order for say ten percent of the average volume, and then you buy and see what happens — that's how you know if it's liquid or not. If you get filled without slippage, you know it's liquid. If you only get filled on a few shares up to your limit, then you know it's not liquid. And once you know it's liquid, you're gonna market-order the [heck] out of it in the future." He backs it with a concrete result from the same session — buying and selling roughly a quarter of a day's volume in a $53-54 ETF with only "a couple pennies of slippage," calling it proof of "how insanely liquid" some ETFs are, "not all of them."
+  - *2021-03-11, t=2669s, t=2567s*
+
+The test matters because headline share volume and dollar volume can both be misleading, especially for ETFs where market-maker creation/redemption means real capacity often exceeds what raw volume numbers imply (see the ETF-rotation note in 3.5 and the batch-note reference to TNA/GBTC/SMH-era ETF trading). Rather than trusting the scan output blindly, the actual liquidity of a name gets verified once, empirically, with real size — and after that first test, the result is trusted going forward instead of re-litigated on every entry.
+
+### 7.10 "Our job is to be in the stocks other funds want"
+
+- **The line stated directly, as a rebuttal to value-investing logic.** Responding to a viewer's fundamentals-based framing of a trade: "our job is to be in the stocks that other people want — or actually, other funds want, that's our job." He contrasts it with what he considers a losing mental model: traders chasing "hidden value on some obscene company that no one else finds hidden value in," adding that if that style of investing genuinely worked, its practitioners wouldn't "underperform the market year in, year out."
+  - *2021-11-12, t=343s*
+
+This reframes the entire watchlist-building exercise in 7.1-7.9: the goal was never to find stocks the market has mispriced and is about to "discover" — it's to identify which names institutional capital is already choosing to flow into (visible in price, volume, and relative strength) and get positioned alongside that flow before it's finished. It's the same logic underlying the CAN SLIM-style filters referenced in the batch notes — current/annual earnings growth, a new catalyst, supply and demand, market leadership, institutional sponsorship — treated as a description of what a stock other funds want *looks like*, not an independent value framework of its own.
+
+### 7.11 A stock's "personality" — reading repeated stop-outs as a fit problem
+
+- **IMPX as the named "devil stock."** After the fourth or fifth stop-out on the same name in one session: "I got stopped out of a hundred thousand shares of IMPX, I hate this stock, why do I hate this stock so much? Maybe because it always stops me out, that's why I hate it, it's like the devil stock, it really is." He generalizes the observation a few minutes later, unprompted: "all stocks have different characteristics, and some — like IMPX's characteristic — also..." He goes on to take a $35,000 loss on the same name later in the session, still trading it despite naming the pattern out loud.
+  - *2020-05-21, t=2431s, t=3432s, t=4697s*
+- **A second name, same session, same read.** On a different short candidate stopping him out repeatedly the same day: "the problem is it's such a [choppy] short, I got stopped out like two, three times on it — every time it breaks out, it pulls back and stops you out, it never gets going, this is the problem with this one."
+  - *2020-05-21, t=3414s*
+
+The synthesis he states himself is the useful part: recognizing a name's "characteristic" is treated as data about fit, not as a reason to force the trade harder. In practice this doesn't always translate into instantly dropping the name (see the $35,000 IMPX loss taken in the same session after already naming the pattern) — the lesson functions more as a standing caution than an automatic hard rule, closer in spirit to the small-account-edge tension in 3.4 than to a clean, always-followed filter.
+
+### 7.12 The Luckin Coffee fraud and its ripple effect on Chinese-ADR trust
+
+- **Real-time contagion trading on the day the fraud broke.** Watching Luckin Coffee (LK) halt repeatedly through the session: "LK is pretty amazing, seventy-six million shares and it's been halted most of the day so far, it's been trading for like three or four minutes... yeah, LK, I wouldn't be trading this thing, exactly, halt risk is huge, absolutely." In the same session he extends the suspicion to an unrelated China-listed name purely by association: "another [name is] speculating that it's GSX, which is also not a crazy [claim], a stock from China may also be cooking their books too... keep an eye on this GSX, if they lose faith in these [China] names, this thing is gonna go to 20." He acts on the suspicion directly: "I shorted a bunch of GSX, nothing crazy, but man, if they lose confidence in this thing... this thing is gonna be down thirty percent in a few days."
+  - *2020-04-02, t=1610s, t=1668s, t=1230s, t=1339s, t=1540s*
+
+This is the origin point of a distrust that shows up repeatedly elsewhere in the corpus — GSX gets flagged again as a possible books-cooking risk in the following weeks (see batch notes, 2020-04-03), and the general skepticism toward Chinese-ADR accounting becomes a standing background caution rather than a one-off reaction. It also complicates the "ignore short-seller hit pieces, just follow the price" rule from 7.8: Luckin is explicitly named later (2021-03-12, see 7.8) as one of the cases where the short sellers were actually right, which is the honest reason the halt-risk carve-out exists in the first place — a credible fraud allegation on a China-listed name gets taken more seriously after Luckin than it would have before, precisely because the base rate for that specific category shifted.
 
 ---
 
