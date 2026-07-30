@@ -32,7 +32,24 @@ Kullamägi's own shorthand — "I only trade three setups" — is real and gets 
 - **"Great earnings breakouts"** — 2019-11-07 — https://www.youtube.com/watch?v=8uyENUhiW1c
 - **"Seeing some big opportunities setting up"** — 2021-05-07 — https://www.youtube.com/watch?v=uFJDGcCzR3A — also the source for the commodity/cyclical framing and FCX/SMH walkthrough in 1.8, and the GBTC/MSTR vehicle-choice exchange in 1.11.
 
-A second tier of videos supplies one or two specific examples each, cited inline where used: the CrowdStrike pocket-pivot walkthrough (2021-05-26, https://www.youtube.com/watch?v=A2gkEQC6O_Y), the TDOC/pocket-pivot cross-reference (2021-01-20, https://www.youtube.com/watch?v=jCvLY7F8g80), the Pinterest pocket pivot (2021-01-21, https://www.youtube.com/watch?v=D1NMXfSXpYk), the AMRS/EXEL false-breakout examples (2021-02-05, https://www.youtube.com/watch?v=FamRgrbApII), the standalone false-breakout principle restated (2021-03-19, https://www.youtube.com/watch?v=7jPFXy_nrBE), the Beyond Meat gap-chasing refusal (2020-02-19, https://www.youtube.com/watch?v=AG226y4hi1E), the GBTC hard-stop loss (2020-06-02, https://www.youtube.com/watch?v=uZFKiMA3M1I), the coronavirus-stock sympathy watchlist (2020-02-26, https://www.youtube.com/watch?v=e5Cc6XHg-7E), the sympathy-play definition (2020-09-29, https://www.youtube.com/watch?v=JxOTlvGUSF0), the CCL distressed-bounce trade (2020-04-17, https://www.youtube.com/watch?v=SvTWDAao4pI), the DQ weekly-chart rescue (2021-01-25, https://www.youtube.com/watch?v=dvZBux4ffy0), the "why IPO breakouts" framing (2021-06-09, https://www.youtube.com/watch?v=gwoJzKevjeY), the day-one-risk caution (2020-02-03, https://www.youtube.com/watch?v=qmhLHCHRBnM), and the 2023-era EP-dominance commentary (2023-05-19, https://www.youtube.com/watch?v=_y9Wo0eBP4A).
+A second tier of videos supplies one or two specific examples each, used in a single subsection and cited inline there. Listed here by which subsection they feed, for reference:
+
+| Used in | Example it supplies | Date | Link |
+|---|---|---|---|
+| 1.2 Pocket pivots | CrowdStrike (CRWD) walkthrough | 2021-05-26 | https://www.youtube.com/watch?v=A2gkEQC6O_Y |
+| 1.2 Pocket pivots | TDOC pocket-pivot cross-reference | 2021-01-20 | https://www.youtube.com/watch?v=jCvLY7F8g80 |
+| 1.2 Pocket pivots | Pinterest (PINS) pocket pivot | 2021-01-21 | https://www.youtube.com/watch?v=D1NMXfSXpYk |
+| 1.4 IPO breakouts | Day-one-risk caution | 2020-02-03 | https://www.youtube.com/watch?v=qmhLHCHRBnM |
+| 1.4 IPO breakouts | "Why IPO breakouts" framing | 2021-06-09 | https://www.youtube.com/watch?v=gwoJzKevjeY |
+| 1.3 Episodic pivots | 2023-era EP-dominance commentary | 2023-05-19 | https://www.youtube.com/watch?v=_y9Wo0eBP4A |
+| 1.7 Weekly/monthly MA bounces | DQ weekly-chart rescue | 2021-01-25 | https://www.youtube.com/watch?v=dvZBux4ffy0 |
+| 1.9 Failed-breakout resets | AMRS/EXEL false-breakout examples | 2021-02-05 | https://www.youtube.com/watch?v=FamRgrbApII |
+| 1.9 Failed-breakout resets | False-breakout principle restated | 2021-03-19 | https://www.youtube.com/watch?v=7jPFXy_nrBE |
+| 1.10 Distressed bounces | CCL distressed-bounce trade | 2020-04-17 | https://www.youtube.com/watch?v=SvTWDAao4pI |
+| 1.11 Sector sympathy | Coronavirus-stock sympathy watchlist | 2020-02-26 | https://www.youtube.com/watch?v=e5Cc6XHg-7E |
+| 1.11 Sector sympathy | Sympathy-play definition | 2020-09-29 | https://www.youtube.com/watch?v=JxOTlvGUSF0 |
+| 1.12 What he avoids | Beyond Meat gap-chasing refusal | 2020-02-19 | https://www.youtube.com/watch?v=AG226y4hi1E |
+| 1.12 What he avoids | GBTC hard-stop loss | 2020-06-02 | https://www.youtube.com/watch?v=uZFKiMA3M1I |
 
 ### 1.1 The core setup — "high tide flag" / momentum breakout
 
