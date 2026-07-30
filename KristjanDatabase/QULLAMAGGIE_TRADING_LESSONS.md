@@ -123,6 +123,18 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [8.11 React, don't predict — trader vs. investor mindset](#811-react-dont-predict--trader-vs-investor-mindset)
    - [8.12 The origin story — blowing up the account early, and what actually changed](#812-the-origin-story--blowing-up-the-account-early-and-what-actually-changed)
 9. [Common Mistakes / What Not To Do](#9-common-mistakes--what-not-to-do)
+   - [9.1 Stubbornness — refusing to cut a loss, and fighting the tape](#91-stubbornness--refusing-to-cut-a-loss-and-fighting-the-tape)
+   - [9.2 Chasing — buying a stock well past its actual breakout trigger](#92-chasing--buying-a-stock-well-past-its-actual-breakout-trigger)
+   - [9.3 Buying breakouts in a choppy, non-trending market](#93-buying-breakouts-in-a-choppy-non-trending-market)
+   - [9.4 Shorting too early, and the specific danger of day-one parabolic shorts](#94-shorting-too-early-and-the-specific-danger-of-day-one-parabolic-shorts)
+   - [9.5 Holding through earnings or other binary catalysts without a plan](#95-holding-through-earnings-or-other-binary-catalysts-without-a-plan)
+   - [9.6 Overriding predefined rules, and freezing under pressure](#96-overriding-predefined-rules-and-freezing-under-pressure)
+   - [9.7 Options, CFDs, and forex — avoided almost entirely](#97-options-cfds-and-forex--avoided-almost-entirely)
+   - [9.8 Fat-fingered execution — a chronic, accepted cost of trading size](#98-fat-fingered-execution--a-chronic-accepted-cost-of-trading-size)
+   - [9.9 Ignoring liquidity and borrow constraints](#99-ignoring-liquidity-and-borrow-constraints)
+   - [9.10 Following influencers, paid gurus, and copy-trading](#910-following-influencers-paid-gurus-and-copy-trading)
+   - [9.11 Overtrading mediocre setups instead of waiting for genuinely tight ones](#911-overtrading-mediocre-setups-instead-of-waiting-for-genuinely-tight-ones)
+   - [9.12 The opposite failure — hesitating on genuinely great setups](#912-the-opposite-failure--hesitating-on-genuinely-great-setups)
 10. [Other Notable Lessons](#10-other-notable-lessons)
 
 ---
@@ -1175,19 +1187,95 @@ Read together, the two stories complicate the tidy version of the origin story: 
 
 ## 9. Common Mistakes / What Not To Do
 
-Synthesizing the most frequently repeated warnings across the full span:
+**Citation format:** same as Sections 1-8 — date and timestamp in a sub-bullet under each example.
 
-1. **Getting stubborn.** Refusing to cut a loss quickly, or clinging to a fixed thesis after price has proven it wrong, is cited as his single most frequently named recurring flaw, responsible for some of his largest individual losses (including one episode costing roughly $700,000, about 20% of account equity at the time).
-2. **Chasing.** Buying a stock after it's already run well past its actual breakout/base trigger — "the second day after it's already up a bunch" — repeatedly destroys the risk/reward of an otherwise good idea.
-3. **Being early on shorts.** Trying to call an exact top on a strong or parabolic stock, rather than waiting for confirmed technical weakness, is named across multiple years as a low-probability habit that produces avoidable losses; the correct approach is to short *after* weakness is confirmed, not to anticipate it.
-4. **Holding through earnings without a plan.** Doing so purely out of habit, conviction, or because a setup "looks too good to sell" is explicitly labeled gambling rather than trading, distinct from deliberately holding a partial position with a profit cushion.
-5. **Overriding predefined rules "to be smart" in the moment.** Multiple narrated episodes show discretionary deviation from the trailing-stop/exit system producing worse outcomes than simply following the mechanical rule would have.
-6. **Sizing shorts too aggressively in cheap stocks.** Because a low-priced stock can double or triple even after already doubling, the math of percentage moves works structurally against an oversized short position.
-7. **Trading without an identifiable, repeatable edge.** Taking positions in random tickers with no defined setup is called a direct path to blowing up an account, regardless of how good any individual story sounds.
-8. **Ignoring liquidity and borrow constraints.** Committing size to illiquid names (long or short) despite unreliable fills, or ignoring the cost/availability of a short locate before entering, has produced avoidable, sometimes large, losses.
-9. **Complacency and fat-fingered execution during fast, high-volume periods.** Multiple costly order errors are attributed directly to trading too much size across too many simultaneously moving positions without enough attention on execution.
-10. **Options and CFDs.** Both are avoided almost entirely and described in strongly negative terms (a "sucker's game" driven by lottery-ticket psychology, and "poison" leverage, respectively) — the stated position is that a trader shouldn't touch either until already consistently profitable trading straight equities, if ever.
-11. **Believing in market manipulation narratives.** Blaming "stop hunting" by market makers, or short-seller conspiracy theories, for a losing trade is dismissed outright — losses are attributed to normal algorithmic price movement and the trader's own process, not manipulation.
+### 9.1 Stubbornness — refusing to cut a loss, and fighting the tape
+
+- **Fastly, repeatedly re-shorted against a runaway uptrend, for a cumulative six-figure loss in one session.** Convinced the stock was overextended after a 600% run: "Fastly, I'm gonna focus on the short side, can it go to 100 bucks? Sure it can, but right now this thing is up six hundred percent from the March lows... I just don't think the odds favor this thing." He shorts, gets stopped out for a loss, and re-shorts repeatedly through the day as the stock keeps grinding higher — "I lost 29K in like 30 seconds on this thing," then "I took a seventy-one thousand dollar loss on Fastly," then, still fighting the same thesis hours later: "I'm gonna take a nice loss on Fastly again — I'm down, closing in on 135K, my biggest loss in a couple of weeks."
+  - *2020-06-23, t=616s, t=784s, t=1254s, t=3731s*
+
+The instructive part isn't the size of any single stop-out — it's that he kept re-entering the identical short thesis on the identical stock as it kept proving him wrong, rather than accepting that the tape itself was the disconfirming evidence. This is the mechanical version of the $700,000 stubbornness loss covered in 8.12 — the same flaw (refusing to let price override a fixed thesis), just visible here across several re-entries in a single session rather than one large position held too long.
+
+### 9.2 Chasing — buying a stock well past its actual breakout trigger
+
+- **The rule stated directly, mid-scan.** "It's very important to buy them as soon as they start breaking out, not on the second day after they're already up a bunch from the entry point." Moments later, passing on a name for exactly this reason: "chasing — it's not good, you know, just wait, there's so many other stocks that are starting to set up."
+  - *2020-06-18, t=1120s, t=1657s*
+
+The mechanism is the same one covered in Section 1's entry criteria: a valid breakout has a specific, low-risk entry point close to the base, and every day past that point both raises the entry price and pushes the stop further away, degrading the risk/reward on what may still be a perfectly good stock. The Workhorse example in 4.5 shows the more expensive version of this same mistake — not just a slightly worse entry, but a full missed multi-bagger caused by exactly this kind of second-day hesitation.
+
+### 9.3 Buying breakouts in a choppy, non-trending market
+
+Cited repeatedly across the corpus (general principle, recurring across many videos in the batch notes) as one of the fastest ways to lose money: breakout strategies specifically require a market that's actually trending, and the same setup that works cleanly in a trending tape produces a string of same-day failed breakouts and whipsaw losses once the broader market shifts into chop. The batch notes describe this as a lesson he has had to "relearn" more than once rather than something solved permanently after the first costly stretch — a market correction is specifically named as the trigger, since the exact chart pattern that would resolve upward in a healthy tape instead reverses immediately once broader participation narrows.
+
+The fix isn't a different setup, it's reduced size and frequency — only getting aggressive with breakouts once many setups are confirming across the market simultaneously (see 6.2's treatment of chop as the hardest regime to trade, harder than an outright crash), and treating an isolated "good-looking" breakout in an otherwise directionless tape as a reason for extra suspicion rather than extra conviction. This is the mistake-side mirror of 6.5's rule about the best time to buy breakouts being right after a correction resolves — the two are the same underlying read on market regime, just stated as what to do instead of what not to do.
+
+### 9.4 Shorting too early, and the specific danger of day-one parabolic shorts
+
+- **"Never ever short day one" — the rule delivered as an emphatic, near-absolute standalone principle.** Confirming a viewer had been squeezed shorting GME on the day it first broke out: "why did you short it on day one? Never short on day one, never ever short on day one, it was just breaking out of a high tide flag... just have one rule when shorting parabolic moves: one, there needs to be a parabolic, okay — never ever short day one, okay, ever, never ever. You cannot save yourself so much money, so much headache... you wait for those five-star opportunities, that's where your edge comes in. Let the amateurs short on day one, let them get squeezed, take a bunch of losses, lose their accounts." The viewer confirms the mistake moments later, and the response is direct: "bad mistake... it took me so long to learn that one day-one rule."
+  - *2021-01-26, t=3782s, t=3803s, t=3893s*
+- **The origin of the rule — his own account, in 2014, on PLUG.** "You may have heard of this stock, PLUG — I also shorted it back in 2014, last time my fuel cells were really hot, this thing went from like 50 cents to almost 12 bucks in a few months... I hadn't really defined this setup yet, I was aware these things can make big moves, but I didn't really have any concept of entries and exits, and I got squeezed — I was randomly shorting it, I lost, I think, like a quarter or a third of my account the day before, because I didn't know this setup, and I went really aggressive on it, I added to a loser, I did all of these stupid things you shouldn't do."
+  - *2021-01-15, t=2469s, t=2550s*
+
+Read together, these are the same mistake seven years apart, from both sides of the camera: an undefined entry rule on a parabolic short costs him a quarter to a third of his own account in 2014, and the rule that resulted from it — never short day one, wait for five-star confirmed weakness — is still being actively taught, and still being actively ignored by newer traders, in the middle of the 2021 GME squeeze. The correct approach, stated as the resolution to both stories, is to short *after* weakness is confirmed, never to anticipate a top on a stock that's still going up.
+
+### 9.5 Holding through earnings or other binary catalysts without a plan
+
+- **"Gambling, not trading" — the line drawn explicitly, in response to a viewer's suggestion.** Asked why not just buy before earnings reports for the extra pop: "well, go ahead, start buying stocks before earnings reports, you report back what will happen... that's gambling, not trading, and we are traders in this room — no gamblers welcome."
+  - *2020-07-31, t=661s*
+
+The distinction he draws isn't "never hold through an earnings report" — it's holding *purely out of habit or hope*, with no real thesis and no cushion, versus deliberately choosing to hold a partial, already-profitable position through a catalyst with a plan for both outcomes. The PDD earnings loss detailed in 4.8 (roughly $200,000, on a position held without that plan) is the concrete cost of ignoring this distinction rather than a separate lesson.
+
+The same "gambling, not trading" label is applied elsewhere in the batch notes to buying ahead of a scheduled binary biotech data event specifically (general principle, recurring across the corpus) — a category treated as even less defensible than an earnings hold, since a biotech trial readout is a true coin-flip with no technical or fundamental edge on either side, versus an earnings report where at least price action and growth trends offer some prior signal. Both cases collapse into the same underlying rule: a scheduled, binary, all-or-nothing event is either sized and planned for explicitly in advance, or avoided entirely — it is never something to be inside of by default just because a position happens to still be open when the date arrives.
+
+### 9.6 Overriding predefined rules, and freezing under pressure
+
+- **Freezing during a live trade, named directly as unacceptable.** Reviewing a moment where he failed to execute a planned exit: "you froze and didn't execute well, that's not a good thing... you should never freeze. You should always have a plan for any scenario, should always have an out, and when that out triggers, you should just execute, no second thoughts."
+  - *2020-09-04, t=240s*
+
+This is the mechanical failure mode behind 9.4's PLUG story — "I added to a loser, I did all of these stupid things you shouldn't do" is a description of exactly this, abandoning a predefined plan mid-trade under pressure. Elsewhere in the corpus this same override shows up as "playing rocket scientist" — trying to outsmart a simple, mechanical trailing-stop rule with discretion in the moment (see 4.4) — and multiple narrated episodes across the years show the discretionary deviation consistently producing a worse outcome than simply following the system would have. The fix stated here is procedural, not motivational: define the "out" for every scenario in advance, so execution under pressure becomes a checklist item rather than a decision.
+
+### 9.7 Options, CFDs, and forex — avoided almost entirely
+
+- **Options named a "loser's game," with an honest hedge attached.** "I think options is a loser's game — but obviously there are people that make a lot of money in options, I just... can't recall a single person I've heard of, for every [winner], it's because it's so much harder."
+  - *2021-02-03, t=1941s*
+
+This is the softer, more qualified companion to the harder-edged options and CFD language already covered in 3.12 — the "sucker's game" framing there is about the lottery-ticket psychology options encourage, while this clip is specifically about the difficulty of the instrument itself: he doesn't claim options are unbeatable, only that he's never personally verified anyone doing it consistently, which is a meaningfully different and more careful claim. Forex gets folded into the same bucket in the batch notes with even less hedging (general principle, recurring across the corpus) — he says he's never seen or verified a profitable forex trader, versus many verified profitable stock swing traders, and treats that asymmetry itself as the reason to stay away from all three instruments until already consistently profitable trading straight equities.
+
+### 9.8 Fat-fingered execution — a chronic, accepted cost of trading size
+
+- **A weekly habit, and the one time it became a $1.5 million loss.** In the aftermath of his largest publicized loss: "that was a really dumb trade... those of you who have been on my stream for a while, you know I fat-finger trades at least a couple of times per week — I oversell, I double-click on the sell or buy button, that happens a lot, almost every week." Asked if he'd change anything to prevent it happening again: "I'm never gonna make a fat-finger trade again? No — they're always gonna happen, it was just an extreme scenario, that could have happened on any stock... I fat-finger all the time, at least a few times per week, that I accidentally buy or sell twice the size, but they're usually not on these ultra-momentum stocks. I don't think I can adjust to a point where that will never happen again — you just have to be fine with it."
+  - *2020-07-30, t=544s, t=6031s*
+
+The framing is deliberately unheroic: he doesn't present the $1.5 million loss as a freak, unrepeatable event, he presents it as the tail risk of an error he makes routinely and has made peace with as a permanent cost of trading actively and at size — the same acceptance-of-structural-cost logic that runs through 8.4's treatment of drawdowns. The specific danger named is compounding this same habit with leverage: "imagine you do a highly leveraged options trade [and] fat-finger it — things can go south so fast," which is offered as one more concrete reason options in particular are avoided (9.7).
+
+### 9.9 Ignoring liquidity and borrow constraints
+
+Committing size to a name — long or short — without first checking whether that size can actually be deployed and exited cleanly is treated as a distinct category of avoidable loss from a bad entry or a bad thesis (general principle, recurring across the batch notes). On the short side specifically, several otherwise good-looking setups are described as skipped outright purely because shares were unborrowable or prohibitively expensive to locate — a discipline that only makes sense alongside 3.5's examples of the inverse mistake (paying $22,800 in Nikola locate fees rather than passing, and the SPCE weekend-borrow-cost trade-off), since the two only work together as a coherent rule: know the borrow cost and availability *before* sizing into a short, then make a deliberate, priced-in decision either way rather than discovering the constraint mid-trade.
+
+On the long side, the same category of mistake shows up as trading illiquid microcaps or thin recent IPOs beyond what the actual liquidity can support — the batch notes describe this specifically as a trap for a larger account, where the trader effectively becomes the volume, gets shaken out by their own order flow, and even a clean double or triple in the stock barely moves the needle on total account size once position sizing is capped by what the name can actually absorb. The corrective habit is the liquidity test already covered in 7.9 — verify tradability with a real, small order before committing meaningful size, rather than assuming a scan result is automatically tradable at the size a given account requires.
+
+### 9.10 Following influencers, paid gurus, and copy-trading
+
+- **"They better have audited returns... run the other way."** On trading educators and self-styled gurus: "99 percent of them are total frauds — if anyone is trying to sell you something, they better be able to back it up, they better have audited returns or something. If they can't back it up, run the other way." He connects this directly to his own low profile: "that's how I am so under the radar, because I don't market myself — I literally don't market myself."
+  - *2020-10-30, t=3532s*
+
+This is the market-facing companion to 8.7's "you can steal ideas, you can't borrow conviction" — the batch notes describe the same skepticism applied specifically to copy-trading (following another trader's individual alerts instead of building personal rules, explicitly discouraged even toward his own trades) and to commentators who post ideas but trade tiny size themselves, with the alternative offered being to study traders with demonstrable size and long, verifiable track records instead of anyone whose actual returns can't be checked.
+
+### 9.11 Overtrading mediocre setups instead of waiting for genuinely tight ones
+
+- **A live trade-log review, ending in a hard numeric rule.** Reviewing a struggling trader's activity: "you're doing like four or five trades every single day — stop it, no more than one trade per day for you, no more than one trade per day, you're gonna blow up so fast." Generalizing the fix moments later, for a different reviewed trader: "the best thing you can do: stop trading altogether, learn what a good setup looks like, and then you start doing one trade per day, no more — because at this rate you're gonna blow up, you'll be making four, five, six trades per day, and almost all of them are losing trades."
+  - *2021-04-19, t=3956s, t=4344s*
+
+This is a distinct failure mode from 8.10's chronic overtrading, even though the visible behavior looks similar — 8.10 is about managing an emotional itch with small, deliberately contained trades that don't threaten the account, while this is about genuinely mediocre, low-quality setups taken at real size out of impatience, which is what actually produces the account-blowing loss rate. The one-trade-per-day prescription is a blunt instrument specifically for traders who haven't yet developed the discretion to tell the two apart.
+
+### 9.12 The opposite failure — hesitating on genuinely great setups
+
+- **"Asleep at the wheel."** Reviewing a stretch of missed pre-announced earnings setups: "I was really asleep at the wheel back in January, when some of these things pre-announced."
+  - *2017-02-24, t=281s*
+- **A 320% move, missed over a single penny.** "I'm more pissed about the [one] that I missed — I mean, oh my god, can you imagine, I didn't want to pay up one penny for it, and I missed a three hundred and twenty percent move."
+  - *2017-02-23, t=473s*
+
+These sit as the deliberate counterweight to every other entry in this section: the corpus is just as willing to name hesitation, not just recklessness, as a costly and recurring mistake. The batch notes describe the same failure recurring years later in the episodic-pivot era — repeatedly missing large winners by hesitating on clear five-star EPs, reinforcing the point made in Section 1.3 that most EPs have to be bought within minutes of triggering, not reviewed and second-guessed. Paired with 9.2's chasing and 9.4's early-shorting, the honest picture is a trader whose errors run in both directions — too fast into some setups, too slow into others — rather than a single consistent bias that could be fixed with one blanket rule.
 
 ---
 
