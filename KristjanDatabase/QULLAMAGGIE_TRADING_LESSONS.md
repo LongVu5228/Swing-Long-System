@@ -110,6 +110,18 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
    - [7.11 A stock's "personality" — reading repeated stop-outs as a fit problem](#711-a-stocks-personality--reading-repeated-stop-outs-as-a-fit-problem)
    - [7.12 The Luckin Coffee fraud and its ripple effect on Chinese-ADR trust](#712-the-luckin-coffee-fraud-and-its-ripple-effect-on-chinese-adr-trust)
 8. [Psychology & Mindset](#8-psychology--mindset)
+   - [8.1 Emotion is not the enemy — channel it, don't suppress it](#81-emotion-is-not-the-enemy--channel-it-dont-suppress-it)
+   - [8.2 Discipline over being right — "love your stops, not your dogs"](#82-discipline-over-being-right--love-your-stops-not-your-dogs)
+   - [8.3 Patience and boredom tolerance as the central skill](#83-patience-and-boredom-tolerance-as-the-central-skill)
+   - [8.4 Losses and drawdowns as the cost of doing business, not a personal failing](#84-losses-and-drawdowns-as-the-cost-of-doing-business-not-a-personal-failing)
+   - [8.5 Reviewing and owning mistakes publicly, in real time](#85-reviewing-and-owning-mistakes-publicly-in-real-time)
+   - [8.6 Complacency after success — danger peaks right after the easiest stretches](#86-complacency-after-success--danger-peaks-right-after-the-easiest-stretches)
+   - [8.7 Real skill isn't transferable secondhand — borrowed ideas vs. earned conviction](#87-real-skill-isnt-transferable-secondhand--borrowed-ideas-vs-earned-conviction)
+   - [8.8 "Psychology" problems are usually edge problems in disguise](#88-psychology-problems-are-usually-edge-problems-in-disguise)
+   - [8.9 Extreme ownership — rejecting manipulation narratives and external blame](#89-extreme-ownership--rejecting-manipulation-narratives-and-external-blame)
+   - [8.10 Chronic overtrading — his own most self-identified recurring leak](#810-chronic-overtrading--his-own-most-self-identified-recurring-leak)
+   - [8.11 React, don't predict — trader vs. investor mindset](#811-react-dont-predict--trader-vs-investor-mindset)
+   - [8.12 The origin story — blowing up the account early, and what actually changed](#812-the-origin-story--blowing-up-the-account-early-and-what-actually-changed)
 9. [Common Mistakes / What Not To Do](#9-common-mistakes--what-not-to-do)
 10. [Other Notable Lessons](#10-other-notable-lessons)
 
@@ -1051,23 +1063,113 @@ This is the origin point of a distrust that shows up repeatedly elsewhere in the
 
 ## 8. Psychology & Mindset
 
-**Emotion is not the enemy — losing the argument with it is.** A recurring, explicit pushback against generic "trade with no emotion" advice: emotions like fear, FOMO, frustration, and greed are treated as inevitable and even useful, as long as they're channeled into following a predefined process rather than suppressed or denied. Anyone claiming total emotional detachment while trading is described bluntly as "full of it."
+**Citation format:** same as Sections 1-7 — date and timestamp in a sub-bullet under each example.
 
-**Discipline over being right.** "Love your stops, not your dogs" — a line credited to another trader (Dan Sanger) and repeated as a core operating principle: prioritizing mechanical rule-following over the emotional urge to be proven correct on any individual trade thesis. A stop-out is deliberately reframed as the market neutrally saying "not ready yet," not a personal failure or an attack — a framing explicitly adopted to make it psychologically easier to take stops without hesitation.
+### 8.1 Emotion is not the enemy — channel it, don't suppress it
 
-**Patience as the central skill.** Across nearly every period, patience — not activity — is named as the actual differentiator between traders who succeed and those who don't. Trading is described as roughly 90-95% waiting and boredom; getting visibly excited about a trade is treated as a personal warning sign to size down, not a green light to size up. Real intuition, as opposed to noise masquerading as a gut feeling, is only considered reliable after roughly five years and thousands of hours of screen time.
+- **A direct rejection of "trade with no emotion" advice.** Asked how he handled a recent bout of frustration: "you can't manage your emotions, and I think people who think you should manage your emotions — I think you're full of [it], you should just accept the emotions." He immediately connects the unmanaged version of this to a specific personal weakness (see 8.10): "this is why I overtrade, I'm a chronic overtrader — sometimes I just put on trades I know they're not optimal, but I do it in smaller size just to get that fix, I need my fix, that's how it is... emotions like FOMO and whatever, they won't ever go away, they're always gonna be there."
+  - *2019-10-25, t=2547s*
+- **The same position restated, with the operative word being "channel."** "I think emotions are a very important part of trading — I don't buy into the [nonsense] that you should be emotionless, that you should suppress your emotions and feelings, and I think it's all [nonsense] from people who don't even trade or aren't successful traders. You should be emotional, but you should channel the emotions."
+  - *2020-05-27, t=5739s*
 
-**Losses are the cost of doing business, not a personal failing.** A repeated ratio cited from his own results: roughly $800,000-900,000 in cumulative losses for every $1,000,000 in gains is described as a completely normal cost structure for this style of trading — big winners require absorbing frequent, deliberately small losses along the way. A nine-month sideways drawdown, occurring even after he was already a consistently profitable trader, is offered as evidence that drawdowns are "a feature, not a bug" of the process — something to minimize through position sizing, never something a good process eliminates entirely.
+The two clips, nearly a year apart, land on the identical claim: suppression isn't the goal, and pretending otherwise is itself treated as a tell that the person giving that advice doesn't actually trade. What "channeling" means in practice is the mechanical rule-following covered in 8.2 — stops, sizing, predefined setups — functioning as the outlet that absorbs the emotion instead of pretending it isn't there.
 
-**Reviewing and owning mistakes publicly.** Monthly (and sometimes trade-by-trade) reviews specifically cataloging mistakes are described as a deliberate practice, with the explicit estimate that eliminating his own top recurring errors in any given month could plausibly increase that month's returns by 50-100%. Real-time mistakes — early stop-outs, oversized earnings holds, fat-fingered orders — are narrated on stream as teaching material rather than edited out or hidden.
+### 8.2 Discipline over being right — "love your stops, not your dogs"
 
-**Complacency after success is a specific, named risk.** Some of his largest historical losses are described as occurring directly after his best stretches — easy, forgiving markets and hot streaks are said to breed the oversized risk-taking and sloppy execution that eventually produce a large loss. Deliberately cutting size immediately after a big win or a big accidental loss (to avoid both complacency and revenge trading) is mentioned as an explicit countermeasure.
+- **Reframing a stop-out as neutral information, not a personal attack.** "You're not gonna feel disappointed when you get stopped out, because you take it personally — don't take it personally, the market is just telling you, hey, wait a minute, I'm not ready yet, the stock is just telling you, I'm not ready — the stop is a way for you to protect yourself, it's all about framing. Instead of thinking, oh, the market makers are counting my stops, the market's against me — no, it's all about, hey, it's okay, the stock is telling me it's not ready yet, and now I have to regroup and wait for a better setup."
+  - *2020-06-19, t=2557s*
+- **The line credited to Dan Sanger.** Immediately following the reframe above: "love your stops — and I learned that from Dan Sanger — don't love your dogs, love your stops."
+  - *2020-06-19, t=2614s*
 
-**Real skill isn't transferable secondhand.** Following another trader's specific stock picks is explicitly said to never produce consistent profitability on its own — ideas can be borrowed, but the actual skill (pattern recognition built from studying thousands of historical charts, refined through the trader's own losses) has to be built individually and can't be shortcut by copying someone else's trades. Relatedly, verifying any rule (which moving average actually works for a given kind of stock, for instance) against a large personal sample of historical charts, rather than taking any mentor's word for it, is presented as how genuine conviction — the kind that survives a drawdown without being abandoned — actually gets built.
+The two pieces are one idea, not two: a stop is easy to "love" mechanically only once it's been stripped of the personal sting, which is exactly what the not-ready-yet reframe is doing. This is the psychological engine behind the mechanical stop rules covered in Section 4.2 — the discipline to actually take a stop at the close, every time, depends on this framing being internalized first.
 
-**"Psychology" problems are usually edge problems in disguise.** By 2021 this becomes an explicit, sharpened position rather than an implicit assumption: a struggling trader's real problem is overwhelmingly a lack of a real, sufficiently-studied edge, not some separate, fixable "trading psychology" deficiency that coaching can patch in isolation from the underlying skill. Asked live whether a trading coach is worth paying for, the answer doesn't hedge: "is a trading coach a good idea? No, it's a waste of time... you don't need a trading psychologist." Pushed on what these services are actually selling: "what you need is not some coaching, you need coaching *in the context of a setup* — what you need is a setup, and knowing when the trade is set up, and knowing when to take a step back. That solves 99% of your problems." On what the coaching itself typically consists of: "what do these trading coaches do? Are they gonna tell you, 'oh, you should meditate 15 minutes before market open'? It's just a bunch of [nonsense], none of those things are gonna help you... look what he's selling — he's selling hand-holding. You pay him money and he's gonna hold your hand." The underlying claim is specific, not just dismissive: discipline is presented as something that emerges naturally once a trader has deeply internalized a specific setup's actual statistics — when it works, when it fails — rather than a separate character trait that can be trained on its own.
-  - *2021-01-21, https://www.youtube.com/watch?v=D1NMXfSXpYk&t=3202s*
-- **Every loss is his own responsibility, full stop.** A consistent, harder-edged refrain in this later period: explanations involving market-maker "manipulation" or algorithmic stop-hunting are rejected outright as a cop-out, not a plausible cause. Emotional control specifically is treated as something that "cannot be taught remotely" through books or streams — only built through direct, personal, often painful experience over years — and he treats anyone claiming to have fully solved it with open suspicion.
+### 8.3 Patience and boredom tolerance as the central skill
+
+- **The one-line summary of the entire skill.** "Remember, it's not the most active trader who wins, it's the most patient trader who wins at this game."
+  - *2020-09-02, t=2639s*
+
+Trading is repeatedly described as roughly 90-95% waiting and boredom (general principle, recurring across many videos in the batch notes rather than a single re-verified figure), with getting visibly excited about a trade treated as a personal warning sign to size down, not a green light to size up. Real intuition — as opposed to noise dressed up as a gut feeling — is only considered reliable after roughly five years and thousands of hours of screen time. Sitting in cash with nothing to do is treated as correct, not a failure of activity, and the batch notes describe patience specifically as tolerance for *doing nothing* through slow, low-opportunity stretches — sometimes literally trading almost nothing for days at a time — so that maximum aggression is still available whenever a real setup actually shows up.
+
+The throughline connects directly to 8.10: boredom tolerance and overtrading are framed as the same muscle, just exercised in opposite directions, which is why managing one so often means managing the other. It's also the psychological precondition for 6.12's "sitting out is a valid, even superior, strategy" — a rule that only survives contact with a genuinely slow market if boredom itself has already been made tolerable.
+
+### 8.4 Losses and drawdowns as the cost of doing business, not a personal failing
+
+- **The loss ratio, given as an honest estimate rather than a precise figure.** Asked how much he loses for every dollar he makes: "I don't know, I could probably find out, but obviously I do take a lot of losses too — but my, I guess, would be for every million in profits I have maybe eight hundred thousand in losses, I don't know the exact number, but that's a guess, I don't know, maybe even nine hundred K in losses."
+  - *2020-09-04, t=2908s*
+- **Drawdowns named explicitly as structural, not a failure of process.** Asked how he avoids drawdowns: "you don't. Drawdowns are a feature, not a bug — now the key is to keep the drawdowns as small as possible." Pressed on his own worst stretch: "my longest drawdown after I became a profitable trader was in 2015... it was a nine-month-long drawdown, I went sideways for nine months, that was pretty — that sucked."
+  - *2020-09-24, t=2636s, t=2737s*
+
+The two claims fit together deliberately: a roughly 80-90-cents-lost-per-dollar-made ratio only makes sense as a business model if drawdowns of many months are accepted as a normal, recurring feature of the process rather than evidence something is broken — which is precisely why the nine-month 2015 stretch is offered as the standing worst-case example rather than something hidden or downplayed.
+
+### 8.5 Reviewing and owning mistakes publicly, in real time
+
+- **A monthly video built entirely around cataloging his own mistakes.** Opening a dedicated recap: "let's do a recap of my February trading and go through some of the most notable mistakes I made during the month — both stupid losses and like five-star setups where I didn't capitalize, because of sizing, or I missed them completely. Every month I go through my mistakes, and every month I realize that I could have made 50 to 100 percent more money that month if I just eliminated or minimized the top five biggest mistakes."
+  - *2017-03-22, t=7s*
+- **The framing for absorbing any single mistake, stated plainly.** "It's not about how many times you fall, it's about how many times you get up — that's what separates the successful traders from the ones who aren't successful. You should always try to learn from your mistakes — if you froze yesterday, what's your plan of not freezing again?"
+  - *2020-09-04, t=374s*
+
+The monthly-review habit, run consistently enough to be a recurring video format rather than a one-off, is the concrete mechanism behind the get-up-not-fall-down framing — mistakes aren't just tolerated in the abstract, they're actively logged, quantified (50-100% of a month's returns, by his own estimate), and turned into next month's specific fix. This is also the same instinct behind narrating real-time errors on stream elsewhere in the corpus (early stop-outs, oversized earnings holds, fat-fingered orders) rather than editing them out — the review process only works if the raw material isn't hidden in the first place.
+
+### 8.6 Complacency after success — danger peaks right after the easiest stretches
+
+- **A live, unprompted admission of losing his edge mid-hot-streak.** Explaining a decision to skip paying for a borrow he'd normally cover: "I've had a really good trading couple of months — like half of the money I've ever made is from the past two months — so you kind of get complacent, you kind of lose your hunger a little bit."
+  - *2020-06-22, t=1354s*
+- **The explicit countermeasure during the QuantumScape/battery-stock mania — going more defensive exactly as things were going best.** "When the market turns, when the speculation money leaves, you gotta be so careful, you could give back half of what you made — so I'm pretty much... on red-alert mode here. The more craziness we see, the more cautious I get, I refuse to give back any profits — I've been there so many times, I double, triple my account and give back half." He generalizes the response: "when you start seeing warning signs, you gotta be proactive — shoot first, ask questions later, that's how you have to be."
+  - *2020-12-09, t=3049s, t=3531s*
+
+The two clips show the same risk from both sides: the honest admission that his own hunger genuinely fades after a great stretch (6.6, 6.11), paired with the deliberate, named countermeasure — treating a hot streak as the moment to get *more* careful, not less, since it's specifically when euphoria and overreach have historically produced his largest losses. This is the psychological root of the margin-discipline and de-risking behavior covered mechanically in 3.6 and 6.4.
+
+### 8.7 Real skill isn't transferable secondhand — borrowed ideas vs. earned conviction
+
+- **The line, and an unusually candid admission behind it.** "You can steal ideas, you can't borrow conviction, that is very true. I've stolen every single trading concept I use — or let's say borrowed, I borrowed everything, I haven't come up with any of the things I use, not a single thing."
+  - *2021-11-05, t=2530s*
+
+The claim isn't false modesty — every specific technique discussed elsewhere in this document (the moving-average rules, the ADR filters, the "love your stops" line itself in 8.2) is explicitly credited to someone else (O'Neil, Sanger, Minervini, Livermore). What he presents as genuinely his own is the conviction layer on top: thousands of hours spent personally verifying which borrowed rule actually holds up against his own sample of historical charts, which is the only part of the process that can't be shortcut by simply copying another trader's picks or rules wholesale.
+
+The batch notes describe the same principle applied bluntly to the practice of copy-trading specifically: following another trader's individual stock picks is said to never produce consistent profitability on its own (general principle, recurring across many videos), because a borrowed pick without the underlying pattern recognition behind it is just a tip, not a repeatable process. Relatedly, verifying any specific rule — which moving average actually works for a given kind of stock, for instance — against a large personal sample of historical charts, rather than taking any mentor's word for it, is presented as how genuine conviction, the kind that survives a drawdown without being abandoned, actually gets built. That verification habit is the concrete version of Section 10's "core skill-building method": thousands of annotated charts, accumulated individually, rather than a shortcut through anyone else's homework.
+
+### 8.8 "Psychology" problems are usually edge problems in disguise
+
+- **A trading coach, dismissed outright — with a specific reason, not just a shrug.** Asked live whether a trading coach is worth paying for: "is a trading coach a good idea? No, it's a waste of time... you don't need a trading psychologist." Pushed on what these services are actually selling: "what you need is not some coaching, you need coaching *in the context of a setup* — what you need is a setup, and knowing when the trade is set up, and knowing when to take a step back. That solves 99% of your problems." On what the coaching itself typically consists of: "what do these trading coaches do? Are they gonna tell you, 'oh, you should meditate 15 minutes before market open'? It's just a bunch of [nonsense], none of those things are gonna help you... look what he's selling — he's selling hand-holding. You pay him money and he's gonna hold your hand."
+  - *2021-01-21, t=3202s*
+
+The underlying claim is specific, not just dismissive: discipline is presented as something that emerges naturally once a trader has deeply internalized a specific setup's actual statistics — when it works, when it fails — rather than a separate character trait that can be trained on its own, independent of the underlying skill. This reframes most of what looks like a "psychology" problem elsewhere in this section (8.3's impatience, 8.10's overtrading) as downstream symptoms of an under-studied setup rather than a standalone deficiency, which is also the direct argument for the chart-study discipline described in 8.7 and Section 10's "core skill-building method."
+
+### 8.9 Extreme ownership — rejecting manipulation narratives and external blame
+
+- **The rule stated as absolutely as any in this document, with a book recommendation attached.** "Everything that happens to you is your fault — if you lose money on a trade, your fault. It's not the market makers that were gunning for your stops, it's not... someone who announced something, blah blah — no, it's your fault... responsibility and fault." Asked directly whether he'd recommend the book: "have you read the book *Extreme Ownership*? I read like two-thirds of it, by Jocko Willink — it's like one of the best trading books I've ever read," despite it not being a trading book at all.
+  - *2022-04-06, t=2142s, t=2188s*
+- **The same rule applied specifically to "algo manipulation" complaints, a full year earlier.** Asked whether he ever struggles with anger at perceived market-maker manipulation: "no — one, there are no market makers, it's all algos, and two, there's no manipulation, it's called a market... forget about the algos, they're irrelevant, sometimes they work for you, sometimes they work against you, they're just doing what humans used to do. The algo doesn't give a [care] about your stop, they mostly don't even see your stops if you have a good broker. Get used to getting stopped out, okay — get used to getting stopped out."
+  - *2021-09-17, t=2891s*
+
+The two clips, a year apart, are the same conclusion from opposite directions: one names the specific villain traders like to blame (market-maker manipulation, algo stop-hunting) and dismantles it mechanically, while the other states the resulting policy as a blanket rule with a borrowed name attached. Emotional control specifically is treated as something that "cannot be taught remotely" through books or streams — only built through direct, personal, often painful experience over years (general principle, recurring across the corpus) — and he treats anyone claiming to have fully solved it with open suspicion.
+
+### 8.10 Chronic overtrading — his own most self-identified recurring leak
+
+- **Self-diagnosed early, and treated as a permanent trait to manage rather than a phase to outgrow.** "This is why I overtrade, I'm a chronic overtrader — sometimes I just put on trades I know they're not optimal, but I do it in smaller size just to get that fix, I need my fix, that's how it is. I do small stupid things on purpose to avoid doing big stupid things later, if you understand what I mean — I need to get my training fix." His stated countermeasure, offered without irony: "that's why I play World of Warcraft, to take my mind off trading."
+  - *2019-10-25, t=2564s*
+- **The same underlying compulsion, renamed and still unresolved more than two years later.** "I'm not over-trading, but I'm over-clicking — I'm constantly looking for trades, my finger clicking like a maniac. That's how I get my dopamine kick, that's how I keep the addiction under control."
+  - *2022-02-04, t=2676s*
+
+The two-and-a-half-year gap between the examples is the honest part: this isn't a beginner's mistake he later solved, it's a standing personal weakness he manages with substitutes (video games, deliberately smaller "fix" trades) rather than ever claiming to have eliminated. It's also the clearest real-world instance of 8.1's "channel it, don't suppress it" principle — the FOMO and restlessness don't go away, they get redirected into activities and small, contained trades that don't threaten the account.
+
+### 8.11 React, don't predict — trader vs. investor mindset
+
+- **The line stated as a direct trading maxim.** "You have to listen to it, not predict it — that's the thing, there's no money in prediction, but there's a lot of money in listening."
+  - *2021-02-05, t=4036s*
+- **"Never fall in love with or hate a stock" — the same idea applied to individual positions, with a named example.** Asked why he was bullish on a name purely because it was going up: "you should never love a stock, it's just all vehicles, trading vehicles — you should never fall in love as a trader, you should never fall in love with the stock, you should never hate it either. Because, you know, you may love [it], but [it] doesn't love you back — [it] doesn't know who you are, doesn't care about you." He applies the identical caution to the QuantumScape mania in the same session: "it's very important to have specific rules and not to fall in love with these things — do they have a potential game-changing battery technology? Yes, but... just because this thing is hot right now, up a thousand percent in a month, you should be really careful, don't fall in love with these things."
+  - *2020-12-22, t=3894s, t=4225s*
+
+Both quotes describe the identical discipline at two different scales: don't have a fixed opinion about where the market is going (listen, don't predict), and don't have a fixed emotional attachment to any single stock, no matter how good its story or how much money it's currently making. This is the psychological foundation underneath the trader-vs-investor distinction elsewhere in the corpus — a technical breakout buyer sells on a sell signal no matter how good the underlying business is, precisely because the stock was never a relationship to begin with.
+
+### 8.12 The origin story — blowing up the account early, and what actually changed
+
+- **Three or four blown accounts in the first two years, by his own count.** Asked how much capital he started with: "I started trading with about, I don't know, five, seven thousand — but I think I blew up about, I don't know, three, four times in the first year or two years." Asked what changed: "because I learned how to trade, that's why — I did more of things that worked and less of things that didn't work, that's the reason I didn't blow up another three, four times. But it took me two years of full-time trading to get there."
+  - *2019-11-11, t=3489s*
+- **The $700,000 loss — proof the same flaw resurfaces even years after "learning how to trade."** Years after establishing himself, describing a stubborn, one-sided position: "what I did — when I traded mainly one stock on the wrong side, and I lost $700,000. I still have some mental scars I need to heal from before I can do that video, but it's definitely on the way... it wasn't that bad of a loss, it was about 20 percent of my equity, and I made it back in the next three weeks — so it did end well, but it's one of the biggest mistakes in my career, it was just so stupid."
+  - *2019-03-10, t=1689s*
+
+Read together, the two stories complicate the tidy version of the origin story: the first two years of blowing up repeatedly were a beginner problem eventually solved by "doing more of what worked" — but the $700,000 stubbornness loss happened well after that point, on a single mishandled position, showing that the underlying flaw (refusing to cut a loss quickly, covered as the single most-cited mistake in Section 9) never fully goes away just because a trader has become consistently profitable. What changes with experience isn't immunity to the mistake, it's the speed of recovery — three weeks to rebuild $700K, instead of a blown account.
 
 ---
 
