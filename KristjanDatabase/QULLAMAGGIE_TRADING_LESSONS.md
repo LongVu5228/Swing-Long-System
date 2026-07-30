@@ -38,7 +38,7 @@ A second tier of videos supplies one or two specific examples each, used in a si
 |---|---|---|---|
 | 1.2 Pocket pivots | CrowdStrike (CRWD) walkthrough | 2021-05-26 | https://www.youtube.com/watch?v=A2gkEQC6O_Y |
 | 1.2 Pocket pivots | TDOC pocket-pivot cross-reference | 2021-01-20 | https://www.youtube.com/watch?v=jCvLY7F8g80 |
-| 1.2 Pocket pivots | Pinterest (PINS) pocket pivot | 2021-01-21 | https://www.youtube.com/watch?v=D1NMXfSXpYk |
+| 1.2 Pocket pivots / vocabulary note | Pinterest (PINS) pocket pivot, and the VCP definition | 2021-01-21 | https://www.youtube.com/watch?v=D1NMXfSXpYk |
 | 1.4 IPO breakouts | Day-one-risk caution | 2020-02-03 | https://www.youtube.com/watch?v=qmhLHCHRBnM |
 | 1.4 IPO breakouts | "Why IPO breakouts" framing | 2021-06-09 | https://www.youtube.com/watch?v=gwoJzKevjeY |
 | 1.3 Episodic pivots | 2023-era EP-dominance commentary | 2023-05-19 | https://www.youtube.com/watch?v=_y9Wo0eBP4A |
@@ -50,6 +50,7 @@ A second tier of videos supplies one or two specific examples each, used in a si
 | 1.11 Sector sympathy | Sympathy-play definition | 2020-09-29 | https://www.youtube.com/watch?v=JxOTlvGUSF0 |
 | 1.12 What he avoids | Beyond Meat gap-chasing refusal | 2020-02-19 | https://www.youtube.com/watch?v=AG226y4hi1E |
 | 1.12 What he avoids | GBTC hard-stop loss | 2020-06-02 | https://www.youtube.com/watch?v=uZFKiMA3M1I |
+| Vocabulary note | Tennis ball action definition | 2021-05-20 | https://www.youtube.com/watch?v=Pde5BeC0JEk |
 
 ### 1.1 The core setup — "high tide flag" / momentum breakout
 
