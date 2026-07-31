@@ -19,6 +19,8 @@
 
 This is a summary and paraphrase of his publicly stated views and trade narration on stream — not a verbatim transcript, and not financial advice.
 
+**Citation format:** every example throughout this document is tagged with the source video's title, upload date, and — where the exact moment is known — a timestamp, in a sub-bullet directly under the example it supports. A consolidated index of every source video cited anywhere in the document, with direct YouTube links, is at the very end in the Source Video Index.
+
 ---
 
 ## Table of Contents
@@ -157,8 +159,6 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
 ## 1. Entries & Setups
 
 Kullamägi's own shorthand — "I only trade three setups" — is real and gets repeated almost every year from 2020 onward. But that's his teaching simplification, not the full picture of what actually shows up across 27 batches of live trade narration. In practice there are at least ten distinct, separately-named patterns he trades, each with its own specific rules, plus several vehicle- and context-specific variations layered on top. This section covers all of them, anchored to real trades with real tickers and numbers wherever the source material provides them.
-
-**Citation format:** every example below is tagged with the video title, upload date, and — where the exact moment is known — a timestamp, so you can trace it back to the original clip. A consolidated index of every source video cited across all ten sections, with direct YouTube links, is at the very end of this document in the Source Video Index.
 
 ### 1.1 The core setup — "high tide flag" / momentum breakout
 
@@ -364,8 +364,6 @@ The common thread across all five: none of these are abstract risk-management pl
 
 His technical toolkit is deliberately minimal: price, volume, and a handful of moving averages — nothing more. He explicitly and repeatedly dismisses most of what's commonly taught as technical analysis as noise, arguing price and volume already contain whatever information those indicators are trying to extract, and that stacking more indicators just produces more contradictory signals. He estimates 90-95% of technical analysis as commonly taught is "garbage." This section covers the actual reading skills underneath that minimalism — not what he trades (Section 1), but how he looks at a chart to decide anything at all.
 
-**Citation format:** same as Section 1 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
-
 ### 2.1 The minimal toolkit, and what he explicitly rejects
 
 His stated toolkit is price, volume, and moving averages — "the less you use, the better." Everything else he names gets rejected by name, with a specific reason, not just a vague "I keep it simple."
@@ -533,8 +531,6 @@ The implication he draws from this, consistent with why fundamentals only ever f
 
 This is the mechanical backbone underneath everything in Section 1 — the same setups, traded with different sizing discipline, produce completely different survival odds. This section covers how much, not what or when.
 
-**Citation format:** same as Sections 1 and 2 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
-
 ### 3.1 Risk per trade — the core percentage
 
 - **Asked directly, mid-stream, and answered with a real number.** "What percent of my account am I risking per trade? Around 0.3 to 0.5 percent or so." He immediately adds an honest, unprompted note about how that's changed over time rather than presenting it as a number that's always been true: "I'm taking smaller risks than I used to, but I'm going for like big multiples of risk on every trade I take."
@@ -682,8 +678,6 @@ The common thread across all three: each one adds a layer of leverage, complexit
 
 This is the machinery that turns a good entry (Section 1) into an actual realized result — how a position gets trimmed, trailed, added to, and occasionally overridden between the moment it's bought and the moment it's finally closed.
 
-**Citation format:** same as Sections 1-3 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
-
 ### 4.1 The 3-to-5-day trim rule, and how it flexes with market conditions
 
 By far the most consistently repeated piece of trade management across the entire corpus: once a breakout is confirmed and hasn't stopped him out, wait roughly 3 to 5 days, then sell a third to half of the position and move the stop on the remainder to breakeven. It's stated so often it functions as the default operating system for every winning trade — but he's explicit that the exact numbers aren't fixed.
@@ -805,8 +799,6 @@ Neither of these is a strategic decision in the way the rest of Section 4 is —
 
 Where Section 4 covers the mechanics of trimming and trailing, this section is the strategy layer underneath it — how much conviction to give a winner, when the mechanical rule should bend, and how he thinks about exits at a portfolio level rather than trade by trade.
 
-**Citation format:** same as Sections 1-4 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
-
 ### 5.1 "Let the stock tell you" — why fixed price targets get rejected almost universally
 
 - **A recent IPO, and the case against setting any target at all.** Asked directly what his target is on a fresh IPO already up nearly 5% from entry: "target? There's no target, just trail it. It's a recent IPO in a hot sector — there's no target for it, it could go to infinity and beyond, or it could just go straight down, I don't know. Just pull a random number out of your ass, that's the target — I mean, it's a recent IPO, there's nothing to go on here." The point isn't that price targets are lazy or unsophisticated — it's that on a stock with no trading history, any specific number is *definitionally* unfounded, since there's no prior price action to derive it from.
@@ -904,8 +896,6 @@ Put next to 4.9's $13-to-$49 same-day example (where trailing on the daily chart
 ## 6. Market Timing & Regime Reading
 
 This is one of the richest and most consistent themes across the entire span — Kullamägi treats "what kind of market is this" as a constant, ongoing question that reshapes everything else about how he trades, far more than any single stock's chart.
-
-**Citation format:** same as Sections 1-5 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
 
 ### 6.1 The two-regime framework — "easy dollar" vs. "hard penny"
 
@@ -1057,8 +1047,6 @@ The reframe is deliberate: patience isn't presented as a special discipline rese
 
 This is the filtering layer that runs before any of Section 1's setups even get considered — what makes it onto the screen at all, and what gets dismissed before a chart is ever pulled up.
 
-**Citation format:** same as Sections 1-6 — video title, upload date, and timestamp where known, in a sub-bullet under each example.
-
 ### 7.1 The primary gate — ADR and dollar volume, before anything else
 
 Before a chart is judged on pattern quality, it has to clear two numbers: average daily range (ADR%) and average dollar volume. Both are treated as binary gates, not soft preferences — a stock that fails either one doesn't get a second look regardless of how clean the setup looks.
@@ -1176,8 +1164,6 @@ This is the origin point of a distrust that shows up repeatedly elsewhere in the
 ## 8. Psychology & Mindset
 
 The common assumption is that "psychology" is a separate skill from setup mastery — something to be fixed with mindset work, journaling prompts, or a coach, independent of how good the underlying trading system actually is. He rejects that framing directly and repeatedly: emotion isn't something to eliminate, it's something to channel through mechanical rules, and most of what looks like a discipline problem turns out to be an under-studied edge in disguise. This section covers how he actually thinks about the mental side of the job — not as a checklist of affirmations, but as a set of specific, recurring failure patterns (overtrading, selling too early, blaming external forces) and the concrete countermeasures he's built against each one, most of them admitted through his own named, dated mistakes rather than presented as solved problems.
-
-**Citation format:** same as Sections 1-7 — date and timestamp in a sub-bullet under each example.
 
 ### 8.1 Emotion is not the enemy — channel it, don't suppress it
 
@@ -1303,8 +1289,6 @@ Read together, the two stories complicate the tidy version of the origin story: 
 
 This isn't a generic top-ten-mistakes listicle — every entry here is a specific, named, usually dollar-quantified failure he's narrated about his own trading, live, often years apart on the identical mistake. The errors run in both directions: chasing and shorting too early sit alongside hesitating on setups he already believed in, and stubbornly holding a loser sits alongside overriding a rule too quickly under pressure. Several of these are the same mechanical failures covered from the "how to do it right" side in Sections 1-4, revisited here specifically through what happens when the rule gets broken — the point isn't just to list what not to do, it's that naming the mistake precisely, with a real cost attached, is what actually makes the corresponding rule stick.
 
-**Citation format:** same as Sections 1-8 — date and timestamp in a sub-bullet under each example.
-
 ### 9.1 Stubbornness — refusing to cut a loss, and fighting the tape
 
 - **Fastly, repeatedly re-shorted against a runaway uptrend, for a cumulative six-figure loss in one session.** Convinced the stock was overextended after a 600% run: "Fastly, I'm gonna focus on the short side, can it go to 100 bucks? Sure it can, but right now this thing is up six hundred percent from the March lows... I just don't think the odds favor this thing." He shorts, gets stopped out for a loss, and re-shorts repeatedly through the day as the stock keeps grinding higher — "I lost 29K in like 30 seconds on this thing," then "I took a seventy-one thousand dollar loss on Fastly," then, still fighting the same thesis hours later: "I'm gonna take a nice loss on Fastly again — I'm down, closing in on 135K, my biggest loss in a couple of weeks."
@@ -1426,8 +1410,6 @@ These sit as the deliberate counterweight to every other entry in this section: 
 ## 10. Other Notable Lessons
 
 Not everything he's said across seven years of streaming fits neatly under entries, sizing, management, exits, regime-reading, watchlists, or psychology — this section is genuinely a miscellany, and it's presented as one rather than forced into a false structure. What it actually contains falls into three loose clusters: how he built the edge in the first place (his reading list, the chart-database method, the day-trading-to-swing-trading transition), how the business of trading works once real money is involved (tools, brokers, tax structure, realistic return expectations, the shrinking time commitment of the EP era), and a handful of standalone convictions that don't depend on any specific setup (markets aren't zero-sum, macro is noise, never send money to an unsolicited stranger). None of it is secondary to the rest of the document — it's simply the material that describes the trader rather than the trades.
-
-**Citation format:** same as Sections 1-9 — date and timestamp in a sub-bullet under each example.
 
 ### 10.1 Reading list and mentors — and the admission that none of it is original
 
