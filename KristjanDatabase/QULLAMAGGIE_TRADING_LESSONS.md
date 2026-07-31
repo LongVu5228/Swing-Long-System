@@ -1,4 +1,3 @@
-
 # Qullamaggie Trading Lessons: A Synthesized Playbook
 
 **Source:** Kristjan "Qullamaggie" Kullamägi's YouTube trading livestreams, distilled from transcripts.
