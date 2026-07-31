@@ -1201,6 +1201,8 @@ This is the origin point of a distrust that shows up repeatedly elsewhere in the
 
 ## 8. Psychology & Mindset
 
+The common assumption is that "psychology" is a separate skill from setup mastery — something to be fixed with mindset work, journaling prompts, or a coach, independent of how good the underlying trading system actually is. He rejects that framing directly and repeatedly: emotion isn't something to eliminate, it's something to channel through mechanical rules, and most of what looks like a discipline problem turns out to be an under-studied edge in disguise. This section covers how he actually thinks about the mental side of the job — not as a checklist of affirmations, but as a set of specific, recurring failure patterns (overtrading, selling too early, blaming external forces) and the concrete countermeasures he's built against each one, most of them admitted through his own named, dated mistakes rather than presented as solved problems.
+
 **Citation format:** same as Sections 1-7 — date and timestamp in a sub-bullet under each example.
 
 ### 8.1 Emotion is not the enemy — channel it, don't suppress it
@@ -1325,6 +1327,8 @@ Read together, the two stories complicate the tidy version of the origin story: 
 
 ## 9. Common Mistakes / What Not To Do
 
+This isn't a generic top-ten-mistakes listicle — every entry here is a specific, named, usually dollar-quantified failure he's narrated about his own trading, live, often years apart on the identical mistake. The errors run in both directions: chasing and shorting too early sit alongside hesitating on setups he already believed in, and stubbornly holding a loser sits alongside overriding a rule too quickly under pressure. Several of these are the same mechanical failures covered from the "how to do it right" side in Sections 1-4, revisited here specifically through what happens when the rule gets broken — the point isn't just to list what not to do, it's that naming the mistake precisely, with a real cost attached, is what actually makes the corresponding rule stick.
+
 **Citation format:** same as Sections 1-8 — date and timestamp in a sub-bullet under each example.
 
 ### 9.1 Stubbornness — refusing to cut a loss, and fighting the tape
@@ -1446,6 +1450,8 @@ These sit as the deliberate counterweight to every other entry in this section: 
 ---
 
 ## 10. Other Notable Lessons
+
+Not everything he's said across seven years of streaming fits neatly under entries, sizing, management, exits, regime-reading, watchlists, or psychology — this section is genuinely a miscellany, and it's presented as one rather than forced into a false structure. What it actually contains falls into three loose clusters: how he built the edge in the first place (his reading list, the chart-database method, the day-trading-to-swing-trading transition), how the business of trading works once real money is involved (tools, brokers, tax structure, realistic return expectations, the shrinking time commitment of the EP era), and a handful of standalone convictions that don't depend on any specific setup (markets aren't zero-sum, macro is noise, never send money to an unsolicited stranger). None of it is secondary to the rest of the document — it's simply the material that describes the trader rather than the trades.
 
 **Citation format:** same as Sections 1-9 — date and timestamp in a sub-bullet under each example.
 
