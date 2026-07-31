@@ -1,3 +1,4 @@
+
 # Qullamaggie Trading Lessons: A Synthesized Playbook
 
 **Source:** Kristjan "Qullamaggie" Kullamägi's YouTube trading livestreams, distilled from transcripts.
@@ -6,8 +7,8 @@
 
 **Scale of the underlying data:**
 
-- **588 videos** identified across the full channel history; **507 transcripts** successfully retrieved (~86% coverage — the rest had no captions available, were private/deleted, or were non-English), totaling **~3.24 million words** of raw caption text.
-- Of those 507, **409 (~82%) directly contributed at least one dated, ticker-specific lesson** during analysis. The remaining ~75 were still read in full and checked — not skipped — and turned out to be genuinely redundant: the same handful of core setups and rules restated in slightly different words, not held-back or missed material. A dedicated verification pass specifically re-read the largest of these to confirm that judgment rather than assume it.
+- **588 videos** identified across the full channel history; **507 transcripts** successfully retrieved (roughly 86% coverage — the rest had no captions available, were private/deleted, or were non-English), totaling **roughly 3.24 million words** of raw caption text.
+- Of those 507, **409 (roughly 82%) directly contributed at least one dated, ticker-specific lesson** during analysis. The remaining roughly 75 were still read in full and checked — not skipped — and turned out to be genuinely redundant: the same handful of core setups and rules restated in slightly different words, not held-back or missed material. A dedicated verification pass specifically re-read the largest of these to confirm that judgment rather than assume it.
 - **167 of those videos** are the ones actually quoted directly in this document, with a real timestamp and a real named trade attached. The other covered videos informed the synthesis and confirmed which principles genuinely recur across years, but didn't need their own citation once a rule was already well-proven by several dated, quoted examples elsewhere.
 
 **How this document was put together:** every transcript was read in full and mined for concrete, dated, ticker-specific lessons — never summarized from memory or skimmed for keywords. Because the same core setups and rules repeat across dozens of streams a year, most of the actual work was judgment, not transcription: recognizing when a video was saying something genuinely new versus reinforcing a pattern already captured, and then building the strongest, most concrete, best-quoted example of each recurring principle rather than cataloging every time it got restated. Once a rule or setup was established, the document went through repeated rounds of verification — going back into the raw transcripts subsection by subsection, hunting for real quotes, dollar figures, and named trades to replace paraphrase with his own words wherever they existed, and specifically looking for the places where his own stated rules genuinely conflict or get overridden, rather than smoothing those tensions into a tidier narrative than the record actually supports.
@@ -211,7 +212,7 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
 - **An unnamed 2023 EP, bought three separate times.** By 2023 EPs had become his dominant setup, and he narrates one live where conviction survived two straight stop-outs: "I bought it initially on the EP day... it just went straight down, got stopped out. I think I got stopped out twice on it — I re-bought it, they stopped me out, then I re-bought it yesterday. So we're taking two losses on it so far, we'll see, hopefully third time's the charm." His justification for re-entering after two losses on the same name rather than moving on: "it's all about risk/reward — this thing, once it gets going, [can] double in a flash, it's already done it once this year." In the same session he states the broader regime shift plainly: "breakouts haven't really been working the past 18 months — what has been working is EPs. EPs have been working pretty decently... the breakout [setup] has been choppy."
   - *2023-05-19, "Episodic Pivots, Kenny boy and old times", t=1951s*
 
-The precise definition sharpens over the years: by 2021 a gap on already-"known" news doesn't count, the surprise has to be genuine; by 2022 a good EP has to gap *over* all its declining moving averages into clean air, and he states flatly he never trades EPs on the short side; by 2023 the entry window compresses to the first 3-10 minutes, with a simple mechanical template (buy the first 5-minute candle's high, stop at low of day, size under ~1% of average daily volume) he recommends to smaller traders as a starting point. The 2023 EP example above also shows a real exception to his usual "cut it and move on" instinct (see 1.12): repeated stop-outs on the *same* EP name are tolerated specifically when the risk/reward on a fresh trigger stays wide enough — a double-or-nothing payoff profile is worth re-underwriting even after two losses, in a way a slower, tighter setup wouldn't be.
+The precise definition sharpens over the years: by 2021 a gap on already-"known" news doesn't count, the surprise has to be genuine; by 2022 a good EP has to gap *over* all its declining moving averages into clean air, and he states flatly he never trades EPs on the short side; by 2023 the entry window compresses to the first 3-10 minutes, with a simple mechanical template (buy the first 5-minute candle's high, stop at low of day, size under roughly 1% of average daily volume) he recommends to smaller traders as a starting point. The 2023 EP example above also shows a real exception to his usual "cut it and move on" instinct (see 1.12): repeated stop-outs on the *same* EP name are tolerated specifically when the risk/reward on a fresh trigger stays wide enough — a double-or-nothing payoff profile is worth re-underwriting even after two losses, in a way a slower, tighter setup wouldn't be.
 
 ### 1.4 IPO breakouts
 
@@ -219,7 +220,7 @@ Recent IPOs get treated as their own category, favored specifically because a yo
 
 - **Livongo, long.** Bought a couple of months after IPO, following roughly six months of sideways action post-listing (the stock was "kind of expensive" and the market wasn't yet sure it could sustain its growth). It guided higher and gapped up on volume — not huge volume, but the pattern looked clean enough to take. Still holding roughly half his shares at the time of the video; calls IPO breakouts "super powerful."
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=1249s*
-- **Fastly, long.** Bought a couple of weeks after IPO, after it had gone sideways since listing. A report showing 38% revenue growth (pre-profitability) with good guidance triggered by far the largest volume day since the IPO — the stock traded its full ~1.5 million share average daily volume within the first 5-10 minutes, which made it "pretty obvious early" this was a real move, not a fade.
+- **Fastly, long.** Bought a couple of weeks after IPO, after it had gone sideways since listing. A report showing 38% revenue growth (pre-profitability) with good guidance triggered by far the largest volume day since the IPO — the stock traded its full roughly 1.5 million share average daily volume within the first 5-10 minutes, which made it "pretty obvious early" this was a real move, not a fade.
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=1294s*
 - **Why he actively favors the category, stated directly.** Scanning a batch of recent listings live, including one he flags simply as "another recent IPO": "recent IPO breakouts can be very powerful, since they're usually low float, and many times they're kind of exciting businesses — it's the first time you get to buy a certain business... I really like IPO breakouts." He draws the contrast explicitly against a long-established, already-widely-owned name in the same breath — an old company can only be "discovered" once by the market, while every recent IPO is still going through that discovery phase, which is what produces the low-float, high-institutional-demand combination he's hunting for.
   - *2021-06-09, "Yuuuge opportunities", t=1719s*
@@ -750,7 +751,7 @@ This connects directly to 1.9's failed-breakout-reset pattern: if a second attem
 
 A recurring, near-absolute rule: never hold a full position through an earnings report, in either direction, regardless of how strong the setup looks. The exception is holding a partial position specifically from a position of strength — an existing profit cushion that can absorb a bad gap — and even then only with reduced size.
 
-- **PDD — the ~$200K lesson in forgetting your own calendar.** Live, mid-loss: "I'm getting killed on PDD pre-market — I forgot they had earnings. I went into these earnings almost full size, I only sold maybe 10-15% of my position into strength, and I probably should have sold like half before the close. I forgot they had earnings, and now it's gapping down..." He does the math out loud as it happens: "I'm gonna take a pretty big loss, close to $200K, if I get stopped out — and that's on me, because I broke my own rules, because I was sloppy." No hedging or blaming the stock: the loss is attributed entirely to a process failure (not checking the earnings calendar before sizing up), not to the setup itself or the market being unfair.
+- **PDD — the roughly $200K lesson in forgetting your own calendar.** Live, mid-loss: "I'm getting killed on PDD pre-market — I forgot they had earnings. I went into these earnings almost full size, I only sold maybe 10-15% of my position into strength, and I probably should have sold like half before the close. I forgot they had earnings, and now it's gapping down..." He does the math out loud as it happens: "I'm gonna take a pretty big loss, close to $200K, if I get stopped out — and that's on me, because I broke my own rules, because I was sloppy." No hedging or blaming the stock: the loss is attributed entirely to a process failure (not checking the earnings calendar before sizing up), not to the setup itself or the market being unfair.
   - *2020-08-21, "Lots of setups triggered this week but will they have good follow through?", t=399s*
 - **SCDG — the rule applied correctly, live, on a real position.** Deciding how to handle an upcoming earnings date on a name he's actually holding: "you always want to approach trading from a position of strength, so anytime you hold into a catalyst, make sure you have profit padding, make sure the stock has gone up a lot already — or if you're short, the stock has gone down a lot and you've already locked in a bunch — and enter the catalyst from a position of strength, not from a position of weakness." Applied to the specific name in front of him: "SCDG, yeah, I'm gonna hold it because I'm in a position of strength — it's not up a lot, but... I'm probably gonna slice down a little bit, it's not a huge position." Even while satisfying the rule, he still trims size rather than holding the full position — "position of strength" earns the *right* to hold through the catalyst, it doesn't automatically mean holding at full size.
   - *2021-02-16, "Slow start to a 4-day week", t=4036s*
@@ -855,7 +856,7 @@ This is the exit-side mirror of 3.2's small-account-edge and 3.10's liquidity-dr
 - **The slow-motion version of the same discipline — a whole portfolio, flipped over a week by nothing but stop-outs.** Explaining the underlying principle first: "price action is what you trade, that's the only thing — you can go to the store and pay with it. You can't go to the boat dealership and buy a boat with your opinions, it just doesn't work that way." He then narrates how his entire book had rotated from long to short with no single decisive call, just the accumulation of many small ones: "the past few days was exactly how I handled the February top — I started getting stopped out one by one, I had a big portfolio going into mid-to-late February before the COVID stuff, but one by one, the long setups disappeared, I had a bunch of longs, got stopped out one by one, and it was a process — it didn't happen in one day, it took a while, it was a week-long process to go from net long to net short. It started here, and then one by one I started seeing short setups, I started shorting a bunch of stuff — so I went from being like 150% net long, to 100% net long, to 50% net long, to zero net long, to being like 50% net short. It was a process over several days." Where the Tesla flip shows the discipline compressed into seconds on a single name, this shows the identical mechanism stretched across a week and an entire portfolio — dozens of small, mechanical stop-outs adding up to the same wholesale reversal, with no single moment where he "decided" the market had turned.
   - *2020-09-04, "Finally a washout in the markets - Newbies getting schooled", t=6351s and t=6413s*
 
-The size of the swing is what makes the Tesla example instructive — a ~$10 million total reversal in position, executed in seconds, on a stock he'd apparently been confidently bearish on moments earlier. Nothing about his opinion of Tesla changed in those seconds; what changed was what price actually did, and the whole framework in this document (mechanical stops, no fixed targets, trailing rather than predicting) exists specifically to make a reversal like this possible without an ego cost — the position flips the instant the *evidence* flips, independent of how recently or how confidently the opposite thesis was held. The portfolio-wide, week-long version shows the same principle scales up from one position to an entire book without needing a single dramatic decision at all — the reversal is just what following price mechanically, position by position, produces on its own.
+The size of the swing is what makes the Tesla example instructive — a roughly $10 million total reversal in position, executed in seconds, on a stock he'd apparently been confidently bearish on moments earlier. Nothing about his opinion of Tesla changed in those seconds; what changed was what price actually did, and the whole framework in this document (mechanical stops, no fixed targets, trailing rather than predicting) exists specifically to make a reversal like this possible without an ego cost — the position flips the instant the *evidence* flips, independent of how recently or how confidently the opposite thesis was held. The portfolio-wide, week-long version shows the same principle scales up from one position to an entire book without needing a single dramatic decision at all — the reversal is just what following price mechanically, position by position, produces on its own.
 
 ### 5.8 Reframing losses against total account size
 
@@ -1530,172 +1531,172 @@ A related, less obvious piece of structural advice appears in the later batch no
 
 Every citation in this document is tagged inline with its date and, where captured, the upload title and a timestamp. This index consolidates all **167** distinct source videos actually cited across the ten sections above, sorted by upload date, with a direct link and the specific subsection(s) each one is used in — useful for tracing any claim back to its original clip, or for browsing the underlying source material chronologically rather than by topic.
 
-| Date | Video | Cited in |
-|---|---|---|
-| 2017-02-23 | [$CNBX death and Watches for Thursday February 23](https://www.youtube.com/watch?v=2A7fmWBvvRE) | 9.12 |
-| 2017-02-24 | [Weed stocks continued death and Watches for February 24](https://www.youtube.com/watch?v=OJXtrIbxdjU) | 9.12 |
-| 2017-03-22 | [$101K in profits and 43% win rate for February - Review of mistakes made](https://www.youtube.com/watch?v=NsZd1fqveRc) | 8.5 |
-| 2017-10-03 | [Recap and watches for Tuesday Oct 03](https://www.youtube.com/watch?v=dIbyUDoRx_s) | 6.1 |
-| 2019-03-10 | [How to trade (and not to trade) insanity stocks. $BPTH $LFIN $DRYS $AQXP $KBIO $DGLY $VLTC](https://www.youtube.com/watch?v=pNWdgezy2VA) | 1.5, 6.8, 8.12 |
-| 2019-10-01 | [My FIRST trading stream!](https://www.youtube.com/watch?v=e49j7sjdMFE) | 10.3 |
-| 2019-10-02 | [Least exposure this year so far!! Started $UVXY long, markets reall weak](https://www.youtube.com/watch?v=Nlc2r-uz6Gg) | 4.2 |
-| 2019-10-24 | [GOLD and SILVER!](https://www.youtube.com/watch?v=UG1vfP9hCH0) | 2.7 |
-| 2019-10-25 | [Gold and silver breaking out! Nailed it perfectly.](https://www.youtube.com/watch?v=vLuChJ0B6mU) | 8.1, 8.10 |
-| 2019-11-04 | [Earnings, oil and China!](https://www.youtube.com/watch?v=R7nACKgTydc) | 6.6 |
-| 2019-11-07 | [Great earnings breakouts](https://www.youtube.com/watch?v=8uyENUhiW1c) | 1.10 |
-| 2019-11-08 | [Slow earnings day!](https://www.youtube.com/watch?v=pomzmadhQV0) | 3.1 |
-| 2019-11-11 | [Earnings season almost over!](https://www.youtube.com/watch?v=MSVE_HaH0qo) | 8.12 |
-| 2020-01-14 | [Almost $150K in profits out of the gate! CRAZY open today!](https://www.youtube.com/watch?v=FN20YOH_XRM) | 3.5 |
-| 2020-01-22 | [I gave back $200K in profits on $FCEL in 15 minutes...](https://www.youtube.com/watch?v=O333thFuU40) | 5.4 |
-| 2020-01-27 | [My coronavirus plays gapping higher.](https://www.youtube.com/watch?v=ZS0JjG1EfpU) | 1.12 |
-| 2020-02-03 | [Coronavirus stocks choppiest theme pumps I've ever seen.](https://www.youtube.com/watch?v=qmhLHCHRBnM) | 1.4 |
-| 2020-02-19 | [Tesla going to $1500?](https://www.youtube.com/watch?v=AG226y4hi1E) | 1.12 |
-| 2020-02-24 | [Coronavirus getinng HOT again and will the markets finally have a pullback?](https://www.youtube.com/watch?v=ZwPbyiN3Qvo) | 3.5 |
-| 2020-02-25 | [Now is the time to stalk for RELATIVE STRENGTH in the markets!](https://www.youtube.com/watch?v=iuzNFGgMu_0) | 2.1 |
-| 2020-02-26 | [Covid / Corona stocks going nuts! I'm long a bunch!](https://www.youtube.com/watch?v=e5Cc6XHg-7E) | 1.11 |
-| 2020-03-04 | [Corona stocks momentum leaving?](https://www.youtube.com/watch?v=62v5pmWOr2k) | 7.5 |
-| 2020-03-26 | [Market in limbo. Potential monster setups building though](https://www.youtube.com/watch?v=3ewTEp3lU38) | 5.4 |
-| 2020-04-02 | [My favorite growth stock turned out to be a FRAUD!](https://www.youtube.com/watch?v=fi2acIEmnKU) | 7.12 |
-| 2020-04-15 | [Damn gap down. They are not giving us a good setup...](https://www.youtube.com/watch?v=ohS61T28TdA) | 9.3, 9.7 |
-| 2020-04-17 | [Sell the news coming in the markets?](https://www.youtube.com/watch?v=SvTWDAao4pI) | 1.10 |
-| 2020-04-27 | [Beaten down names 50-100% upside!](https://www.youtube.com/watch?v=BEAQXNtA5ok) | 2.6, 5.1 |
-| 2020-05-13 | [Finally about to get a base building period after straight up panic buying?](https://www.youtube.com/watch?v=7tIk1NhphuQ) | 2.1 |
-| 2020-05-14 | [The most speculative portfolio ever. Can $FMCI double-triple?](https://www.youtube.com/watch?v=wD4q_XHL8B0) | 7.6 |
-| 2020-05-20 | [If Twitter says $MARK is worth $16 and I buy at $1.65... is that value investing?](https://www.youtube.com/watch?v=-4SriUVLDKo) | 2.5, 7.3 |
-| 2020-05-21 | [Will my value investments make me a million or should I stick to momentum trading?](https://www.youtube.com/watch?v=foGdZubGoGA) | 7.11 |
-| 2020-05-27 | [Millions in profits and how to quickly switch from net long to net short.](https://www.youtube.com/watch?v=1GUt-E5lNps) | 6.7, 8.1 |
-| 2020-05-27 | [My setups, methodology, and how to build trading mastery](https://www.youtube.com/watch?v=KciAjkEFA6s) | 1.1, 1.3, 1.4, 1.5, 1.6, 1.7, 10.2 |
-| 2020-05-29 | [$ZS new earnings trade. Can it double from here?](https://www.youtube.com/watch?v=QaTaHNR_FkI) | 5.1 |
-| 2020-06-02 | [Best swing trading market ever. Just activate autopilpot and all bad news gets absorbed](https://www.youtube.com/watch?v=uZFKiMA3M1I) | 1.12, 2.1, 4.3 |
-| 2020-06-09 | [BIG opportunities ruined by the gap down. Did nail $NKLA short though](https://www.youtube.com/watch?v=5S-spryFw8Y) | 3.5 |
-| 2020-06-10 | [Best. Trading. Market. Ever.](https://www.youtube.com/watch?v=0oyd5iYY4GU) | 8.6, 10.3, 10.8 |
-| 2020-06-12 | [Leading stocks holding up like champions despite the market weakness.](https://www.youtube.com/watch?v=DIvPxYjxRlg) | 8.7, 10.8 |
-| 2020-06-17 | [Is it even possible to lose in this market?](https://www.youtube.com/watch?v=OsnRBJF0xr0) | 6.2 |
-| 2020-06-18 | [The market doesn't care how smart you are or how much information you think you have.](https://www.youtube.com/watch?v=TfS-YmicyQ0) | 2.9, 9.2 |
-| 2020-06-19 | [Frothy market, and I LOVE IT](https://www.youtube.com/watch?v=Nb1NvTY5Ulk) | 2.5, 8.2 |
-| 2020-06-22 | [Opportunities of a lifetime!](https://www.youtube.com/watch?v=WIeBGz4Og8Y) | 6.3, 8.6 |
-| 2020-06-23 | [Biggest short opportunity in months setting up](https://www.youtube.com/watch?v=tnHw5CKxcH4) | 9.1 |
-| 2020-06-24 | [Watch this if you want to learn to play defense when you are heavily long and the market pulls back!](https://www.youtube.com/watch?v=J6TJkwrTH6E) | 2.5 |
-| 2020-06-29 | [Many hight tight flags developing! Multi million dollar opportunities setting up!](https://www.youtube.com/watch?v=kITl8W5eaEA) | 4.11 |
-| 2020-07-01 | [Feels like markets are tired, BUT, a few parabolic moves in momentum leaders starting](https://www.youtube.com/watch?v=6fsq62nKgH0) | 4.4 |
-| 2020-07-02 | [If you don't spend time studying historical stock moves over the weekend, you won't make it trading](https://www.youtube.com/watch?v=zxqFTq59gZU) | 2.3, 2.4, 10.4, 10.5 |
-| 2020-07-06 | [Couple of rants about spending 1000+ hours studying how stocks move.](https://www.youtube.com/watch?v=UTbvV7Rqd4E) | 2.6, 9.8 |
-| 2020-07-08 | [Big shorting opportunities developing in $NIO and $OSTK](https://www.youtube.com/watch?v=hgrjw6IxFGY) | 3.12, 7.2 |
-| 2020-07-10 | [Slow melt up continues but some short setups may be developing](https://www.youtube.com/watch?v=XFjjt4Cm16I) | 7.4, 10.7 |
-| 2020-07-13 | [Tech and software stocks in melt-up mode! Will there be some reversals soon?](https://www.youtube.com/watch?v=YwMoUTd4naQ) | 6.4 |
-| 2020-07-14 | [Finally the expected rug pull! Now what?](https://www.youtube.com/watch?v=cMkRsqvlVHM) | 6.4 |
-| 2020-07-15 | [If you are easily triggered, don't watch this!](https://www.youtube.com/watch?v=GAUMqB_R1bE) | 3.12 |
-| 2020-07-20 | [Looks like I got shaken out of some  of the momentum leaders last week...](https://www.youtube.com/watch?v=SN9Rlh25xWs) | 4.5 |
-| 2020-07-21 | [Momentum leaders leading, laggards lagging](https://www.youtube.com/watch?v=QBZO0UglZ8w) | 5.7 |
-| 2020-07-30 | [Success in trading is about shrugging off an occasional big loss quick and sticking to your process](https://www.youtube.com/watch?v=TsI1kd_DHTU) | 3.1, 3.3, 6.2, 9.8 |
-| 2020-07-31 | [Swing trading school coming!](https://www.youtube.com/watch?v=KsozMIjFBis) | 9.5 |
-| 2020-08-03 | [Swing trading school -last 40 minutes-](https://www.youtube.com/watch?v=X9vP9hJY6qM) | 3.2, 7.1 |
-| 2020-08-04 | [Made back my $1.5M loss from last week! Swing trading school last 40 minutes](https://www.youtube.com/watch?v=WfpvTnScSE8) | 6.1 |
-| 2020-08-05 | [Perfect short setup on $LVGO! -Swing trading school last 55 minutes-](https://www.youtube.com/watch?v=YYFwzNZkRDI) | 3.2, 6.9 |
-| 2020-08-10 | [Sector rotation from leaders to laggards today - Swing Trading School last 55 minutes -](https://www.youtube.com/watch?v=438_cyYQ888) | 7.1 |
-| 2020-08-12 | [Time for patience! -Swing Trading School first hour or so-](https://www.youtube.com/watch?v=ZdXxuBIFTZ0) | 7.2 |
-| 2020-08-13 | [Good setups are coming back!](https://www.youtube.com/watch?v=0uj98guIOpA) | 4.2, 10.1 |
-| 2020-08-18 | [Maybe becoming an activist investor](https://www.youtube.com/watch?v=3WOCGilnS6A) | 10.6 |
-| 2020-08-19 | [Crypto setups special! -Swing Trading School about 65 minutes  in-](https://www.youtube.com/watch?v=4pNRHwHAJgw) | 2.2, 7.8 |
-| 2020-08-21 | [Lots of setups triggered this week but will they have good follow through?](https://www.youtube.com/watch?v=WczOCnD0f5w) | 4.8, 8.2 |
-| 2020-09-01 | [How far will the market go without a pullback?](https://www.youtube.com/watch?v=QyFTLOZ-4zs) | 4.1 |
-| 2020-09-02 | [Tesla and $TQQQ multi million dollar shorts?](https://www.youtube.com/watch?v=HUiY2C5jlEQ) | 3.8, 6.2, 8.3 |
-| 2020-09-04 | [Finally a washout in the markets - Newbies getting schooled](https://www.youtube.com/watch?v=Y8xs3JFgVwc) | 5.7, 8.4, 8.5, 9.6 |
-| 2020-09-22 | [Leaders leading](https://www.youtube.com/watch?v=_JvCQKA9xXU) | 2.10 |
-| 2020-09-24 | [Need a panic flush for a bottom!](https://www.youtube.com/watch?v=28vQw4v_YfQ) | 8.4 |
-| 2020-09-29 | [Major indinces getting rejected at supply levels...](https://www.youtube.com/watch?v=JxOTlvGUSF0) | 1.11 |
-| 2020-09-30 | [Lack of good setups again](https://www.youtube.com/watch?v=oKfvcX-S4M0) | 1.1, 1.9 |
-| 2020-10-06 | [Strength into the elections?](https://www.youtube.com/watch?v=1HWK6UOYvNM) | 9.9 |
-| 2020-10-12 | [Now is the time to sit and profit from the swing setups from weeks ago!](https://www.youtube.com/watch?v=iobRxNCyEk0) | 2.7, 2.8 |
-| 2020-10-22 | [Leading stocks breaking down!](https://www.youtube.com/watch?v=nI4MRwZwzMM) | 2.11, 4.10 |
-| 2020-10-28 | [Finally getting some fear back in the markets!](https://www.youtube.com/watch?v=eeV2c2_75AY) | 3.7, 6.5 |
-| 2020-10-30 | [The last of the leaders breaking down now](https://www.youtube.com/watch?v=1gmFq2IsTYY) | 2.11, 9.10 |
-| 2020-11-02 | [Chop chop chop in the markets!](https://www.youtube.com/watch?v=VOGuzD4wFN8) | 10.4 |
-| 2020-11-04 | [ELECTIONS! New bull leg starting or suckers gap?](https://www.youtube.com/watch?v=s9dqGYWRmtc) | 6.9 |
-| 2020-11-25 | [Happy thanksgiving!](https://www.youtube.com/watch?v=6UxqgsEMquQ) | 2.9, 3.1 |
-| 2020-12-03 | [Mini earnings season today!](https://www.youtube.com/watch?v=BpR5Q4AVO00) | 7.7 |
-| 2020-12-07 | [Should I retire from options trading? (a LOT of wisdom in todays stream!)](https://www.youtube.com/watch?v=uTMK9uhQZCc) | 3.9 |
-| 2020-12-09 | [$QS what a beast! + Warhammer Total War gaming](https://www.youtube.com/watch?v=IKVebjU0cnk) | 2.3, 3.6, 8.6 |
-| 2020-12-10 | [Leaders are still leading, shakeout yesterday?](https://www.youtube.com/watch?v=Dl05a1xsArc) | 3.11, 4.11 |
-| 2020-12-11 | [Lots of stocks still setting up!](https://www.youtube.com/watch?v=rL2JHZ8TQ3Q) | 2.9 |
-| 2020-12-17 | [Everything going higher!](https://www.youtube.com/watch?v=p8WQ_4XdNPY) | 7.3 |
-| 2020-12-18 | [Why do I keep selling too early?](https://www.youtube.com/watch?v=YTRrhSIj064) | 7.6 |
-| 2020-12-22 | [Markets are giving away free money (for now)](https://www.youtube.com/watch?v=wLYBzP4qRjY) | 2.11, 6.7, 8.11 |
-| 2020-12-30 | [Brandi Love wishing me a Merry Christmas!](https://www.youtube.com/watch?v=DuEGgCe5tuQ) | 2.3 |
-| 2021-01-07 | [I may have a $10M week going on here](https://www.youtube.com/watch?v=bgLDLpmUMuY) | 3.6, 3.9 |
-| 2021-01-12 | [EV Gold Rush!](https://www.youtube.com/watch?v=46Dw3UTmKlA) | 1.7 |
-| 2021-01-13 | [Throw a dart and you will make money in this market](https://www.youtube.com/watch?v=0udk9grGeqE) | 3.10, 6.6 |
-| 2021-01-14 | [Heavily long on margin and everything going up up up](https://www.youtube.com/watch?v=n0DsBVg8Spk) | 4.4, 5.3 |
-| 2021-01-15 | [stonks olny gö up](https://www.youtube.com/watch?v=rhn_USs7vWA) | 9.4 |
-| 2021-01-20 | [Extended stocks breaking down! $MARA $RIOT $BNGO](https://www.youtube.com/watch?v=jCvLY7F8g80) | 1.2, 2.1 |
-| 2021-01-21 | [Bitcoin nearing the 50-day! Major support?](https://www.youtube.com/watch?v=D1NMXfSXpYk) | 1.2, 1.12, 8.8 |
-| 2021-01-25 | [Did I trade $100M worth of stocks today? YES!](https://www.youtube.com/watch?v=dvZBux4ffy0) | 1.7, 2.8, 5.8, 9.1 |
-| 2021-01-26 | [You can be a victim of the markets or CHOOSE to be in control.](https://www.youtube.com/watch?v=dErH0zxsFaI) | 3.7, 4.6, 6.10, 9.4 |
-| 2021-01-27 | [When is Gamestop going to stop? (going higher)](https://www.youtube.com/watch?v=6iCYjLxS9GQ) | 3.11 |
-| 2021-01-28 | [Cool $10M+ day today. Started with $5K ten years ago...](https://www.youtube.com/watch?v=zhbdUtJDqz0) | 6.5 |
-| 2021-02-03 | [bounce in memestocks soon?](https://www.youtube.com/watch?v=-fyEsUotcgs) | 9.7 |
-| 2021-02-05 | [Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market](https://www.youtube.com/watch?v=FamRgrbApII) | 1.9, 4.6, 8.4, 8.11 |
-| 2021-02-09 | [Good margin calls vs bad margin calls](https://www.youtube.com/watch?v=ldVGG5t4e14) | 6.7 |
-| 2021-02-10 | [Buy the lows and sell the top on $TLRY?](https://www.youtube.com/watch?v=H0j5PtnK814) | 9.2 |
-| 2021-02-12 | [Gamestop $GME ultra tight setup. And some HOI4 gameplay](https://www.youtube.com/watch?v=siYpCaiuPKg) | 2.6 |
-| 2021-02-16 | [Slow start to a 4-day week](https://www.youtube.com/watch?v=yLTaPfwqWis) | 4.8 |
-| 2021-02-19 | [Lots of strength under the surface but not many good setups...](https://www.youtube.com/watch?v=HprTJJp8yUY) | 10.11 |
-| 2021-02-25 | [Memestocks back in play](https://www.youtube.com/watch?v=Bgy9eaOqDZw) | 3.3, 7.9 |
-| 2021-02-26 | [Market in limbo](https://www.youtube.com/watch?v=iBex0umEpOc) | 6.6 |
-| 2021-03-10 | [Will this bounce stick?](https://www.youtube.com/watch?v=4NWSjDX9plk) | 2.9 |
-| 2021-03-11 | [SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!](https://www.youtube.com/watch?v=56Q8WjpUFK8) | 7.9 |
-| 2021-03-12 | [Serious talk and not so serious talk](https://www.youtube.com/watch?v=5-Y6oXm32OE) | 7.8 |
-| 2021-03-17 | [Late upload - Tuesday March 16](https://www.youtube.com/watch?v=NRgCKsBnxm8) | 3.8 |
-| 2021-03-17 | [Late upload - Monday March 15](https://www.youtube.com/watch?v=XE96XfekTv4) | 3.9 |
-| 2021-03-18 | [Setups developing but they need more work](https://www.youtube.com/watch?v=kFOxR0mxJdM) | 5.6, 10.5 |
-| 2021-03-19 | [Crypto setups for next week!](https://www.youtube.com/watch?v=7jPFXy_nrBE) | 1.9, 8.3 |
-| 2021-03-23 | [Not great action beneath the hood right now](https://www.youtube.com/watch?v=7kxZUobYxpg) | 9.9 |
-| 2021-03-30 | [Bullish signs emerging](https://www.youtube.com/watch?v=jLXXUdYYYnM) | 2.4 |
-| 2021-03-31 | [NASDAQ is tightening up, lots of strength](https://www.youtube.com/watch?v=i-FvQ9bD9S8) | 7.4 |
-| 2021-04-05 | [Semiconductors big follow through from the breakouts!](https://www.youtube.com/watch?v=dTJueSUqdh4) | 10.7 |
-| 2021-04-14 | [If you don't watch this, delete your trading account! Struggling trader feedback starts 16.05 deskto](https://www.youtube.com/watch?v=uOuFauQ6MJY) | 5.2 |
-| 2021-04-16 | [Patience](https://www.youtube.com/watch?v=FKliYFtPHjI) | 4.1 |
-| 2021-04-19 | [Henry Cavill home workout video](https://www.youtube.com/watch?v=4fWhUJKewBA) | 9.11 |
-| 2021-04-20 | [zzz](https://www.youtube.com/watch?v=S0oIP3dY-qQ) | 6.12 |
-| 2021-04-30 | [Slow but big bases are forming!!](https://www.youtube.com/watch?v=YBaCABc1-qo) | 2.7 |
-| 2021-05-07 | [Seeing some big opportunities setting up](https://www.youtube.com/watch?v=uFJDGcCzR3A) | 1.8, 1.11, 2.10, 3.4 |
-| 2021-05-11 | [S&P500 index looks super vulnerable](https://www.youtube.com/watch?v=WT6u5_FkWr0) | 4.7, 10.1 |
-| 2021-05-20 | [Indices strong, BUT running into key moving averages](https://www.youtube.com/watch?v=Pde5BeC0JEk) | 1.12, 2.2 |
-| 2021-05-25 | [Big moves potentially starting in a few places](https://www.youtube.com/watch?v=4KUie6VALR4) | 2.10 |
-| 2021-05-26 | [Some bigs moves starting!!](https://www.youtube.com/watch?v=A2gkEQC6O_Y) | 1.2 |
-| 2021-06-01 | [Several potential $10M trades on the hook?](https://www.youtube.com/watch?v=6Qm_RbDtb-A) | 5.9 |
-| 2021-06-04 | [AMC to $2 MILLION](https://www.youtube.com/watch?v=gMf10voYB1M) | 3.4 |
-| 2021-06-09 | [Yuuuge opportunities](https://www.youtube.com/watch?v=gwoJzKevjeY) | 1.4, 4.3 |
-| 2021-06-16 | [Meme stocks dying, semis and oil strong. TESLA weak](https://www.youtube.com/watch?v=BrxylKH0YlE) | 6.9 |
-| 2021-06-22 | [Many many setups right now. $DDD super breakout](https://www.youtube.com/watch?v=MafImVNKyEk) | 3.2 |
-| 2021-07-07 | [No sun = stream](https://www.youtube.com/watch?v=FjnKydE523o) | 4.9 |
-| 2021-07-20 | [Leaders breaking out](https://www.youtube.com/watch?v=zjJObr1Gn8A) | 5.2, 5.9 |
-| 2021-09-16 | [Strength and weakness, strength and weakness](https://www.youtube.com/watch?v=mIDsGQuJCo0) | 7.1 |
-| 2021-09-17 | [Buy my course for $9999.99](https://www.youtube.com/watch?v=qDUadzvPUGc) | 6.3, 8.9, 9.10 |
-| 2021-10-14 | [Small caps end of year run? $IWM $TNA](https://www.youtube.com/watch?v=7Kl90d6NPNM) | 2.1 |
-| 2021-10-21 | [So much opportunity! Hard to get filled](https://www.youtube.com/watch?v=T3VhwZZjeOo) | 5.3 |
-| 2021-11-05 | [Markets in free money mode](https://www.youtube.com/watch?v=aL-tAJ7CHv4) | 8.7 |
-| 2021-11-09 | [Eventually you need to be able to stand on your own 2 legs](https://www.youtube.com/watch?v=uYkzHI4_2H0) | 7.10 |
-| 2021-11-12 | [Study what actually works in the markets and tune out financial media](https://www.youtube.com/watch?v=x7jBeIGqwIs) | 6.8, 7.10 |
-| 2021-12-07 | [Santa Rally starting now!](https://www.youtube.com/watch?v=xLoQjzyOsnk) | 6.12 |
-| 2021-12-15 | [Slow grinding environment](https://www.youtube.com/watch?v=M-05qqa2fbQ) | 2.1 |
-| 2021-12-17 | [Santa stopped buying](https://www.youtube.com/watch?v=Quo56MNcUxA) | 9.3 |
-| 2021-12-30 | [Next year will be up, down, down, up, down, up? Your predictions?](https://www.youtube.com/watch?v=ipIiBdmTcEs) | 6.8 |
-| 2022-01-12 | [Interesting opportunities setting up](https://www.youtube.com/watch?v=zgX7rMRvvwI) | 2.8 |
-| 2022-01-21 | [Please can we get some panic selling already?](https://www.youtube.com/watch?v=8El034_4RlI) | 6.11 |
-| 2022-01-27 | [Patience is King](https://www.youtube.com/watch?v=-3qtA_s7g9c) | 5.5 |
-| 2022-02-01 | [New week, new opportunities](https://www.youtube.com/watch?v=Gt8Xdva-ZfU) | 6.11 |
-| 2022-02-03 | [Bounce already failing?](https://www.youtube.com/watch?v=fF6Qn6PVgOo) | 10.11 |
-| 2022-02-04 | [Risk ON type of day](https://www.youtube.com/watch?v=_QYrM9zyziM) | 8.10 |
-| 2022-02-08 | [Tax advice](https://www.youtube.com/watch?v=3wddoD1e4M0) | 2.2 |
-| 2022-04-06 | [Epic stream filled with wisdom on trading psychology and relationships](https://www.youtube.com/watch?v=TeWiXhJTeyI) | 4.7, 8.8, 8.9 |
-| 2022-04-12 | [Not many easter setups](https://www.youtube.com/watch?v=bnPcAPjdAz4) | 3.6, 5.5 |
-| 2022-04-13 | [Fucked by the oil & gas sector this whole week](https://www.youtube.com/watch?v=n6Gm1mLN7T0) | 4.5, 9.6 |
-| 2023-01-26 | [New BULL?](https://www.youtube.com/watch?v=GdMs1y_RTnM) | 6.11, 10.12 |
-| 2023-05-19 | [Episodic Pivots, Kenny boy and old times](https://www.youtube.com/watch?v=_y9Wo0eBP4A) | 1.3, 2.5, 10.6 |
-| 2023-05-23 | [EPs good follow through. AI and Quantum names waking up](https://www.youtube.com/watch?v=2UgJ5CvVVK4) | 3.10, 7.5, 10.9, 10.10 |
-| 2023-06-01 | [AI and the shittier the stock, the bigger the move.](https://www.youtube.com/watch?v=1HFPeLD2zwc) | 2.12 |
-| 2023-06-08 | [EPs, AI and quantum computing stocks](https://www.youtube.com/watch?v=SLhbpNuHegw) | 10.10 |
-| 2023-06-09 | [Market mechanics, setups and more](https://www.youtube.com/watch?v=VdQSDGZBLQE) | 2.12, 9.5, 9.12, 10.9, 10.12 |
-| 2023-12-01 | [EP party!](https://www.youtube.com/watch?v=TZnX1qEiOkM) | 5.10, 7.6 |
-| 2023-12-15 | [Speculation money is back!](https://www.youtube.com/watch?v=JNVA5cd_m7M) | 4.9, 9.11 |
+| Date       | Video                                                                                                                                                     | Cited in                           |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| 2017-02-23 | [$CNBX death and Watches for Thursday February 23](https://www.youtube.com/watch?v=2A7fmWBvvRE)                                                            | 9.12                               |
+| 2017-02-24 | [Weed stocks continued death and Watches for February 24](https://www.youtube.com/watch?v=OJXtrIbxdjU)                                                     | 9.12                               |
+| 2017-03-22 | [$101K in profits and 43% win rate for February - Review of mistakes made](https://www.youtube.com/watch?v=NsZd1fqveRc)                                    | 8.5                                |
+| 2017-10-03 | [Recap and watches for Tuesday Oct 03](https://www.youtube.com/watch?v=dIbyUDoRx_s)                                                                        | 6.1                                |
+| 2019-03-10 | [How to trade (and not to trade) insanity stocks. $BPTH $LFIN $DRYS $AQXP $KBIO $DGLY $VLTC](https://www.youtube.com/watch?v=pNWdgezy2VA)                  | 1.5, 6.8, 8.12                     |
+| 2019-10-01 | [My FIRST trading stream!](https://www.youtube.com/watch?v=e49j7sjdMFE)                                                                                    | 10.3                               |
+| 2019-10-02 | [Least exposure this year so far!! Started $UVXY long, markets reall weak](https://www.youtube.com/watch?v=Nlc2r-uz6Gg)                                    | 4.2                                |
+| 2019-10-24 | [GOLD and SILVER!](https://www.youtube.com/watch?v=UG1vfP9hCH0)                                                                                            | 2.7                                |
+| 2019-10-25 | [Gold and silver breaking out! Nailed it perfectly.](https://www.youtube.com/watch?v=vLuChJ0B6mU)                                                          | 8.1, 8.10                          |
+| 2019-11-04 | [Earnings, oil and China!](https://www.youtube.com/watch?v=R7nACKgTydc)                                                                                    | 6.6                                |
+| 2019-11-07 | [Great earnings breakouts](https://www.youtube.com/watch?v=8uyENUhiW1c)                                                                                    | 1.10                               |
+| 2019-11-08 | [Slow earnings day!](https://www.youtube.com/watch?v=pomzmadhQV0)                                                                                          | 3.1                                |
+| 2019-11-11 | [Earnings season almost over!](https://www.youtube.com/watch?v=MSVE_HaH0qo)                                                                                | 8.12                               |
+| 2020-01-14 | [Almost $150K in profits out of the gate! CRAZY open today!](https://www.youtube.com/watch?v=FN20YOH_XRM)                                                  | 3.5                                |
+| 2020-01-22 | [I gave back $200K in profits on $FCEL in 15 minutes...](https://www.youtube.com/watch?v=O333thFuU40)                                                      | 5.4                                |
+| 2020-01-27 | [My coronavirus plays gapping higher.](https://www.youtube.com/watch?v=ZS0JjG1EfpU)                                                                        | 1.12                               |
+| 2020-02-03 | [Coronavirus stocks choppiest theme pumps I&#39;ve ever seen.](https://www.youtube.com/watch?v=qmhLHCHRBnM)                                                | 1.4                                |
+| 2020-02-19 | [Tesla going to $1500?](https://www.youtube.com/watch?v=AG226y4hi1E)                                                                                       | 1.12                               |
+| 2020-02-24 | [Coronavirus getinng HOT again and will the markets finally have a pullback?](https://www.youtube.com/watch?v=ZwPbyiN3Qvo)                                 | 3.5                                |
+| 2020-02-25 | [Now is the time to stalk for RELATIVE STRENGTH in the markets!](https://www.youtube.com/watch?v=iuzNFGgMu_0)                                              | 2.1                                |
+| 2020-02-26 | [Covid / Corona stocks going nuts! I&#39;m long a bunch!](https://www.youtube.com/watch?v=e5Cc6XHg-7E)                                                     | 1.11                               |
+| 2020-03-04 | [Corona stocks momentum leaving?](https://www.youtube.com/watch?v=62v5pmWOr2k)                                                                             | 7.5                                |
+| 2020-03-26 | [Market in limbo. Potential monster setups building though](https://www.youtube.com/watch?v=3ewTEp3lU38)                                                   | 5.4                                |
+| 2020-04-02 | [My favorite growth stock turned out to be a FRAUD!](https://www.youtube.com/watch?v=fi2acIEmnKU)                                                          | 7.12                               |
+| 2020-04-15 | [Damn gap down. They are not giving us a good setup...](https://www.youtube.com/watch?v=ohS61T28TdA)                                                       | 9.3, 9.7                           |
+| 2020-04-17 | [Sell the news coming in the markets?](https://www.youtube.com/watch?v=SvTWDAao4pI)                                                                        | 1.10                               |
+| 2020-04-27 | [Beaten down names 50-100% upside!](https://www.youtube.com/watch?v=BEAQXNtA5ok)                                                                           | 2.6, 5.1                           |
+| 2020-05-13 | [Finally about to get a base building period after straight up panic buying?](https://www.youtube.com/watch?v=7tIk1NhphuQ)                                 | 2.1                                |
+| 2020-05-14 | [The most speculative portfolio ever. Can $FMCI double-triple?](https://www.youtube.com/watch?v=wD4q_XHL8B0)                                               | 7.6                                |
+| 2020-05-20 | [If Twitter says $MARK is worth $16 and I buy at $1.65... is that value investing?](https://www.youtube.com/watch?v=-4SriUVLDKo)                           | 2.5, 7.3                           |
+| 2020-05-21 | [Will my value investments make me a million or should I stick to momentum trading?](https://www.youtube.com/watch?v=foGdZubGoGA)                          | 7.11                               |
+| 2020-05-27 | [Millions in profits and how to quickly switch from net long to net short.](https://www.youtube.com/watch?v=1GUt-E5lNps)                                   | 6.7, 8.1                           |
+| 2020-05-27 | [My setups, methodology, and how to build trading mastery](https://www.youtube.com/watch?v=KciAjkEFA6s)                                                    | 1.1, 1.3, 1.4, 1.5, 1.6, 1.7, 10.2 |
+| 2020-05-29 | [$ZS new earnings trade. Can it double from here?](https://www.youtube.com/watch?v=QaTaHNR_FkI)                                                            | 5.1                                |
+| 2020-06-02 | [Best swing trading market ever. Just activate autopilpot and all bad news gets absorbed](https://www.youtube.com/watch?v=uZFKiMA3M1I)                     | 1.12, 2.1, 4.3                     |
+| 2020-06-09 | [BIG opportunities ruined by the gap down. Did nail $NKLA short though](https://www.youtube.com/watch?v=5S-spryFw8Y)                                       | 3.5                                |
+| 2020-06-10 | [Best. Trading. Market. Ever.](https://www.youtube.com/watch?v=0oyd5iYY4GU)                                                                                | 8.6, 10.3, 10.8                    |
+| 2020-06-12 | [Leading stocks holding up like champions despite the market weakness.](https://www.youtube.com/watch?v=DIvPxYjxRlg)                                       | 8.7, 10.8                          |
+| 2020-06-17 | [Is it even possible to lose in this market?](https://www.youtube.com/watch?v=OsnRBJF0xr0)                                                                 | 6.2                                |
+| 2020-06-18 | [The market doesn&#39;t care how smart you are or how much information you think you have.](https://www.youtube.com/watch?v=TfS-YmicyQ0)                   | 2.9, 9.2                           |
+| 2020-06-19 | [Frothy market, and I LOVE IT](https://www.youtube.com/watch?v=Nb1NvTY5Ulk)                                                                                | 2.5, 8.2                           |
+| 2020-06-22 | [Opportunities of a lifetime!](https://www.youtube.com/watch?v=WIeBGz4Og8Y)                                                                                | 6.3, 8.6                           |
+| 2020-06-23 | [Biggest short opportunity in months setting up](https://www.youtube.com/watch?v=tnHw5CKxcH4)                                                              | 9.1                                |
+| 2020-06-24 | [Watch this if you want to learn to play defense when you are heavily long and the market pulls back!](https://www.youtube.com/watch?v=J6TJkwrTH6E)        | 2.5                                |
+| 2020-06-29 | [Many hight tight flags developing! Multi million dollar opportunities setting up!](https://www.youtube.com/watch?v=kITl8W5eaEA)                           | 4.11                               |
+| 2020-07-01 | [Feels like markets are tired, BUT, a few parabolic moves in momentum leaders starting](https://www.youtube.com/watch?v=6fsq62nKgH0)                       | 4.4                                |
+| 2020-07-02 | [If you don&#39;t spend time studying historical stock moves over the weekend, you won&#39;t make it trading](https://www.youtube.com/watch?v=zxqFTq59gZU) | 2.3, 2.4, 10.4, 10.5               |
+| 2020-07-06 | [Couple of rants about spending 1000+ hours studying how stocks move.](https://www.youtube.com/watch?v=UTbvV7Rqd4E)                                        | 2.6, 9.8                           |
+| 2020-07-08 | [Big shorting opportunities developing in $NIO and $OSTK](https://www.youtube.com/watch?v=hgrjw6IxFGY)                                                     | 3.12, 7.2                          |
+| 2020-07-10 | [Slow melt up continues but some short setups may be developing](https://www.youtube.com/watch?v=XFjjt4Cm16I)                                              | 7.4, 10.7                          |
+| 2020-07-13 | [Tech and software stocks in melt-up mode! Will there be some reversals soon?](https://www.youtube.com/watch?v=YwMoUTd4naQ)                                | 6.4                                |
+| 2020-07-14 | [Finally the expected rug pull! Now what?](https://www.youtube.com/watch?v=cMkRsqvlVHM)                                                                    | 6.4                                |
+| 2020-07-15 | [If you are easily triggered, don&#39;t watch this!](https://www.youtube.com/watch?v=GAUMqB_R1bE)                                                          | 3.12                               |
+| 2020-07-20 | [Looks like I got shaken out of some  of the momentum leaders last week...](https://www.youtube.com/watch?v=SN9Rlh25xWs)                                   | 4.5                                |
+| 2020-07-21 | [Momentum leaders leading, laggards lagging](https://www.youtube.com/watch?v=QBZO0UglZ8w)                                                                  | 5.7                                |
+| 2020-07-30 | [Success in trading is about shrugging off an occasional big loss quick and sticking to your process](https://www.youtube.com/watch?v=TsI1kd_DHTU)         | 3.1, 3.3, 6.2, 9.8                 |
+| 2020-07-31 | [Swing trading school coming!](https://www.youtube.com/watch?v=KsozMIjFBis)                                                                                | 9.5                                |
+| 2020-08-03 | [Swing trading school -last 40 minutes-](https://www.youtube.com/watch?v=X9vP9hJY6qM)                                                                      | 3.2, 7.1                           |
+| 2020-08-04 | [Made back my $1.5M loss from last week! Swing trading school last 40 minutes](https://www.youtube.com/watch?v=WfpvTnScSE8)                                | 6.1                                |
+| 2020-08-05 | [Perfect short setup on $LVGO! -Swing trading school last 55 minutes-](https://www.youtube.com/watch?v=YYFwzNZkRDI)                                        | 3.2, 6.9                           |
+| 2020-08-10 | [Sector rotation from leaders to laggards today - Swing Trading School last 55 minutes -](https://www.youtube.com/watch?v=438_cyYQ888)                     | 7.1                                |
+| 2020-08-12 | [Time for patience! -Swing Trading School first hour or so-](https://www.youtube.com/watch?v=ZdXxuBIFTZ0)                                                  | 7.2                                |
+| 2020-08-13 | [Good setups are coming back!](https://www.youtube.com/watch?v=0uj98guIOpA)                                                                                | 4.2, 10.1                          |
+| 2020-08-18 | [Maybe becoming an activist investor](https://www.youtube.com/watch?v=3WOCGilnS6A)                                                                         | 10.6                               |
+| 2020-08-19 | [Crypto setups special! -Swing Trading School about 65 minutes  in-](https://www.youtube.com/watch?v=4pNRHwHAJgw)                                          | 2.2, 7.8                           |
+| 2020-08-21 | [Lots of setups triggered this week but will they have good follow through?](https://www.youtube.com/watch?v=WczOCnD0f5w)                                  | 4.8, 8.2                           |
+| 2020-09-01 | [How far will the market go without a pullback?](https://www.youtube.com/watch?v=QyFTLOZ-4zs)                                                              | 4.1                                |
+| 2020-09-02 | [Tesla and $TQQQ multi million dollar shorts?](https://www.youtube.com/watch?v=HUiY2C5jlEQ)                                                                | 3.8, 6.2, 8.3                      |
+| 2020-09-04 | [Finally a washout in the markets - Newbies getting schooled](https://www.youtube.com/watch?v=Y8xs3JFgVwc)                                                 | 5.7, 8.4, 8.5, 9.6                 |
+| 2020-09-22 | [Leaders leading](https://www.youtube.com/watch?v=_JvCQKA9xXU)                                                                                             | 2.10                               |
+| 2020-09-24 | [Need a panic flush for a bottom!](https://www.youtube.com/watch?v=28vQw4v_YfQ)                                                                            | 8.4                                |
+| 2020-09-29 | [Major indinces getting rejected at supply levels...](https://www.youtube.com/watch?v=JxOTlvGUSF0)                                                         | 1.11                               |
+| 2020-09-30 | [Lack of good setups again](https://www.youtube.com/watch?v=oKfvcX-S4M0)                                                                                   | 1.1, 1.9                           |
+| 2020-10-06 | [Strength into the elections?](https://www.youtube.com/watch?v=1HWK6UOYvNM)                                                                                | 9.9                                |
+| 2020-10-12 | [Now is the time to sit and profit from the swing setups from weeks ago!](https://www.youtube.com/watch?v=iobRxNCyEk0)                                     | 2.7, 2.8                           |
+| 2020-10-22 | [Leading stocks breaking down!](https://www.youtube.com/watch?v=nI4MRwZwzMM)                                                                               | 2.11, 4.10                         |
+| 2020-10-28 | [Finally getting some fear back in the markets!](https://www.youtube.com/watch?v=eeV2c2_75AY)                                                              | 3.7, 6.5                           |
+| 2020-10-30 | [The last of the leaders breaking down now](https://www.youtube.com/watch?v=1gmFq2IsTYY)                                                                   | 2.11, 9.10                         |
+| 2020-11-02 | [Chop chop chop in the markets!](https://www.youtube.com/watch?v=VOGuzD4wFN8)                                                                              | 10.4                               |
+| 2020-11-04 | [ELECTIONS! New bull leg starting or suckers gap?](https://www.youtube.com/watch?v=s9dqGYWRmtc)                                                            | 6.9                                |
+| 2020-11-25 | [Happy thanksgiving!](https://www.youtube.com/watch?v=6UxqgsEMquQ)                                                                                         | 2.9, 3.1                           |
+| 2020-12-03 | [Mini earnings season today!](https://www.youtube.com/watch?v=BpR5Q4AVO00)                                                                                 | 7.7                                |
+| 2020-12-07 | [Should I retire from options trading? (a LOT of wisdom in todays stream!)](https://www.youtube.com/watch?v=uTMK9uhQZCc)                                   | 3.9                                |
+| 2020-12-09 | [$QS what a beast! + Warhammer Total War gaming](https://www.youtube.com/watch?v=IKVebjU0cnk)                                                              | 2.3, 3.6, 8.6                      |
+| 2020-12-10 | [Leaders are still leading, shakeout yesterday?](https://www.youtube.com/watch?v=Dl05a1xsArc)                                                              | 3.11, 4.11                         |
+| 2020-12-11 | [Lots of stocks still setting up!](https://www.youtube.com/watch?v=rL2JHZ8TQ3Q)                                                                            | 2.9                                |
+| 2020-12-17 | [Everything going higher!](https://www.youtube.com/watch?v=p8WQ_4XdNPY)                                                                                    | 7.3                                |
+| 2020-12-18 | [Why do I keep selling too early?](https://www.youtube.com/watch?v=YTRrhSIj064)                                                                            | 7.6                                |
+| 2020-12-22 | [Markets are giving away free money (for now)](https://www.youtube.com/watch?v=wLYBzP4qRjY)                                                                | 2.11, 6.7, 8.11                    |
+| 2020-12-30 | [Brandi Love wishing me a Merry Christmas!](https://www.youtube.com/watch?v=DuEGgCe5tuQ)                                                                   | 2.3                                |
+| 2021-01-07 | [I may have a $10M week going on here](https://www.youtube.com/watch?v=bgLDLpmUMuY)                                                                        | 3.6, 3.9                           |
+| 2021-01-12 | [EV Gold Rush!](https://www.youtube.com/watch?v=46Dw3UTmKlA)                                                                                               | 1.7                                |
+| 2021-01-13 | [Throw a dart and you will make money in this market](https://www.youtube.com/watch?v=0udk9grGeqE)                                                         | 3.10, 6.6                          |
+| 2021-01-14 | [Heavily long on margin and everything going up up up](https://www.youtube.com/watch?v=n0DsBVg8Spk)                                                        | 4.4, 5.3                           |
+| 2021-01-15 | [stonks olny gö up](https://www.youtube.com/watch?v=rhn_USs7vWA)                                                                                          | 9.4                                |
+| 2021-01-20 | [Extended stocks breaking down! $MARA $RIOT $BNGO](https://www.youtube.com/watch?v=jCvLY7F8g80)                                                            | 1.2, 2.1                           |
+| 2021-01-21 | [Bitcoin nearing the 50-day! Major support?](https://www.youtube.com/watch?v=D1NMXfSXpYk)                                                                  | 1.2, 1.12, 8.8                     |
+| 2021-01-25 | [Did I trade $100M worth of stocks today? YES!](https://www.youtube.com/watch?v=dvZBux4ffy0)                                                               | 1.7, 2.8, 5.8, 9.1                 |
+| 2021-01-26 | [You can be a victim of the markets or CHOOSE to be in control.](https://www.youtube.com/watch?v=dErH0zxsFaI)                                              | 3.7, 4.6, 6.10, 9.4                |
+| 2021-01-27 | [When is Gamestop going to stop? (going higher)](https://www.youtube.com/watch?v=6iCYjLxS9GQ)                                                              | 3.11                               |
+| 2021-01-28 | [Cool $10M+ day today. Started with $5K ten years ago...](https://www.youtube.com/watch?v=zhbdUtJDqz0)                                                     | 6.5                                |
+| 2021-02-03 | [bounce in memestocks soon?](https://www.youtube.com/watch?v=-fyEsUotcgs)                                                                                  | 9.7                                |
+| 2021-02-05 | [Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market](https://www.youtube.com/watch?v=FamRgrbApII)        | 1.9, 4.6, 8.4, 8.11                |
+| 2021-02-09 | [Good margin calls vs bad margin calls](https://www.youtube.com/watch?v=ldVGG5t4e14)                                                                       | 6.7                                |
+| 2021-02-10 | [Buy the lows and sell the top on $TLRY?](https://www.youtube.com/watch?v=H0j5PtnK814)                                                                     | 9.2                                |
+| 2021-02-12 | [Gamestop $GME ultra tight setup. And some HOI4 gameplay](https://www.youtube.com/watch?v=siYpCaiuPKg)                                                     | 2.6                                |
+| 2021-02-16 | [Slow start to a 4-day week](https://www.youtube.com/watch?v=yLTaPfwqWis)                                                                                  | 4.8                                |
+| 2021-02-19 | [Lots of strength under the surface but not many good setups...](https://www.youtube.com/watch?v=HprTJJp8yUY)                                              | 10.11                              |
+| 2021-02-25 | [Memestocks back in play](https://www.youtube.com/watch?v=Bgy9eaOqDZw)                                                                                     | 3.3, 7.9                           |
+| 2021-02-26 | [Market in limbo](https://www.youtube.com/watch?v=iBex0umEpOc)                                                                                             | 6.6                                |
+| 2021-03-10 | [Will this bounce stick?](https://www.youtube.com/watch?v=4NWSjDX9plk)                                                                                     | 2.9                                |
+| 2021-03-11 | [SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!](https://www.youtube.com/watch?v=56Q8WjpUFK8)                                                            | 7.9                                |
+| 2021-03-12 | [Serious talk and not so serious talk](https://www.youtube.com/watch?v=5-Y6oXm32OE)                                                                        | 7.8                                |
+| 2021-03-17 | [Late upload - Tuesday March 16](https://www.youtube.com/watch?v=NRgCKsBnxm8)                                                                              | 3.8                                |
+| 2021-03-17 | [Late upload - Monday March 15](https://www.youtube.com/watch?v=XE96XfekTv4)                                                                               | 3.9                                |
+| 2021-03-18 | [Setups developing but they need more work](https://www.youtube.com/watch?v=kFOxR0mxJdM)                                                                   | 5.6, 10.5                          |
+| 2021-03-19 | [Crypto setups for next week!](https://www.youtube.com/watch?v=7jPFXy_nrBE)                                                                                | 1.9, 8.3                           |
+| 2021-03-23 | [Not great action beneath the hood right now](https://www.youtube.com/watch?v=7kxZUobYxpg)                                                                 | 9.9                                |
+| 2021-03-30 | [Bullish signs emerging](https://www.youtube.com/watch?v=jLXXUdYYYnM)                                                                                      | 2.4                                |
+| 2021-03-31 | [NASDAQ is tightening up, lots of strength](https://www.youtube.com/watch?v=i-FvQ9bD9S8)                                                                   | 7.4                                |
+| 2021-04-05 | [Semiconductors big follow through from the breakouts!](https://www.youtube.com/watch?v=dTJueSUqdh4)                                                       | 10.7                               |
+| 2021-04-14 | [If you don&#39;t watch this, delete your trading account! Struggling trader feedback starts 16.05 deskto](https://www.youtube.com/watch?v=uOuFauQ6MJY)    | 5.2                                |
+| 2021-04-16 | [Patience](https://www.youtube.com/watch?v=FKliYFtPHjI)                                                                                                    | 4.1                                |
+| 2021-04-19 | [Henry Cavill home workout video](https://www.youtube.com/watch?v=4fWhUJKewBA)                                                                             | 9.11                               |
+| 2021-04-20 | [zzz](https://www.youtube.com/watch?v=S0oIP3dY-qQ)                                                                                                         | 6.12                               |
+| 2021-04-30 | [Slow but big bases are forming!!](https://www.youtube.com/watch?v=YBaCABc1-qo)                                                                            | 2.7                                |
+| 2021-05-07 | [Seeing some big opportunities setting up](https://www.youtube.com/watch?v=uFJDGcCzR3A)                                                                    | 1.8, 1.11, 2.10, 3.4               |
+| 2021-05-11 | [S&amp;P500 index looks super vulnerable](https://www.youtube.com/watch?v=WT6u5_FkWr0)                                                                     | 4.7, 10.1                          |
+| 2021-05-20 | [Indices strong, BUT running into key moving averages](https://www.youtube.com/watch?v=Pde5BeC0JEk)                                                        | 1.12, 2.2                          |
+| 2021-05-25 | [Big moves potentially starting in a few places](https://www.youtube.com/watch?v=4KUie6VALR4)                                                              | 2.10                               |
+| 2021-05-26 | [Some bigs moves starting!!](https://www.youtube.com/watch?v=A2gkEQC6O_Y)                                                                                  | 1.2                                |
+| 2021-06-01 | [Several potential $10M trades on the hook?](https://www.youtube.com/watch?v=6Qm_RbDtb-A)                                                                  | 5.9                                |
+| 2021-06-04 | [AMC to $2 MILLION](https://www.youtube.com/watch?v=gMf10voYB1M)                                                                                           | 3.4                                |
+| 2021-06-09 | [Yuuuge opportunities](https://www.youtube.com/watch?v=gwoJzKevjeY)                                                                                        | 1.4, 4.3                           |
+| 2021-06-16 | [Meme stocks dying, semis and oil strong. TESLA weak](https://www.youtube.com/watch?v=BrxylKH0YlE)                                                         | 6.9                                |
+| 2021-06-22 | [Many many setups right now. $DDD super breakout](https://www.youtube.com/watch?v=MafImVNKyEk)                                                             | 3.2                                |
+| 2021-07-07 | [No sun = stream](https://www.youtube.com/watch?v=FjnKydE523o)                                                                                             | 4.9                                |
+| 2021-07-20 | [Leaders breaking out](https://www.youtube.com/watch?v=zjJObr1Gn8A)                                                                                        | 5.2, 5.9                           |
+| 2021-09-16 | [Strength and weakness, strength and weakness](https://www.youtube.com/watch?v=mIDsGQuJCo0)                                                                | 7.1                                |
+| 2021-09-17 | [Buy my course for $9999.99](https://www.youtube.com/watch?v=qDUadzvPUGc)                                                                                  | 6.3, 8.9, 9.10                     |
+| 2021-10-14 | [Small caps end of year run? $IWM $TNA](https://www.youtube.com/watch?v=7Kl90d6NPNM)                                                                       | 2.1                                |
+| 2021-10-21 | [So much opportunity! Hard to get filled](https://www.youtube.com/watch?v=T3VhwZZjeOo)                                                                     | 5.3                                |
+| 2021-11-05 | [Markets in free money mode](https://www.youtube.com/watch?v=aL-tAJ7CHv4)                                                                                  | 8.7                                |
+| 2021-11-09 | [Eventually you need to be able to stand on your own 2 legs](https://www.youtube.com/watch?v=uYkzHI4_2H0)                                                  | 7.10                               |
+| 2021-11-12 | [Study what actually works in the markets and tune out financial media](https://www.youtube.com/watch?v=x7jBeIGqwIs)                                       | 6.8, 7.10                          |
+| 2021-12-07 | [Santa Rally starting now!](https://www.youtube.com/watch?v=xLoQjzyOsnk)                                                                                   | 6.12                               |
+| 2021-12-15 | [Slow grinding environment](https://www.youtube.com/watch?v=M-05qqa2fbQ)                                                                                   | 2.1                                |
+| 2021-12-17 | [Santa stopped buying](https://www.youtube.com/watch?v=Quo56MNcUxA)                                                                                        | 9.3                                |
+| 2021-12-30 | [Next year will be up, down, down, up, down, up? Your predictions?](https://www.youtube.com/watch?v=ipIiBdmTcEs)                                           | 6.8                                |
+| 2022-01-12 | [Interesting opportunities setting up](https://www.youtube.com/watch?v=zgX7rMRvvwI)                                                                        | 2.8                                |
+| 2022-01-21 | [Please can we get some panic selling already?](https://www.youtube.com/watch?v=8El034_4RlI)                                                               | 6.11                               |
+| 2022-01-27 | [Patience is King](https://www.youtube.com/watch?v=-3qtA_s7g9c)                                                                                            | 5.5                                |
+| 2022-02-01 | [New week, new opportunities](https://www.youtube.com/watch?v=Gt8Xdva-ZfU)                                                                                 | 6.11                               |
+| 2022-02-03 | [Bounce already failing?](https://www.youtube.com/watch?v=fF6Qn6PVgOo)                                                                                     | 10.11                              |
+| 2022-02-04 | [Risk ON type of day](https://www.youtube.com/watch?v=_QYrM9zyziM)                                                                                         | 8.10                               |
+| 2022-02-08 | [Tax advice](https://www.youtube.com/watch?v=3wddoD1e4M0)                                                                                                  | 2.2                                |
+| 2022-04-06 | [Epic stream filled with wisdom on trading psychology and relationships](https://www.youtube.com/watch?v=TeWiXhJTeyI)                                      | 4.7, 8.8, 8.9                      |
+| 2022-04-12 | [Not many easter setups](https://www.youtube.com/watch?v=bnPcAPjdAz4)                                                                                      | 3.6, 5.5                           |
+| 2022-04-13 | [Fucked by the oil &amp; gas sector this whole week](https://www.youtube.com/watch?v=n6Gm1mLN7T0)                                                          | 4.5, 9.6                           |
+| 2023-01-26 | [New BULL?](https://www.youtube.com/watch?v=GdMs1y_RTnM)                                                                                                   | 6.11, 10.12                        |
+| 2023-05-19 | [Episodic Pivots, Kenny boy and old times](https://www.youtube.com/watch?v=_y9Wo0eBP4A)                                                                    | 1.3, 2.5, 10.6                     |
+| 2023-05-23 | [EPs good follow through. AI and Quantum names waking up](https://www.youtube.com/watch?v=2UgJ5CvVVK4)                                                     | 3.10, 7.5, 10.9, 10.10             |
+| 2023-06-01 | [AI and the shittier the stock, the bigger the move.](https://www.youtube.com/watch?v=1HFPeLD2zwc)                                                         | 2.12                               |
+| 2023-06-08 | [EPs, AI and quantum computing stocks](https://www.youtube.com/watch?v=SLhbpNuHegw)                                                                        | 10.10                              |
+| 2023-06-09 | [Market mechanics, setups and more](https://www.youtube.com/watch?v=VdQSDGZBLQE)                                                                           | 2.12, 9.5, 9.12, 10.9, 10.12       |
+| 2023-12-01 | [EP party!](https://www.youtube.com/watch?v=TZnX1qEiOkM)                                                                                                   | 5.10, 7.6                          |
+| 2023-12-15 | [Speculation money is back!](https://www.youtube.com/watch?v=JNVA5cd_m7M)                                                                                  | 4.9, 9.11                          |
