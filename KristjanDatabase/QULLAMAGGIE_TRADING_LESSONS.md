@@ -1,3 +1,4 @@
+
 # Qullamaggie Trading Lessons: A Synthesized Playbook
 
 **Source:** Kristjan "Qullamaggie" Kullamägi's YouTube trading livestreams, distilled from transcripts.
@@ -205,8 +206,8 @@ The same walkthrough logic — entry trigger, stop placement, opening range — 
 
 **Tightness over volatility.** The single biggest visual "tell" separating a five-star setup from a mediocre one is how tight and narrow the price range is immediately before the breakout. "If it isn't tight, it's not right." Working through his scan live on **2020-09-30** ("Lack of good setups again"), this shows up as a running series of instant pass/fail verdicts:
 
-- A stock referred to as "dvpr" gets a pass for "relentlessly building higher lows."
-  - *2020-09-30, "Lack of good setups again", t=4:09*
+- **VVPR (VivoPower International)** gets a pass for "relentlessly building higher lows," with a specific ask for one more tight day before a breakout: "it looks decent if you can put in another tight day today and maybe break out tomorrow — it's been relentlessly building higher lows."
+  - *2020-09-30, "Lack of good setups again", t=3:55*
 - GNC gets a nod for "tightening, looks good."
   - *2020-09-30, "Lack of good setups again", t=14:50*
 - A stock up five straight days with no base at all gets dismissed outright: "dude this thing is up five days in a row, where's the setup here."
@@ -282,17 +283,22 @@ Putting the CRWD walkthrough together with the TDOC/PINS examples, the pattern t
 His favorite swing setup, and by 2023 his dominant one: a company beats earnings/revenue estimates substantially, raises guidance, gaps up double digits on volume, and trades its entire average daily volume within the first 5-15 minutes — all while breaking out of a multi-month sideways base.
 
 - **TDOC (Teladoc).** A good earnings beat on both EPS and revenue, a gap up on heavy volume, breaking out of what he calls a "multi-year range" on the weekly chart after building higher lows for over a year. Ran about 160% over the following months — he admits he sold around $105 and the stock roughly doubled from there without him.
+
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=15:19*
 - **"ICHR."** The fundamental side of the setup made explicit: EPS growth of 261% year-over-year, revenue growth of 49%, with forward estimates calling for another 156% growth in the current year and 54% the year after — the kind of acceleration he wants to justify treating an earnings gap as holdable rather than a one-day pop.
+
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=16:29*
 - **DXCM (Dexcom), weekly chart.** Higher lows for six months inside a year-long range, then a gap up on good earnings that "more than doubled" the stock. Separately, during the COVID crash it had "a big shakeout" and bounced perfectly off its rising 200-day — the same name illustrating both the earnings-breakout entry and (later) a weekly-moving-average bounce.
+
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=17:47*
 - **PDD (Pinduoduo).** He didn't buy the earnings gap itself, but bought once the stock bounced off its rising 20-day coming out of a long range — "very good earnings numbers," clean breakout, straight up since.
+
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=23:44*
 - **An unnamed 2023 EP, bought three separate times.** By 2023 EPs had become his dominant setup, and he narrates one live where conviction survived two straight stop-outs: "I bought it initially on the EP day... it just went straight down, got stopped out. I think I got stopped out twice on it — I re-bought it, they stopped me out, then I re-bought it yesterday. So we're taking two losses on it so far, we'll see, hopefully third time's the charm." His justification for re-entering after two losses on the same name rather than moving on: "it's all about risk/reward — this thing, once it gets going, [can] double in a flash, it's already done it once this year." In the same session he states the broader regime shift plainly: "breakouts haven't really been working the past 18 months — what has been working is EPs. EPs have been working pretty decently... the breakout [setup] has been choppy."
-  - *2023-05-19, "Episodic Pivots, Kenny boy and old times", t=32:31*
 
+  - *2023-05-19, "Episodic Pivots, Kenny boy and old times", t=32:31*
 - **CHGG (Chegg) — not something he narrates anywhere in this corpus, added here as a discretionary outside example.** CHGG isn't mentioned in any of the 507 transcripts (checked for the exact ticker/name and phonetic mis-transcriptions, same process used to rule out an NKLA citation in 1.1). This is a personal note, not a transcript citation: bought 2020-05-05 on a good earnings beat, gapping up out of its base by the same EP criteria used throughout this section — included for reference alongside the sourced examples above rather than as one of them.
+- ![1785555685957](image/QULLAMAGGIE_TRADING_LESSONS/1785555685957.png)
 
 The precise definition sharpens over the years: by 2021 a gap on already-"known" news doesn't count, the surprise has to be genuine; by 2022 a good EP has to gap *over* all its declining moving averages into clean air, and he states flatly he never trades EPs on the short side; by 2023 the entry window compresses to the first 3-10 minutes, with a simple mechanical template (buy the first 5-minute candle's high, stop at low of day, size under roughly 1% of average daily volume) he recommends to smaller traders as a starting point. The 2023 EP example above also shows a real exception to his usual "cut it and move on" instinct (see 1.12): repeated stop-outs on the *same* EP name are tolerated specifically when the risk/reward on a fresh trigger stays wide enough — a double-or-nothing payoff profile is worth re-underwriting even after two losses, in a way a slower, tighter setup wouldn't be.
 
