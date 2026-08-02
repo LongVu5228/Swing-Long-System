@@ -12,16 +12,16 @@
 
 **A regime-bias caveat, worth reading before treating any single example as universal.** The 507 transcripts are not evenly spread across his career:
 
-| Year | Transcripts |
-|---|---|
-| 2017 | 57 |
-| 2018 | 2 |
-| 2019 | 39 |
-| 2020 | 214 |
-| 2021 | 145 |
-| 2022 | 29 |
-| 2023 | 10 |
-| Undated | 11 |
+| Year            | Transcripts   |
+| --------------- | ------------- |
+| 2017            | 57            |
+| 2018            | 2             |
+| 2019            | 39            |
+| 2020            | 214           |
+| 2021            | 145           |
+| 2022            | 29            |
+| 2023            | 10            |
+| Undated         | 11            |
 | **Total** | **507** |
 
 2020 and 2021 alone account for 359 of the 507 transcripts — roughly 71% of the entire corpus — because that's when he livestreamed most frequently, not because his methodology changed. (A further 92 videos in the underlying fetch log failed transcript retrieval entirely — captions disabled or unavailable — and aren't counted here since there's no transcript to read.) That concentration matters because 2020-2021 was the COVID-stimulus momentum melt-up: a historically forgiving market where flags, breakouts, and EPs worked unusually well and unusually often, by his own account elsewhere in this document (see 6.1's "easy dollar" versus "hard penny" framing). It means this document's examples skew toward conditions where his setups were firing at their best, simply because that's when the most footage exists — not because 2017, 2019, or 2022 examples are less valid. Wherever a section makes a point of showing a setup working *outside* 2020-2021 (pre-COVID precedents, 2022's rough stretches), that's a deliberate effort to correct for this skew, not an incidental detail.
@@ -453,11 +453,16 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
 
   - *2020-11-04, "ELECTIONS! New bull leg starting or suckers gap?", t=1:04:47; and 2021-01-05, "Late upload: Dec 31 stream", t=1:12:45*
 - **TUP (Tupperware) — a chart pointed to cold, right after LVGO, not stated as a personal trade.** "You know, Tupperware, right — look at this big gap-up, look at this thing. Now, it did undercut the lows of the gap-up there, unfortunately, but look at the move." He uses it as the springboard into the general rule stated explicitly: "this is the basic principle of episodic pivots — preferably you want a stock that has been going down or sideways for many months or even years. But sometimes also, episodic pivot from strength can work really good" — the exact distinction the NIO example right after this one is built on.
+
+  ![TUP daily, October 2018 through April 2021 — the gap-up he points to highlighted, off a multi-year decline](image/QULLAMAGGIE_TRADING_LESSONS/1785678861967.png)
+
   - *2020-11-04, "ELECTIONS! New bull leg starting or suckers gap?", t=1:04:57 (Tupperware), t=1:05:16 (the general principle)*
 - **FSLR (First Solar) — a genuine beat that still stopped him out, from over-anticipating the trigger.** He calls out the earnings as real: "FSLR is a surprise, right — look at what it had, a big, big beat, they beat on guidance, they beat on the current quarter... it gapped up." His own entry, though, jumped the gun: "that's what happened on FSLR — I bought it [on the] one-minute opening range highs, where actually... I kind of anticipated it, I was a bit too early, I bought it before the first-minute candle was completed, and then I got stopped out." A clean, honest counter-example to the rest of this section: the fundamental trigger being real doesn't protect against an early, un-confirmed entry.
 
   - *2020-10-28, "Finally getting some fear back in the markets!", t=1:37:31 (the beat), t=1:42:59 (the entry and stop-out)*
 - **NIO — the "from strength" variant named a moment earlier, in the TUP bullet above, now shown live.** "This NIO, like — for example, NIO, unfortunately I didn't... I bought it here, but I should have added, because it gapped up over this high tight flag — look at the volume, gap-up volume, and look at the move — it makes sense, this is an episodic pivot coming from strength." A variant worth distinguishing from the TDOC/DXCM template above: the base isn't a multi-month flat range, it's an already-trending stock gapping again on top of its own momentum.
+
+  ![NIO daily, April 2020 through March 2021 — the EP-from-strength entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785678934293.png)
 
   - *2020-11-04, "ELECTIONS! New bull leg starting or suckers gap?", t=1:05:40*
 - **Fastly (FSLY), named directly as his single best EP of the year.** "The best one I traded this year was Fastly — this was the best one, when I bought it on earnings here, like 30 bucks or so, this thing tripled — it went to a hundred bucks in like two months. That's the best EP I traded this year." The same FSLY position's entry date and trailing-stop mechanics are documented in 1.1 as a high tight flag; this clip is him independently naming it his best EP of 2020, not a separate trade.
