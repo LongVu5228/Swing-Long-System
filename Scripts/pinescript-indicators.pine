@@ -493,8 +493,7 @@ var table t = table.new(
      2,
      2,
      bgcolor = color.new(color.white, 100),
-     border_color = color.rgb(0, 0, 0),
-     border_width = 1
+     border_width = 0
  )
 
 if barstate.islast
