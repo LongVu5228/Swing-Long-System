@@ -477,11 +477,22 @@ market_strength = timerFast > timerSlow ? "Up" : "Down"
 
 ////////// Table ////////////
 
+string gr_table = "Stats Table"
+
+tablePositionInput = input.string(
+     "Bottom Right",
+     title = "Table Position",
+     options = ["Bottom Left", "Bottom Right"],
+     group = gr_table
+ )
+
+tablePosition = tablePositionInput == "Bottom Left" ? position.bottom_left : position.bottom_right
+
 var table t = table.new(
-     position.bottom_left,
+     tablePosition,
      2,
      2,
-     bgcolor = color.rgb(255, 255, 255),
+     bgcolor = color.new(color.white, 100),
      border_color = color.rgb(0, 0, 0),
      border_width = 1
  )
