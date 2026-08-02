@@ -421,14 +421,11 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
   ![TDOC daily, June 2018 through April 2020 — the multi-year range and the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785632619919.png)
 
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=15:19*
-- **"ICHR."** The fundamental side of the setup made explicit: EPS growth of 261% year-over-year, revenue growth of 49%, with forward estimates calling for another 156% growth in the current year and 54% the year after — the kind of acceleration he wants to justify treating an earnings gap as holdable rather than a one-day pop.
-
-  - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=16:29*
-- **DXCM (Dexcom), weekly chart.** Higher lows for six months inside a year-long range, then a gap up on good earnings that "more than doubled" the stock. Separately, during the COVID crash it had "a big shakeout" and bounced perfectly off its rising 200-day — the same name illustrating both the earnings-breakout entry and (later) a weekly-moving-average bounce.
+- **DXCM (Dexcom), weekly chart, with the fundamental side of the setup made explicit.** Higher lows for six months inside a year-long range, then a gap up on good earnings that "more than doubled" the stock: "you wait for a long range break, it needs to gap up on good earnings, [beat] analyst estimates, [and] have good growth numbers — the EPS grew by 261% year-over-year, and the revenue grew by 49%... the estimates for the next year were 156%... and the estimates for the year after that [were] 54%." The kind of acceleration he wants to justify treating an earnings gap as holdable rather than a one-day pop. Separately, during the COVID crash it had "a big shakeout" and bounced perfectly off its rising 200-day — the same name illustrating both the earnings-breakout entry and (later) a weekly-moving-average bounce.
 
   ![DXCM daily, March 2018 through March 2020 — the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785632851695.png)
 
-  - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=17:47*
+  - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=16:27 (setup and fundamentals), t=17:47 (COVID shakeout/bounce)*
 - **PDD (Pinduoduo).** He didn't buy the earnings gap itself, but bought once the stock bounced off its rising 20-day coming out of a long range — "very good earnings numbers," clean breakout, straight up since.
 
   - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=23:44*
