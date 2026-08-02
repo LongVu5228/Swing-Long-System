@@ -81,12 +81,6 @@ showEarningsLines = input.bool(
      tooltip = "Green = EPS beat, red = EPS miss, gray = no surprise data."
  )
 
-showEarningsIcons = input.bool(
-     true,
-     title = "Earnings E Icons",
-     group = gr_earnings
- )
-
 showEarningsLabels = input.bool(
      false,
      title = "Show EPS Details",
@@ -205,13 +199,6 @@ earningsColor = earningsBeat ?
      earningsMiss ?
      earningsMissLineColor :
      earningsNeutralLineColor
-
-// Full-strength colors for the E icons
-earningsIconColor = earningsBeat ?
-     earningsBeatBaseColor :
-     earningsMiss ?
-     earningsMissBaseColor :
-     earningsNeutralBaseColor
 
 earningsLineStyle = earningsLineStyleInput == "Solid" ?
      line.style_solid :
@@ -382,8 +369,7 @@ if showEarningsLines and isEarningsEvent
          width = earningsLineWidth
      )
 
-// Shared EPS detail text, used by the optional always-on label
-// and by the E icon's hover tooltip.
+// EPS detail text for the optional always-on label
 string earningsDetailText = na
 if isEarningsEvent
     string earningsResult = earningsBeat ?
@@ -427,30 +413,6 @@ if showEarningsLabels and isEarningsEvent
          textcolor = color.white,
          size = size.small
      )
-
-// "E" icon with hover tooltip showing reported vs. estimated EPS and surprise.
-// plotshape() has no tooltip parameter, so this uses label.new() instead;
-// it anchors just below each bar's low rather than the pane's fixed bottom edge.
-if showEarningsIcons and isEarningsEvent
-    string earningsIconStyle = earningsBeat ?
-         label.style_label_up :
-         earningsMiss ?
-         label.style_label_down :
-         label.style_square
-
-    label.new(
-         x = bar_index,
-         y = low,
-         text = "E",
-         xloc = xloc.bar_index,
-         yloc = yloc.belowbar,
-         style = earningsIconStyle,
-         color = earningsIconColor,
-         textcolor = color.white,
-         size = size.tiny,
-         tooltip = earningsDetailText
-     )
-
 
 ///////// Moving Averages - Plot /////////////
 
