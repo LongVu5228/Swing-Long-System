@@ -10,6 +10,22 @@
 - Of those 507, **409 (roughly 82%) directly contributed at least one dated, ticker-specific lesson** during analysis. The remaining roughly 75 were still read in full and checked — not skipped — and turned out to be genuinely redundant: the same handful of core setups and rules restated in slightly different words, not held-back or missed material. A dedicated verification pass specifically re-read the largest of these to confirm that judgment rather than assume it.
 - **167 of those videos** are the ones actually quoted directly in this document, with a real timestamp and a real named trade attached. The other covered videos informed the synthesis and confirmed which principles genuinely recur across years, but didn't need their own citation once a rule was already well-proven by several dated, quoted examples elsewhere.
 
+**A regime-bias caveat, worth reading before treating any single example as universal.** The 507 transcripts are not evenly spread across his career:
+
+| Year | Transcripts |
+|---|---|
+| 2017 | 57 |
+| 2018 | 2 |
+| 2019 | 39 |
+| 2020 | 214 |
+| 2021 | 145 |
+| 2022 | 29 |
+| 2023 | 10 |
+| Undated | 11 |
+| **Total** | **507** |
+
+2020 and 2021 alone account for 359 of the 507 transcripts — roughly 71% of the entire corpus — because that's when he livestreamed most frequently, not because his methodology changed. (A further 92 videos in the underlying fetch log failed transcript retrieval entirely — captions disabled or unavailable — and aren't counted here since there's no transcript to read.) That concentration matters because 2020-2021 was the COVID-stimulus momentum melt-up: a historically forgiving market where flags, breakouts, and EPs worked unusually well and unusually often, by his own account elsewhere in this document (see 6.1's "easy dollar" versus "hard penny" framing). It means this document's examples skew toward conditions where his setups were firing at their best, simply because that's when the most footage exists — not because 2017, 2019, or 2022 examples are less valid. Wherever a section makes a point of showing a setup working *outside* 2020-2021 (pre-COVID precedents, 2022's rough stretches), that's a deliberate effort to correct for this skew, not an incidental detail.
+
 **How this document was put together:** every transcript was read in full and mined for concrete, dated, ticker-specific lessons — never summarized from memory or skimmed for keywords. Because the same core setups and rules repeat across dozens of streams a year, most of the actual work was judgment, not transcription: recognizing when a video was saying something genuinely new versus reinforcing a pattern already captured, and then building the strongest, most concrete, best-quoted example of each recurring principle rather than cataloging every time it got restated. Once a rule or setup was established, the document went through repeated rounds of verification — going back into the raw transcripts subsection by subsection, hunting for real quotes, dollar figures, and named trades to replace paraphrase with his own words wherever they existed, and specifically looking for the places where his own stated rules genuinely conflict or get overridden, rather than smoothing those tensions into a tidier narrative than the record actually supports.
 
 This is a summary and paraphrase of his publicly stated views and trade narration on stream — not a verbatim transcript, and not financial advice.
@@ -432,6 +448,8 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
 
   - *recounted, 2020-10-27, "Mild bull market pullback so far - positive signs emerging!", describing a September 2018 trade, t=1:26:46 (the trade), t=1:27:35 (the volume lesson)*
 - **Livongo (LVGO), a pre-announcement gap rather than a scheduled earnings date — and the acquisition that later delisted it.** "We bought Livongo... it's another episodic pivot, I bought early April, [it] went up like 200 percent." Restated with more detail two months later: "Livongo was also very good when they pre-announced in early April — now the ticker doesn't exist anymore because they got bought out, but that one was also like a three-, four-hundred-percent mover."
+
+  ![LVGO daily, August 2019 through October 2020 — the April entry highlighted, on the way to acquisition](image/QULLAMAGGIE_TRADING_LESSONS/1785678434566.png)
 
   - *2020-11-04, "ELECTIONS! New bull leg starting or suckers gap?", t=1:04:47; and 2021-01-05, "Late upload: Dec 31 stream", t=1:12:45*
 - **FSLR (First Solar) — a genuine beat that still stopped him out, from over-anticipating the trigger.** He calls out the earnings as real: "FSLR is a surprise, right — look at what it had, a big, big beat, they beat on guidance, they beat on the current quarter... it gapped up." His own entry, though, jumped the gun: "that's what happened on FSLR — I bought it [on the] one-minute opening range highs, where actually... I kind of anticipated it, I was a bit too early, I bought it before the first-minute candle was completed, and then I got stopped out." A clean, honest counter-example to the rest of this section: the fundamental trigger being real doesn't protect against an early, un-confirmed entry.
