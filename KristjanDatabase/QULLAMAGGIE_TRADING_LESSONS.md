@@ -192,6 +192,9 @@ A stock makes a large initial momentum move, then pulls back or goes sideways an
 
 ![NKLA daily, December 2019 through July 2020 — the May-into-June flag highlighted, off its SPAC-merger highs](image/QULLAMAGGIE_TRADING_LESSONS/1785526542877.png)
 
+**PLTR (Palantir) — looked at live but not called, with the hindsight read added here as a discretionary note.** Asked about it on stream, he declines to give a real verdict: "PLTR — well, I don't think we've had any kind of pullback in the market, so it's hard to say if Palantir had any relative strength, because the market actually needs to go down to see relative strength — the market hasn't gone down for a long time, for several months." That's as far as the transcript goes; he doesn't call it a flag or a setup on this clip. The rest is a personal chart read, not a transcript citation: with hindsight, PLTR's chart around this date was tight and flagging by the same criteria used throughout this section, and it broke out in the following weeks — included for reference alongside the sourced examples above, not as one of them.
+  - *2021-01-22, "Setups starting to emerge again!", t=1:50:50*
+
 The same walkthrough logic — entry trigger, stop placement, opening range — shows up just as clearly in a separate, earlier session, applied live to real flag setups:
 
 - **BLDP (Ballard Power), long.** A bull-flag breakout in the fuel-cell sector, which was "super hot" at the time — bought on the opening-range-high break around $10.40-10.50.
