@@ -1,0 +1,534 @@
+//@version=5
+indicator("Kristjan Suite R6 - Fixed", "KSR6 Fixed", overlay = true, max_lines_count = 500, max_labels_count = 500)
+////////// Relative Volume at Time ////////////
+
+string gr_rvl = "Relative Volume - RVol on table"
+
+avLength = input.int(20, title = "Relative Volume Length", minval = 1, group = gr_rvl, tooltip = "Volume lookback period for relative volume.")
+
+// Project current bar/day volume
+projectedVolume = timenow > time ? (time_close - time) * (volume / (timenow - time)) : volume
+
+averageVolume = ta.sma(volume, avLength)
+
+volumeFactor = averageVolume != 0 ? (projectedVolume / averageVolume) * 100 : na
+
+
+//////////// Higher High and Higher Low - Inputs ////////////
+
+string gr_hhhl = "Higher Highs and Higher Lows"
+
+lb = input.int(2, title = "Breakout Left Bars", minval = 1, group = gr_hhhl, tooltip = "Look left distance for support and resistance lines.")
+
+rb = input.int(2, title = "Breakout Right Bars", minval = 1, group = gr_hhhl, tooltip = "Look right distance for support and resistance lines.")
+
+showsupres = input.bool(true, title = "Support/Resistance", inline = "srcol", group = gr_hhhl, tooltip = "Toggle support and resistance lines.")
+
+supcol = input.color(color.red, title = "", inline = "srcol", group = gr_hhhl, tooltip = "Support line color.")
+
+rescol = input.color(color.lime, title = "", inline = "srcol", group = gr_hhhl, tooltip = "Resistance line color.")
+
+srlinestyle = input.string(line.style_dotted, title = "Line Style/Width", options = [line.style_solid, line.style_dashed, line.style_dotted], inline = "style", group = gr_hhhl)
+
+srlinewidth = input.int(1, title = "", minval = 1, maxval = 5, inline = "style", group = gr_hhhl)
+
+srTransparency = input.int(65, title = "Support/Resistance Transparency", minval = 0, maxval = 100, group = gr_hhhl, tooltip = "0 = solid, 100 = invisible")
+
+changebarcol = input.bool(true, title = "Change Bar Color", inline = "bcol", group = gr_hhhl)
+
+bcolup = input.color(color.rgb(71, 172, 255), title = "", inline = "bcol", group = gr_hhhl)
+
+bcoldn = input.color(color.black, title = "", inline = "bcol", group = gr_hhhl)
+
+
+////////// Market Timer - Inputs //////////////////
+
+string gr_mt = "Market Timer - Market on table"
+
+timerSecurity = input.symbol(title = "Market", defval = "SPY", group = gr_mt)
+
+ma_type = input.string(title = "Moving Average Type", options = ["SMA", "EMA"], defval = "EMA", group = gr_mt)
+
+tlength1 = input.int(title = "Timer Fast Length", defval = 10, minval = 1, group = gr_mt)
+
+tlength2 = input.int(title = "Timer Slow Length", defval = 20, minval = 1, group = gr_mt)
+
+timerTimeframe = input.timeframe("W", title = "Timeframe", group = gr_mt)
+
+
+///////// Moving Averages - Inputs ///////////////
+
+string gr_ma = "Moving Averages"
+
+ma_type2 = input.string(title = "Moving Average Type", options = ["SMA", "EMA"], defval = "EMA", group = gr_ma)
+
+lenA = input.int(10, minval = 1, title = "Mov Ave A", group = gr_ma)
+
+lenB = input.int(20, minval = 1, title = "Mov Ave B", group = gr_ma)
+
+lenC = input.int(50, minval = 1, title = "Mov Ave C", group = gr_ma)
+
+lenD = input.int(200, minval = 1, title = "Mov Ave D", group = gr_ma)
+
+///////// Earnings - Inputs ///////////////
+
+string gr_earnings = "Earnings Events"
+
+showEarningsLines = input.bool(
+     true,
+     title = "Earnings Vertical Lines",
+     group = gr_earnings,
+     tooltip = "Green = EPS beat, red = EPS miss, gray = no surprise data."
+ )
+
+showEarningsIcons = input.bool(
+     true,
+     title = "Earnings E Icons",
+     group = gr_earnings
+ )
+
+showEarningsLabels = input.bool(
+     false,
+     title = "Show EPS Details",
+     group = gr_earnings,
+     tooltip = "Shows reported EPS, estimated EPS, and surprise."
+ )
+
+showStandardizedEPS = input.bool(
+     false,
+     title = "Include Standardized EPS",
+     group = gr_earnings
+ )
+
+earningsLineWidth = input.int(
+     1,
+     title = "Earnings Line Width",
+     minval = 1,
+     maxval = 5,
+     group = gr_earnings
+ )
+
+earningsLineStyleInput = input.string(
+     "Dashed",
+     title = "Earnings Line Style",
+     options = ["Solid", "Dashed", "Dotted"],
+     group = gr_earnings
+ )
+
+earningsBeatBaseColor = input.color(
+     color.rgb(8, 153, 129),
+     title = "Beat Color",
+     group = gr_earnings
+ )
+
+earningsMissBaseColor = input.color(
+     color.rgb(242, 54, 69),
+     title = "Miss Color",
+     group = gr_earnings
+ )
+
+earningsNeutralBaseColor = input.color(
+     color.rgb(170, 170, 170),
+     title = "Neutral/Missing Color",
+     group = gr_earnings
+ )
+
+earningsTransparency = input.int(
+     82,
+     title = "Earnings Line Transparency",
+     minval = 0,
+     maxval = 100,
+     group = gr_earnings,
+     tooltip = "Applies to the vertical lines only, not the E icons. 0 = solid, 100 = invisible"
+ )
+
+///////// Moving Averages - Calculations ////////////
+
+ma(src, len, type) =>
+    type == "SMA" ? ta.sma(src, len) : ta.ema(src, len)
+
+smaA = ma(close, lenA, ma_type2)
+smaB = ma(close, lenB, ma_type2)
+smaC = ma(close, lenC, ma_type2)
+smaD = ma(close, lenD, ma_type2)
+
+///////// Earnings - Calculations ///////////////
+
+reportedEPS = request.earnings(
+     syminfo.tickerid,
+     earnings.actual,
+     gaps = barmerge.gaps_on,
+     lookahead = barmerge.lookahead_off
+ )
+
+estimatedEPS = request.earnings(
+     syminfo.tickerid,
+     earnings.estimate,
+     gaps = barmerge.gaps_on,
+     lookahead = barmerge.lookahead_off
+ )
+
+standardizedEPS = request.earnings(
+     syminfo.tickerid,
+     earnings.standardized,
+     gaps = barmerge.gaps_on,
+     lookahead = barmerge.lookahead_off
+ )
+
+// An earnings event occurs when reported EPS becomes available.
+isEarningsEvent = not na(reportedEPS)
+
+// TradingView's documented definition:
+// Surprise = As reported EPS - Estimated EPS
+earningsSurprise = isEarningsEvent and not na(estimatedEPS) ?
+     reportedEPS - estimatedEPS :
+     na
+
+earningsSurprisePct = not na(earningsSurprise) and estimatedEPS != 0 ?
+     earningsSurprise / math.abs(estimatedEPS) * 100 :
+     na
+
+earningsBeat = not na(earningsSurprise) and earningsSurprise > 0
+earningsMiss = not na(earningsSurprise) and earningsSurprise < 0
+
+earningsNeutral = isEarningsEvent and (
+     na(earningsSurprise) or earningsSurprise == 0
+ )
+
+// Faded colors for the vertical lines only
+earningsBeatLineColor = color.new(earningsBeatBaseColor, earningsTransparency)
+earningsMissLineColor = color.new(earningsMissBaseColor, earningsTransparency)
+earningsNeutralLineColor = color.new(earningsNeutralBaseColor, earningsTransparency)
+
+earningsColor = earningsBeat ?
+     earningsBeatLineColor :
+     earningsMiss ?
+     earningsMissLineColor :
+     earningsNeutralLineColor
+
+// Full-strength colors for the E icons
+earningsIconColor = earningsBeat ?
+     earningsBeatBaseColor :
+     earningsMiss ?
+     earningsMissBaseColor :
+     earningsNeutralBaseColor
+
+earningsLineStyle = earningsLineStyleInput == "Solid" ?
+     line.style_solid :
+     earningsLineStyleInput == "Dotted" ?
+     line.style_dotted :
+     line.style_dashed
+
+//////// Higher High and Higher Lows - Calculations //////////////
+
+ph = ta.pivothigh(lb, rb)
+pl = ta.pivotlow(lb, rb)
+
+hl = not na(ph) ? 1 : not na(pl) ? -1 : na
+
+zz = not na(ph) ? ph : not na(pl) ? pl : na
+
+zz := not na(pl) and hl == -1 and ta.valuewhen(not na(hl), hl, 1) == -1 and pl > ta.valuewhen(not na(zz), zz, 1) ? na : zz
+
+zz := not na(ph) and hl == 1 and ta.valuewhen(not na(hl), hl, 1) == 1 and ph < ta.valuewhen(not na(zz), zz, 1) ? na : zz
+
+hl := hl == -1 and ta.valuewhen(not na(hl), hl, 1) == 1 and zz > ta.valuewhen(not na(zz), zz, 1) ? na : hl
+
+hl := hl == 1 and ta.valuewhen(not na(hl), hl, 1) == -1 and zz < ta.valuewhen(not na(zz), zz, 1) ? na : hl
+
+zz := na(hl) ? na : zz
+
+
+findprevious() =>
+    ehl = hl == 1 ? -1 : 1
+
+    loc1 = 0.0
+    loc2 = 0.0
+    loc3 = 0.0
+    loc4 = 0.0
+
+    xx = 0
+
+    for x = 1 to 1000
+        if hl[x] == ehl and not na(zz[x])
+            loc1 := zz[x]
+            xx := x + 1
+            break
+
+    ehl := hl
+
+    for x = xx to 1000
+        if hl[x] == ehl and not na(zz[x])
+            loc2 := zz[x]
+            xx := x + 1
+            break
+
+    ehl := hl == 1 ? -1 : 1
+
+    for x = xx to 1000
+        if hl[x] == ehl and not na(zz[x])
+            loc3 := zz[x]
+            xx := x + 1
+            break
+
+    ehl := hl
+
+    for x = xx to 1000
+        if hl[x] == ehl and not na(zz[x])
+            loc4 := zz[x]
+            break
+
+    [loc1, loc2, loc3, loc4]
+
+
+float a = na
+float b = na
+float c = na
+float d = na
+float e = na
+
+if not na(hl)
+    [loc1, loc2, loc3, loc4] = findprevious()
+    a := zz
+    b := loc1
+    c := loc2
+    d := loc3
+    e := loc4
+
+
+_hh = not na(zz) and a > b and a > c and c > b and c > d
+
+_ll = not na(zz) and a < b and a < c and c < b and c < d
+
+_hl = not na(zz) and ((a >= c and b > c and b > d and d > c and d > e) or (a < b and a > c and b < d))
+
+_lh = not na(zz) and ((a <= c and b < c and b < d and d < c and d < e) or (a > b and a < c and b > d))
+
+
+float res = na
+float sup = na
+
+res := _lh ? zz : res[1]
+sup := _hl ? zz : sup[1]
+
+
+var int trend = na
+
+trend := close > res ? 1 : close < sup ? -1 : nz(trend[1])
+
+
+res := ((trend == 1 and _hh) or (trend == -1 and _lh)) ? zz : res
+
+sup := ((trend == 1 and _hl) or (trend == -1 and _ll)) ? zz : sup
+
+
+rechange = not na(res) and res != res[1]
+suchange = not na(sup) and sup != sup[1]
+
+
+var line resline = na
+var line supline = na
+
+if showsupres
+    if rechange
+        if not na(resline)
+            line.set_x2(resline, bar_index)
+            line.set_extend(resline, extend.none)
+
+        resline := line.new(
+             x1 = bar_index - rb,
+             y1 = res,
+             x2 = bar_index,
+             y2 = res,
+             color = color.new(rescol, srTransparency),
+             extend = extend.right,
+             style = srlinestyle,
+             width = srlinewidth
+         )
+
+    if suchange
+        if not na(supline)
+            line.set_x2(supline, bar_index)
+            line.set_extend(supline, extend.none)
+
+        supline := line.new(
+             x1 = bar_index - rb,
+             y1 = sup,
+             x2 = bar_index,
+             y2 = sup,
+             color = color.new(supcol, srTransparency),
+             extend = extend.right,
+             style = srlinestyle,
+             width = srlinewidth
+         )
+
+
+
+
+
+///////// Earnings - Plot ///////////////
+
+// Vertical earnings breaks
+if showEarningsLines and isEarningsEvent
+    line.new(
+         x1 = bar_index,
+         y1 = low,
+         x2 = bar_index,
+         y2 = high,
+         xloc = xloc.bar_index,
+         extend = extend.both,
+         color = earningsColor,
+         style = earningsLineStyle,
+         width = earningsLineWidth
+     )
+
+// Shared EPS detail text, used by the optional always-on label
+// and by the E icon's hover tooltip.
+string earningsDetailText = na
+if isEarningsEvent
+    string earningsResult = earningsBeat ?
+         "EPS BEAT" :
+         earningsMiss ?
+         "EPS MISS" :
+         "EPS NEUTRAL"
+
+    earningsDetailText := earningsResult
+
+    earningsDetailText += "\nReported: " +
+         str.tostring(reportedEPS, "#.###")
+
+    if not na(estimatedEPS)
+        earningsDetailText += "\nEstimate: " +
+             str.tostring(estimatedEPS, "#.###")
+
+    if showStandardizedEPS and not na(standardizedEPS)
+        earningsDetailText += "\nStandardized: " +
+             str.tostring(standardizedEPS, "#.###")
+
+    if not na(earningsSurprise)
+        earningsDetailText += "\nSurprise: " +
+             str.tostring(earningsSurprise, "#.###")
+
+    if not na(earningsSurprisePct)
+        earningsDetailText += " (" +
+             str.tostring(earningsSurprisePct, "#.##") +
+             "%)"
+
+// Optional always-visible detailed EPS label
+if showEarningsLabels and isEarningsEvent
+    label.new(
+         x = bar_index,
+         y = high,
+         text = earningsDetailText,
+         xloc = xloc.bar_index,
+         yloc = yloc.abovebar,
+         style = label.style_label_down,
+         color = earningsColor,
+         textcolor = color.white,
+         size = size.small
+     )
+
+// "E" icon with hover tooltip showing reported vs. estimated EPS and surprise.
+// plotshape() has no tooltip parameter, so this uses label.new() instead;
+// it anchors just below each bar's low rather than the pane's fixed bottom edge.
+if showEarningsIcons and isEarningsEvent
+    string earningsIconStyle = earningsBeat ?
+         label.style_label_up :
+         earningsMiss ?
+         label.style_label_down :
+         label.style_square
+
+    label.new(
+         x = bar_index,
+         y = low,
+         text = "E",
+         xloc = xloc.bar_index,
+         yloc = yloc.belowbar,
+         style = earningsIconStyle,
+         color = earningsIconColor,
+         textcolor = color.white,
+         size = size.tiny,
+         tooltip = earningsDetailText
+     )
+
+
+///////// Moving Averages - Plot /////////////
+
+plot(smaA, title = "MA A", color = color.purple)
+plot(smaB, title = "MA B", color = color.yellow)
+plot(smaC, title = "MA C", color = color.red)
+plot(smaD, title = "MA D", color = color.blue)
+
+
+///////// ADR - Calculation ////////////
+
+ADRlength = 20
+
+dhigh = request.security(syminfo.tickerid, "D", high)
+dlow = request.security(syminfo.tickerid, "D", low)
+
+adr = math.round(10000 * (ta.sma(dhigh / dlow, ADRlength) - 1)) / 100
+
+
+///////// RRS - Inputs ///////////
+
+string gr_rrs = "Real Relative Strength - RRS on table"
+
+comparedWithSecurity = input.symbol(title = "Compare With", defval = "SPY", group = gr_rrs)
+
+length = input.int(title = "RRS Length", defval = 50, minval = 1, group = gr_rrs)
+
+
+// Rolling Price Change
+
+comparedClose = request.security(symbol = comparedWithSecurity, timeframe = "", expression = close)
+
+comparedRollingMove = comparedClose - comparedClose[length]
+
+symbolRollingMove = close - close[length]
+
+
+// Rolling ATR Change
+
+symbolRollingATR = ta.atr(length)[1]
+
+comparedRollingATR = request.security(symbol = comparedWithSecurity, timeframe = "", expression = ta.atr(length)[1])
+
+
+// RRS Calculation
+
+powerIndex = comparedRollingATR != 0 ? comparedRollingMove / comparedRollingATR : na
+
+RRS = symbolRollingATR != 0 ? (symbolRollingMove - powerIndex * symbolRollingATR) / symbolRollingATR : na
+
+correlated = ta.correlation(close, comparedClose, length)
+
+
+////////// Market Timer - Calculations ////////////
+
+timerFast = request.security(timerSecurity, timerTimeframe, ma(close, tlength1, ma_type))
+
+timerSlow = request.security(timerSecurity, timerTimeframe, ma(close, tlength2, ma_type))
+
+market_strength = timerFast > timerSlow ? "Up" : "Down"
+
+
+////////// Table ////////////
+
+var table t = table.new(
+     position.bottom_left,
+     2,
+     2,
+     bgcolor = color.rgb(255, 255, 255),
+     border_color = color.rgb(0, 0, 0),
+     border_width = 1
+ )
+
+if barstate.islast
+    table.cell(t, 0, 0, "ADR: " + str.tostring(adr, "#.##") + " %", text_color = adr > 5 ? color.green : color.red)
+
+    table.cell(t, 1, 0, "MARKET: " + market_strength, text_color = timerFast > timerSlow ? color.green : color.red)
+
+    table.cell(t, 0, 1, "RVol: " + str.tostring(volumeFactor, "#.##") + " %", text_color = volumeFactor >= 100 ? color.green : color.red)
+
+    table.cell(t, 1, 1, "RRS: " + str.tostring(RRS, "#.##"), text_color = RRS >= 0 ? color.green : color.red)
