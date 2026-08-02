@@ -514,16 +514,24 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
   - *2021-02-26, "Market in limbo", t=38:44 (initial framing), t=1:03:20 (retrospective correction)*
 - **MU (Micron) — his own one-line definition of a "classic" EP, stated while pointing at the trade.** "MU, the same thing when I bought it — some people were like, 'what do you see here?' Well, it's an EP — it's a stock that's been going sideways for a year, it has high volume, reported earnings, it beat — it's a classic episodic pivot, very simple setup, right, and it had been showing relative strength before the EP." As close as the corpus gets to a textbook checklist stated in one breath: year-long sideways base, high volume, an earnings beat, and relative strength already present before the gap.
 
+  ![1785706468902](image/QULLAMAGGIE_TRADING_LESSONS/1785706468902.png)
+
   - *2022-01-05, "Leaders lead", t=1:09:03*
 - **IMGN (ImmunoGen) — a 2023 biotech EP, bought at the opening range and nearly stopped out by a single violent candle.** Asked directly whether he still avoids biotech EPs, he corrects the premise on the spot: "do I still avoid biotech EPs? I never avoided [them] — biotech EPs are some of the best." Demonstrating live: "IMGN right now, look at this thing, look at the volume — this thing had, a couple of weeks ago, I bought it... opening range highs, yeah, 11, that's where I bought it. It was really close [to] stopping [me] out — they had this mini, like a supercell candle, pennies away from getting stopped out, but I didn't — and now it's just consolidating, we'll see what happens."
+
+  ![1785708384392](image/QULLAMAGGIE_TRADING_LESSONS/1785708384392.png)
 
   - *2023-05-18, "Episodic Pivots galore", t=33:45 (the question), t=33:53 (the trade)*
 - **MDGL (Madrigal Pharmaceuticals) — a five-month-old biotech EP recalled from memory, with an exact entry and a four-day follow-through.** In the same breath as IMGN, reaching back further: "like I talked about, MDGL — I bought this one, I traded [it] in December — it gapped up... 225%, and I bought it at 210, and it went up another 50[%] the next three or four sessions." He closes the thought with his actual category preference, resolving the apparent tension between "biotech EPs are the best" and how rarely he actually names one: "I absolutely don't avoid biotech EPs, they're the best — but I mostly trade earnings EPs, because those are the ones you get most of, and those are the easiest and safest too."
 
-  - *2023-05-18, "Episodic Pivots galore", t=34:17 (the trade), t=34:34 (the category preference)*
-- **CXAI — called live "the EP of the year so far," on news he calls "really nothing."** Not stated as a personal trade: "we had, like, CXAI — this was the EP of the year so far, went up 600% in two days, and I think it was even higher in pre-market — and it's just on, you know, really nothing. But it was an EP." A useful boundary case for how loosely "the news" can qualify: the size of the move and the volume behind it matter more than the substance of the catalyst.
+  ![1785708602507](image/QULLAMAGGIE_TRADING_LESSONS/1785708602507.png)
 
-  - *2023-05-18, "Episodic Pivots galore", t=19:19*
+  - *2023-05-18, "Episodic Pivots galore", t=34:17 (the trade), t=34:34 (the category preference)*
+- **CXAI — the boundary case behind his own definition of an EP, where substance of the news turns out not to matter at all.** He introduces CXAI as the live illustration of the definition itself, not as a caveat to it: "episodic pivot is pretty much when you get news on a stock and the stock makes a big move on high volume, it's a big surprise to the market — doesn't really matter what the news is, sometimes it can be just some fluff PR. Like we had, like, CXAI — this was the EP of the year so far, went up 600% in two days, and I think it was even higher in pre-market — and it's just on, you know, really nothing. But it was an EP." Not stated as a personal trade. In the same breath he immediately contrasts it with names where the news *was* substantive — PLTR's "surprisingly good earnings" and Shopify the same week — so CXAI isn't offered as an outlier exception to a news-quality rule; it's the proof that no such rule exists in the first place. A minute later in the same stream he restates the actual filter directly: "look at the volume, game-changing news, it's a big surprise to the market — that's what you're looking for." Volume and the size of the market's surprise are the load-bearing criteria in both directions — they're what make weak news (CXAI) count as a real EP, and they're the same thing he points to on strong news (PLTR, Shopify).
+
+  ![1785709392626](image/QULLAMAGGIE_TRADING_LESSONS/1785709392626.png)
+
+  - *2023-05-18, "Episodic Pivots galore", t=19:02 (the definition), t=19:19 (CXAI), t=20:48 (the volume restatement)*
 - **AEHR (Aehr Test Systems) — watched on its earnings gap, not stated as a personal trade.** "AEHR, this one I remember, I was looking at it when it reported earnings — an EP, high volume, look at the move it made."
 
   - *2023-05-18, "Episodic Pivots galore", t=22:23*
