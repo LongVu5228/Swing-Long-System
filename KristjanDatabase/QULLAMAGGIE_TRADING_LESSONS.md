@@ -534,7 +534,12 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
   - *2023-05-18, "Episodic Pivots galore", t=19:02 (the definition), t=19:19 (CXAI), t=20:48 (the volume restatement)*
 - **AEHR (Aehr Test Systems) — watched on its earnings gap, not stated as a personal trade.** "AEHR, this one I remember, I was looking at it when it reported earnings — an EP, high volume, look at the move it made."
 
+  ![1785710740883](image/QULLAMAGGIE_TRADING_LESSONS/1785710740883.png)
+
   - *2023-05-18, "Episodic Pivots galore", t=22:23*
+- **APLD (Applied Digital) — a live, named example of the "small account edge" (3.2), not just a description of it.** "APLD, I bought it a few days ago — some kind of AI-related PR, they got a contract, and, you know, look at the volume — this has been my small account, that is tax-free, so it's a very small position. But I want to grow that account up, and the best way to grow a small account is to buy small caps — you know, like something like Shopify, it's not gonna go up 100% in a week, it's just not gonna do it — but something like APLD, well, you know, it's already up 46 — 45 — since my entry a few days ago. You guys, you [have] small-account edge — that's why I've always been calling it on my stream, small account edge." Where 3.2 states the principle in the abstract, this is its dollars-and-percentage version: a deliberately small, tax-advantaged-account position bought on a thin AI-contract PR, up roughly 45% within a handful of days — the exact kind of move he says a mega-cap like Shopify structurally cannot deliver on that timeline, which is the whole reason a small account concentrates in low-float names like this instead of imitating a larger book's diversification.
+
+  - *2023-05-18, "Episodic Pivots galore", t=23:39*
 
 **Chart illustrations, not personal trades — the same pattern pointed out on names he doesn't say he bought.** Three more examples across different sectors, each used purely to teach the mechanic rather than to recount a position:
 
