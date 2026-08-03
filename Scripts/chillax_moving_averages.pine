@@ -31,8 +31,8 @@ green = ma1 > ma2 and ma1up and ma2up
 lightgreen = ma1 > ma2 and ma1up and not ma2up
 yellow = ma1 > ma2 and not ma1up and not ma2up
 
-plot(ma1, color = color.red, title = "First MA", display = display.none)
-plot(ma2, color = color.black, title = "Second MA", display = display.none)
+p1 = plot(ma1, color = color.red, title = "First MA", display = display.none)
+p2 = plot(ma2, color = color.black, title = "Second MA", display = display.none)
 
-bgColor = green ? color.new(color.rgb(0, 150, 0), 50) : lightgreen ? color.new(color.rgb(0, 255, 0), 80) : yellow ? color.new(color.yellow, 80) : na
-bgcolor(color = bgColor)
+fillColor = green ? color.new(color.rgb(0, 150, 0), 30) : lightgreen ? color.new(color.rgb(0, 255, 0), 55) : yellow ? color.new(color.yellow, 55) : na
+fill(p1, p2, color = fillColor, title = "Chillax Ribbon")
