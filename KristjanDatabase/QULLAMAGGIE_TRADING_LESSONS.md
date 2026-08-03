@@ -539,7 +539,12 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
   - *2023-05-18, "Episodic Pivots galore", t=22:23*
 - **APLD (Applied Digital) — a live, named example of the "small account edge" (3.2), not just a description of it.** "APLD, I bought it a few days ago — some kind of AI-related PR, they got a contract, and, you know, look at the volume — this has been my small account, that is tax-free, so it's a very small position. But I want to grow that account up, and the best way to grow a small account is to buy small caps — you know, like something like Shopify, it's not gonna go up 100% in a week, it's just not gonna do it — but something like APLD, well, you know, it's already up 46 — 45 — since my entry a few days ago. You guys, you [have] small-account edge — that's why I've always been calling it on my stream, small account edge." Where 3.2 states the principle in the abstract, this is its dollars-and-percentage version: a deliberately small, tax-advantaged-account position bought on a thin AI-contract PR, up roughly 45% within a handful of days — the exact kind of move he says a mega-cap like Shopify structurally cannot deliver on that timeline, which is the whole reason a small account concentrates in low-float names like this instead of imitating a larger book's diversification.
 
+  ![1785710993601](image/QULLAMAGGIE_TRADING_LESSONS/1785710993601.png)
+
   - *2023-05-18, "Episodic Pivots galore", t=23:39*
+- **WW (WW International) — his girlfriend's trade, immediately after APLD in the same stream.** "This one my girlfriend traded — WW, I mean, look at the volume, boom, 55-60% move in a week and a half — there's just so much opportunity in this, small caps." Not his own position, and no catalyst is named on-stream, but the shape is the same as APLD right before it: a small-cap (WW had fallen well under mega-cap size by this point) with a big, fast percentage move on volume, used back-to-back with APLD to hammer the same point — this kind of move is a small/thin-float phenomenon, not something available in a name like Shopify.
+
+  - *2023-05-18, "Episodic Pivots galore", t=26:31*
 
 **Chart illustrations, not personal trades — the same pattern pointed out on names he doesn't say he bought.** Three more examples across different sectors, each used purely to teach the mechanic rather than to recount a position:
 
