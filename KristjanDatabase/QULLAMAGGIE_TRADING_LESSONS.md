@@ -750,6 +750,8 @@ Three generalizable reads come out of the June thread, not just position narrati
 
 A live position, held through visible impatience and an unusually literal round of due diligence, in the same stream where INSP gets named as the EP model to live up to. Right after the INSP comparison: "this is what I expect Celsius to do — just hasn't been going yet, it's kind of sluggish right now." He's already long by this point — "now that I'm long Celsius, I want another one" — and the actual research behind the position is described without a trace of irony: "I did some deep analysis on Celsius a couple of days ago... I swallowed a bunch of Celsius, I swallowed their product, I literally swallowed the product — that's some deep research." He explicitly frames it as the same process behind a prior winner: "remember my due diligence on Tupperware, where I visited the homepage and did some deep analysis on it — we all remember what happened to Tupperware after I analyzed it, it went up 140%." Later in the same session he defends the position against bearish coverage without backing off: "there's been a lot of these hit pieces on Celsius, and yet this thing has been building higher lows the whole time... Celsius is not a fraud — I literally used the product a few days ago, it's everywhere here in Sweden, and I guess it's everywhere in the US too, so it's definitely not a fraud, they have a real product." PLUG gets a one-line regret in the same stream, unrelated to the CELH position itself but worth noting for the contrast: "wow, this PLUG just keeps going straight up, man — I missed that one."
 
+![1785792969604](image/QULLAMAGGIE_TRADING_LESSONS/1785792969604.png)
+
 - *2020-11-12, "China stocks hot!", t=44:29 (the INSP comparison), t=35:13 (already long), t=35:39 (the due-diligence story), t=38:08 (defending against hit pieces), t=57:43 (the separate PLUG miss)*
 
 #### 1.2.28 INSP (Inspire Medical Systems)
@@ -764,13 +766,17 @@ Named as the model of what a genuine EP is supposed to do after the fact: "INSP 
 
 A five-star-adjacent setup passed on liquidity, revisited the same session once it actually breaks: "SONO could be an episodic pivot, I'm gonna pass personally, it's too thin for me, but it could be — it's breaking out of a nice multi-year range, been building higher lows... watch the volume, ideally you want to see the average daily volume traded in the first five, ten minutes, that's always a good sign." Later, the same stream: "It's an EP... I guess it's more of an EP than breakout, it didn't really break out of a nice range... but the EP is breaking out of a very big range, so it's an EP" — a real-time example of him talking himself through the breakout/EP boundary on the same chart.
 
+![1785793677031](image/QULLAMAGGIE_TRADING_LESSONS/1785793677031.png)
+
 - *2020-11-19, "Breakouts everywhere!", t=3:50, t=1:31:25*
 
 #### 1.2.30 CCJ (Cameco)
 
-A live illustration of what separates an EP from a plain breakout when the chart shape alone doesn't make it obvious: "CCJ, well, I'm looking at today more like an EP. There was no clear breakout, it was choppy in a range, but today I'm thinking more like EP — look at the volume, it's already almost average daily volume 19 minutes in, it's going to be a very high volume day. It's not a regular breakout." The same session also confirms he treats sector EP clusters as tradeable as a group, not just single names: a second, unnamed oil-and-gas stock "had an EP yesterday... yet another oil-gas-related name... but sure, it was tradeable."
+A live illustration of what separates an EP from a plain breakout when the chart shape alone doesn't make it obvious: "CCJ, well, I'm looking at today more like an EP. There was no clear breakout, it was choppy in a range, but today I'm thinking more like EP — look at the volume, it's already almost average daily volume 19 minutes in, it's going to be a very high volume day. It's not a regular breakout." Later in the same stream, asked directly about a different ticker (NX) in the same commodity theme, he confirms he treats sector EP clusters as tradeable as a group, not just single names: "was NX a tradeable setup? I mean, it had an EP yesterday — so, yet another oil-gas-related name, had an EP yesterday. But sure, it was tradeable."
 
-- *2022-01-05, "Leaders lead", t=34:58*
+![1785793907315](image/QULLAMAGGIE_TRADING_LESSONS/1785793907315.png)
+
+- *2022-01-05, "Leaders lead", t=34:58 (the CCJ read); t=59:30 (the NX follow-up, same stream)*
 
 #### 1.2.31 HMNY (Helios and Matheson / MoviePass)
 
