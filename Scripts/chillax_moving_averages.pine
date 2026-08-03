@@ -1,0 +1,38 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © chilllaxtrader
+
+//@version=5
+indicator(title = "Chilllax Moving Averages with Qullamaggie colors", shorttitle = "ChillLax MA with Quallamaggic color", overlay = true)
+
+// Display 2 MAs, default is 10d sma and 20d sma. You can choose any length. Choose sma, or ema. Choose ma of Open, High, Low, or Close
+// Color code is based on Qullamaggie's idea:
+// Dark green = 10d ma >  20d ma, and both trending up
+// Light green = 10d ma > 20d ma, but only 10d ma trending up
+// Yellow = 10d ma > 20d ma, but neither trending up
+
+// Trend is comparing the ma from X trendlen days ago. Default to 5. If today's ma is > ma of 5 days ago, then it is an uptrend
+
+maType = input.string(title = "", options = ["SMA", "EMA"], defval = "SMA", group = "Moving Averages Type")
+
+ma1_len = input.int(10, minval = 1, title = "First MA length")
+src1 = input.source(close, title = "OHLC")
+ma1 = maType == "SMA" ? ta.sma(src1, ma1_len) : ta.ema(src1, ma1_len)
+
+ma2_len = input.int(20, minval = 0, title = "Second MA length")
+src2 = input.source(close, title = "OHLC")
+ma2 = maType == "SMA" ? ta.sma(src2, ma2_len) : ta.ema(src2, ma2_len)
+
+trendlen = input.int(5, minval = 1, title = "number of bars to determine uptrend")
+
+ma1up = ma1 > ma1[trendlen]
+ma2up = ma2 > ma2[trendlen]
+
+green = ma1 > ma2 and ma1up and ma2up
+lightgreen = ma1 > ma2 and ma1up and not ma2up
+yellow = ma1 > ma2 and not ma1up and not ma2up
+
+plot(ma1, color = color.red, title = "First MA")
+plot(ma2, color = color.black, title = "Second MA")
+
+bgColor = green ? color.new(color.rgb(0, 150, 0), 50) : lightgreen ? color.new(color.rgb(0, 255, 0), 80) : yellow ? color.new(color.yellow, 80) : na
+bgcolor(color = bgColor)
