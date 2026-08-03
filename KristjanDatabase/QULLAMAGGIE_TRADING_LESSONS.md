@@ -544,17 +544,28 @@ His favorite swing setup, and by 2023 his dominant one: a company beats earnings
   - *2023-05-18, "Episodic Pivots galore", t=23:39*
 - **WW (WW International) — his girlfriend's trade, immediately after APLD in the same stream.** "This one my girlfriend traded — WW, I mean, look at the volume, boom, 55-60% move in a week and a half — there's just so much opportunity in this, small caps." Not his own position, and no catalyst is named on-stream, but the shape is the same as APLD right before it: a small-cap (WW had fallen well under mega-cap size by this point) with a big, fast percentage move on volume, used back-to-back with APLD to hammer the same point — this kind of move is a small/thin-float phenomenon, not something available in a name like Shopify.
 
+  ![1785716644066](image/QULLAMAGGIE_TRADING_LESSONS/1785716644066.png)
+
   - *2023-05-18, "Episodic Pivots galore", t=26:31*
+- **CVNA (Carvana) — a big personal EP trade from earlier in 2023, revisited live for a possible second leg.** Asked directly if he's still in it: "carvana is one of these stocks — like if you look at their balance sheet you kind of puke, you're gonna throw up — but, you know, I had carvana back in — I bought it on this day here initially, back in early January, and it ended up going up, and then I added on this day here, and I think I may have added one more time somewhere here — but, you know, from my initial buy it went up like 250% in a month. I was hoping it was gonna hit the declining 200-day but it never did, so I gave back a lot of profit — but that was a big trade, one of the bigger trades I had this year so far." Watching it again months later, still fundamentally distressed but technically alive: "you look at the balance sheet, you're thinking they're gonna go bankrupt any day, but the stock is hanging in there — it's a heavily shorted name... I think the risk/reward is good... it's been building higher lows for weeks now, this thing could make a big move." A clean instance of 2.1's minimal-toolkit stance carried to its logical extreme — trading the chart and volume on a name whose own balance sheet he says makes him want to "throw up," and treating that fundamental distress as irrelevant to whether the setup itself is tradeable.
+
+  - *2023-05-19, "Episodic Pivots, Kenny boy and old times", t=31:01 (the recap), t=32:07 (watching it again)*
 
 **Chart illustrations, not personal trades — the same pattern pointed out on names he doesn't say he bought.** Three more examples across different sectors, each used purely to teach the mechanic rather than to recount a position:
 
 - **DOCU (DocuSign), explaining the setup directly in response to a viewer question.** "Can I explain the episodic pivot in DOCU? Yeah, they had great earnings, big beat, big growth, gapped up and [is] breaking out of this range — multi-month range, it's been building higher lows for like six months, that's the setup."
 
+  ![1785716819109](image/QULLAMAGGIE_TRADING_LESSONS/1785716819109.png)
+
   - *2020-12-04, "Starting to trade options! Disaster or success?", t=1:07:51*
 - **APPS (Digital Turbine), pointed to specifically for how far the move ran afterward.** "Look at the move made from this episodic pivot — these APPS, look at the volume, it had — boom, this thing had been going sideways for almost a year. This is a big EP: big volume, big beat — well, not that big of a beat, but big volume, the volume is the key — good earnings numbers, big guidance, and look at the move — 10-bagger since."
 
+  ![1785716963569](image/QULLAMAGGIE_TRADING_LESSONS/1785716963569.png)
+
   - *2021-02-17, "Many extended names getting sluggish. $RIOT parabolic short", t=1:06:41*
 - **Macy's (M), a legacy retailer rather than a growth-tech name — the same mechanic outside his usual hunting ground.** "Macy's had a big-big-volume episodic pivot coming out of a six-month flag — these are the things you need to pay attention to."
+
+  ![1785717784376](image/QULLAMAGGIE_TRADING_LESSONS/1785717784376.png)
 
   - *2021-09-28, "Can we get a real correction", t=1:11:38*
 - **An unnamed 2023 EP, bought three separate times.** By 2023 EPs had become his dominant setup, and he narrates one live where conviction survived two straight stop-outs: "I bought it initially on the EP day... it just went straight down, got stopped out. I think I got stopped out twice on it — I re-bought it, they stopped me out, then I re-bought it yesterday. So we're taking two losses on it so far, we'll see, hopefully third time's the charm." His justification for re-entering after two losses on the same name rather than moving on: "it's all about risk/reward — this thing, once it gets going, [can] double in a flash, it's already done it once this year." In the same session he states the broader regime shift plainly: "breakouts haven't really been working the past 18 months — what has been working is EPs. EPs have been working pretty decently... the breakout [setup] has been choppy."
