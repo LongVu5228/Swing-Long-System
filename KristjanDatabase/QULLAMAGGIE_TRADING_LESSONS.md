@@ -780,9 +780,13 @@ A live illustration of what separates an EP from a plain breakout when the chart
 
 #### 1.2.31 HMNY (Helios and Matheson / MoviePass)
 
-A career-inflection trade, told with real emotional weight rather than as a clean technical example: "I started buying it here — this EP. Here it was trading at like 80 cents... it peaked at 30 or 40, it's had some reverse splits... it had a perfect parabolic move and then gravity took over. My accounts had been going sideways for six months, I was demoralized, and then this happens — that started a big six-month run in my accounts." A roughly 40-50x move cited from an 80-cent entry, credited directly with ending a half-year slump.
+A career-inflection trade, told with real emotional weight rather than as a clean technical example, and a full round-trip rather than just the long. He first blurts out a number and immediately walks it back: "HMNY was insane — I think I made two thousand percent on that long... no, not two thousand percent, a thousand percent, sorry. I started buying it here, this EP — here it was trading at like 80 cents... it peaked at 30 or 40, it's had some reverse splits, the numbers are off... anywho, I think it peaked at like 35, so it went from — I don't know, I think it went like two bucks or four bucks to 35 or something, I don't know — but yeah, I started buying it here, that was a big one, and then it had a perfect parabolic move and then gravity took over." He doesn't stop at the long: "and then I nailed the short on it too" — riding the same name down after riding it up, rather than just exiting and moving on.
 
-- *2021-01-04, "870% returns in 2020!", t=1:50:44*
+The personal detail he attaches to the entry is unusually specific for this corpus: "I was in a hotel room in Chicago when I bought it, I still remember. My accounts had been going sideways for like six months, I was kind of demoralized, I wasn't making any money, I couldn't get anything going — and then HMNY happens, and that started a big, like, six-month run in my accounts. And then after that all the crypto mania started, and all of those stocks went up hundreds and hundreds and even thousands of percent, and the next five, six months were insane." He draws a direct psychological lesson from the whiplash between the demoralized stretch right before HMNY and the mania that followed it: "remember, the bad stuff always happens when things are going really well, and the good things always happen when things are going bad and you feel frustrated — so you should never get too bullish and never get too bearish on yourself, because it can change at any moment. It doesn't matter if everything is going really well or everything is going really bad, it can change on the very next trade."
+
+![1785794269304](image/QULLAMAGGIE_TRADING_LESSONS/1785794269304.png)
+
+- *2021-01-04, "870% returns in 2020!", t=1:50:19 (the 1,000% long, self-corrected), t=1:50:32 (the follow-up short), t=1:51:40 (the Chicago hotel room), t=1:51:45 (the six-month slump it ended), t=1:52:04 (the crypto mania that followed), t=1:52:16 (the bullish/bearish-on-yourself lesson)*
 
 #### 1.2.32 NFLX (Netflix)
 
