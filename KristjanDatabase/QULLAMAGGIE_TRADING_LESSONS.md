@@ -88,10 +88,10 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.2.21 WW (WW International)](#1221-ww-ww-international)
      - [1.2.22 DOCU (DocuSign)](#1222-docu-docusign)
      - [1.2.23 APPS (Digital Turbine)](#1223-apps-digital-turbine)
-     - [1.2.24 M (Macy's)](#1224-m-macys)
+     - [1.2.24 M (Macy&#39;s)](#1224-m-macys)
      - [1.2.25 CHGG (Chegg)](#1225-chgg-chegg)
      - [1.2.26 CVNA (Carvana)](#1226-cvna-carvana)
-     - [1.2.27 PLUG (Plug Power)](#1227-plug-plug-power)
+     - [1.2.27 CELH (Celsius Holdings)](#1227-celh-celsius-holdings)
      - [1.2.28 INSP (Inspire Medical Systems)](#1228-insp-inspire-medical-systems)
      - [1.2.29 SONO (Sonos)](#1229-sono-sonos)
      - [1.2.30 CCJ (Cameco)](#1230-ccj-cameco)
@@ -103,7 +103,7 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.2.36 UPST (Upstart)](#1236-upst-upstart)
      - [1.2.37 CLF (Cleveland-Cliffs)](#1237-clf-cleveland-cliffs)
      - [1.2.38 TIGR (UP Fintech)](#1238-tigr-up-fintech)
-     - [1.2.39 DDS (Dillard's)](#1239-dds-dillards)
+     - [1.2.39 DDS (Dillard&#39;s)](#1239-dds-dillards)
      - [1.2.40 NTLA (Intellia Therapeutics)](#1240-ntla-intellia-therapeutics)
      - [1.2.41 PANW (Palo Alto Networks)](#1241-panw-palo-alto-networks)
      - [1.2.42 AFRM (Affirm)](#1242-afrm-affirm)
@@ -746,15 +746,17 @@ Three generalizable reads come out of the June thread, not just position narrati
 - *2023-06-08, "EPs, AI and quantum computing stocks", t=02:46 (biggest-position setup), t=40:41 (the volume-confirmation lesson), t=44:00 (the "hated stock, hot sector" thesis), t=50:26 (biggest position, confirmed), t=54:25 (the "clean mover" label), t=57:31 (trading around the core)*
 - *2023-06-09, "Market mechanics, setups and more", t=20:48 (enormous volume), t=52:41 (B-tier leader), t=1:01:04 (position mechanics and the $40-50 target)*
 
-#### 1.2.27 PLUG (Plug Power)
+#### 1.2.27 CELH (Celsius Holdings)
 
-A conviction-building example where a prior breakout, a fresh EP, and a clean chart pattern all stack on top of each other: "PLUG has been on a big tear, we broke out like last week, so when it had an EP and started breaking out on this perfect flat pattern yesterday, I have some conviction in it." The fuel-cell sector more broadly is his own standing example of what an EP wave can compound into over years — describing PLUG and Ballard Power (BLDP) a year earlier as sector EPs that turned into "10-baggers, 20-baggers."
+A live position, held through visible impatience and an unusually literal round of due diligence, in the same stream where INSP gets named as the EP model to live up to. Right after the INSP comparison: "this is what I expect Celsius to do — just hasn't been going yet, it's kind of sluggish right now." He's already long by this point — "now that I'm long Celsius, I want another one" — and the actual research behind the position is described without a trace of irony: "I did some deep analysis on Celsius a couple of days ago... I swallowed a bunch of Celsius, I swallowed their product, I literally swallowed the product — that's some deep research." He explicitly frames it as the same process behind a prior winner: "remember my due diligence on Tupperware, where I visited the homepage and did some deep analysis on it — we all remember what happened to Tupperware after I analyzed it, it went up 140%." Later in the same session he defends the position against bearish coverage without backing off: "there's been a lot of these hit pieces on Celsius, and yet this thing has been building higher lows the whole time... Celsius is not a fraud — I literally used the product a few days ago, it's everywhere here in Sweden, and I guess it's everywhere in the US too, so it's definitely not a fraud, they have a real product." PLUG gets a one-line regret in the same stream, unrelated to the CELH position itself but worth noting for the contrast: "wow, this PLUG just keeps going straight up, man — I missed that one."
 
-- *2020-06-30, "If you don't trade the momentum leaders, you have no future!", t=1:02:47; and 2019-10-01, "My FIRST trading stream!", t=53:17*
+- *2020-11-12, "China stocks hot!", t=44:29 (the INSP comparison), t=35:13 (already long), t=35:39 (the due-diligence story), t=38:08 (defending against hit pieces), t=57:43 (the separate PLUG miss)*
 
 #### 1.2.28 INSP (Inspire Medical Systems)
 
-Named as the model of what a genuine EP is supposed to do after the fact: "INSP had the episodic pivot and it's been going straight up — this is what an episodic pivot should do." Not a trade he narrates taking; used purely as the positive reference case in the same breath as a name he's still waiting on.
+Named as the model of what a genuine EP is supposed to do after the fact: "INSP had the episodic pivot and it's been going straight up — this is what an episodic pivot should do." Not a trade he narrates taking; used purely as the positive reference case in the same breath as CELH (1.2.27), a name he's still waiting on.
+
+![1785792576577](image/QULLAMAGGIE_TRADING_LESSONS/1785792576577.png)
 
 - *2020-11-12, "China stocks hot!", t=44:23*
 
