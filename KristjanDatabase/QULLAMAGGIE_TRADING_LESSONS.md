@@ -806,13 +806,17 @@ A detailed historical walkthrough of a real edge case — a name that qualified 
 
 He then answers his own rhetorical question about why, rather than leaving it hanging: "it's an EP, but these are hard, because — I mean, where do you buy it, where do you put your stop — that's why gap-ups are much easier. It would have been much easier if it had gapped up to like low 70s, right, and then it [had] taken out opening range highs, and then you would have had a tight stop on it." The actual disqualifier isn't the fundamentals or the eventual move — it's that TAL ground higher on volume without a clean gap, which leaves no opening-range level to buy against and no natural stop just below it; a real gap-up hands both of those to you for free, which is the whole reason he defaults to gap-ups over slow-grinding volume breakouts even when the underlying numbers are just as good.
 
+![1785797206033](image/QULLAMAGGIE_TRADING_LESSONS/1785797206033.png)
+
 - *2021-01-21, "Bitcoin nearing the 50-day! Major support?", t=42:43 (the setup and the pass), t=44:07 (the entry/stop problem and why he prefers gap-ups)*
 
 #### 1.2.34 PINS (Pinterest)
 
-The clearest statement of his "first or second EP, not the third" rule, illustrated on a real repeat-offender chart: "I'm not super excited about it as an episodic pivot because it's already had a year-long run... the whole move started with this episodic pivot here when it was early in the runway, coming out of a long sideways base — that was the EP. Then it had another one, secondary, had big volume but didn't go straight up, it pulled back and then went higher. This is the third one, and usually when you're looking for earnings EPs you want the first or second... the fail rate is much higher, and the volume is nowhere near the last two episodic pivots." Volume decay across repeat EPs on the same name is the actual tell, not just a round-number rule of thumb.
+The clearest statement of his "first or second EP, not the third" rule, illustrated on a real repeat-offender chart: "I'm not super excited about it as an episodic pivot because it's already had a year-long run... the whole move started with this episodic pivot here when it was early in the runway, coming out of a long sideways base — that was the EP. Then it had another one, secondary, had big volume but didn't go straight up, it pulled back and then went higher. This is the third one, and usually when you're looking for earnings EPs you want the first or second — or the third would be fine if it's coming off a longer base or a correction, but this one's not that long of a base, so the fail rate is much higher — much, much higher — and you can also see the volume, it's nowhere near the last two episodic pivots." He then names the actual mechanism behind the fading volume, not just the pattern: "it's not really a surprise anymore to the market — yeah, it beat analyst estimates, etc., but it's not really a surprise anymore to the market, it's kind of an expected beat, so to say." Asked whether the move still counts as something new starting: "I wouldn't say at all trend, but it's — it's not really a new trend... that it's definitely not." A third EP inside an already-year-long run isn't launching fresh momentum the way the original EP did — it's an established trend continuing, and the market pricing in the beat in advance is exactly why the volume and follow-through both decay each time it repeats.
 
-- *2021-02-05, "Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market", t=21:31*
+![1785797823693](image/QULLAMAGGIE_TRADING_LESSONS/1785797823693.png)
+
+- *2021-02-05, "Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market", t=21:31 (the first/second/third rule), t=22:26 (the expected-beat mechanism), t=22:39 (not a new trend)*
 
 #### 1.2.35 NVAX (Novavax)
 
