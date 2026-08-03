@@ -772,11 +772,11 @@ A five-star-adjacent setup passed on liquidity, revisited the same session once 
 
 #### 1.2.30 CCJ (Cameco)
 
-A live illustration of what separates an EP from a plain breakout when the chart shape alone doesn't make it obvious: "CCJ, well, I'm looking at today more like an EP. There was no clear breakout, it was choppy in a range, but today I'm thinking more like EP — look at the volume, it's already almost average daily volume 19 minutes in, it's going to be a very high volume day. It's not a regular breakout." Later in the same stream, asked directly about a different ticker (NX) in the same commodity theme, he confirms he treats sector EP clusters as tradeable as a group, not just single names: "was NX a tradeable setup? I mean, it had an EP yesterday — so, yet another oil-gas-related name, had an EP yesterday. But sure, it was tradeable."
+A live illustration of what separates an EP from a plain breakout when the chart shape alone doesn't make it obvious: "CCJ, well, I'm looking at today more like an EP. There was no clear breakout, it was choppy in a range, but today I'm thinking more like EP — look at the volume, it's already almost average daily volume 19 minutes in, it's going to be a very high volume day. It's not a regular breakout."
 
 ![1785793907315](image/QULLAMAGGIE_TRADING_LESSONS/1785793907315.png)
 
-- *2022-01-05, "Leaders lead", t=34:58 (the CCJ read); t=59:30 (the NX follow-up, same stream)*
+- *2022-01-05, "Leaders lead", t=34:58*
 
 #### 1.2.31 HMNY (Helios and Matheson / MoviePass)
 
