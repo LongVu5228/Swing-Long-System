@@ -820,9 +820,11 @@ The clearest statement of his "first or second EP, not the third" rule, illustra
 
 #### 1.2.35 NVAX (Novavax)
 
-A clean, admitted miss on a setup he later calls "such a perfect one": "just look at how it looked before: it had been building higher lows for six-seven months, this long range, look how nice and tight it was, and then it had this EP on enormous volume. I can't believe I didn't trade it... I just dropped the ball on it, I was watching a bunch of other stuff and missed it." The same clip carries one of his most direct definitional statements of what an EP is actually for: "the whole point of buying an episodic pivot is buying something that is going to become a momentum leader — sometimes they're already momentum leaders, sometimes they're just a forgotten stock no one cares about."
+A clean, admitted miss on a setup he calls "such a perfect one": "just look at how it looked before: it had been building higher lows for six-seven months, this long range, look how nice and tight it was, and then it had this EP on enormous volume. I can't believe I didn't trade it... I just dropped the ball on it, I was watching a bunch of other stuff and missed it." A minute and a half later, a chat member circles back with a pointed follow-up — wasn't NVAX already a momentum leader before this EP, not a name about to become one? He answers directly, and the answer doubles as one of his most direct definitional statements of what an EP is actually for: "no — the whole point of buying an episodic pivot is buying something that is going to become a momentum leader. Sometimes they're already momentum leaders, sometimes they're just a forgotten stock no one cares about." NVAX is offered as the second kind: a name nobody was watching, going nowhere for six-plus months, until the EP itself is what launches it into being a momentum leader — not proof it already was one.
 
-- *2021-02-11, "Many extended stocks building high tight flags!", t=21:28*
+![1785798230133](image/QULLAMAGGIE_TRADING_LESSONS/1785798230133.png)
+
+- *2021-02-11, "Many extended stocks building high tight flags!", t=21:28 (the missed setup), t=23:49 (the "wasn't it already a momentum leader" follow-up and the definitional answer)*
 
 #### 1.2.36 UPST (Upstart)
 
