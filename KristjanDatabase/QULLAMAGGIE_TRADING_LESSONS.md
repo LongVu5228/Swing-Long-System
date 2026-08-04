@@ -846,13 +846,17 @@ A full lifecycle case study — entry mechanics, a sizing choice, a commodity-se
 
 A textbook illustration of his early-volume-versus-ADV entry criterion, tracked through a full follow-through: "Tiger, yeah, that's an EP, oh my god, just look at the volume — it traded 15, 20 percent of the average daily volume in the first two minutes, and in the first five minutes it traded like a third of the average daily volume — that's EP, that's EP volume." He passes on size purely for liquidity, then watches the move run without him: "nice move since the EP, it's a little bit too liquid for me but it was very good — this thing could go back to 35, 40," and later, "off that EP, jesus, if it had been more volume, more liquid, I would have pulled a position, man, so beautiful — up closing in on 50 percent after the EP opening range breakout."
 
+![1785885413911](image/QULLAMAGGIE_TRADING_LESSONS/1785885413911.png)
+
 - *2021-05-25, "Big moves potentially starting in a few places", t=28:35; and 2021-06-01, t=26:20; and 2021-06-04, "AMC to $2 MILLION", t=1:33:01*
 
 #### 1.2.39 DDS (Dillard's)
 
-A comparative-setup example, explicitly paired against a peer retailer's chart, followed through to a quantified result: "Dicks looks similar to DDS a couple of weeks ago, the same exact same chart pretty much — it was surfing the 50-day and then it broke out, the earnings, had an EP, it's the same thing." Days later, the follow-through: "wow, DDS, look at what it's done since the EP, it's up 55%, and it's up 25% since the breakout two days ago." Weeks later, once the same name had run further, he uses it as a fresh disqualifier: "DDS is not a good setup, it's way extended already... every time it flag-breaks the chances of failure get higher."
+A comparative-setup example, explicitly paired against a peer retailer's chart, followed through to a quantified result and then to a repeat-flag-break failure. The initial comparison names the sector connection along with the chart similarity: "Dicks looks similar to DDS a couple of weeks ago, the same exact same chart pretty much — it was surfing the 50-day and then it broke out, the earnings, had an EP, it's the same thing... it's also in the same sector, department stores — well, or actually, similar sectors, they're both stores." At the same moment he flags DDS's own follow-on flag as still tradeable, with a rough target: "now it's kind of flagging and probably wants to go to the high hundreds or something." Days later, the follow-through: "wow, DDS, look at what it's done since the EP, it's up 55%, and it's up 25% since the breakout two days ago." Weeks later, once the same name had run further, he uses it as a fresh disqualifier — and the fuller quote names the exact mechanism, not just the verdict: "DDS is not a good setup, it's way extended already, it's had a flag on a flag on a flag — it had a good setup here on the EP, had a good setup here on the first flag break, but you know, it's already had so many flag breaks, and every time, the chances of failure are gonna be higher. It's not a good setup, it's too extended." The same EP-then-first-flag-break-are-good, later-flag-breaks-decay logic that governs how many times an EP itself can be re-bought (1.2.34's PINS) applies just as directly to ordinary flag breakouts off the same chart.
 
-- *2021-05-26, "Some bigs moves starting!!", t=1:23:32; 2021-06-03, "Great content today...", t=1:20:47; and 2021-07-09, "You need to want it...", t=48:31*
+![1785885812787](image/QULLAMAGGIE_TRADING_LESSONS/1785885812787.png)
+
+- *2021-05-26, "Some bigs moves starting!!", t=1:23:32–1:24:15 (comparison, sector note, and flag target); 2021-06-03, "Great content today...", t=1:20:47; and 2021-07-09, "You need to want it...", t=48:25–48:42 (the full "flag on a flag on a flag" verdict)*
 
 #### 1.2.40 NTLA (Intellia Therapeutics)
 
