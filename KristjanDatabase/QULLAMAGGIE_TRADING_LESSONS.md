@@ -974,7 +974,7 @@ Two things make this the natural closing example for the whole section. First, i
 
 - *2023-12-01, "EP party!", t=5:26; and 2023-12-15, "Speculation money is back!", t=20:27*
 
-##### Smaller, lower-confidence mentions and additional named tickers
+#### Smaller, lower-confidence mentions and additional named tickers
 
 Single-quote mentions worth a note but not a full write-up. A cluster of disqualifiers sharpens the boundary from the negative side:
 
@@ -1012,7 +1012,7 @@ A handful of additional named tickers round out the picture without adding a new
 - **ESTC** — a good-looking EP on a stock whose own chart personality overrides it: "some stocks are not meant to be traded... this is an avoid stock" (2023-12-15, "Speculation money is back!", t=25:19).
 - **PDD** — a recurring source of frustration across two 2023 sessions, stopped out on a mechanical 20-day close both times, in a name that kept running higher without him each time (2023-01-26, "New BULL?", t=34:28; and 2023-12-01, "EP party!", t=5:26).
 
-##### Methodology and process notes
+#### Methodology and process notes
 
 Not tied to any single ticker.
 
@@ -1029,14 +1029,14 @@ Not tied to any single ticker.
 - **Biotech avoidance.** "I mostly focus on earnings-related EPs, I kind of ignore the biotech and stuff like that" (2021-06-11, "Droves of former leaders", t=2:38:21) — a milder, standing version of the exception 1.2.16's IMGN entry documents him making anyway on occasion.
 - **A sector doesn't need to already be hot for an EP to work in it — the causality runs the other way.** "Sometimes a sector becomes hot after an EP, after the leading stocks in that sector start having EPs, that's when it becomes hot" (2023-12-01, "EP party!", t=47:24).
 
-##### The precise boundary of the setup
+#### The precise boundary of the setup
 
 And how it hardens as the market gets tougher.
 
 - The sharpest single restatement of the whole definition, stated late in the corpus: "why OXM wasn't an EP — because the market doesn't give a [—], there has to be a gap up and there has to be volume. It's very simple. The market doesn't give a [—], you shouldn't give a [—]. Move on. We are only interested in the things other people want" (2021-12-09, "Not inspiring action in stocks", t=22:30).
 - A quality filter layered on top of that hard requirement, having nothing to do with the gap itself: "the best EPs are the ones that gap up over resistance areas — they don't have any moving averages above them, the moving averages are below them... there are no EPs in downtrends, rarely, rarely" (2022-02-04, "Risk ON type of day", t=13:48) — restated with real numbers a few days later on a name he passes specifically because its gap was too small relative to the resistance above it: "instead of the 16% gap up it would've had a 50% gap up" if it had actually cleared the declining averages above it (2022-02-08, "Tax advice", t=55:39).
 
-##### The regime arc (2021-2023)
+#### The regime arc (2021-2023)
 
 Real EP vs. doomed one matters most once the market itself turns — the clearest through-line the 2021-2022 stretch adds to this section as a whole.
 
