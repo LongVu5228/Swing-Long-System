@@ -954,9 +954,11 @@ The mega-cap EP actually behind QCOM's "these large-cap EPs have been working" l
 
 #### 1.2.50 ANF (Abercrombie & Fitch)
 
-Two EPs in the same year used as his clearest illustration of an EP functioning as durable relative strength rather than a one-day pop, running counter to the broader index during a real pullback: "another ANF, another apparel store, had two big EPs this year, look at the volume — this is the type of volume you want to see... look at ANF, this thing has been going up — that's the power of a good EP, that's relative strength. Some of these EPs can be really, really powerful, they can go and go and go even though the market kind of starts pulling back." Told back-to-back with GPS in the same session — a large-cap apparel EP he passes on purely because he "never gets excited about these types" of stores — ANF is the positive half of a matched pair on sector interest versus setup quality.
+Two EPs in the same year used as his clearest illustration of an EP functioning as durable relative strength rather than a one-day pop, running counter to the broader index during a real pullback: "another ANF, another apparel store, had two big EPs this year, look at the volume — this is the type of volume you want to see... look at ANF, look at what the SPY did between, like, late July and late October — look at ANF, this thing has been going up, that's the power of a good EP, that's relative strength." He names the actual buyer behind that divergence rather than leaving it as an abstract pattern: "you know, this is something — you know, the funds want to buy this thing, [it] didn't give a [—] about the market during the pullback we had. Some of these EPs can be really, really powerful, they can go and go and go even though the market kind of starts pulling back — but generally, most stocks will fall on the market." Told back-to-back with GPS in the same session — a large-cap apparel EP he passes on purely because he "never gets excited about these types" of stores — ANF is the positive half of a matched pair on sector interest versus setup quality.
 
-- *2023-12-01, "EP party!", t=44:12*
+![1785896427702](image/QULLAMAGGIE_TRADING_LESSONS/1785896427702.png)
+
+- *2023-12-01, "EP party!", t=44:12–45:07*
 
 #### 1.2.51 DRCT (Direct Digital Holdings)
 
