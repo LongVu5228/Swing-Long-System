@@ -117,10 +117,10 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.2.49 PFE (Pfizer)](#1249-pfe-pfizer)
      - [1.2.50 ANF (Abercrombie &amp; Fitch)](#1250-anf-abercrombie--fitch)
      - [1.2.51 DRCT (Direct Digital Holdings)](#1251-drct-direct-digital-holdings)
-     - [Smaller, lower-confidence mentions and additional named tickers](#12-smaller-mentions)
-     - [Methodology and process notes](#12-methodology)
-     - [The precise boundary of the setup](#12-precise-boundary)
-     - [The regime arc (2021–2023)](#12-regime-arc)
+     - [Smaller, lower-confidence mentions and additional named tickers](#smaller-lower-confidence-mentions-and-additional-named-tickers)
+     - [Methodology and process notes](#methodology-and-process-notes)
+     - [The precise boundary of the setup](#the-precise-boundary-of-the-setup)
+     - [The regime arc (2021-2023)](#the-regime-arc-2021-2023)
    - [1.3 IPO breakouts](#13-ipo-breakouts)
      - [1.3.1 LVGO (Livongo)](#131-lvgo-livongo)
      - [1.3.2 FSLY (Fastly)](#132-fsly-fastly)
@@ -974,11 +974,9 @@ Two things make this the natural closing example for the whole section. First, i
 
 - *2023-12-01, "EP party!", t=5:26; and 2023-12-15, "Speculation money is back!", t=20:27*
 
-<a id="12-smaller-mentions"></a>
+##### Smaller, lower-confidence mentions and additional named tickers
 
-**Smaller, lower-confidence, or single-quote mentions worth a note but not full write-ups.**
-
-A cluster of disqualifiers sharpens the boundary from the negative side:
+Single-quote mentions worth a note but not a full write-up. A cluster of disqualifiers sharpens the boundary from the negative side:
 
 - **JD** — "didn't really qualify as an EP, it didn't gap up enough — it only gapped up like four or five percent... usually the best ones gap up 10, 15, 20%, so this was more like an earnings breakout" (2020-12-03, "Mini earnings season today!", t=50:47).
 - **AEZ** — "there's no EP on this thing, just a random penny stock" (2020-11-30, "Pullback attempt after historic November", t=5:15).
@@ -1014,9 +1012,9 @@ A handful of additional named tickers round out the picture without adding a new
 - **ESTC** — a good-looking EP on a stock whose own chart personality overrides it: "some stocks are not meant to be traded... this is an avoid stock" (2023-12-15, "Speculation money is back!", t=25:19).
 - **PDD** — a recurring source of frustration across two 2023 sessions, stopped out on a mechanical 20-day close both times, in a name that kept running higher without him each time (2023-01-26, "New BULL?", t=34:28; and 2023-12-01, "EP party!", t=5:26).
 
-<a id="12-methodology"></a>
+##### Methodology and process notes
 
-**Methodology and process notes, not tied to any single ticker.**
+Not tied to any single ticker.
 
 - **The screener, three versions across the years — the differences track his account size and audience, not any change in the underlying setup.**
   - *2020, earliest:* "very simple scan — it should be up at least seven and a half percent on a day, it should be above yesterday's highs, and I use the dollar volume of 35 million, but you could use like 10 million or something." Run pre-market and after-hours, not intraday: "the easiest way to find them are not after the open, it's in pre-market and after hours... there's no need to use an intraday scan for episodic pivots." Credits the source: "Stockbee has written a lot about episodic pivots, both on his paid site and his free blog" (2020-10-28, "Finally getting some fear back in the markets!", t=1:33:04).
@@ -1031,16 +1029,16 @@ A handful of additional named tickers round out the picture without adding a new
 - **Biotech avoidance.** "I mostly focus on earnings-related EPs, I kind of ignore the biotech and stuff like that" (2021-06-11, "Droves of former leaders", t=2:38:21) — a milder, standing version of the exception 1.2.16's IMGN entry documents him making anyway on occasion.
 - **A sector doesn't need to already be hot for an EP to work in it — the causality runs the other way.** "Sometimes a sector becomes hot after an EP, after the leading stocks in that sector start having EPs, that's when it becomes hot" (2023-12-01, "EP party!", t=47:24).
 
-<a id="12-precise-boundary"></a>
+##### The precise boundary of the setup
 
-**The precise boundary of the setup, and how it hardens as the market gets tougher.**
+And how it hardens as the market gets tougher.
 
 - The sharpest single restatement of the whole definition, stated late in the corpus: "why OXM wasn't an EP — because the market doesn't give a [—], there has to be a gap up and there has to be volume. It's very simple. The market doesn't give a [—], you shouldn't give a [—]. Move on. We are only interested in the things other people want" (2021-12-09, "Not inspiring action in stocks", t=22:30).
 - A quality filter layered on top of that hard requirement, having nothing to do with the gap itself: "the best EPs are the ones that gap up over resistance areas — they don't have any moving averages above them, the moving averages are below them... there are no EPs in downtrends, rarely, rarely" (2022-02-04, "Risk ON type of day", t=13:48) — restated with real numbers a few days later on a name he passes specifically because its gap was too small relative to the resistance above it: "instead of the 16% gap up it would've had a 50% gap up" if it had actually cleared the declining averages above it (2022-02-08, "Tax advice", t=55:39).
 
-<a id="12-regime-arc"></a>
+##### The regime arc (2021-2023)
 
-**The regime arc: real EP vs. doomed one matters most once the market itself turns — the clearest through-line the 2021-2022 stretch adds to this section as a whole.**
+Real EP vs. doomed one matters most once the market itself turns — the clearest through-line the 2021-2022 stretch adds to this section as a whole.
 
 - *Through 2021:* working almost everywhere except an outright bear market (1.2.32).
 - *December 2021:* narrows sharply to company size — "small and mid caps have not been working much lately, but these large-cap EPs have been working" (1.2.47).
