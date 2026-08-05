@@ -868,13 +868,17 @@ A rare two-attempt trade told with exact dollar figures on both sides, and a liv
 
 #### 1.2.41 PANW (Palo Alto Networks)
 
-A slower mega-cap name bought specifically on the EP trigger and exited on a mechanical close-below-the-20 rule, referenced twice months apart: "When I entered PANW I entered it on the EP here, it was a perfect setup — it's a slow name but this is what I'm forced to trade nowadays. It had a six-month flag breakout, built higher lows for four or five months, then this high-volume breakout — five star but not the fastest mover." The exit, stated as a small aside in a later session: "PANW — fun fact, I had it on the EP, I sold it on this day here when it closed below the 20."
+A slower mega-cap name bought specifically on the EP trigger and exited on a mechanical close-below-the-20 rule, referenced twice months apart: "When I entered PANW I entered it on the EP here, it was a perfect setup — it's a slow name but this is what I'm forced to trade nowadays. It had a six-month flag breakout, built higher lows for four or five months, then this high-volume breakout — five star but not the fastest mover." (His on-screen ADR reading for PANW at the time was around 2.5% — not spoken aloud, but consistent with, and the concrete number behind, calling it "a slow name" and "not the fastest mover": a mega-cap EP that clears the setup bar on catalyst and volume despite sitting well below the 5% ADR cutoff (7.1) he otherwise screens for.) The exit, stated as a small aside in a later session: "PANW — fun fact, I had it on the EP, I sold it on this day here when it closed below the 20."
+
+![1785887576545](image/QULLAMAGGIE_TRADING_LESSONS/1785887576545.png)
 
 - *2021-09-16, "Strength and weakness, strength and weakness", t=25:17; and 2021-12-10, "zzzz", t=33:06*
 
 #### 1.2.42 AFRM (Affirm)
 
 "The best stocks, they won't let you in" — a real, two-loss story on a name that eventually ran without him. "I had this thing on the EP here, like 97-98 bucks, I had decent size, it's up 75% since — but no, it stopped me out. Re-bought it here, like 112-113, stopped me out again. And now it's in the 170s." A direct, dollar-anchored companion to the FSR/CVNA re-entry-discipline examples elsewhere in this section — except here the third attempt never happened, and the stock ran anyway.
+
+![1785887695774](image/QULLAMAGGIE_TRADING_LESSONS/1785887695774.png)
 
 - *2021-11-09, "Eventually you need to be able to stand on your own 2 legs", t=47:57*
 
