@@ -47,7 +47,7 @@ string gr_mt = "Market Timer - Market on table"
 
 timerSecurity = input.symbol(title = "Market", defval = "SPY", group = gr_mt)
 
-ma_type = input.string(title = "Moving Average Type", options = ["SMA", "EMA"], defval = "EMA", group = gr_mt)
+ma_type = input.string(title = "Moving Average Type", options = ["SMA", "EMA"], defval = "SMA", group = gr_mt)
 
 tlength1 = input.int(title = "Timer Fast Length", defval = 10, minval = 1, group = gr_mt)
 
@@ -60,7 +60,7 @@ timerTimeframe = input.timeframe("W", title = "Timeframe", group = gr_mt)
 
 string gr_ma = "Moving Averages"
 
-ma_type2 = input.string(title = "Moving Average Type", options = ["SMA", "EMA"], defval = "EMA", group = gr_ma)
+ma_type2 = input.string(title = "Moving Average Type", options = ["SMA", "EMA"], defval = "SMA", group = gr_ma)
 
 lenA = input.int(10, minval = 1, title = "Mov Ave A", group = gr_ma)
 
