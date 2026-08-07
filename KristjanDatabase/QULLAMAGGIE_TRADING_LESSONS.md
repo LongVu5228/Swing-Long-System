@@ -134,30 +134,29 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.3.9 XP (XP Inc.)](#139-xp-xp-inc)
      - [1.3.10 LK (Luckin Coffee)](#1310-lk-luckin-coffee)
      - [1.3.11 ZM (Zoom Video)](#1311-zm-zoom-video)
-     - [1.3.12 DDOG (Datadog)](#1312-ddog-datadog)
-     - [1.3.13 WORK (Slack Technologies)](#1313-work-slack-technologies)
-     - [1.3.14 SPOT (Spotify)](#1314-spot-spotify)
-     - [1.3.15 RKT (Rocket Companies)](#1315-rkt-rocket-companies)
-     - [1.3.16 CVAC (CureVac)](#1316-cvac-curevac)
-     - [1.3.17 GSVC (GSV Capital)](#1317-gsvc-gsv-capital)
-     - [1.3.18 XPEV (XPeng)](#1318-xpev-xpeng)
-     - [1.3.19 LI (Li Auto)](#1319-li-li-auto)
-     - [1.3.20 JMIA (Jumia Technologies)](#1320-jmia-jumia-technologies)
-     - [1.3.21 SNOW (Snowflake)](#1321-snow-snowflake)
-     - [1.3.22 ASAN (Asana)](#1322-asan-asana)
-     - [1.3.23 OZON (Ozon Holdings)](#1323-ozon-ozon-holdings)
-     - [1.3.24 ABNB (Airbnb)](#1324-abnb-airbnb)
-     - [1.3.25 UPST (Upstart)](#1325-upst-upstart)
-     - [1.3.26 BMBL (Bumble)](#1326-bmbl-bumble)
-     - [1.3.27 CPNG (Coupang)](#1327-cpng-coupang)
-     - [1.3.28 LDI (loanDepot)](#1328-ldi-loandepot)
-     - [1.3.29 COIN (Coinbase)](#1329-coin-coinbase)
-     - [1.3.30 RBLX (Roblox)](#1330-rblx-roblox)
-     - [1.3.31 HOOD (Robinhood)](#1331-hood-robinhood)
-     - [1.3.32 BROS (Dutch Bros)](#1332-bros-dutch-bros)
-     - [1.3.33 GFS (GlobalFoundries)](#1333-gfs-globalfoundries)
-     - [1.3.34 RIVN (Rivian)](#1334-rivn-rivian)
-     - [1.3.35 NU (Nu Holdings)](#1335-nu-nu-holdings)
+     - [1.3.12 WORK (Slack Technologies)](#1312-work-slack-technologies)
+     - [1.3.13 SPOT (Spotify)](#1313-spot-spotify)
+     - [1.3.14 RKT (Rocket Companies)](#1314-rkt-rocket-companies)
+     - [1.3.15 CVAC (CureVac)](#1315-cvac-curevac)
+     - [1.3.16 GSVC (GSV Capital)](#1316-gsvc-gsv-capital)
+     - [1.3.17 XPEV (XPeng)](#1317-xpev-xpeng)
+     - [1.3.18 LI (Li Auto)](#1318-li-li-auto)
+     - [1.3.19 JMIA (Jumia Technologies)](#1319-jmia-jumia-technologies)
+     - [1.3.20 SNOW (Snowflake)](#1320-snow-snowflake)
+     - [1.3.21 ASAN (Asana)](#1321-asan-asana)
+     - [1.3.22 OZON (Ozon Holdings)](#1322-ozon-ozon-holdings)
+     - [1.3.23 ABNB (Airbnb)](#1323-abnb-airbnb)
+     - [1.3.24 UPST (Upstart)](#1324-upst-upstart)
+     - [1.3.25 BMBL (Bumble)](#1325-bmbl-bumble)
+     - [1.3.26 CPNG (Coupang)](#1326-cpng-coupang)
+     - [1.3.27 LDI (loanDepot)](#1327-ldi-loandepot)
+     - [1.3.28 COIN (Coinbase)](#1328-coin-coinbase)
+     - [1.3.29 RBLX (Roblox)](#1329-rblx-roblox)
+     - [1.3.30 HOOD (Robinhood)](#1330-hood-robinhood)
+     - [1.3.31 BROS (Dutch Bros)](#1331-bros-dutch-bros)
+     - [1.3.32 GFS (GlobalFoundries)](#1332-gfs-globalfoundries)
+     - [1.3.33 RIVN (Rivian)](#1333-rivn-rivian)
+     - [1.3.34 NU (Nu Holdings)](#1334-nu-nu-holdings)
    - [1.4 Pocket pivots](#14-pocket-pivots)
    - [1.5 Mean-reversion day trades](#15-mean-reversion-day-trades-distinct-from-the-multi-day-parabolic-setups-above)
    - [1.6 Weekly/monthly moving-average bounces (position trades)](#16-weeklymonthly-moving-average-bounces-position-trades)
@@ -1152,145 +1151,141 @@ Flagged as a strong recent-IPO setup weeks before COVID made it a household name
 
 - *2020-02-14, "So many good earnings reports!", t=1:01:08–1:02:14*
 
-#### 1.3.12 DDOG (Datadog)
-
-A specific, quantified move on a name he still won't touch: "Data doggies having some big dumb candles on volume... recent IPO, this thing is up 50 percent in the past four or five sessions — very thin though, untradable." The liquidity veto overriding an otherwise-clean setup, restated with a hard number this time.
-
-- *2019-11-19, "Two 6-figure trades in the portfolio!", t=46:49*
-
-#### 1.3.13 WORK (Slack Technologies)
+#### 1.3.12 WORK (Slack Technologies)
 
 A named trade idea tied to the work-from-home theme during the COVID selloff: "This Work is looking nice, it is building an IPO base here and it looks like it found support on the rising 20-day... when a market has settled this thing could be in [one of] all these remote working stocks."
 
+![1786115533473](image/QULLAMAGGIE_TRADING_LESSONS/1786115533473.png)
+
 - *2020-03-03, "Is TESLA setting up for antoher pullback?", t=40:53*
 
-#### 1.3.14 SPOT (Spotify)
+#### 1.3.13 SPOT (Spotify)
 
 An evolving read on the same name across three sessions. First, a small starter position with a stated growth reservation: "Spotify does look good... just coming out of our IPO base, this could be a good long-term winner but doesn't necessarily have the growth I would like — only 20% revenue growth." A few weeks later, a caution against selling early: "it's just coming out of a big IPO base, I think it's important not to be too early on these things — it can go to like 250 without a pullback." And a month after that, the opposite caution once it had run too far: "it had a great entry when it broke out of this IPO base... but right now don't buy it here, it's way out from the flag — you gotta buy as close to the base as possible if you want an edge, chasing is not good." Together the three clips form a clean arc: right entry, right hold, and the exact point past which the same setup stops being tradeable.
 
 - *2020-04-29, "Earnings in growth stocks...", t=1:23:54; 2020-05-21, "Will my value investments make me a million or should I stick to momentum trading?", t=29:31; and 2020-06-18, "The market doesn't care how smart you are or how much information you think you have.", t=27:01*
 
-#### 1.3.15 RKT (Rocket Companies)
+#### 1.3.14 RKT (Rocket Companies)
 
 A full, named trade with exact entry and result, tracked across three streams. First the entry itself: "RKT, IPO breakout... it had a big pop-up out of the gate out of the IPO pricing, then it pulled back, started building higher lows, and then took out this range — so I bought it, high 19s." Days later, a recap confirming both the mechanics and the result: "I didn't even trade this thing off the daily chart, I traded it on the 60-minute chart — IPOs you trade a bit differently, their base is usually a little bit shorter... 50% in what, one two three four sessions — that's a big move." A watchlist note from two days before the entry shows the setup already on his radar: "RKT, yeah it's a recent IPO... it's starting to build higher lows. Like new IPOs, you have to trade a bit differently." Months later, RKT also becomes his standing example that a recent IPO doesn't need a five-star setup to pay off — "something like RKT, it was a so-so setup but doubled, almost doubled" (see BMBL, 1.3.26, for the fuller version of that principle).
 
 - *2020-08-20, "A few good setups... but will they follow through??", t=5:43; 2020-08-24, "Apple and Tesla starting to go parabolic", t=10:49; 2020-08-18, "Maybe becoming an activist investor", t=1:03:44; and 2021-03-11, "SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!", t=52:06*
 
-#### 1.3.16 CVAC (CureVac)
+#### 1.3.15 CVAC (CureVac)
 
 A named, graded setup he flags as a near-miss purely because of broader market weakness: "CVAC, yeah it was a decent setup, but the market was settling off... this was a five-star setup, it was an IPO high tide flag, pretty much — or maybe not a high tide flag, an IPO flag. Very good setup, I was looking at it, but it's kind of hard to buy breakouts in the market when it's weak." A clean example of the market-regime filter overriding an otherwise top-graded IPO pattern.
 
 - *2020-09-08, "Markets nearing bounce territory?", t=7:21*
 
-#### 1.3.17 GSVC (GSV Capital)
+#### 1.3.16 GSVC (GSV Capital)
 
 Not an IPO trade itself, but a distinct, repeatable pattern built entirely around other companies' IPOs: a venture holding company that predictably runs up ahead of an IPO by one of its own portfolio stakes, then often reverses once the actual listing happens. "It's GSVC — they own shares in Lyft, Uber, Dropbox, Snapchat, Facebook, Twitter... it always runs up into these IPOs for one of their holdings. They had a run-up into Facebook's IPO, then the actual Facebook IPO had a big down day... then it ran up into Twitter's IPO... tried to run up into Snapchat's IPO but didn't really get going... ran up into Dropbox's IPO and Spotify's IPO... now it's just doing the same thing here [with Palantir]. I think it's too late to buy and there's no good setup there right now." A rare case in this corpus of him tracking a proxy vehicle's behavior around a catalyst rather than trading the catalyst company directly.
 
 - *2020-07-15, "If you are easily triggered, don't watch this!", t=2:02:23*
 
-#### 1.3.18 XPEV (XPeng)
+#### 1.3.17 XPEV (XPeng)
 
 The single most fully documented IPO trade in this corpus — exact entry, size, thesis, and management, across three sessions. First, hesitation right before the entry: "These China EV stocks are very strong, but I swear, like, I'm looking at this, I swear the second I buy it it's gonna stop me out — it's a kind of a little bit of an IPO breakout on some delivery numbers, that's the catalyst, and the whole sector is strong, but I'm a little bit too afraid to buy it here." Two days later, the actual entry: "Okay, I just bought 50,000 shares... this one is just breaking out of like a kind of sloppy IPO base, but it's a tight stop — like a 40 cent stop, or 50, sorry, 60 actually." The next day, the full position update with average cost, partial sell, and explicit thesis: "Bought it perfectly, 24.09 is my average, 50,000 shares, I sold 10,000 shares today but I still have 40 in case it goes to 50 bucks... it's an IPO, like the hottest sector, China EVs... and also LI broke out last week and has been going straight up, and now we had XPEV broke out yesterday out of this IPO flag — you know, these things, IPO breakouts can be super powerful especially when it's a hot sector, that's the thesis on XPEV."
 
 - *2020-11-02, "Chop chop chop in the markets!", t=22:46; 2020-11-04, "ELECTIONS! New bull leg starting or suckers gap?", t=33:07; and 2020-11-05, "Heaviest earnings day for growth stocks today!", t=28:38*
 
-#### 1.3.19 LI (Li Auto)
+#### 1.3.18 LI (Li Auto)
 
 The sector partner to XPEV, tracked as an earlier-forming base in the same China-EV theme: "Tesla, zoom, LI building an IPO base here — also hot sector, a China EV maker." Weeks later, both LI and XPEV get folded into a basket-risk read tied to their more established peer: "LI and XPEV, I'm watching this too in case NIO tanks — these things could tank too." Read together with 1.3.18, the two names show him treating a hot post-IPO sector as a single correlated basket, not as independent setups.
 
 - *2020-10-07, "Solar stocks are energized!", t=44:07; and 2020-11-18, "Markets near highs but stocks are so so", t=6:39*
 
-#### 1.3.20 JMIA (Jumia Technologies)
+#### 1.3.19 JMIA (Jumia Technologies)
 
 A rare long-then-short reversal on the same name, told across two sessions weeks apart. The long, bought on IPO day: "I actually owned Jumia at the IPO, I wanted to invest in it, but then it took out the IPO lows and I sold it — it feels kind of powerful, if they succeed it's gonna be a hundred billion market company, but right now they're just a money-losing machine — they actually had negative revenue growth." Later the same name reappears as an active short, with a specific cover percentage and a fundamental thesis benchmarked against real e-commerce comps: "I've covered about... some Jumia, I don't know, a quarter maybe, 20 percent — I know Jumia is a joke, I've done the DD on it, when it IPO'd... they're just burning money, there's no growth in the company, they're declining revenues — look at Amazon, 40, 37 percent revenue growth... and then we have Jumia." Described elsewhere in the same stretch, more admiringly, as "like the Amazon and PayPal of Africa" — the marketing pitch that made the IPO exciting in the first place, and exactly the story he later shorts against.
 
 - *2020-10-09, "A lot of wisdon today the last 50 minutes or so", t=1:06:21; 2020-11-24, "Enormous opportunity in the EV sector!", t=1:13:42; and 2020-07-09, "Tech and software stocks in melt-up mode! Millionaire minting market", t=52:41*
 
-#### 1.3.21 SNOW (Snowflake)
+#### 1.3.20 SNOW (Snowflake)
 
 The clearest, most repeated statement of his day-one rule, tied to one specific ticker across more than a year. On the actual day of Snowflake's IPO: "If I would play SNOW — uh, no, I don't really trade IPOs on the first day. I need a shot to trade, you know, just playing day one, I don't know if it's gonna go up or down, I have no idea." Weeks later, still watching for an entry, then a real loss: "SNOW, yeah, it's kind of IPO flagging a little bit here, I have an alert set for it — I took a fifty thousand dollar loss on it the other day." Two weeks after that, a clean, admitted miss: "Yeah, SNOW, that one I missed — oh man, this one hurts, this one hurts, okay, whatever, can't catch them all." And months later, a mechanical footnote on why the name stayed hard to trade around: "SNOW, yeah, it's because it's a recent IPO, right, that's why the options are not that liquid."
 
 - *2020-09-16, "Silver high tight flag!", t=38:30; 2020-10-09, "A lot of wisdon today the last 50 minutes or so", t=41:41; 2020-10-23, "Indices looking good but where are the setups?", t=9:43; and 2020-12-04, "Starting to trade options! Disaster or success?", t=1:16:14*
 
-#### 1.3.22 ASAN (Asana)
+#### 1.3.21 ASAN (Asana)
 
 A watched-then-missed arc, told honestly rather than dressed up after the fact. First a note on the name's numbers and a stated preference: "It's ASAN, I haven't looked at the numbers, I just know they had 55% revenue growth, it's too thin for me... it's just breaking out of the IPO range to new highs — I would have preferred this thing not to have this run-up into earnings." Nearly a year later, the actual breakout arrives and he still can't size into it: "Asan had a beautiful IPO breakout a couple of weeks ago, having a lot of follow-through — unfortunately was too illiquid for me, small-account edge." A direct, named instance of 3.2's "small account edge" concept working against him rather than for him — the exact liquidity that makes a name tradeable for a small account is what locks him out of it.
 
 - *2020-12-10, "Leaders are still leading, shakeout yesterday?", t=33:50; and 2021-09-13, "Back after a break (again)!", t=9:12*
 
-#### 1.3.23 OZON (Ozon Holdings)
+#### 1.3.22 OZON (Ozon Holdings)
 
 A Russian e-commerce IPO he likes but passes on twice, purely on liquidity: "Ozon is going super thin, but it's a very very good IPO breakout, very good-looking IPO breakout. It's too late to buy it now, but if it had 10x more volume I would be in it, or at least 5x more volume, but it's not worth it for me to buy a bunch of illiquid stocks." A month later, still watching the same name as a flag setup: "Ozon, it's a Russian company... it actually looks pretty good — preferably can tighten up a little bit more, but it's actually flagging here, it's like an IPO base... very thin stock, but if you can tighten it up for a few days, that would be a five-star setup."
 
 - *2021-01-05, "Let's make this a triple digit year!", t=46:18; and 2020-12-30, "Brandi Love wishing me a Merry Christmas!", t=1:30:19*
 
-#### 1.3.24 ABNB (Airbnb)
+#### 1.3.23 ABNB (Airbnb)
 
 His headline definitional example of "what an IPO breakout can do" — tracked across four sessions, and also the site of his most direct rejection of IPO investing as a category. On the breakout itself: "This is actually a pretty good one, especially if it can go sideways a few more days — it's going to be a five-star IPO breakout... good find on Airbnb," restated days later as "this is what an IPO breakout can do, and this is almost a mega-cap stock — it's actually a big move for such a large company." A reopening-play flag trade follows months later — "this Airbnb is starting to set up nicely, recent IPO reopening play, it's in a big flag — this one I really like" — which then stalls: "what happened to Airbnb, yeah it faded and it's still kind of building higher lows though, so it just needs more time." Separately, on the actual day Airbnb IPO'd, asked directly whether he'd buy it: "I don't see an edge in buying IPOs. There are some people, like IPO Dave on Twitter, who trades them, he's been doing it for a long time, trades them very successfully, but not really my thing... If you are very long-term bullish on something, sure, you can buy on the IPO, but especially if it's in a bad market and things are coming cheap, it's kind of hard to have any long-term conviction on them, because we go into a cycle of multiple contraction, you're gonna get killed on everything." The two readings on the same company are not actually a contradiction: one is about trading the eventual breakout pattern (which he rates five stars), the other is about buying the IPO print itself with no chart to trade against (which he explicitly declines).
 
 - *2021-01-06, "2021 not showing any signs of slowing down!", t=2:02:20; 2021-01-13, "Throw a dart and you will make money in this market", t=37:54; 2021-04-07, "Need lots of patience with current positions...", t=34:25; 2021-04-08, "Portfolio strong, most things need a few weeks more to set up", t=1:44:01; and 2020-12-09, "$QS what a beast!...", t=2:37:41*
 
-#### 1.3.25 UPST (Upstart)
+#### 1.3.24 UPST (Upstart)
 
 An IPO-recovery entry that becomes, by his own account, his best trade of an entire earnings season. The entry, with a real-time volume tell: "I did buy it, I think it's pretty good, it's already traded average daily volume in 12 minutes after market open, that's pretty significant, it's a recent IPO coming off some weakness... they bought a company, the guidance was insane, but obviously it includes the company they bought, so it's not pure organic growth." Months later, paired with UiPath as a standing pair of active plays: "UPST, PATH are the only IPO plays pretty much — it's not like one person has a patent on those things." And the result, stated plainly: "I caught UPST perfectly, sold it on Friday — that was a big one, that was my best trade of the earnings season, went up 75% or so after the entry."
 
 - *2021-03-18, "Setups developing but they need more work", t=22:16; 2021-06-03, "Great content today...", t=54:01; and 2021-09-13, "Back after a break (again)!", t=12:30*
 
-#### 1.3.26 BMBL (Bumble)
+#### 1.3.25 BMBL (Bumble)
 
 The fullest statement of the "recent IPOs don't need a five-star setup" principle, tied to a real, sized entry. "Bumble, the volume is not really inspiring, but it is a recent IPO — there is definitely some scarcity value... recent IPOs, they can really make big moves even if the setup is not five star — look what happened to RKT, it was a so-so setup but doubled, almost doubled." Days later, the actual buy, with the reasoning restated and the position sizing made explicit: "It's capping up on earnings, not the most super explosive ones, but it's a recent IPO — like I said before, recent IPOs, they don't need five-star setups, they can move on less than that. If it was some random stock with several years of trading I wouldn't give a damn about it, but because it's a recent IPO and there may be some scarcity value here... it's not a big position, I actually bought a little bit too much considering the volume." He closes the loop on why he bought it at all: "Why did I buy Bumble? Because it's an EP, it's not up four days in a row, just coming out of our range here... it's a slightly beaten-down recent IPO with an EP. What price did I get it done? Well, I usually buy opening range highs, this one was no different."
 
 - *2021-03-11, "SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!", t=52:06, t=1:06:14, t=1:18:00*
 
-#### 1.3.27 CPNG (Coupang)
+#### 1.3.26 CPNG (Coupang)
 
 A clean, four-month arc on a single high-profile 2021 listing — hype, no entry, post-selloff pacing, then a real setup. At the IPO itself: "Looks interesting, higher lows, it's a mini IPO base, very hyped IPO — it's like the Amazon of South Korea, I read somewhere." A week later, watched but passed: "it's working on an IPO base, I was looking at it but I really didn't see an entry, maybe in a few weeks." A month after that, still on the sidelines through a post-IPO fade: "it looks okay I guess, it's kind of pacing after that IPO sell-off, not super excited about it yet." And by midsummer, a real setup finally forms: "Coupang also looks a bit similar, recent IPO coming off a bottom flag." A textbook illustration of how long a genuinely hyped IPO can take to become an actual tradeable chart rather than just a story.
 
 - *2021-03-24, "Chop chop chop. NFT only game in town", t=1:55:54; 2021-03-31, "NASDAQ is tightening up, lots of strength", t=1:04:27; 2021-04-27, "Slowest bull run in a long time", t=24:57; and 2021-07-09, "You need to want it...", t=49:50*
 
-#### 1.3.28 LDI (loanDepot)
+#### 1.3.27 LDI (loanDepot)
 
 A near-top-rated IPO base, repeated across two sessions with the same liquidity caveat both times: "LDI IPO base — it's pretty good, pretty damn good, I would say it's a five-star, pretty much four and a half stars. Holy [expletive], this thing has insane growth but it's so thin." A month later, unchanged: "it's like an IPO base, really explosive earnings... it could work, it's a pretty good one, pretty good setup."
 
 - *2021-03-17, "Late upload - Monday March 15", t=1:07:24; and 2021-04-09, "Long bases forming in tech and software names", t=1:02:34*
 
-#### 1.3.29 COIN (Coinbase)
+#### 1.3.28 COIN (Coinbase)
 
 The single fullest, most direct statement of his entire IPO philosophy in this corpus, delivered live in response to a viewer question. On the direct-listing day itself, characteristically cautious: "Thoughts on Coinbase IPO today — yes. On COIN I want more sideways, a few more days." Weeks later, the day-one/weeks-of-data rule restated specifically on this name: "Coin from breakout, 332 — it needs more data, it's just been trading a few days. I don't trade IPOs this early, I want at least a few weeks of trading. Too little information for me." And then, two months later, the full thesis: "These types of setups, especially on IPOs, they can work really well sometimes... setups overall on recent IPOs, no matter if they're an IPO breakout or a trend-break setup or whatever you want to call it — IPOs tend to work very well. There's an edge just focusing on IPOs, because they're new stocks, institutions haven't had time to buy them yet, they're exciting — not all of them, obviously — and there's also many times scarcity value. You remember when Tilray came to market... went from like 22 to 300. Same thing Beyond Meat... went from like 50 to 240. Especially if you have an IPO in a hot sector, or an exciting new thing, they can make big moves... you usually get a few of those IPOs per year, one or two — like Li Auto and XPeng back in 2020, Chinese EVs — these things doubled, tripled, quadrupled, not long after IPO." Every other named example in this section — the mechanism (institutional discovery lag), the frequency ("one or two a year"), and the specific historical proof points (TLRY, BYND, LI, XPEV) — is contained in this one passage.
 
 - *2021-04-14, "If you don't watch this, delete your trading account!", t=11:46; 2021-04-16, "Patience", t=55:46; and 2021-06-15, "Struggling trader reviews are back!! Also fried a brain cell today", t=12:06*
 
-#### 1.3.30 RBLX (Roblox)
+#### 1.3.29 RBLX (Roblox)
 
 His most heavily-tracked single "recent IPO" name of the entire corpus — six separate sessions across eight months, forming a complete case study of the category. Early on, the name serves double duty as his working definition of the "recent IPO" tradability rule: "Roblox — I never look at IPO stay-one... it's like trading blind, I need something to trade against, I need a range, I need momentum, I need relative strength. Something like an IPO on day one — I have no idea, it's like going to the casino. I don't have a setup for IPOs on day one, but I do have setups for recent IPOs, but I usually need at least a few weeks of trading to be able to make a decision." Two weeks later, still watching, and flagged as a genuinely scarce category: "not much, but it's building a nice range, it's actually building higher lows and getting tighter. This is something I will be keeping an eye on, as it's a liquid IPO — you don't get these very liquid IPOs often, maybe only a few per year." The actual position, with real size and a stop-out: "I got stopped out yesterday and now it's coming back — but I really like this, I really like the company, and yeah, recent IPO, these things can make big moves, but ideally it goes sideways a little bit more." Days later, the position size itself: "I had like 70 or 80,000 shares, now I only have 50[,000] — these types of hot, recent IPOs, this can really make big moves sometimes." A later re-entry gets graded honestly rather than oversold: "it was kind of a recent IPO breakout, it's been building higher lows... it's not a huge position... it wasn't like a five-star, it was maybe a four-star setup at most." And near the end of the arc it doubles as a market-breadth signal in its own right: "this Roblox is setting up nicely, it's one of the very few great-looking stocks I see — you know if you remember what I said about Roblox a few days ago, it's never a good sign when you only have like one good-looking stock." Eight months after the IPO, he's still framing the chart the same way: "it's building higher lows since March, since the IPO, it's getting tighter, and if it can break out with volume, it can make a big move."
 
 - *2021-03-10, "Will this bounce stick?", t=1:06:26; 2021-03-22, "More patience needed", t=1:23:33; 2021-04-08, "Portfolio strong, most things need a few weeks more to set up", t=1:44:01; 2021-04-09, "Long bases forming in tech and software names", t=58:19; 2021-04-27, "Slowest bull run in a long time", t=1:10:23; 2021-05-19, "Higher lows or start of a bigger correction?", t=25:35; and 2021-11-05, "Eventually you need to be able to stand on your own 2 legs", t=1:03:08*
 
-#### 1.3.31 HOOD (Robinhood)
+#### 1.3.30 HOOD (Robinhood)
 
 A quick, mechanically-described entry on Robinhood's own mid-2021 IPO: "Hood trade — Hood, yeah, it had range expansion, recent IPO, had a little bit of a rounded-bottom base here, volume breakout — that's a trade."
 
 - *2021-09-28, "Can we get a real correction", t=1:09:45*
 
-#### 1.3.32 BROS (Dutch Bros)
+#### 1.3.31 BROS (Dutch Bros)
 
 A named breakout with a fully specified earnings-hold plan attached: "Bros — yeah, it's a recent IPO, had a nice breakout last week... Dutch Bros, okay... ideally it runs up into like 80 to mid-80s or something, I would hold it into earnings report... I would sit there in after-hours and just wait for the report to come out, and if it looks weak I would sell it as quickly as possible in case it gaps down." A concrete instance of 4.8's earnings-holding discipline applied specifically to a recent IPO.
 
 - *2021-10-18, "Market back to autopilot mode?", t=29:27*
 
-#### 1.3.33 GFS (GlobalFoundries)
+#### 1.3.32 GFS (GlobalFoundries)
 
 A late-2021 example of the same "so-so liquidity, still worth watching" pattern that runs through most of this section: "There are things out there that are not as liquid as Roblox or Snowflake but look pretty good, like in a few days they can tighten up — this GFS, another recent IPO semiconductor name, not super liquid, but if it can go sideways a few more days it looks like a five-star setup."
 
 - *2021-12-09, "Not inspiring action in stocks", t=1:06:55*
 
-#### 1.3.34 RIVN (Rivian)
+#### 1.3.33 RIVN (Rivian)
 
 A brief, date-anchored reference to Rivian's IPO the following day, folded into a broader EV-sector read: "Is it the Rivian IPO tomorrow? As long as Tesla doesn't break down, these EVs are gonna go nuts." A later clip (outside this section's window) uses Rivian's own $78 IPO price as a hard downside target once the stock had fallen well below it — a rare case of an IPO print itself becoming a chart level he trades against, long after the listing.
 
 - *2021-11-09, "Eventually you need to be able to stand on your own 2 legs", t=41:53*
 
-#### 1.3.35 NU (Nu Holdings)
+#### 1.3.34 NU (Nu Holdings)
 
 The lone 2022 mention in this section, in an otherwise dead year for the category (2022's broader IPO-market shutdown is itself the point — see the closing synthesis below): "Thinner recent IPO — oh, that's the Brazilian, is it Nu Bank, right, Brazilian bank I think."
 
