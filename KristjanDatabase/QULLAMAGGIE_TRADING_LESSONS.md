@@ -545,9 +545,9 @@ His favorite swing setup, and by 2023 his dominant one: a stock gaps up hard on 
 
 #### 1.2.1 TDOC (Teladoc)
 
-A good earnings beat on both EPS and revenue, a gap up on heavy volume, breaking out of what he calls a "multi-year range" on the weekly chart after building higher lows for over a year. Ran about 160% over the following months — he admits he sold around $105 and the stock roughly doubled from there without him.
+A good earnings beat on both EPS and revenue, a gap up on heavy volume, breaking out of what he calls a "multi-year range" on the weekly chart after building higher lows for over a year. Ran about 160% over the following months — he admits he sold around $105 and the stock roughly doubled from there without him. This wasn't his first look at the name: three months earlier, reflecting on the prior (2019) earnings season's best setups, he names an *earlier* TDOC EP he'd passed on entirely, in the same breath as ELF and AXSM as examples of what a real long-range breakout looks like coming into an earnings season: "we had — you know — TDOC, one I passed on also, coming out of a long, long range, over a year, with higher lows. TDOC, same thing here — higher lows, had a long range, came out of it on earnings." The stock gave him a second, cleaner look a few months later, and that time he actually took it.
 
-- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=15:19*
+- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=15:19; and 2020-01-27, "My coronavirus plays gapping higher.", t=46:34 (the earlier, passed-on EP)*
 
 ![TDOC daily, June 2018 through April 2020 — the multi-year range and the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785632619919.png)
 
@@ -1106,11 +1106,15 @@ A named, small loss from the same period: "Trivago, recent IPO, came out of this
 
 Not a fresh-breakout IPO trade — a contrast case showing the other end of an IPO's lifecycle. Bought years after listing, on a bottoming/reclaim thesis rather than a breakout: "Fitbit is a recent addition, I bought it here — and the whole thing for me on this one is a long bottoming action, like almost a year, a little bit of a rounded bottom-ish, and this could be like a cup — a cup-and-handle, or in another company, like a handle pattern here — reclaim of the 200-day moving average, and it's been going down for multiple years since its IPO. Look at the weekly, it's been going straight down, and now it's got bottoming." He names two separate, stacked catalysts behind the thesis rather than just the chart: "they have catalysts coming up — their new SmartWatch, Ionic, whatever it's called — and I was thinking it could run into the release of that. And they had some other good news also, that they had from FDA news and stuff like that, like glucose monitoring. So, who knows, could have a nice run." A separate clip shows the entry wasn't opportunistic — he'd been watching and naming a specific trigger level in advance, then missing his own planned trigger and re-entering in pieces instead: "if you remember, I was talking about it down here, I was saying I was gonna buy this $20 break, which I never did — this clean break here, I never did. Instead I got back in here, stopped out, and now I got back in here, $25.90, a couple of sessions ago. And I moved this between the accounts, so this is not my real average — my real average is way lower." The same company also shows up later (1.3.9) as his own comparison point for why richly-valued post-IPO "story" stocks tend to give back the entire post-IPO run once the hype fades.
 
+![1786067166224](image/QULLAMAGGIE_TRADING_LESSONS/1786067166224.png)
+
 - *2017-10-01, "Quick Sep recap, current positions and Watches for Monday Oct 02, 1 of 2", t=2:18–3:59*
 
 #### 1.3.7 HUYA (Huya)
 
 A full post-IPO round trip, recalled from memory: "Huya — this one is definitely more exciting because it's growing really fast. Had a big run after the IPO, we pulled back to the IPO day low or so, even lower than that, and now it's been building higher lows for a year, starting to come out of one big range." A concrete illustration of how long a genuinely good IPO name can take to actually become tradeable again after its initial pop fades.
+
+![1786067966793](image/QULLAMAGGIE_TRADING_LESSONS/1786067966793.png)
 
 - *2019-11-12, "Almost end of earnings season", t=46:54*
 
@@ -1118,17 +1122,25 @@ A full post-IPO round trip, recalled from memory: "Huya — this one is definite
 
 The two historical proof points he returns to whenever he's explaining why recent IPOs specifically (not just any small-cap) can produce extreme moves. Introduced together, unprompted: "This is the power of recent IPOs — you know, IPOs can make these kinds of moves. This is not a small company... that's the power of recent IPOs, they can make some crazy moves — but it's also not a low float. Tilray and Beyond Meat — only these were low floats, they made sick moves. Beyond Meat went up 300% in a few months. Tilray went up nine hundred percent in a month." The same pairing resurfaces over a year and a half later, restated nearly verbatim as the anchor of his fullest IPO-philosophy statement (see COIN, 1.3.29): "remember when Tilray came to market... went from like 22 to 300. Same thing Beyond Meat... went from like 50 to 240." The consistency of the pairing across a year and a half — not just the underlying thesis — is itself the point: these two names function as his fixed reference case for what float scarcity can do.
 
+![1786113133846](image/QULLAMAGGIE_TRADING_LESSONS/1786113133846.png)
+
+![1786113146034](image/QULLAMAGGIE_TRADING_LESSONS/1786113146034.png)
+
 - *2019-11-25, "$250K in profits on $KRTX short!", t=32:10; and 2021-06-15, "Struggling trader reviews are back!! Also fried a brain cell today", t=12:06*
 
 #### 1.3.9 XP (XP Inc.)
 
 A setup he grades highly but can't trade purely on liquidity grounds: "Wow, XP, great job, yeah, nice job — perfect flag, recent-IPO growth stock. It was almost a five-star setup, it was just too thin for me to trade — that's the only reason. If it had had like twice or three times as much liquidity I would probably have traded it." A clean instance of the recurring pattern-vs-liquidity tension that runs through nearly every IPO example in this section.
 
+![1786114284834](image/QULLAMAGGIE_TRADING_LESSONS/1786114284834.png)
+
 - *2020-01-22, "I gave back $200K in profits on $FCEL in 15 minutes...", t=57:49*
 
 #### 1.3.10 LK (Luckin Coffee)
 
 Named as a standout IPO-base breakout, with a bitter hindsight footnote. "There was some insane setup, like LK — coming out of its IPO base, had gone sideways for six months, and then they released the earnings and they broke out and more than doubled." A month later, watching the stock hold up through the COVID selloff: "the markets have thrown everything they had against this stock and it's just holding inside of this range — if they can't bring it down with all the bad news, where's it gonna go? Probably higher." Luckin was exposed for fabricating roughly $300 million in sales and collapsed within weeks of that second clip — not a trade he narrates losing money on directly in this corpus, but a clear reminder that "holding up through bad news" isn't the same as the news itself being false.
+
+![1786114341858](image/QULLAMAGGIE_TRADING_LESSONS/1786114341858.png)
 
 - *2020-01-27, "My coronavirus plays gapping higher.", t=46:12; and 2020-03-03, "Is TESLA setting up for antoher pullback?", t=57:12*
 
