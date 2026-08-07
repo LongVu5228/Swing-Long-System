@@ -1603,11 +1603,15 @@ His most heavily-tracked single "recent IPO" name of the entire corpus — spann
 
 A quick, mechanically-described entry on Robinhood's own mid-2021 IPO: "Hood trade — Hood, yeah, it had range expansion, recent IPO, had a little bit of a rounded-bottom base here, volume breakout — that's a trade."
 
+![1786127691846](image/QULLAMAGGIE_TRADING_LESSONS/1786127691846.png)
+
 - *2021-09-28, "Can we get a real correction", t=1:09:45*
 
 #### 1.3.30 BROS (Dutch Bros)
 
 A named breakout with a fully specified earnings-hold plan attached: "Bros — yeah, it's a recent IPO, had a nice breakout last week... Dutch Bros, okay... ideally it runs up into like 80 to mid-80s or something, I would hold it into earnings report... I would sit there in after-hours and just wait for the report to come out, and if it looks weak I would sell it as quickly as possible in case it gaps down." A concrete instance of 4.8's earnings-holding discipline applied specifically to a recent IPO.
+
+![1786127775545](image/QULLAMAGGIE_TRADING_LESSONS/1786127775545.png)
 
 - *2021-10-18, "Market back to autopilot mode?", t=29:27*
 
@@ -1615,13 +1619,24 @@ A named breakout with a fully specified earnings-hold plan attached: "Bros — y
 
 A late-2021 example of the same "so-so liquidity, still worth watching" pattern that runs through most of this section: "There are things out there that are not as liquid as Roblox or Snowflake but look pretty good, like in a few days they can tighten up — this GFS, another recent IPO semiconductor name, not super liquid, but if it can go sideways a few more days it looks like a five-star setup."
 
+![1786127908845](image/QULLAMAGGIE_TRADING_LESSONS/1786127908845.png)
+
 - *2021-12-09, "Not inspiring action in stocks", t=1:06:55*
 
 #### 1.3.32 RIVN (Rivian)
 
-A brief, date-anchored reference to Rivian's IPO the following day, folded into a broader EV-sector read: "Is it the Rivian IPO tomorrow? As long as Tesla doesn't break down, these EVs are gonna go nuts." A later clip (outside this section's window) uses Rivian's own $78 IPO price as a hard downside target once the stock had fallen well below it — a rare case of an IPO print itself becoming a chart level he trades against, long after the listing.
+Not just a passing IPO-day mention — a real position, held and sized deliberately, tracked across a month of sessions.
 
-- *2021-11-09, "Eventually you need to be able to stand on your own 2 legs", t=41:53*
+- **2021-11-09 — the day before the IPO**, folded into a broader EV-sector read: "Is it the Rivian IPO tomorrow? As long as Tesla doesn't break down, these EVs are gonna go nuts."
+- **2021-11-11 — using RIVN's action as evidence of a broader melt-up:** "I'm looking at the action in the markets right now, and stuff like Rivian — did you see the intraday on it? If you didn't, you gotta pay attention... I think we're gonna have an insane end of year, there's just so much buying pressure, so much capital wanting to get into things, the FOMO is insane — this is just a start."
+- **2021-11-12 — watching it live, cheering a real-time reclaim:** "Come on Rivian... oh it held, oh it reclaimed the VWAP, come on, I have faith in you, I have faith in you — Rivian, I think as long as Tesla stays above... the low from two days ago, I think all these EV names are gonna be just fine." He returns to it again later in the same session, still willing it higher: "um, Rivian, oh — come on, Rivian."
+- **2021-12-17 — the actual position and the risk logic behind it:** "Like for Lucid and Rivian, for me I don't care if they don't work out — they're... high probability, low risk, high reward trades, my risk on them is minimal because I was [using] opening range lows [as the stop]." Later the same session, stated plainly: "I'm long Rivian and Lucid."
+
+A pattern worth naming across the four sessions: he's not narrating a single clean entry the way he does for most named trades in this section — it's live sentiment tracking (cheering a VWAP reclaim in real time) paired with a stated, deliberate risk framework (opening-range-low stops making the trade "low risk, high reward" regardless of outcome) rather than a single quotable thesis.
+
+![1786127982698](image/QULLAMAGGIE_TRADING_LESSONS/1786127982698.png)
+
+- *2021-11-09, "Eventually you need to be able to stand on your own 2 legs", t=41:53; 2021-11-11, "10 and 20 SMA will outperform the Boomerberg terminal", t=1:33:49; 2021-11-12, "Study what actually works in the markets and tune out financial media", t=4:26 and t=1:47:09; and 2021-12-17, "Santa stopped buying", t=31:24 and t=1:09:16 (long confirmation)*
 
 #### 1.3.33 NU (Nu Holdings)
 
