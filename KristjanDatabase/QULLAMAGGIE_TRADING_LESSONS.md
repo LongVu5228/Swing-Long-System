@@ -1639,7 +1639,6 @@ A pattern worth naming across the four sessions: he's not narrating a single cle
 
 #### Smaller, lower-confidence mentions worth a note but not full write-ups
 
-- **ZI (ZoomInfo)** — an explicit five-star-if-it-tightens read tied directly to the category thesis: "ZI has great numbers... recent IPO, hot sector — all of these things, high valuation, everything is great — if it can just go sideways for a few more days, this could be a five-star setup" (2020-10-16, "Solar stocks leading", t=1:13:18).
 - **ARRY (Array Technologies)** — passed on earnings-date risk, then evidently bought anyway once that risk had passed: "ARRY, another solar name, recent IPO, the problem is it reports tonight... this thing could be down 30 on earnings, so it's a pass for me" (2020-11-05, same session, t=29:49), followed ten days later by "ARRY, still long this recent solar related IPO."
 - **An unnamed biotech** (ticker unresolved from the captions) — a distinct entry mechanic: buying the opening-range high on an IPO-breakout day (2020-10-06, "This is yesterdays video", t=44:40).
 - **SRRK (Scholar Rock)** — a rare didactic correction, distinguishing a secondary offering from an actual IPO when a viewer conflates the two: "they had a secondary, not an initial offering, they had their initial offering back in 2017... that's what happens when biotechs go up on good data, they usually have a secondary offering" (2020-10-29, "So many good earnings reports!...", t=44:03).
