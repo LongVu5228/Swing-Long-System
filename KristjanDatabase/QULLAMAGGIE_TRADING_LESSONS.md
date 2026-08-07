@@ -1146,9 +1146,11 @@ Named as a standout IPO-base breakout, with a bitter hindsight footnote. "There 
 
 #### 1.3.11 ZM (Zoom Video)
 
-Flagged as a strong recent-IPO setup weeks before COVID made it a household name: "I kind of like this Zoom... it's a video conference software... the setup looks good — it's a recent IPO, they have great numbers, higher lows, and it's connected to people staying home instead of going to work." Notable mainly for the timing: mid-February 2020, already reading the work-from-home angle as a live catalyst before the broader market had priced it in.
+Flagged as a strong recent-IPO setup weeks before COVID made it a household name, with the sector-narrative read and the underlying fundamentals kept explicitly separate. He opens half-joking about the narrative: "I kind of like this Zoom — it's kind of getting pumped as a, you know, climate-change play, it's kind of funny, it's a video conference software — you know, it's kind of silly, but silly is what works in this market." He then reads the chart on its own terms, independent of the joke: "and the setup looks great, it looks very explosive, higher lows — yeah, and it's connected, like, people staying home instead of going to work, they don't get sick and infected by viruses, they don't have to fly airplanes and stuff like that when they can have these video conferences at home." Asked to justify it beyond the narrative, he grounds it in the numbers rather than the story: "the setup looks good — what can I say, it's a recent IPO, they have great numbers, you know, it's just overall good-looking." Notable mainly for the timing: mid-February 2020, already reading the work-from-home angle as a live catalyst before the broader market had priced it in.
 
-- *2020-02-14, "So many good earnings reports!", t=1:01:08*
+![1786115004469](image/QULLAMAGGIE_TRADING_LESSONS/1786115004469.png)
+
+- *2020-02-14, "So many good earnings reports!", t=1:01:08–1:02:14*
 
 #### 1.3.12 DDOG (Datadog)
 
