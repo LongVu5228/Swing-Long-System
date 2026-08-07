@@ -155,7 +155,6 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.3.30 BROS (Dutch Bros)](#1330-bros-dutch-bros)
      - [1.3.31 GFS (GlobalFoundries)](#1331-gfs-globalfoundries)
      - [1.3.32 RIVN (Rivian)](#1332-rivn-rivian)
-     - [1.3.33 NU (Nu Holdings)](#1333-nu-nu-holdings)
      - [Smaller, lower-confidence mentions worth a note but not full write-ups](#smaller-lower-confidence-mentions-worth-a-note-but-not-full-write-ups)
      - [Methodology notes, not tied to any single ticker](#methodology-notes-not-tied-to-any-single-ticker)
      - [The precise boundaries of the category](#the-precise-boundaries-of-the-category)
@@ -1637,12 +1636,6 @@ A pattern worth naming across the four sessions: he's not narrating a single cle
 ![1786127982698](image/QULLAMAGGIE_TRADING_LESSONS/1786127982698.png)
 
 - *2021-11-09, "Eventually you need to be able to stand on your own 2 legs", t=41:53; 2021-11-11, "10 and 20 SMA will outperform the Boomerberg terminal", t=1:33:49; 2021-11-12, "Study what actually works in the markets and tune out financial media", t=4:26 and t=1:47:09; and 2021-12-17, "Santa stopped buying", t=31:24 and t=1:09:16 (long confirmation)*
-
-#### 1.3.33 NU (Nu Holdings)
-
-The lone 2022 mention in this section, in an otherwise dead year for the category (2022's broader IPO-market shutdown is itself the point — see the closing synthesis below): "Thinner recent IPO — oh, that's the Brazilian, is it Nu Bank, right, Brazilian bank I think."
-
-- *2022-02-17, "What does $UPST do? It goes UP! (for now)", t=10:11*
 
 #### Smaller, lower-confidence mentions worth a note but not full write-ups
 
