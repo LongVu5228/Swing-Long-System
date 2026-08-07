@@ -1088,19 +1088,25 @@ An early, passed-on IPO breakout from his 2017 watchlist scans, rejected on liqu
 
 A planned but not-yet-executed trade from the same 2017 stretch, with the entry, risk, and target all stated in one breath: "Twilio had an analyst upgrade... for the past month it's been putting in higher lows, a nice little range at the bottom, formed around the recent IPO. I'll probably buy this thing opening range highs, risk like fifty cents or something, because if it goes, it's going to go up five bucks very easily."
 
+![1786065815880](image/QULLAMAGGIE_TRADING_LESSONS/1786065815880.png)
+
+![1786066342371](image/QULLAMAGGIE_TRADING_LESSONS/1786066342371.png)
+
 - *2017-02-01, "Recap and watches for Feb 1", t=17:24*
 
 #### 1.3.5 TRVG (Trivago)
 
 A named, small loss from the same period: "Trivago, recent IPO, came out of this little formation here... but just no follow-through, went back into the range, took a small loss on it." Included specifically as a counterweight to the winning examples — the "IPO breakout" template doesn't always work even when it looks clean going in.
 
+![1786066503855](image/QULLAMAGGIE_TRADING_LESSONS/1786066503855.png)
+
 - *2017-02-08, "Recap and watches for Feb 8", t=4:28*
 
 #### 1.3.6 FIT (Fitbit)
 
-Not a fresh-breakout IPO trade — a contrast case showing the other end of an IPO's lifecycle. Bought years after listing, on a bottoming/reclaim thesis rather than a breakout: "Fitbit is a recent addition, I bought it here... a long bottoming action, almost a year, could be like a cup-and-handle... reclaim of the 200-day, and it's been going down for multiple years since its IPO — they have catalysts coming up, their new SmartWatch, Ionic, and some FDA news, glucose monitoring." The same company also shows up later (1.3.9) as his own comparison point for why richly-valued post-IPO "story" stocks tend to give back the entire post-IPO run once the hype fades.
+Not a fresh-breakout IPO trade — a contrast case showing the other end of an IPO's lifecycle. Bought years after listing, on a bottoming/reclaim thesis rather than a breakout: "Fitbit is a recent addition, I bought it here — and the whole thing for me on this one is a long bottoming action, like almost a year, a little bit of a rounded bottom-ish, and this could be like a cup — a cup-and-handle, or in another company, like a handle pattern here — reclaim of the 200-day moving average, and it's been going down for multiple years since its IPO. Look at the weekly, it's been going straight down, and now it's got bottoming." He names two separate, stacked catalysts behind the thesis rather than just the chart: "they have catalysts coming up — their new SmartWatch, Ionic, whatever it's called — and I was thinking it could run into the release of that. And they had some other good news also, that they had from FDA news and stuff like that, like glucose monitoring. So, who knows, could have a nice run." A separate clip shows the entry wasn't opportunistic — he'd been watching and naming a specific trigger level in advance, then missing his own planned trigger and re-entering in pieces instead: "if you remember, I was talking about it down here, I was saying I was gonna buy this $20 break, which I never did — this clean break here, I never did. Instead I got back in here, stopped out, and now I got back in here, $25.90, a couple of sessions ago. And I moved this between the accounts, so this is not my real average — my real average is way lower." The same company also shows up later (1.3.9) as his own comparison point for why richly-valued post-IPO "story" stocks tend to give back the entire post-IPO run once the hype fades.
 
-- *2017-10-01, "Quick Sep recap, current positions and Watches for Monday Oct 02, 1 of 2", t=2:18*
+- *2017-10-01, "Quick Sep recap, current positions and Watches for Monday Oct 02, 1 of 2", t=2:18–3:59*
 
 #### 1.3.7 HUYA (Huya)
 
