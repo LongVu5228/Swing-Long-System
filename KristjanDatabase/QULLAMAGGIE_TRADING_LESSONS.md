@@ -339,7 +339,6 @@ Entered 2020-06-15.
 
 - **The entry:** "We bought it on stream, opening range highs, like 30 bucks — perfect setup, has a big run, starts building, start surfing the 20 days, there's building higher lows, it gets tighter and tighter, it breaks out of this tight range."
 - **The exit:** "unfortunately... I sold it... and now it's back at new highs" — a rare case of him narrating a winning entry and an early exit on the same named trade in the same breath.
-
 - *2020-08-04, "Made back my $1.5M loss from last week! Swing trading school last 40 minutes", t=42:19*
 
 ![NET daily, September 2019 through September 2020 — the entry highlighted, and the subsequent new highs after his early exit](image/QULLAMAGGIE_TRADING_LESSONS/1785526166224.png)
@@ -351,7 +350,6 @@ The fullest single-trade walkthrough of the five — entry, add rule, and exact 
 - **The entry:** "There's just a lot of them like Fastly — this one had a perfect one a couple of months back... this one, I think, we bought on earnings, at the 30 bucks or high 29."
 - **The hold and sell rule:** "keeps surfing the rising 10-day, builds higher lows, and then it kind of builds a little flag up here — look at how tight it gets — and then it breaks out... you can sell a third or half after the first three to five days, just lock in some, move your stop to break even, and then you just use the 10-day moving average as your trailing stop — and once it closes, the first close below the 10-day, you sell it."
 - **The outcome:** the position did eventually get stopped out exactly that way — and the stock "broke out again last week and now it's on a new run" without him, which he offers matter-of-factly rather than as a regret: the rule did its job even though the stock kept going.
-
 - *2020-08-04, "Made back my $1.5M loss from last week! Swing trading school last 40 minutes", t=58:40*
 
 ![FSLY daily, June 2019 through August 2020 — the entry highlighted, with the 10-day-close stop-out and subsequent breakout visible on the way up](image/QULLAMAGGIE_TRADING_LESSONS/1785526223802.png)
@@ -563,7 +561,6 @@ A liquid mega-cap flag, entered 2022-01-03, and a "slow grinder" showing relativ
 - **The "Viagra candle" contrast, t=43:26:** pointing at a "forceful breakout with conviction" candle on another chart — "look at the volume, look at this candle... this is a Viagra candle — that's the candle you want."
 - **The inching entry, t=43:51, named as a variant on the setup's usual entry candle:** "sometimes the inching [higher] and breakouts work too — like something like Ford, when I started buying it here, right, kind of inched higher and then it kind of went — I wish I had it two days ago when it broke this range too." Ford ground higher on the inching style rather than the "Viagra candle" style, which he confirms still counts as a valid entry, just a slower and less obvious one to trust in real time.
 - **The sizing regret, t=44:31:** "full size on Ford? No, I only got 600,000 shares, I sold a few yesterday, I should have added more. I had 800,000 shares on this breakout here, but that one stopped me out — this time only 600,000... I should have had a million shares, because it was a better setup. These liquid large-caps, you don't get this that often."
-
 - *2022-01-05, "Leaders lead", t=23:13 (relative strength), t=43:26 (the "Viagra candle" contrast), t=43:51 (the inching entry), t=44:31 (the sizing regret)*
 
 #### 1.1.27 IONQ
@@ -586,7 +583,6 @@ An extremely tight, real-time entry from the earliest material in this corpus, w
 - **The catalyst** — a genuine surprise, not just a chart trigger: the company had just failed its Phase 3 trial, but "there were some benefits observed in this study that weren't in the study protocol," and the actual breakout was set off the same day by a Trump administration comment suggesting looser trial-data requirements for drug approval — "as soon as the [Trump] comments came out, it broke out of this 26 area."
 - **The hesitation and entry:** he watched the initial break and hesitated ("I actually saw it at 26, but I didn't buy it — I don't know why I hesitated"), then bought the pullback ten minutes later: "I got in 26.50 on the tape, and I'm very happy — they dipped that far down, my stop's at 26.44." A six-cent stop on a $26 stock is about as tight as a tight-flag entry gets anywhere in this document.
 - **The real-time read:** "hopefully this thing has follow-through, can go to the low 30s or something on some decent volume — very good-looking, perfect breakout shot, and it has a fundamental catalyst."
-
 - *2017-02-01, "Recap and watches for Feb 1", t=0:20–0:37 (the flag and the catalyst), t=1:51–2:33 (the hesitation, entry, and stop)*
 
 **The honest caveat and the research behind it.** This specific setup is explicitly regime-dependent — high tight flags "only work in strongly trending bull markets; in choppier conditions the same setups fail more often and require patience or smaller 'mini' versions" (general principle, recurring across the corpus, see Section 6 for the full regime-reading framework). The numbers behind this section's research bear that out: of 183 videos across the full 507-transcript archive where he uses the term (either caption spelling), 174 (95%) fall in 2020-2021, versus a combined 9 across 2017, 2019, 2022, and 2023 — the setup genuinely gets named far less often outside a trending market, exactly as he says it should. A second research pass checked whether he was simply describing the same mechanic under some other name in the roughly 324 remaining transcripts that never use either spelling — searching for "surfing the [10/20/50]-day" and "tight flag" (without "high") across those videos. That pass surfaced the walkthrough, the second 2017 example (1.1.13), and the VTIQ trade (1.1.25), but otherwise mostly confirmed a negative: the *branded* term and the *underlying pattern* track each other closely in this corpus — when he teaches the mechanic in detail, he's usually one sentence away from calling it a "high tight flag" outright, rather than describing it at length under a different name. But "named less often outside 2020-2021" isn't "doesn't exist outside 2020-2021" — the BlackBerry study (1.1.11) reaches back to 2004, the DNR (1.1.12) and second 2017 (1.1.13) examples predate the term itself, the 2019 claim predates COVID as a variable entirely, the AMC trade (1.1.14) shows it in a 2021 regime defined by retail speculation rather than a broad recovery rally, and the BBBY trade (1.1.15) shows it working live during one of the worst personal stretches in this entire archive, his own "shitty" mid-2022 months. What the 2020-2021 cluster mostly reflects is that a trending market produces more of these setups, more visibly, and he names the pattern more often as a result — exactly the point Section 6.1 makes about "easy dollar" versus "hard penny" regimes — not that the setup itself stops working when the market gets hard.
@@ -601,7 +597,6 @@ A good earnings beat on both EPS and revenue, a gap up on heavy volume, breaking
 
 - **2020-01-27 — the earlier, passed-on EP**, reflecting on the prior (2019) earnings season's best setups, naming it in the same breath as ELF and AXSM as examples of what a real long-range breakout looks like coming into an earnings season: "we had — you know — TDOC, one I passed on also, coming out of a long, long range, over a year, with higher lows. TDOC, same thing here — higher lows, had a long range, came out of it on earnings."
 - **2020-05-27 — the actual trade**, a second, cleaner look a few months later that he took: ran about 160% over the following months — he admits he sold around $105 and the stock roughly doubled from there without him.
-
 - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=15:19; and 2020-01-27, "My coronavirus plays gapping higher.", t=46:34 (the earlier, passed-on EP)*
 
 ![1786114786903](image/QULLAMAGGIE_TRADING_LESSONS/1786114786903.png)
@@ -613,7 +608,6 @@ Weekly chart, with the fundamental side of the setup made explicit.
 - **2020-01-27 — named from memory as one of the prior earnings season's clean examples**, in the same breath as ELF and TDOC (1.2.1): "DXCM, same thing here — I had higher lows for like a year, almost a year, had a long kind of a range."
 - **2020-05-27 — the setup and fundamentals:** higher lows for six months inside a year-long range, then a gap up on good earnings that "more than doubled" the stock: "you wait for a long range break, it needs to gap up on good earnings, [beat] analyst estimates, [and] have good growth numbers — the EPS grew by 261% year-over-year, and the revenue grew by 49%... the estimates for the next year were 156%... and the estimates for the year after that [were] 54%." The kind of acceleration he wants to justify treating an earnings gap as holdable rather than a one-day pop.
 - **2020-05-27 — the COVID shakeout/bounce:** separately, during the COVID crash it had "a big shakeout" and bounced perfectly off its rising 200-day — the same name illustrating both the earnings-breakout entry and (later) a weekly-moving-average bounce.
-
 - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=16:27 (setup and fundamentals), t=17:47 (COVID shakeout/bounce); and 2020-01-27, "My coronavirus plays gapping higher.", t=46:50 (named from memory as a prior-season example)*
 
 ![DXCM daily, March 2018 through March 2020 — the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785632851695.png)
@@ -624,7 +618,6 @@ A retrospective biotech-data EP predating the corpus by two years — and the tr
 
 - **The trade:** "it was biotic-related, they had data — biotic data can be some of the best episodic pivots. I haven't traded biotech in a long time; last time I remember I had a home run biotech trade was AMRN, back here when it reported data — what year is this, 2018, September 2018. It broke out late day — like, this thing had already traded like 100 million shares or something like that when it broke out, when it took out opening-range highs, broke out late day — and it went up 125% in a month and a half or so."
 - **The volume lesson**, continuing immediately: "that's what you want to see — look at the volume, big gap up, big volume. This is why volume is so important on these episodic pivots — like, this thing was barely trading, only traded like three, four, five million shares per day, and then, boom, suddenly it traded like 10 million shares in the first couple of minutes. Same thing with Snapchat last week — look at the volume, this is how big moves start. Big moves start from strength many times, not always — but if you understand how stocks move, if you study thousands of stocks going back many decades, you'll see this happens all the time."
-
 - *recounted, 2020-10-27, "Mild bull market pullback so far - positive signs emerging!", describing a September 2018 trade, t=1:26:46 (the trade), t=1:27:35 (the volume lesson)*
 
 ![AMRN daily, February 2018 through November 2018 — the September data-driven breakout highlighted, on volume roughly triple the stock's normal daily average](image/QULLAMAGGIE_TRADING_LESSONS/1785677784373.png)
@@ -648,7 +641,6 @@ A chart pointed to cold, right after LVGO, not stated as a personal trade.
 
 - **Tupperware itself:** "You know, Tupperware, right — look at this big gap-up, look at this thing. Now, it did undercut the lows of the gap-up there, unfortunately, but look at the move."
 - **The general rule**, used as the springboard right after: "this is the basic principle of episodic pivots — preferably you want a stock that has been going down or sideways for many months or even years. But sometimes also, episodic pivot from strength can work really good" — the exact distinction the NIO example right after this one is built on.
-
 - *2020-11-04, "ELECTIONS! New bull leg starting or suckers gap?", t=1:04:57 (Tupperware), t=1:05:16 (the general principle)*
 
 ![TUP daily, October 2018 through April 2021 — the gap-up he points to highlighted, off a multi-year decline](image/QULLAMAGGIE_TRADING_LESSONS/1785678861967.png)
@@ -683,7 +675,6 @@ Named directly as his single best EP of the year.
 
 - **The trade:** "The best one I traded this year was Fastly — this was the best one, when I bought it on earnings here, like 30 bucks or so, this thing tripled — it went to a hundred bucks in like two months. That's the best EP I traded this year." The same FSLY position's entry date and trailing-stop mechanics are documented in 1.1 as a high tight flag; this clip is him independently naming it his best EP of 2020, not a separate trade.
 - **The general principle**, stated right after — don't fade a gap just because it already looks big: "They beat on EPS and revenue, they guided higher, and [had] big volume — a big gap up on big volume." Then the actual point, aimed squarely at the instinct to pass on a name because the gap already looks extended: "some people think, oh, it's gapping up 10, 20, 30% — it's too late to buy. No. Many times when a stock gaps up 10, 20, 30%, that's the start of a move that could be 200%, 500% — and you've gotta find those opportunities. Earnings season is hunting ground — gotta find them." FSLY (30 to 100, roughly 233%) and LVGO (200-400%) are both offered as evidence in the same breath: the size of the gap itself isn't a reason to skip the trade, since the biggest EPs keep running well past the size of the initial move that made them visible in the first place.
-
 - *2021-01-05, "Late upload: Dec 31 stream", t=1:12:21 (the FSLY trade), t=1:13:03 (the general principle)*
 
 ![FSLY daily, June 2019 through September 2020 — the earnings-gap entry highlighted, tripling from roughly $30 to $100 over the following two months](image/QULLAMAGGIE_TRADING_LESSONS/1785679796863.png)
@@ -721,7 +712,6 @@ Caught live, watched with the volume-and-strength read in real time, then graded
 - **The year-end grade, t=1:12:09:** "Snap wasn't one of the best ones, it's an okay one — but yeah, enormous volumes, look at the volume, 10, 20 times the average volume — Snap was good in that sense, it was very liquid, but it was not one of the best."
 - **The gap-exclusion stop rule, t=1:43:49** — a risk-sizing rule specific to EPs, illustrated on this same name: "if my stop cannot be more than average true range... I don't count the gap, the gap doesn't matter — let's look at Snapchat, you do the math from the opening range, from the lows of the day to the opening range highs, it's the same thing, you don't count the gap, you just count the intraday move" — the overnight gap is excluded from the risk calculation entirely, only the intraday range from the open counts.
 - **The add-to-winners rule, t=54:01**, stated a year later, using SNAP as the reference case: "if I get a good setup like SNAP... and it gaps up on earnings as an EP, I'll add to it, I'll double up on it higher... needs to be in a setup, not there randomly."
-
 - *2020-10-21, "Snapchat great report! Earnings season is here!", t=17:50 (the volume tell), t=28:58 (the regret); 2021-01-05, "Late upload: Dec 31 stream", t=1:12:09 (year-end grade); 2020-11-25, "Happy thanksgiving!", t=1:43:49 (the gap-exclusion stop rule); and 2021-10-18, "Market back to autopilot mode?", t=54:01 (the add-to-winners rule)*
 
 ![SNAP daily, January 2020 through March 2021 — the October 2020 earnings gap highlighted, the volume spike visible below](image/QULLAMAGGIE_TRADING_LESSONS/1785678155450.png)
@@ -740,7 +730,6 @@ The boundary case, where he draws his own line between "EP" and merely "earnings
 
 - **The initial framing:** bought it, by his own account, only because of the earnings catalyst: "the only reason I bought it is because it had earnings, and it had a possibility of becoming an episodic pivot."
 - **The retrospective correction**, reviewing the trade later the same session: "DraftKings wasn't an episodic pivot, it was an earnings breakout — it really didn't gap up that much, but it was a decent breakout setup with earnings; if it hadn't had earnings I wouldn't even have touched it... sometimes when things break out on earnings, even if the setup isn't perfect, they can work out really well." In this case it didn't — a losing trade he doesn't retroactively dress up as a clean EP, and a useful definition-in-the-negative: a real EP gaps meaningfully, not just "breaks out with an earnings excuse."
-
 - *2021-02-26, "Market in limbo", t=38:44 (initial framing), t=1:03:20 (retrospective correction)*
 
 ![DKNG daily, May 2020 through March 2021 — the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785702597613.png)
@@ -768,7 +757,6 @@ A five-month-old biotech EP recalled from memory, with an exact entry and a four
 - **2023-01-26 — the earlier callout**, several months into the hold, showing him still calling it out as a standout: "MDGL is my best EP trade in a lot, in a while — I bought it 210, and it's still kind of grinding higher, building higher lows, getting tighter."
 - **2023-05-18 — the trade, recalled from memory**, in the same breath as IMGN: "like I talked about, MDGL — I bought this one, I traded [it] in December — it gapped up... 225%, and I bought it at 210, and it went up another 50[%] the next three or four sessions."
 - **2023-05-18 — the category preference**, closing the thought, resolving the apparent tension between "biotech EPs are the best" and how rarely he actually names one: "I absolutely don't avoid biotech EPs, they're the best — but I mostly trade earnings EPs, because those are the ones you get most of, and those are the easiest and safest too."
-
 - *2023-05-18, "Episodic Pivots galore", t=34:17 (the trade), t=34:34 (the category preference); and 2023-01-26, "New BULL?", t=34:41 (the earlier "best EP trade" callout, same position)*
 
 ![1785708602507](image/QULLAMAGGIE_TRADING_LESSONS/1785708602507.png)
@@ -780,7 +768,6 @@ The boundary case behind his own definition of an EP, where substance of the new
 - **The definition, t=19:02**, introducing CXAI as the live illustration of the definition itself, not as a caveat to it: "episodic pivot is pretty much when you get news on a stock and the stock makes a big move on high volume, it's a big surprise to the market — doesn't really matter what the news is, sometimes it can be just some fluff PR. Like we had, like, CXAI — this was the EP of the year so far, went up 600% in two days, and I think it was even higher in pre-market — and it's just on, you know, really nothing. But it was an EP." Not stated as a personal trade. In the same breath he immediately contrasts it with names where the news *was* substantive — PLTR's "surprisingly good earnings" and Shopify the same week — so CXAI isn't offered as an outlier exception to a news-quality rule; it's the proof that no such rule exists in the first place.
 - **The volume restatement, t=20:48**, a minute later in the same stream, restating the actual filter directly: "look at the volume, game-changing news, it's a big surprise to the market — that's what you're looking for." Volume and the size of the market's surprise are the load-bearing criteria in both directions — they're what make weak news (CXAI) count as a real EP, and they're the same thing he points to on strong news (PLTR, Shopify).
 - **The year-later retrospective, 2023-12-15:** revisited seven months later as the standout of an entire theme: "CXAI — biggest AI move, 500% in two days, from the opening-range breakout. I didn't buy that one" — the size of the move he'd flagged live turns out to have held up as his own benchmark for the year, even in a trade he never took.
-
 - *2023-05-18, "Episodic Pivots galore", t=19:02 (the definition), t=19:19 (CXAI), t=20:48 (the volume restatement); and 2023-12-15, "Speculation money is back!", t=34:02 (the year-later retrospective)*
 
 ![1785709392626](image/QULLAMAGGIE_TRADING_LESSONS/1785709392626.png)
@@ -799,7 +786,6 @@ A live, named example of the "small account edge" (3.2), not just a description 
 
 - **The trade:** "APLD, I bought it a few days ago — some kind of AI-related PR, they got a contract, and, you know, look at the volume — this has been my small account, that is tax-free, so it's a very small position. But I want to grow that account up, and the best way to grow a small account is to buy small caps — you know, like something like Shopify, it's not gonna go up 100% in a week, it's just not gonna do it — but something like APLD, well, you know, it's already up 46 — 45 — since my entry a few days ago. You guys, you [have] small-account edge — that's why I've always been calling it on my stream, small account edge." Where 3.2 states the principle in the abstract, this is its dollars-and-percentage version: a deliberately small, tax-advantaged-account position bought on a thin AI-contract PR, up roughly 45% within a handful of days — the exact kind of move he says a mega-cap like Shopify structurally cannot deliver on that timeline, which is the whole reason a small account concentrates in low-float names like this instead of imitating a larger book's diversification.
 - **The EP-vs-parabolic-short distinction**, a separate clip on the same name: asked whether APLD was actually an EP or a parabolic short candidate, he's unambiguous — "it was an EP, not a parabolic short — I don't think you understand the difference between those." The two setups can look similar on a chart already up a lot, but only one of them (the EP) is a long he'll hold; the other is a short setup entirely, covered separately in 4.6 and elsewhere.
-
 - *2023-05-18, "Episodic Pivots galore", t=23:39; and 2023-05-23, "EPs good follow through. AI and Quantum names waking up", t=21:49 (the EP-vs-parabolic-short distinction)*
 
 ![1785710993601](image/QULLAMAGGIE_TRADING_LESSONS/1785710993601.png)
@@ -870,7 +856,6 @@ Three generalizable reads come out of the June thread, not just position narrati
 - **The "hated stock, hot sector" thesis:** "the one I like the most right now is Carvana... and it's a piece of [—], and that's why it has so much potential, just like Palantir and AI [C3.ai] — why are they up so much the past month? Because they're pieces of [—] in a hot sector. If you go to Seeking Alpha, people hate AI, people hate Palantir... these are the types of stocks that can really make big moves, and Carvana too." Distressed fundamentals plus sector heat is framed as fuel, not a warning sign — the same point 2.1 makes about ignoring the balance sheet, restated here as a positive thesis rather than just something to tune out.
 - **The "clean mover" label:** "it's just easier with stocks that are, you know, clean movers like Carvana — this is a clean mover, it can make huge moves, it breaks out and goes" — a stock that respects its moving averages smoothly rather than chopping around them, independently confirmed as a recurring category in the batch analysis notes.
 - **The volume-confirmation lesson**, given live to a viewer who regretted missing the gap: "you could have entered after the first few minutes when the volume was getting obvious — you got this 300, almost 400,000 one-minute volume bar, and then you check the average daily volume, which is like 1 million or something — by that time you knew the volume was gonna be absolutely huge on the day." The ratio of an early intraday volume bar to the stock's own ADV, not a gut feel, is the actual trigger.
-
 - *2023-05-19, "Episodic Pivots, Kenny boy and old times", t=31:01 (the January recap), t=32:07 (watching it again), t=32:31 (the three-buy re-entry and the EP-vs-breakout regime read)*
 - *2023-06-01, "AI and the shittier the stock, the bigger the move.", t=07:26 (near-exit), t=11:50 (halt), t=30:15 (200-day reclaim), t=50:25 (add and tighten stop)*
 - *2023-06-05, "Zzzlow", t=16:55 (the reference-case comment), t=20:32 (daily/weekly only, not intraday)*
@@ -1427,9 +1412,23 @@ The single most fully documented IPO trade in this corpus — exact entry, size,
 
 #### 1.3.17 LI (Li Auto)
 
-The sector partner to XPEV, tracked as an earlier-forming base in the same China-EV theme: "Tesla, zoom, LI building an IPO base here — also hot sector, a China EV maker." Weeks later, both LI and XPEV get folded into a basket-risk read tied to their more established peer: "LI and XPEV, I'm watching this too in case NIO tanks — these things could tank too." Read together with 1.3.16 (XPEV), the two names show him treating a hot post-IPO sector as a single correlated basket, not as independent setups.
+A real, named position — not just a watched sector partner to XPEV — bought, held, sold defensively, and then watched (and regretted) from the sidelines through the rest of November, tracked across nine dated sessions.
 
-- *2020-10-07, "Solar stocks are energized!", t=44:07; and 2020-11-18, "Markets near highs but stocks are so so", t=6:39*
+- **2020-10-07 — still just a watched base:** "Tesla, zoom, LI building an IPO base here — also hot sector, a China EV maker."
+- **2020-10-14 — the buy confirmed**, rattling off his current positions: "uh, LI — I bought a couple of days ago," placing the actual entry around 2020-10-12.
+- **2020-10-21 — held as a clean, named entry**, in a "perfect entries" list alongside CRWD, ZS, DDOG, and BYND: "LI, I bought it right here when it broke out of this range, okay."
+- **2020-10-22 — sold defensively**, in the same breath as shorting NIO, amid a broad breakdown across his whole book: "LI, I'm gonna sell — I'm not even gonna wait for a close below [the 10-day or 20-day]... this is another China EV name... when you see this many breakouts happening [break down] at the same time... I just want to play defense."
+- **2020-11-09 — watching it fall from the sidelines:** "What's LI doing? LI is also going down, like NIO — what the hell is holding this thing up."
+- **2020-11-13 — explicit short regret, not a long regret:** "I wish I had shorted LI when it started breaking down here in the low 38s or so" — a real, dated wish that he'd flipped the same name XPEV was flipped on around the same stretch (1.3.16).
+- **2020-11-18 — folded into a basket-risk read** tied to its more established peer, alongside XPEV: "LI and XPEV, I'm watching this too in case NIO tanks — these things could tank too."
+- **2020-11-19 to 2020-11-20 — a fresh setup flagged but not bought:** "there's one setting up in LI... look at this thing" (11/19), followed the next day by an explicit pass: "it's too early to tell — oh, LI is now going, I was tempted to buy it but I don't know, it's just getting a little bit long in the tooth" (11/20).
+- **2020-11-25 — the regret that closes the arc:** "I [messed] up another multi-million dollar opportunity... that was just an annoying one — if I had focused on LI and NIO only, it would have been much better." A rare instance of him naming a specific stock he wishes he'd stuck with instead of chasing the rest of his book.
+
+Read together with 1.3.16 (XPEV), the two names show the same full-cycle pattern — a real long, sold on the way down rather than held into a loss, watched and second-guessed from the sidelines afterward — playing out on both names in the same hot post-IPO sector at once, not independently.
+
+![1786122494783](image/QULLAMAGGIE_TRADING_LESSONS/1786122494783.png)
+
+- *2020-10-07, "Solar stocks are energized!", t=44:07; 2020-10-14, "Potential Hight Tight Flags forming in solar stocks", t=34:18 (the buy); 2020-10-21, "Snapchat great report! Earnings season is here!", t=52:21 (held, named); 2020-10-22, "Leading stocks breaking down!", t=40:38 (sold defensively); 2020-11-09, "$3M swing pre market! Never lost this much money so fast", t=20:51; 2020-11-13, "China EV crash! $NIO $LI $XPEV", t=1:19:35 (short regret); 2020-11-18, "Markets near highs but stocks are so so", t=6:39 (basket-risk read); 2020-11-19, "Breakouts everywhere!", t=49:50, and 2020-11-20, "Getting follow through so far on breakouts!", t=13:03 (fresh setup flagged, then passed on); and 2020-11-25, "Happy thanksgiving!", t=20:03 (the closing regret)*
 
 #### 1.3.18 JMIA (Jumia Technologies)
 
