@@ -549,13 +549,13 @@ A good earnings beat on both EPS and revenue, a gap up on heavy volume, breaking
 
 - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=15:19; and 2020-01-27, "My coronavirus plays gapping higher.", t=46:34 (the earlier, passed-on EP)*
 
-![TDOC daily, June 2018 through April 2020 — the multi-year range and the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785632619919.png)
+![1786114786903](image/QULLAMAGGIE_TRADING_LESSONS/1786114786903.png)
 
 #### 1.2.2 DXCM (Dexcom)
 
-Weekly chart, with the fundamental side of the setup made explicit. Higher lows for six months inside a year-long range, then a gap up on good earnings that "more than doubled" the stock: "you wait for a long range break, it needs to gap up on good earnings, [beat] analyst estimates, [and] have good growth numbers — the EPS grew by 261% year-over-year, and the revenue grew by 49%... the estimates for the next year were 156%... and the estimates for the year after that [were] 54%." The kind of acceleration he wants to justify treating an earnings gap as holdable rather than a one-day pop. Separately, during the COVID crash it had "a big shakeout" and bounced perfectly off its rising 200-day — the same name illustrating both the earnings-breakout entry and (later) a weekly-moving-average bounce.
+Weekly chart, with the fundamental side of the setup made explicit. Higher lows for six months inside a year-long range, then a gap up on good earnings that "more than doubled" the stock: "you wait for a long range break, it needs to gap up on good earnings, [beat] analyst estimates, [and] have good growth numbers — the EPS grew by 261% year-over-year, and the revenue grew by 49%... the estimates for the next year were 156%... and the estimates for the year after that [were] 54%." The kind of acceleration he wants to justify treating an earnings gap as holdable rather than a one-day pop. Separately, during the COVID crash it had "a big shakeout" and bounced perfectly off its rising 200-day — the same name illustrating both the earnings-breakout entry and (later) a weekly-moving-average bounce. Three months earlier, it's already named from memory as one of the prior earnings season's clean examples, in the same breath as ELF and TDOC (1.2.1): "DXCM, same thing here — I had higher lows for like a year, almost a year, had a long kind of a range."
 
-- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=16:27 (setup and fundamentals), t=17:47 (COVID shakeout/bounce)*
+- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=16:27 (setup and fundamentals), t=17:47 (COVID shakeout/bounce); and 2020-01-27, "My coronavirus plays gapping higher.", t=46:50 (named from memory as a prior-season example)*
 
 ![DXCM daily, March 2018 through March 2020 — the earnings-breakout entry highlighted](image/QULLAMAGGIE_TRADING_LESSONS/1785632851695.png)
 
