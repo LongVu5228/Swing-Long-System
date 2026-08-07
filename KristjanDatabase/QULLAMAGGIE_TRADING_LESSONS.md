@@ -972,7 +972,7 @@ A clean, admitted miss on a setup he calls "such a perfect one."
 
 #### 1.2.36 UPST (Upstart)
 
-A real-time EP trade with the volume math, a cross-reference to two other named EPs, the hold-duration rule, a direct volume-for-EPs-vs-volume-for-breakouts distinction, and a patience lesson — all in one session.
+A real-time EP trade with the volume math, a cross-reference to two other named EPs, the hold-duration rule, a direct volume-for-EPs-vs-volume-for-breakouts distinction, and a patience lesson — all in one session. Read together with 1.3.23 (UPST): this is the very next session after the entry documented there as an IPO-recovery breakout — same position, one day later, viewed through the EP lens instead of the IPO lens.
 
 - **Entry, volume, SNAP/PINS cross-reference:** "I sold about 20% of my Upstart — I guess I should have sold more, it was a big move. It's a mid-cap stock, up like 100%, and it went up 40% after my entry... this is exactly what you want to see in an EP — look at this volume, it was more than 10 times average volume." He immediately generalizes it against two other named EPs: "it's the same thing that happened to Snapchat, for example — this is where EPs can be so powerful. Look at this, Snapchat, same thing, look at the volume — this first EP that started to move, big earnings, beat, good guidance, and then it had a follow-through EP. Look at Pinterest, same thing here, look at the volume, big beat, look at the volume."
 - **The hold-duration rule**, asked why he didn't just flip it same-day: "Episodic pivot is a type of trade you hold for weeks and months, it's not a day trade."
@@ -1498,7 +1498,7 @@ His headline definitional example of "what an IPO breakout can do" — tracked a
 
 The two readings on the same company are not actually a contradiction: one is about trading the eventual breakout pattern (which he rates five stars), the other is about buying the IPO print itself with no chart to trade against (which he explicitly declines).
 
-![1786125006286](image/QULLAMAGGIE_TRADING_LESSONS/1786125006286.png)
+![1786125318823](image/QULLAMAGGIE_TRADING_LESSONS/1786125318823.png)
 
 - *2021-01-06, "2021 not showing any signs of slowing down!", t=2:02:20; 2021-01-13, "Throw a dart and you will make money in this market", t=37:54; 2021-04-07, "Need lots of patience with current positions...", t=34:25; 2021-04-08, "Portfolio strong, most things need a few weeks more to set up", t=1:44:01; and 2020-12-09, "$QS what a beast!...", t=2:37:41*
 
@@ -1506,10 +1506,9 @@ The two readings on the same company are not actually a contradiction: one is ab
 
 An IPO-recovery entry that becomes, by his own account, his best trade of an entire earnings season.
 
-- **2021-03-18 — the entry, with a real-time volume tell:** "I did buy it, I think it's pretty good, it's already traded average daily volume in 12 minutes after market open, that's pretty significant, it's a recent IPO coming off some weakness... they bought a company, the guidance was insane, but obviously it includes the company they bought, so it's not pure organic growth."
+- **2021-03-18 — the entry, with a real-time volume tell:** "I did buy it, I think it's pretty good, it's already traded average daily volume in 12 minutes after market open, that's pretty significant, it's a recent IPO coming off some weakness... they bought a company, the guidance was insane, but obviously it includes the company they bought, so it's not pure organic growth." Read together with 1.2.36 (UPST): the very next session — already trimming, drawing EP lessons from the same position — is documented there as an episodic pivot.
 - **2021-06-03 — paired with UiPath**, months later, as a standing pair of active plays: "UPST, PATH are the only IPO plays pretty much — it's not like one person has a patent on those things."
 - **2021-09-13 — the result**, stated plainly: "I caught UPST perfectly, sold it on Friday — that was a big one, that was my best trade of the earnings season, went up 75% or so after the entry."
-
 - *2021-03-18, "Setups developing but they need more work", t=22:16; 2021-06-03, "Great content today...", t=54:01; and 2021-09-13, "Back after a break (again)!", t=12:30*
 
 #### 1.3.24 BMBL (Bumble)
@@ -1519,7 +1518,6 @@ The fullest statement of the "recent IPOs don't need a five-star setup" principl
 - **The setup:** "Bumble, the volume is not really inspiring, but it is a recent IPO — there is definitely some scarcity value... recent IPOs, they can really make big moves even if the setup is not five star — look what happened to RKT, it was a so-so setup but doubled, almost doubled."
 - **The actual buy**, days later, with the reasoning restated and the position sizing made explicit: "It's capping up on earnings, not the most super explosive ones, but it's a recent IPO — like I said before, recent IPOs, they don't need five-star setups, they can move on less than that. If it was some random stock with several years of trading I wouldn't give a damn about it, but because it's a recent IPO and there may be some scarcity value here... it's not a big position, I actually bought a little bit too much considering the volume."
 - **Why he bought it, closing the loop:** "Why did I buy Bumble? Because it's an EP, it's not up four days in a row, just coming out of our range here... it's a slightly beaten-down recent IPO with an EP. What price did I get it done? Well, I usually buy opening range highs, this one was no different."
-
 - *2021-03-11, "SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!", t=52:06, t=1:06:14, t=1:18:00*
 
 #### 1.3.25 CPNG (Coupang)
@@ -1541,7 +1539,6 @@ A near-top-rated IPO base, repeated across two sessions with the same liquidity 
 
 - **2021-03-17:** "LDI IPO base — it's pretty good, pretty damn good, I would say it's a five-star, pretty much four and a half stars. Holy [expletive], this thing has insane growth but it's so thin."
 - **2021-04-09 — unchanged, a month later:** "it's like an IPO base, really explosive earnings... it could work, it's a pretty good one, pretty good setup."
-
 - *2021-03-17, "Late upload - Monday March 15", t=1:07:24; and 2021-04-09, "Long bases forming in tech and software names", t=1:02:34*
 
 #### 1.3.27 COIN (Coinbase)
@@ -1567,7 +1564,6 @@ His most heavily-tracked single "recent IPO" name of the entire corpus — six s
 - **2021-04-27 — a later re-entry graded honestly** rather than oversold: "it was kind of a recent IPO breakout, it's been building higher lows... it's not a huge position... it wasn't like a five-star, it was maybe a four-star setup at most."
 - **2021-05-19 — doubling as a market-breadth signal** in its own right: "this Roblox is setting up nicely, it's one of the very few great-looking stocks I see — you know if you remember what I said about Roblox a few days ago, it's never a good sign when you only have like one good-looking stock."
 - **2021-11-05 — eight months after the IPO**, still framing the chart the same way: "it's building higher lows since March, since the IPO, it's getting tighter, and if it can break out with volume, it can make a big move."
-
 - *2021-03-10, "Will this bounce stick?", t=1:06:26; 2021-03-22, "More patience needed", t=1:23:33; 2021-04-08, "Portfolio strong, most things need a few weeks more to set up", t=1:44:01; 2021-04-09, "Long bases forming in tech and software names", t=58:19; 2021-04-27, "Slowest bull run in a long time", t=1:10:23; 2021-05-19, "Higher lows or start of a bigger correction?", t=25:35; and 2021-11-05, "Eventually you need to be able to stand on your own 2 legs", t=1:03:08*
 
 #### 1.3.29 HOOD (Robinhood)
