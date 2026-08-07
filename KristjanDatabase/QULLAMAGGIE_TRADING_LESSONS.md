@@ -1509,16 +1509,23 @@ An IPO-recovery entry that becomes, by his own account, his best trade of an ent
 - **2021-03-18 — the entry, with a real-time volume tell:** "I did buy it, I think it's pretty good, it's already traded average daily volume in 12 minutes after market open, that's pretty significant, it's a recent IPO coming off some weakness... they bought a company, the guidance was insane, but obviously it includes the company they bought, so it's not pure organic growth." Read together with 1.2.36 (UPST): the very next session — already trimming, drawing EP lessons from the same position — is documented there as an episodic pivot.
 - **2021-06-03 — paired with UiPath**, months later, as a standing pair of active plays: "UPST, PATH are the only IPO plays pretty much — it's not like one person has a patent on those things."
 - **2021-09-13 — the result**, stated plainly: "I caught UPST perfectly, sold it on Friday — that was a big one, that was my best trade of the earnings season, went up 75% or so after the entry."
+- ![1786125544811](image/QULLAMAGGIE_TRADING_LESSONS/1786125544811.png)
 - *2021-03-18, "Setups developing but they need more work", t=22:16; 2021-06-03, "Great content today...", t=54:01; and 2021-09-13, "Back after a break (again)!", t=12:30*
 
 #### 1.3.24 BMBL (Bumble)
 
-The fullest statement of the "recent IPOs don't need a five-star setup" principle, tied to a real, sized entry.
+The fullest statement of the "recent IPOs don't need a five-star setup" principle, tied to a real, sized entry — and a stop-out the very next session.
 
-- **The setup:** "Bumble, the volume is not really inspiring, but it is a recent IPO — there is definitely some scarcity value... recent IPOs, they can really make big moves even if the setup is not five star — look what happened to RKT, it was a so-so setup but doubled, almost doubled."
-- **The actual buy**, days later, with the reasoning restated and the position sizing made explicit: "It's capping up on earnings, not the most super explosive ones, but it's a recent IPO — like I said before, recent IPOs, they don't need five-star setups, they can move on less than that. If it was some random stock with several years of trading I wouldn't give a damn about it, but because it's a recent IPO and there may be some scarcity value here... it's not a big position, I actually bought a little bit too much considering the volume."
-- **Why he bought it, closing the loop:** "Why did I buy Bumble? Because it's an EP, it's not up four days in a row, just coming out of our range here... it's a slightly beaten-down recent IPO with an EP. What price did I get it done? Well, I usually buy opening range highs, this one was no different."
-- *2021-03-11, "SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!", t=52:06, t=1:06:14, t=1:18:00*
+- **2021-03-11 — the setup:** "Bumble, the volume is not really inspiring, but it is a recent IPO — there is definitely some scarcity value... recent IPOs, they can really make big moves even if the setup is not five star — look what happened to RKT, it was a so-so setup but doubled, almost doubled."
+- **2021-03-11 — the actual buy**, later the same session, with the reasoning restated and the position sizing made explicit: "It's capping up on earnings, not the most super explosive ones, but it's a recent IPO — like I said before, recent IPOs, they don't need five-star setups, they can move on less than that. If it was some random stock with several years of trading I wouldn't give a damn about it, but because it's a recent IPO and there may be some scarcity value here... it's not a big position, I actually bought a little bit too much considering the volume."
+- **2021-03-11 — why he bought it, closing the loop:** "Why did I buy Bumble? Because it's an EP, it's not up four days in a row, just coming out of our range here... it's a slightly beaten-down recent IPO with an EP. What price did I get it done? Well, I usually buy opening range highs, this one was no different."
+- **2021-03-12 — stopped out the very next session**, fading hard into the prior close: "Bumble had an EP but this big, big fade into the close — wait, is it low, oh I'm gonna get stopped out of it... okay, it was up nicely at one point yesterday then it closed weak." Later the same session, a slippage complaint on the actual exit: "Oh my god, Bumble... that's what I call slippage" — and it's grouped, by name, as one of the day's two frustrations: "it was just a Bumble and SC, those are the ones that annoyed the [expletive] out of me."
+
+A clean, fast round trip: bought on the EP thesis, faded into the close the same day he bought it, and stopped him out — with a bad fill on top of it — before the position had even survived a full session.
+
+![1786125735319](image/QULLAMAGGIE_TRADING_LESSONS/1786125735319.png)
+
+- *2021-03-11, "SETUPS ARE BACK - BUT NOT IN THE USUAL SUSPECTS!", t=52:06, t=1:06:14, t=1:18:00; and 2021-03-12, "Serious talk and not so serious talk", t=3:44 (the fade and stop-out), t=9:21 (the slippage complaint), t=37:21 (grouped as a day's frustration)*
 
 #### 1.3.25 CPNG (Coupang)
 
