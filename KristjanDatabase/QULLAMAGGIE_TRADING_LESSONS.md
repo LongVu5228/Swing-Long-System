@@ -1538,6 +1538,8 @@ A clean, four-month arc on a single high-profile 2021 listing — hype, no entry
 
 A textbook illustration of how long a genuinely hyped IPO can take to become an actual tradeable chart rather than just a story.
 
+![1786126015933](image/QULLAMAGGIE_TRADING_LESSONS/1786126015933.png)
+
 - *2021-03-24, "Chop chop chop. NFT only game in town", t=1:55:54; 2021-03-31, "NASDAQ is tightening up, lots of strength", t=1:04:27; 2021-04-27, "Slowest bull run in a long time", t=24:57; and 2021-07-09, "You need to want it...", t=49:50*
 
 #### 1.3.26 LDI (loanDepot)
@@ -1546,6 +1548,7 @@ A near-top-rated IPO base, repeated across two sessions with the same liquidity 
 
 - **2021-03-17:** "LDI IPO base — it's pretty good, pretty damn good, I would say it's a five-star, pretty much four and a half stars. Holy [expletive], this thing has insane growth but it's so thin."
 - **2021-04-09 — unchanged, a month later:** "it's like an IPO base, really explosive earnings... it could work, it's a pretty good one, pretty good setup."
+- ![1786126088266](image/QULLAMAGGIE_TRADING_LESSONS/1786126088266.png)
 - *2021-03-17, "Late upload - Monday March 15", t=1:07:24; and 2021-04-09, "Long bases forming in tech and software names", t=1:02:34*
 
 #### 1.3.27 COIN (Coinbase)
@@ -1558,7 +1561,17 @@ The single fullest, most direct statement of his entire IPO philosophy in this c
 
 Every other named example in this section — the mechanism (institutional discovery lag), the frequency ("one or two a year"), and the specific historical proof points (TLRY, BYND, LI, XPEV) — is contained in this one passage.
 
-- *2021-04-14, "If you don't watch this, delete your trading account!", t=11:46; 2021-04-16, "Patience", t=55:46; and 2021-06-15, "Struggling trader reviews are back!! Also fried a brain cell today", t=12:06*
+**A second, later arc — watching for a base, holding it into earnings, missing a bounce, then turning bearish as crypto rolled over.**
+
+- **2021-10-21 — watching for a pullback after a big move:** "The coins are pulling back... I really want his Coinbase to pull back to the 10, 20, build a base... this was very explosive, you always want to keep tracking the stocks that make explosive moves over a few weeks or a few months, because if they set up right they can make another explosive move."
+- **2021-11-09 — a real position going into earnings, with a stop already set:** "Oh COIN, oh they report tomorrow, I hope this COIN can go to 360, 370 plus before earnings, so I have a little bit of... caution in case it gaps down on earnings — I wouldn't want it to gap down below my stop, that's not fun."
+- **2021-12-07 — regret over a missed bounce:** "I do regret a little bit I didn't play any of the bounces yesterday, like stuff like AFRM or COIN."
+- **2021-12-09 — a bearish technical read:** "Coinbase too, it rallied into [the] declining 10-day, now it's getting slammed lower."
+- **2021-12-17 — the fullest bearish note, tied to broader crypto weakness:** "Coin, I think Coinbase looks like it wants to go lower — crypto overall wants to go lower, like bitcoin, ethereum, they kind of look vulnerable on the daily... building lower highs."
+
+![1786126202275](image/QULLAMAGGIE_TRADING_LESSONS/1786126202275.png)
+
+- *2021-04-14, "If you don't watch this, delete your trading account!", t=11:46; 2021-04-16, "Patience", t=55:46; 2021-06-15, "Struggling trader reviews are back!! Also fried a brain cell today", t=12:06; 2021-10-21, "So much opportunity! Hard to get filled", t=1:03:16; 2021-11-09, "Eventually you need to be able to stand on your own 2 legs", t=1:01:23; 2021-12-07, "Santa Rally starting now!", t=5:55; 2021-12-09, "Not inspiring action in stocks", t=30:57; and 2021-12-17, "Santa stopped buying", t=6:11*
 
 #### 1.3.28 RBLX (Roblox)
 
