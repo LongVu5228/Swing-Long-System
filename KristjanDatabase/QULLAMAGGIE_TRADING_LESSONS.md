@@ -1055,6 +1055,8 @@ Recent IPOs get treated as their own category — favored specifically because a
 
 Bought a couple of months after IPO, following roughly six months of sideways action post-listing (the stock was "kind of expensive" and the market wasn't yet sure it could sustain its growth). It guided higher and gapped up on volume — not huge volume, but the pattern looked clean enough to take. Still holding roughly half his shares at the time of the video; calls IPO breakouts "super powerful." A separate clip, several months earlier, shows the same base still forming, with the actual sizing decision talked through live rather than just the chart read: "it does have some kind of an IPO base breakout, it could be good... I may buy a small position, just because I'm an addict — I probably shouldn't, I think it's gonna mean-revert, I think the markets are vulnerable to a little bit of a pullback here." Minutes later, still on the same name: "I don't wanna chase anything today on the long side, but Livongo — yeah, sure, I'll take a starter, a tiny position, third position maybe, just to satisfy my urge to trade." He names it in the same breath as one of his highest-conviction ideas on fundamentals as well as chart structure — "one of my favorite stocks, fundamentally and technically" — while still sizing the actual entry as a minimal starter specifically because the broader market's own setup (a "classic bear market rally") didn't yet justify anything bigger. The guidance gap that finally breaks the base is the identical trade documented as an EP in 1.2.4 — the pre-announcement catalyst is what makes it an EP, and the still-basing post-IPO chart it breaks out of is what makes it an IPO breakout, both at once rather than two separate setups.
 
+![1785979703425](image/QULLAMAGGIE_TRADING_LESSONS/1785979703425.png)
+
 ![LVGO daily, August 2019 through October 2020 — the April entry highlighted, on the way to acquisition](image/QULLAMAGGIE_TRADING_LESSONS/1785678434566.png)
 
 - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=20:49; and 2020-04-07, "Markets starting to hit resistance areas. What's next?", t=12:12–13:17 (the still-forming base, the starter-size decision, and the "favorite stocks" framing)*
@@ -1063,11 +1065,15 @@ Bought a couple of months after IPO, following roughly six months of sideways ac
 
 Bought a couple of weeks after IPO, after it had gone sideways since listing. A report showing 38% revenue growth (pre-profitability) with good guidance triggered by far the largest volume day since the IPO — the stock traded its full roughly 1.5 million share average daily volume within the first 5-10 minutes, which made it "pretty obvious early" this was a real move, not a fade. He revisits the same position as a live add-and-hold days later: "this is a position trade for me... they're just breaking the IPO base at a big beat today — the volume is gonna be the biggest volume day, maybe even gonna exceed the IPO volume day." And again a few sessions after that, still trailing the stop: "took out the nice IPO base, gapped up on enormous volume... I probably should have bought more shares, I didn't even buy a full position, I bought like two-thirds."
 
+![1785980052234](image/QULLAMAGGIE_TRADING_LESSONS/1785980052234.png)
+
 - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=21:34; 2020-05-07, "Earnings season opportunities!", t=1:22:15; and 2020-05-11, "$MARK potential MILLION dollar trade on the hook!", t=9:57*
 
 #### 1.3.3 CRSP (CRISPR Therapeutics)
 
-An early, passed-on IPO breakout from his 2017 watchlist scans. "CRSP had a little bit of an IPO breakout... probably that's why I passed on it — [didn't] see how many would follow through, not really." A clean pass rather than a trade, but a high-confidence named ticker from the earliest material in this corpus.
+An early, passed-on IPO breakout from his 2017 watchlist scans, rejected on liquidity rather than the pattern itself. "CRSP had a little bit of an IPO breakout, very thin — probably that's why I passed on it — didn't see how many [would] follow through, not really." The setup itself wasn't the problem; the stock simply wasn't liquid enough to trade, the same volume-first gate documented throughout 7.1. A clean pass rather than a trade, but a high-confidence named ticker from the earliest material in this corpus.
+
+![1786063684676](image/QULLAMAGGIE_TRADING_LESSONS/1786063684676.png)
 
 - *2017-02-13, "Going through Jan 2017 tracking watchlists (long and boring)", t=1:45*
 
