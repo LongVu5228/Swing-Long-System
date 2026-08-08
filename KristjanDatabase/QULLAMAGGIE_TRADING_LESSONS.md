@@ -162,10 +162,36 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [Not every reversal-adjacent story involving a recent IPO is actually about that IPO](#not-every-reversal-adjacent-story-involving-a-recent-ipo-is-actually-about-that-ipo)
      - [The regime arc: how his relationship to the category shifts year to year](#the-regime-arc-how-his-relationship-to-the-category-shifts-year-to-year)
    - [1.4 Pocket pivots](#14-pocket-pivots)
+     - [1.4.1 CrowdStrike (CRWD)](#141-crowdstrike-crwd)
+     - [1.4.2 Veeva Systems (VEEV)](#142-veeva-systems-veev)
+     - [1.4.3 Pinterest (PINS)](#143-pinterest-pins)
    - [1.5 Mean-reversion day trades](#15-mean-reversion-day-trades-distinct-from-the-multi-day-parabolic-setups-above)
+     - [1.5.1 ENPH, short](#151-enph-short)
+     - [1.5.2 NVAX, short](#152-nvax-short)
+     - [1.5.3 The $125,000 loss](#153-the-125000-loss)
    - [1.6 Weekly/monthly moving-average bounces (position trades)](#16-weeklymonthly-moving-average-bounces-position-trades)
+     - [1.6.1 ZM (Zoom Video)](#161-zm-zoom-video)
    - [1.7 Commodity and cyclical stocks — the exception to &#34;never buy dips&#34;](#17-commodity-and-cyclical-stocks--the-exception-to-never-buy-dips)
+     - [1.7.1 FCX (Freeport-McMoRan) &amp; SMH](#171-fcx-freeport-mcmoran--smh)
+     - [1.7.2 Semiconductor allocation (AMAT, LRCX, SOXL, TSM)](#172-semiconductor-allocation-amat-lrcx-soxl-tsm)
+     - [1.7.3 SQM (lithium)](#173-sqm-lithium)
    - [1.8 Failed-breakout resets](#18-failed-breakout-resets)
+     - [1.8.1 MU (Micron), AHPI, CODX &amp; AMD — the earliest recorded statement of the rule](#181-mu-micron-ahpi-codx--amd--the-earliest-recorded-statement-of-the-rule)
+     - [1.8.2 AMD — the one that got away](#182-amd--the-one-that-got-away)
+     - [1.8.3 When not to wait for the reset](#183-when-not-to-wait-for-the-reset)
+     - [1.8.4 LVGO (Livongo) — &#34;no reason to put stocks on a blacklist&#34;](#184-lvgo-livongo--no-reason-to-put-stocks-on-a-blacklist)
+     - [1.8.5 VSTO](#185-vsto)
+     - [1.8.6 The rule generalized to overshoots and undercuts, not just breakouts](#186-the-rule-generalized-to-overshoots-and-undercuts-not-just-breakouts)
+     - [1.8.7 The self-diagnostic nuance: how many is too many](#187-the-self-diagnostic-nuance-how-many-is-too-many)
+     - [1.8.8 The rule extended to shorts and breakdowns](#188-the-rule-extended-to-shorts-and-breakdowns)
+     - [1.8.9 NUGT — not every failed breakout gets a reset](#189-nugt--not-every-failed-breakout-gets-a-reset)
+     - [1.8.10 AMRS (Amyris) &amp; EXEL](#1810-amrs-amyris--exel)
+     - [1.8.11 The broad-based warning sign, restated](#1811-the-broad-based-warning-sign-restated)
+     - [1.8.12 The rule restated, six weeks after AMRS/EXEL](#1812-the-rule-restated-six-weeks-after-amrsexel)
+     - [1.8.13 A tactical corollary: waiting after the open](#1813-a-tactical-corollary-waiting-after-the-open)
+     - [1.8.14 The base rate, stated bluntly](#1814-the-base-rate-stated-bluntly)
+     - [1.8.15 AR (Antero Resources)](#1815-ar-antero-resources)
+     - [1.8.16 Isolated failed breakouts vs. a broad-based wave of them](#1816-isolated-failed-breakouts-vs-a-broad-based-wave-of-them)
    - [1.9 Distressed and bankruptcy-catalyst bounces](#19-distressed-and-bankruptcy-catalyst-bounces)
    - [1.10 Sector sympathy and vehicle choice](#110-sector-sympathy-and-vehicle-choice)
    - [1.11 Parabolic shorts and parabolic longs (mean-reversion, multi-day)](#111-parabolic-shorts-and-parabolic-longs-mean-reversion-multi-day)
@@ -1699,17 +1725,31 @@ The precise definition, and his own enthusiasm for the category, both shift rath
 
 A pocket pivot is a breakout that happens *inside* an existing base or range, rather than off a clean multi-week consolidation into brand-new territory — a stock with prior momentum pulls back to a major moving average, builds a small range there, then breaks that smaller range on higher volume, all while still technically inside its larger pattern. Unlike most of the other setups in this section, he actually spells this one out in full, twice, on two different named stocks — so there's a real "textbook example" to learn from here, not just a definition.
 
-- **CrowdStrike (CRWD) — his own "picture perfect" example.** On **2021-05-26** a viewer pushes back that a current CRWD candle "doesn't look like a breakout," and he uses it as a teaching moment, pointing back at what had happened roughly two weeks earlier: "a stock with previous momentum that pulls back to one of the major moving averages, builds a little bit of a range, and then breaks out of that range — like, this was a picture perfect pocket pivot." Specifically: CRWD found support on its rising 100-day, started building higher lows, got tighter, then broke out of that small range on higher volume — "and look at it now, and now everyone's getting excited about this being a breakout... but if you want to make money in the markets, this is where you buy it." The point he's making live is pointed: by the time a pocket pivot looks like an obvious breakout to everyone else, the real entry already happened days earlier, inside the range.
-- ![CRWD daily, September 2020 through August 2021 — the pocket-pivot entry highlighted inside the larger range](image/QULLAMAGGIE_TRADING_LESSONS/1785631375062.png)
-  - *2021-05-26, "Some bigs moves starting!!", t=53:33*
-- **A second CRWD moment, same video, restated even more plainly** after a follow-up question: "it's a breakout inside of a range — it's inside of a bigger range." He also adds an important scope note right after: "pocket pivots are for slower-moving stocks anyways, and you shouldn't be trading slower-moving stocks" — i.e., he considers this setup a secondary tool mainly relevant for larger/slower names, not something most of his (faster, higher-ADR-focused) audience should prioritize.
-  - *2021-05-26, "Some bigs moves starting!!", t=55:44*
-- **VEEV (Veeva Systems), compared directly to TDOC, 2021-01-20.** Looking at a slow-moving, choppy name that's been "surfing the 100-day for a while" and building higher lows, he calls it live: "this is called like a pocket pivot, it's a breakout that's inside of a base." He then draws a direct comparison to **TDOC (Teladoc)** — the same stock covered as an earnings-breakout example in section 1.2 — pointing out that when he originally bought TDOC, "it was the same thing, it was kind of building higher lows and kind of breaking out inside of its base... the word for it is a pocket pivot." This is a useful cross-reference: TDOC's entry, in his own retrospective framing, technically fits *both* labels (episodic pivot on the earnings gap itself, pocket pivot on the specific basing pattern that preceded it), which is a reminder that these category names describe the *chart mechanics* of an entry, not mutually exclusive boxes a stock has to fit into.
-- ![1786129492575](image/QULLAMAGGIE_TRADING_LESSONS/1786129492575.png)
-  - *2021-01-20, "Extended stocks breaking down! $MARA $RIOT $BNGO", t=48:14*
-- **Pinterest (PINS), 2021-01-21.** Bought the day before: "had a little bit of a breakout, it's just been surfing this moving average — really nice. They had a little bit of a pocket pivot as it's called — like inside-range breakout." A smaller, quieter, less-narrated example than CRWD, but useful precisely because it shows the pattern at a more modest scale (his own words: "a little bit of a pocket pivot") rather than only the dramatic textbook case.
-- ![1786129658496](image/QULLAMAGGIE_TRADING_LESSONS/1786129658496.png)
-  - *2021-01-21, "Bitcoin nearing the 50-day! Major support?", t=7:59*
+#### 1.4.1 CrowdStrike (CRWD)
+
+His own "picture perfect" example. On **2021-05-26** a viewer pushes back that a current CRWD candle "doesn't look like a breakout," and he uses it as a teaching moment, pointing back at what had happened roughly two weeks earlier: "a stock with previous momentum that pulls back to one of the major moving averages, builds a little bit of a range, and then breaks out of that range — like, this was a picture perfect pocket pivot." Specifically: CRWD found support on its rising 100-day, started building higher lows, got tighter, then broke out of that small range on higher volume — "and look at it now, and now everyone's getting excited about this being a breakout... but if you want to make money in the markets, this is where you buy it." The point he's making live is pointed: by the time a pocket pivot looks like an obvious breakout to everyone else, the real entry already happened days earlier, inside the range.
+
+A second CRWD moment, same video, restated even more plainly after a follow-up question: "it's a breakout inside of a range — it's inside of a bigger range." He also adds an important scope note right after: "pocket pivots are for slower-moving stocks anyways, and you shouldn't be trading slower-moving stocks" — i.e., he considers this setup a secondary tool mainly relevant for larger/slower names, not something most of his (faster, higher-ADR-focused) audience should prioritize.
+
+- *2021-05-26, "Some bigs moves starting!!", t=53:33 and t=55:44*
+
+![CRWD daily, September 2020 through August 2021 — the pocket-pivot entry highlighted inside the larger range](image/QULLAMAGGIE_TRADING_LESSONS/1785631375062.png)
+
+#### 1.4.2 Veeva Systems (VEEV)
+
+Compared directly to TDOC. Looking at a slow-moving, choppy name that's been "surfing the 100-day for a while" and building higher lows, he calls it live: "this is called like a pocket pivot, it's a breakout that's inside of a base." He then draws a direct comparison to **TDOC (Teladoc)** — the same stock covered as an earnings-breakout example in section 1.2 — pointing out that when he originally bought TDOC, "it was the same thing, it was kind of building higher lows and kind of breaking out inside of its base... the word for it is a pocket pivot." This is a useful cross-reference: TDOC's entry, in his own retrospective framing, technically fits *both* labels (episodic pivot on the earnings gap itself, pocket pivot on the specific basing pattern that preceded it), which is a reminder that these category names describe the *chart mechanics* of an entry, not mutually exclusive boxes a stock has to fit into.
+
+- *2021-01-20, "Extended stocks breaking down! $MARA $RIOT $BNGO", t=48:14*
+
+![1786129492575](image/QULLAMAGGIE_TRADING_LESSONS/1786129492575.png)
+
+#### 1.4.3 Pinterest (PINS)
+
+Bought the day before: "had a little bit of a breakout, it's just been surfing this moving average — really nice. They had a little bit of a pocket pivot as it's called — like inside-range breakout." A smaller, quieter, less-narrated example than CRWD, but useful precisely because it shows the pattern at a more modest scale (his own words: "a little bit of a pocket pivot") rather than only the dramatic textbook case.
+
+- *2021-01-21, "Bitcoin nearing the 50-day! Major support?", t=7:59*
+
+![1786129658496](image/QULLAMAGGIE_TRADING_LESSONS/1786129658496.png)
 
 Putting the CRWD walkthrough together with the TDOC/PINS examples, the pattern to actually watch for is: (1) a stock that already has real prior momentum, not a fresh unknown name; (2) a pullback to a major moving average (10-, 20-, 50-, or 100-day depending on the stock's speed) rather than a full multi-week reset; (3) a small, tight range forming right at that average; (4) a breakout of *that small range* on above-average volume — which will often look, to an outside observer scrolling past days later, like "just a continuation move," not a real entry point. His own framing is that the pocket pivot buyer is intentionally getting in before the move looks obvious to everyone else, which is also exactly why it's a harder setup to trust in real time than a clean breakout from a big, visually obvious base.
 
@@ -1717,15 +1757,29 @@ Putting the CRWD walkthrough together with the TDOC/PINS examples, the pattern t
 
 Separately from the multi-day parabolic short/long swing setups, he names a faster, shorter-hold "mean-reversion" pattern as one of his favorite pure day-trading setups: a stock that's had a sharp multi-day run (either direction) reverses hard, often on day three of the move, and the trade is over within the same session or the next. It's the same underlying logic as the parabolic trades — fade extension, don't anticipate it — but compressed into hours instead of days.
 
-- **ENPH, short.** An overextended trade: one leg up, second leg up, third, fourth, fifth leg up — on the third day it took out opening-range lows, that's where he shorted it. On the 60-minute chart you can see a multi-hour range and then a clean breakdown of that range; his risk on the entry was "like a dollar." Still short roughly half size at the time of the video, just trailing it.
-- ![1786129982240](image/QULLAMAGGIE_TRADING_LESSONS/1786129982240.png)
-  - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=25:43*
-- **NVAX, short.** Another overextended name, up roughly 1,400% in a few months. First signs of trouble came on the first day it merely went sideways instead of extending further: it showed weakness, took out opening-range lows, tested VWAP, failed at VWAP — that's where he shorted it, around $56.
-- ![1786130101049](image/QULLAMAGGIE_TRADING_LESSONS/1786130101049.png)
-  - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=22:31*
-- **The $125,000 loss.** Not every mean-reversion attempt works: he narrates a short where he was "a little bit too aggressive too early," and it cost him $125,000 — then compounds the mistake by failing to re-add once the stock actually did show the weakness he'd originally been looking for. The stock fell 30-40% anyway without him fully positioned for it; he ends up buying the eventual bounce off the 60-minute chart instead, closing the loop from a losing short into a working long on the same name, but explicitly flags the sequence as "not a super clean setup, just a variation" rather than a trade to be proud of.
-- ![1786130181718](image/QULLAMAGGIE_TRADING_LESSONS/1786130181718.png)
-  - *2020-05-27, "My setups, methodology, and how to build trading mastery", t=26:52*
+#### 1.5.1 ENPH, short
+
+An overextended trade: one leg up, second leg up, third, fourth, fifth leg up — on the third day it took out opening-range lows, that's where he shorted it. On the 60-minute chart you can see a multi-hour range and then a clean breakdown of that range; his risk on the entry was "like a dollar." Still short roughly half size at the time of the video, just trailing it.
+
+- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=25:43*
+
+![1786129982240](image/QULLAMAGGIE_TRADING_LESSONS/1786129982240.png)
+
+#### 1.5.2 NVAX, short
+
+Another overextended name, up roughly 1,400% in a few months. First signs of trouble came on the first day it merely went sideways instead of extending further: it showed weakness, took out opening-range lows, tested VWAP, failed at VWAP — that's where he shorted it, around $56.
+
+- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=22:31*
+
+![1786130101049](image/QULLAMAGGIE_TRADING_LESSONS/1786130101049.png)
+
+#### 1.5.3 The $125,000 loss
+
+Not every mean-reversion attempt works: he narrates a short where he was "a little bit too aggressive too early," and it cost him $125,000 — then compounds the mistake by failing to re-add once the stock actually did show the weakness he'd originally been looking for. The stock fell 30-40% anyway without him fully positioned for it; he ends up buying the eventual bounce off the 60-minute chart instead, closing the loop from a losing short into a working long on the same name, but explicitly flags the sequence as "not a super clean setup, just a variation" rather than a trade to be proud of.
+
+- *2020-05-27, "My setups, methodology, and how to build trading mastery", t=26:52*
+
+![1786130181718](image/QULLAMAGGIE_TRADING_LESSONS/1786130181718.png)
 
 The throughline: the day-trade version of mean-reversion punishes being early far more severely and far faster than the slower multi-day parabolic version, because there's no multi-day cushion to absorb a bad entry — ENPH and VACS worked because he waited for a specific break (opening-range lows, a failed VWAP test); the $125K loss happened because he didn't.
 
@@ -1733,65 +1787,143 @@ The throughline: the day-trade version of mean-reversion punishes being early fa
 
 Separate from his main fast-breakout style, he names bounces off major weekly or monthly moving averages (the 20-, 50-, 100-, or 150-week) as their own, slower, lower-risk setup meant for patient position trades held over months rather than days or weeks. This is the setup he reaches for on names too large or too slow to fit his usual opening-range/daily-chart mechanics — and, separately, it's the reason he insists on checking more than one chart timeframe before writing a stock off.
 
-- **ZM (Zoom Video).** Bounces cleanly off its rising 200-day moving average right after announcing a mixed securities offering. On stream: "not my type of setup, but this is one type of setup that you can swing and position trade." The risk/reward he gives is telling — "maybe ten dollars... to make a hundred or two hundred," a much wider dollar stop than his usual tight opening-range entries, justified because the target move (a bounce off a major long-term average) tends to be proportionally larger too. He explicitly tells viewers this is exactly the kind of pattern to log in a personal "market winner study" even when it isn't their own primary style.
-- ![1786130397348](image/QULLAMAGGIE_TRADING_LESSONS/1786130397348.png)
-  - *2021-01-12, "EV Gold Rush!", t=3:23*
+#### 1.6.1 ZM (Zoom Video)
+
+Bounces cleanly off its rising 200-day moving average right after announcing a mixed securities offering. On stream: "not my type of setup, but this is one type of setup that you can swing and position trade." The risk/reward he gives is telling — "maybe ten dollars... to make a hundred or two hundred," a much wider dollar stop than his usual tight opening-range entries, justified because the target move (a bounce off a major long-term average) tends to be proportionally larger too. He explicitly tells viewers this is exactly the kind of pattern to log in a personal "market winner study" even when it isn't their own primary style.
+
+- *2021-01-12, "EV Gold Rush!", t=3:23*
+
+![1786130397348](image/QULLAMAGGIE_TRADING_LESSONS/1786130397348.png)
 
 ### 1.7 Commodity and cyclical stocks — the exception to "never buy dips"
 
 Commodity, cyclical, and foreign-listed names get an explicit carve-out from his usual "only buy confirmed breakouts, never buy dips" rule — these stocks tend to be choppier than growth stocks and their breakouts fail more often, so the better entry is a pullback or an undercut-and-reclaim of a rising moving average.
 
-- **The rule, explained directly, with historical context, then a real named pass.** Asked essentially why he treats this group differently: "commodities are tricky — they're better to buy when they just test the rising moving average, like the 50 or the 100... growth stocks are usually better to buy off breakouts, especially the leading ones, but not necessarily commodities, they don't work as well as breakouts." He backs this with a specific historical reference rather than just a personal hunch: during the 2003-2007 commodity bull market (and again 2009-2011), commodities were the market's leading sector for years, "and they were generally kind of tricky — many of the leading names, you had to buy them when they bounced off a rising moving average." He then names the live example the whole point was riding on: "that's why I passed on FCX, because I wasn't trusting this breakout — now it's obviously working, but... these types of setups where it undercuts a key moving average and then reclaims, these types of setups work really well for commodity names." A real, named instance of the rule costing him a trade that worked out anyway — FCX's breakout ran without him specifically because it was a plain breakout rather than the undercut-and-reclaim entry he actually trusts on commodity names.
-- ![1786131035526](image/QULLAMAGGIE_TRADING_LESSONS/1786131035526.png)
+The rule itself, explained directly with historical context: asked essentially why he treats this group differently, "commodities are tricky — they're better to buy when they just test the rising moving average, like the 50 or the 100... growth stocks are usually better to buy off breakouts, especially the leading ones, but not necessarily commodities, they don't work as well as breakouts." He backs this with a specific historical reference rather than just a personal hunch: during the 2003-2007 commodity bull market (and again 2009-2011), commodities were the market's leading sector for years, "and they were generally kind of tricky — many of the leading names, you had to buy them when they bounced off a rising moving average."
 
-  - *2021-05-07, "Seeing some big opportunities setting up", t=1:06:18–1:07:43*
-- **Semiconductor allocation.** He'd built roughly **half his account** across a cluster of semiconductor names (AMAT, LRCX, SOXL, and TSM) about a month earlier, and by this session the bases on those names "look even better" even as software/growth EPs from the same period were failing and fading below their declining moving averages ("look at all these so-called earnings gappers... they're all fading now").
-- - *2021-05-07, "Seeing some big opportunities setting up", t=30:31*
-- **SQM (lithium).** Repeatedly tries to break out, gets slammed back down, builds another higher low — an annoying, frustrating pattern to watch live, but one he explicitly doesn't abandon: "the thing is, once it goes, it's gonna make a big move... it wouldn't surprise me if it doubles." Patience through repeated failed breakouts is treated as normal for this asset class, not a reason to give up on the name.
-- ![1786201444065](image/QULLAMAGGIE_TRADING_LESSONS/1786201444065.png)
+#### 1.7.1 FCX (Freeport-McMoRan) & SMH
 
-  - *2021-05-07, "Seeing some big opportunities setting up", t=31:36*
-- **FCX (Freeport-McMoRan) and SMH — the undercut-and-reclaim rule applied live to two different names.** Earlier in the same session FCX gets dismissed in passing as "a mess," and he explains exactly why later on: "that's why I passed on FCX — I wasn't trusting this breakout. Now it's obviously working, but... these types of setups where it undercuts a key moving average and then reclaims, these types of setups work really well for commodity names." In the same breath he points at SMH (the semiconductor ETF) as the pattern actually working the way he wants it to: it had undercut its rising 100-day, tested it again, reclaimed, and by this point was reclaiming its 50-day too — "it's showing strength, it doesn't want to go down." The contrast is the whole lesson in miniature: FCX's breakout worked anyway this one time, but he still passed on it *at the moment of the breakout itself*, because a straight breakout on a commodity name is a bet against the base rate, even when it occasionally pays off.
-- ![1786201620861](image/QULLAMAGGIE_TRADING_LESSONS/1786201620861.png)
+The rule applied live, on two different names in the same session — a real, named instance of the rule costing him a trade that worked out anyway. Early in the session FCX gets dismissed in passing as "a mess," and he explains exactly why later on: "that's why I passed on FCX — I wasn't trusting this breakout. Now it's obviously working, but... these types of setups where it undercuts a key moving average and then reclaims, these types of setups work really well for commodity names." FCX's breakout ran without him specifically because it was a plain breakout rather than the undercut-and-reclaim entry he actually trusts on commodity names.
 
-  - *2021-05-07, "Seeing some big opportunities setting up", t=25:07 and t=1:07:24*
+In the same breath he points at SMH (the semiconductor ETF) as the pattern actually working the way he wants it to: it had undercut its rising 100-day, tested it again, reclaimed, and by this point was reclaiming its 50-day too — "it's showing strength, it doesn't want to go down." The contrast is the whole lesson in miniature: FCX's breakout worked anyway this one time, but he still passed on it *at the moment of the breakout itself*, because a straight breakout on a commodity name is a bet against the base rate, even when it occasionally pays off.
+
+- *2021-05-07, "Seeing some big opportunities setting up", t=25:07, t=1:06:18–1:07:43, and t=1:07:24*
+
+![1786131035526](image/QULLAMAGGIE_TRADING_LESSONS/1786131035526.png)
+
+![1786201620861](image/QULLAMAGGIE_TRADING_LESSONS/1786201620861.png)
+
+#### 1.7.2 Semiconductor allocation (AMAT, LRCX, SOXL, TSM)
+
+He'd built roughly **half his account** across this cluster of semiconductor names about a month earlier, and by this session the bases on those names "look even better" even as software/growth EPs from the same period were failing and fading below their declining moving averages ("look at all these so-called earnings gappers... they're all fading now").
+
+- *2021-05-07, "Seeing some big opportunities setting up", t=30:31*
+
+#### 1.7.3 SQM (lithium)
+
+Repeatedly tries to break out, gets slammed back down, builds another higher low — an annoying, frustrating pattern to watch live, but one he explicitly doesn't abandon: "the thing is, once it goes, it's gonna make a big move... it wouldn't surprise me if it doubles." Patience through repeated failed breakouts is treated as normal for this asset class, not a reason to give up on the name.
+
+- *2021-05-07, "Seeing some big opportunities setting up", t=31:36*
+
+![1786201444065](image/QULLAMAGGIE_TRADING_LESSONS/1786201444065.png)
 
 ### 1.8 Failed-breakout resets
 
 A breakout that fails and falls back into its base isn't a dead setup — it can rebuild into something better than the original attempt. The mechanism: a second attempt, built on the higher low left behind by the first failed move, often has better risk/reward than the original breakout did, because the range is now tighter and the weak hands from the first failed move have already been shaken out. This is not a throwaway line he says once — across more than a year of streams he restates the same principle, in close to the same words, over a dozen separate times, and demonstrates it live on named stocks nearly every time. Two caveats travel with the core rule: not every failed breakout earns patience (one that closes very weak gets sold, not nursed), and the pattern only reads as bullish when it's isolated to individual stocks — a market-wide wave of failed breakouts is a regime warning, not a setup (see the closing note below).
 
-- **The earliest recorded statement of the rule, with two live trades attached.** Walking through recent trades, he flags AHPI, stopped out and awaiting a re-break: "it's just like CODX — I bought it here, got stopped out two days later, and the next day it broke out and I re-bought it, and this time it went." He applies the identical logic to a semiconductor breakout he'd passed on and regretted: "AMD is one — I tried to buy it, I bought it here, got stopped out two days later. This breakout I passed on, because it was a laggard like the other semis that broke out like a week earlier and then it faded back... then four days ago it broke out again and it hasn't looked back since." States the rule directly: "the more failed breakouts you have, combined with higher lows and a longer base, the bigger the chance it's going to go — so AHPI, if it re-breaks, I'll be in it maybe even more." Forty minutes earlier in the same session he'd used the same comparison on **MU (Micron)**: "even with this pullback it's still holding these higher lows... it looks like AMD, it has these false breakouts, but eventually it's gonna go, the more it tests."
-  - *2020-07-24, "Damn its choppy out there", t=56:39 (MU) and t=1:16:06 (AHPI/CODX/AMD)*
-- **AMD, the one that got away — because of a prior failed breakout.** Six days later, kicking himself for not buying AMD off a fresh range break: "I was contemplating buying it here, but nope, I didn't, because I had this fixed mindset — it had a failed breakout here, had a failed breakout here, so I was like, ah, it's probably gonna fail again. Nope — just look at how perfect it looks on the weekly chart, this is a five-star setup, it built higher lows for a year and this has this clean range break." A dated, self-admitted case of treating prior failures as a permanent black mark and paying for it.
-  - *2020-07-30, "Success in trading is about shrugging off an occasional big loss quick and sticking to your process", t=1:18:13*
-- **When not to wait for the reset.** Asked directly how he handles a failed breakout: "if the breakout closes really really weak — like it closes really close to stopping you out — I think you should sell it, there's no point in sitting in a stock that didn't go on the breakout." The reset pattern in this section applies to breakouts that fail cleanly and hold above the prior low; one that closes on its lows, barely above the stop, gets cut on the spot instead.
-  - *2020-08-17, "If you trade random stocks and random setups, you wll have shit results.", t=1:43:49*
-- **LVGO (Livongo) — the fullest worked example, framed explicitly as "no reason to put stocks on a blacklist."** Fielding a question about writing off a stock after it disappoints: "there is no reason to put stocks on a blacklist, absolutely no reason... when you have a couple of failed breakouts and the stock goes sideways, builds higher lows, the setup just gets stronger — it makes no sense putting something that increases its odds of success on a blacklist." He then walks the actual chart: "it's like when I bought Livongo — this was like a six-star setup on a five-star scale, I bought it, it failed, I got stopped out, but then it reset, kept building higher lows, kept building a better base — and here again, failed breakout, I don't remember if I bought it here, it wasn't as good of a setup — and then you kept building higher lows, and then you got this real breakout after, it had gotten tighter and tighter. It makes no sense putting this thing on a blacklist after a couple of fake breakouts — this setup just got stronger. The stock doesn't care that you got frustrated with it."
-  - *2020-08-18, "Maybe becoming an activist investor", t=1:34:34*
-- **VSTO.** The stock had "a random breakup" a couple of weeks earlier that faded because of broader market weakness, not anything wrong with the stock itself. Rather than writing it off, he kept watching it: "it tried to break out, it failed, pulled back... kept building higher lows and now the setup is even better." Stated as a general principle in the same breath: "your failed breakouts can be very valuable."
-  - *2020-09-30, "Lack of good setups again", t=22:28*
-- **The rule generalized to overshoots and undercuts, not just breakouts.** Explaining why he trades off trendlines drawn loosely rather than pixel-perfect: "you want to see the overall trend... you want these undercuts and overshoots, you want those false breakdowns and false breakouts — that's where you build setup strength." Confirmation the mechanism isn't specific to upside breakouts; the same tightening-through-failed-tests logic applies wherever a trendline or range edge is repeatedly tested.
-  - *2020-10-09, "A lot of wisdon today the last 50 minutes or so", t=1:56:44*
-- **The self-diagnostic nuance: how many is too many.** Asked about false breakouts directly, he draws a base-rate line rather than treating every failure as noise: "you're gonna get false breakouts all the time, but if you get too many false breakouts then there may be either something wrong with your setup selection and/or the markets... the past two weeks there has been very few failed breakouts on solid setups — very few. So if you've gotten a lot of false breakouts the past two weeks, when the markets have gone higher, there's a high probability that your setup selection is not very good — you need to do some more work." A cluster of personal failed breakouts, in an otherwise strong tape, points back at setup selection rather than at the market.
-  - *2020-10-12, "Now is the time to sit and profit from the swing setups from weeks ago!", t=1:12:57*
-- **The rule extended to shorts and breakdowns.** Watching a short thesis test the same level a third time: "third time is the charm — well, that's how it usually works in the markets: if a stock tests an area several times, the more times it tests it, the higher the probability of success — it's the same thing with breakouts. That's why, if a stock had a failed breakout and then resets and tries to break out again, that's a stronger setup — and I think it's the same thing with breakdowns." The reset-strengthens-the-setup logic isn't long-only; a level that repeatedly resists breaking down, then finally cracks, carries the same extra conviction on the short side.
-  - *2020-10-23, "Indices looking good but where are the setups?", t=1:00:53*
-- **Not every failed breakout gets a reset — NUGT, a real loss taken and walked away from.** Contrast case: gold's breakout failed and "fell back into the range unfortunately, so it was a failed breakout" — he simply sold his NUGT (leveraged gold-miners ETF) position for a loss pre-market and moved on: "that trade is over for me." No blacklist rhetoric, no waiting for a reset — the reset pattern is something he watches *for*, not a rule that every failed breakout must be held through.
-  - *2021-01-08, "Many stocks are starting to speed up!", t=7:03*
-- **AMRS (Amyris), long.** Walking through his watchlist live, he flags a "false go" from a couple of weeks earlier: on the 60-minute chart, AMRS tried to break its range, failed, and "fell back into the base" — but instead of breaking down further, it kept building higher lows from there. His verdict, watching the second setup form: "sometimes false breakouts can give you a much stronger setup later on... embrace false breakouts." Directly next to it on the same scan, he flags **EXEL**, a stock he'd taken a loss on the day before, as a live example of the same pattern still in progress — pulled back, still building higher lows, "looks really good... if it closes like this."
-  - *2021-02-05, "Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market", t=1:20:33*
-- **The broad-based warning sign, restated.** Two weeks after AMRS/EXEL, describing deteriorating breadth rather than an individual setup: "we've seen the warning signs when it comes to breakouts — over the past couple of weeks there's been a lot of failed breakouts and a lot of just very sluggish breakouts, not the action we had in November and December and even early January." Same isolated-vs-broad distinction drawn out fully below: a failed breakout on one name is a reset opportunity, but a cluster of them across the market reads as the market itself weakening.
-  - *2021-02-18, "Know when your setups work and don't work", t=1:21:49*
-- **The rule restated, six weeks after AMRS/EXEL.** Unprompted, scanning a fresh batch of charts: "false breakouts can give you valuable information — if a failed breakout goes lower and puts in a higher low, that's valuable information, of course it's part of the base." Coming from an entirely different session with different stocks on screen, this is the closest thing to a formal definition he gives the pattern — confirmation that VSTO and AMRS weren't one-off exceptions but examples of a rule he actively scans for.
-  - *2021-03-19, "Crypto setups for next week!", t=3:52*
-- **A tactical corollary: waiting after the open filters out some failed breakouts for free.** Asked whether getting to the market an hour after the open costs opportunity: "it may even give you a little bit of an edge, because you're gonna get into less failed breakouts... a lot of things break out the first 15 to 30 minutes and then reverse. It actually may not be a net negative to get to the market an hour after open, as long as you're prepared from the night before with a watchlist — it may actually be a net positive." A timing-based way to reduce exposure to the intraday version of the same failure pattern, distinct from the reset logic above.
-  - *2021-05-17, "Deep fundamental research on Nat Gas", t=34:01*
-- **The base rate, stated bluntly.** "Failed breakouts, it's a thing — most breakouts I buy fail." Said mid-riff about not needing a news story for every random stock move; a plain acknowledgment that failure is the *modal* outcome of any single breakout attempt, which is exactly why the reset — the second attempt on the improved base — matters so much to his overall numbers.
-  - *2021-06-11, "Droves of former leaders", t=1:56:32*
-- **AR (Antero Resources).** A brief, live example scanning natural-gas names during an energy-sector run: "AR had a failed breakout a few days ago, but look at where it found support — still building higher lows, it looks powerful."
-  - *2021-10-27, "Earnings season is here! (opportunity!)", t=54:42*
+#### 1.8.1 MU (Micron), AHPI, CODX & AMD — the earliest recorded statement of the rule
 
-**Isolated failed breakouts vs. a broad-based wave of them.** Every example above is a single-stock reset — but he draws a sharp, explicit line between that and failed breakouts happening everywhere at once, and this is the older of the two ideas: he was flagging it as far back as his account's roughest stretch. Reviewing September–December 2018: "there were stocks going up, but most of them — there were a lot of failed breakouts, et cetera, et cetera," a period he calls "obviously not a great time to swing trade," coinciding with the Russell 2000 sitting at a three-and-a-half-year-old level. He draws the identical conclusion again from February 2019: "I started seeing some failed breakouts, and so I sliced down, I got stopped out of a lot of positions... during these four or five sessions I decreased my long exposure by about 50%, I added some shorts." The 2021-02-18 entry above is a third, independent instance of the same read, two years later. Put next to the single-stock examples, the two ideas aren't in tension: a failed breakout on one name, against an otherwise-strong tape, is exactly the reset opportunity this section describes — but the same pattern showing up across many names simultaneously is read as the market weakening, and the correct response flips from "wait for the reset" to "cut exposure and add shorts."
+Walking through recent trades, he flags AHPI, stopped out and awaiting a re-break: "it's just like CODX — I bought it here, got stopped out two days later, and the next day it broke out and I re-bought it, and this time it went." He applies the identical logic to a semiconductor breakout he'd passed on and regretted: "AMD is one — I tried to buy it, I bought it here, got stopped out two days later. This breakout I passed on, because it was a laggard like the other semis that broke out like a week earlier and then it faded back... then four days ago it broke out again and it hasn't looked back since." States the rule directly: "the more failed breakouts you have, combined with higher lows and a longer base, the bigger the chance it's going to go — so AHPI, if it re-breaks, I'll be in it maybe even more." Forty minutes earlier in the same session he'd used the same comparison on MU: "even with this pullback it's still holding these higher lows... it looks like AMD, it has these false breakouts, but eventually it's gonna go, the more it tests."
+
+- *2020-07-24, "Damn its choppy out there", t=56:39 (MU) and t=1:16:06 (AHPI/CODX/AMD)*
+
+#### 1.8.2 AMD — the one that got away
+
+Six days later, kicking himself for not buying AMD off a fresh range break: "I was contemplating buying it here, but nope, I didn't, because I had this fixed mindset — it had a failed breakout here, had a failed breakout here, so I was like, ah, it's probably gonna fail again. Nope — just look at how perfect it looks on the weekly chart, this is a five-star setup, it built higher lows for a year and this has this clean range break." A dated, self-admitted case of treating prior failures as a permanent black mark and paying for it.
+
+- *2020-07-30, "Success in trading is about shrugging off an occasional big loss quick and sticking to your process", t=1:18:13*
+
+#### 1.8.3 When not to wait for the reset
+
+Asked directly how he handles a failed breakout: "if the breakout closes really really weak — like it closes really close to stopping you out — I think you should sell it, there's no point in sitting in a stock that didn't go on the breakout." The reset pattern in this section applies to breakouts that fail cleanly and hold above the prior low; one that closes on its lows, barely above the stop, gets cut on the spot instead.
+
+- *2020-08-17, "If you trade random stocks and random setups, you wll have shit results.", t=1:43:49*
+
+#### 1.8.4 LVGO (Livongo) — "no reason to put stocks on a blacklist"
+
+The fullest worked example. Fielding a question about writing off a stock after it disappoints: "there is no reason to put stocks on a blacklist, absolutely no reason... when you have a couple of failed breakouts and the stock goes sideways, builds higher lows, the setup just gets stronger — it makes no sense putting something that increases its odds of success on a blacklist." He then walks the actual chart: "it's like when I bought Livongo — this was like a six-star setup on a five-star scale, I bought it, it failed, I got stopped out, but then it reset, kept building higher lows, kept building a better base — and here again, failed breakout, I don't remember if I bought it here, it wasn't as good of a setup — and then you kept building higher lows, and then you got this real breakout after, it had gotten tighter and tighter. It makes no sense putting this thing on a blacklist after a couple of fake breakouts — this setup just got stronger. The stock doesn't care that you got frustrated with it."
+
+- *2020-08-18, "Maybe becoming an activist investor", t=1:34:34*
+
+#### 1.8.5 VSTO
+
+The stock had "a random breakup" a couple of weeks earlier that faded because of broader market weakness, not anything wrong with the stock itself. Rather than writing it off, he kept watching it: "it tried to break out, it failed, pulled back... kept building higher lows and now the setup is even better." Stated as a general principle in the same breath: "your failed breakouts can be very valuable."
+
+- *2020-09-30, "Lack of good setups again", t=22:28*
+
+#### 1.8.6 The rule generalized to overshoots and undercuts, not just breakouts
+
+Explaining why he trades off trendlines drawn loosely rather than pixel-perfect: "you want to see the overall trend... you want these undercuts and overshoots, you want those false breakdowns and false breakouts — that's where you build setup strength." Confirmation the mechanism isn't specific to upside breakouts; the same tightening-through-failed-tests logic applies wherever a trendline or range edge is repeatedly tested.
+
+- *2020-10-09, "A lot of wisdon today the last 50 minutes or so", t=1:56:44*
+
+#### 1.8.7 The self-diagnostic nuance: how many is too many
+
+Asked about false breakouts directly, he draws a base-rate line rather than treating every failure as noise: "you're gonna get false breakouts all the time, but if you get too many false breakouts then there may be either something wrong with your setup selection and/or the markets... the past two weeks there has been very few failed breakouts on solid setups — very few. So if you've gotten a lot of false breakouts the past two weeks, when the markets have gone higher, there's a high probability that your setup selection is not very good — you need to do some more work." A cluster of personal failed breakouts, in an otherwise strong tape, points back at setup selection rather than at the market.
+
+- *2020-10-12, "Now is the time to sit and profit from the swing setups from weeks ago!", t=1:12:57*
+
+#### 1.8.8 The rule extended to shorts and breakdowns
+
+Watching a short thesis test the same level a third time: "third time is the charm — well, that's how it usually works in the markets: if a stock tests an area several times, the more times it tests it, the higher the probability of success — it's the same thing with breakouts. That's why, if a stock had a failed breakout and then resets and tries to break out again, that's a stronger setup — and I think it's the same thing with breakdowns." The reset-strengthens-the-setup logic isn't long-only; a level that repeatedly resists breaking down, then finally cracks, carries the same extra conviction on the short side.
+
+- *2020-10-23, "Indices looking good but where are the setups?", t=1:00:53*
+
+#### 1.8.9 NUGT — not every failed breakout gets a reset
+
+Contrast case: gold's breakout failed and "fell back into the range unfortunately, so it was a failed breakout" — he simply sold his NUGT (leveraged gold-miners ETF) position for a loss pre-market and moved on: "that trade is over for me." No blacklist rhetoric, no waiting for a reset — the reset pattern is something he watches *for*, not a rule that every failed breakout must be held through.
+
+- *2021-01-08, "Many stocks are starting to speed up!", t=7:03*
+
+#### 1.8.10 AMRS (Amyris) & EXEL
+
+Walking through his watchlist live, he flags a "false go" from a couple of weeks earlier: on the 60-minute chart, AMRS tried to break its range, failed, and "fell back into the base" — but instead of breaking down further, it kept building higher lows from there. His verdict, watching the second setup form: "sometimes false breakouts can give you a much stronger setup later on... embrace false breakouts." Directly next to it on the same scan, he flags **EXEL**, a stock he'd taken a loss on the day before, as a live example of the same pattern still in progress — pulled back, still building higher lows, "looks really good... if it closes like this."
+
+- *2021-02-05, "Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market", t=1:20:33*
+
+#### 1.8.11 The broad-based warning sign, restated
+
+Two weeks after AMRS/EXEL, describing deteriorating breadth rather than an individual setup: "we've seen the warning signs when it comes to breakouts — over the past couple of weeks there's been a lot of failed breakouts and a lot of just very sluggish breakouts, not the action we had in November and December and even early January." Same isolated-vs-broad distinction drawn out fully in 1.8.16: a failed breakout on one name is a reset opportunity, but a cluster of them across the market reads as the market itself weakening.
+
+- *2021-02-18, "Know when your setups work and don't work", t=1:21:49*
+
+#### 1.8.12 The rule restated, six weeks after AMRS/EXEL
+
+Unprompted, scanning a fresh batch of charts: "false breakouts can give you valuable information — if a failed breakout goes lower and puts in a higher low, that's valuable information, of course it's part of the base." Coming from an entirely different session with different stocks on screen, this is the closest thing to a formal definition he gives the pattern — confirmation that VSTO and AMRS weren't one-off exceptions but examples of a rule he actively scans for.
+
+- *2021-03-19, "Crypto setups for next week!", t=3:52*
+
+#### 1.8.13 A tactical corollary: waiting after the open
+
+Asked whether getting to the market an hour after the open costs opportunity: "it may even give you a little bit of an edge, because you're gonna get into less failed breakouts... a lot of things break out the first 15 to 30 minutes and then reverse. It actually may not be a net negative to get to the market an hour after open, as long as you're prepared from the night before with a watchlist — it may actually be a net positive." A timing-based way to reduce exposure to the intraday version of the same failure pattern, distinct from the reset logic above.
+
+- *2021-05-17, "Deep fundamental research on Nat Gas", t=34:01*
+
+#### 1.8.14 The base rate, stated bluntly
+
+"Failed breakouts, it's a thing — most breakouts I buy fail." Said mid-riff about not needing a news story for every random stock move; a plain acknowledgment that failure is the *modal* outcome of any single breakout attempt, which is exactly why the reset — the second attempt on the improved base — matters so much to his overall numbers.
+
+- *2021-06-11, "Droves of former leaders", t=1:56:32*
+
+#### 1.8.15 AR (Antero Resources)
+
+A brief, live example scanning natural-gas names during an energy-sector run: "AR had a failed breakout a few days ago, but look at where it found support — still building higher lows, it looks powerful."
+
+- *2021-10-27, "Earnings season is here! (opportunity!)", t=54:42*
+
+#### 1.8.16 Isolated failed breakouts vs. a broad-based wave of them
+
+Every example above is a single-stock reset — but he draws a sharp, explicit line between that and failed breakouts happening everywhere at once, and this is the older of the two ideas: he was flagging it as far back as his account's roughest stretch. Reviewing September–December 2018: "there were stocks going up, but most of them — there were a lot of failed breakouts, et cetera, et cetera," a period he calls "obviously not a great time to swing trade," coinciding with the Russell 2000 sitting at a three-and-a-half-year-old level. He draws the identical conclusion again from February 2019: "I started seeing some failed breakouts, and so I sliced down, I got stopped out of a lot of positions... during these four or five sessions I decreased my long exposure by about 50%, I added some shorts." The 1.8.11 entry above is a third, independent instance of the same read, two years later. Put next to the single-stock examples, the two ideas aren't in tension: a failed breakout on one name, against an otherwise-strong tape, is exactly the reset opportunity this section describes — but the same pattern showing up across many names simultaneously is read as the market weakening, and the correct response flips from "wait for the reset" to "cut exposure and add shorts."
 
 - *2019-03-10, "How to trade (and not to trade) insanity stocks. $BPTH $LFIN $DRYS $AQXP $KBIO $DGLY $VLTC", t=21:04 and t=26:03*
 
