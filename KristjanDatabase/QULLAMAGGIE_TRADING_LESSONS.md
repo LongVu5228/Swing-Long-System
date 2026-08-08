@@ -185,7 +185,7 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.8.7 The self-diagnostic nuance: how many is too many](#187-the-self-diagnostic-nuance-how-many-is-too-many)
      - [1.8.8 The rule extended to shorts and breakdowns](#188-the-rule-extended-to-shorts-and-breakdowns)
      - [1.8.9 NUGT — not every failed breakout gets a reset](#189-nugt--not-every-failed-breakout-gets-a-reset)
-     - [1.8.10 AMRS (Amyris) &amp; EXEL](#1810-amrs-amyris--exel)
+     - [1.8.10 AMRS (Amyris), EXEL &amp; LAZR](#1810-amrs-amyris-exel--lazr)
      - [1.8.11 The broad-based warning sign, restated](#1811-the-broad-based-warning-sign-restated)
      - [1.8.12 The rule restated, six weeks after AMRS/EXEL](#1812-the-rule-restated-six-weeks-after-amrsexel)
      - [1.8.13 A tactical corollary: waiting after the open](#1813-a-tactical-corollary-waiting-after-the-open)
@@ -1897,13 +1897,25 @@ Watching a short thesis test the same level a third time: "third time is the cha
 
 Contrast case: gold's breakout failed and "fell back into the range unfortunately, so it was a failed breakout" — he simply sold his NUGT (leveraged gold-miners ETF) position for a loss pre-market and moved on: "that trade is over for me." No blacklist rhetoric, no waiting for a reset — the reset pattern is something he watches *for*, not a rule that every failed breakout must be held through.
 
+![1786218042515](image/QULLAMAGGIE_TRADING_LESSONS/1786218042515.png)
+
 - *2021-01-08, "Many stocks are starting to speed up!", t=7:03*
 
-#### 1.8.10 AMRS (Amyris) & EXEL
+#### 1.8.10 AMRS (Amyris), EXEL & LAZR
 
 Walking through his watchlist live, he flags a "false go" from a couple of weeks earlier: on the 60-minute chart, AMRS tried to break its range, failed, and "fell back into the base" — but instead of breaking down further, it kept building higher lows from there. His verdict, watching the second setup form: "sometimes false breakouts can give you a much stronger setup later on... embrace false breakouts." Directly next to it on the same scan, he flags **EXEL**, a stock he'd taken a loss on the day before, as a live example of the same pattern still in progress — pulled back, still building higher lows, "looks really good... if it closes like this."
 
-- *2021-02-05, "Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market", t=1:20:33*
+Later in the same session he groups **LAZR (Luminar Technologies)** into the identical read. Earlier on he'd dismissed it as choppy — "what a choppy one, it goes, it wants to go, then it fades, and it wants to go again, and then it fades again" — but by the point he's reviewing EXEL, he bundles the two together as the same kind of improving setup: "both LAZR and EXEL, I really really like — tight, tight and linear, very nice looking basis." The repeated fade-and-retry action earlier in the session is exactly the raw material this section's rule is built on; by the end of the stream it's read as a positive, not a reason to give up on the name.
+
+*A note with the benefit of hindsight, since this document otherwise sticks to what was knowable at the time:* LAZR did not work out — the company filed Chapter 11 in December 2025, was delisted from Nasdaq, and completed a court-confirmed liquidation plan in April 2026 that cancelled all outstanding equity with no recovery for shareholders. That's a real outcome for the specific name, not a flaw in the chart-reading principle itself — "tight and linear" describes the base's shape at a point in time, not a guarantee about the underlying company's solvency years later. **EXEL (Exelixis)** is unrelated and unaffected by this — it remains a distinct, currently profitable oncology biotech, not the same company, and nothing above should be read as implying otherwise.
+
+![1786218150107](image/QULLAMAGGIE_TRADING_LESSONS/1786218150107.png)
+
+![1786218204200](image/QULLAMAGGIE_TRADING_LESSONS/1786218204200.png)
+
+![1786218224274](image/QULLAMAGGIE_TRADING_LESSONS/1786218224274.png)
+
+- *2021-02-05, "Many people experiencing their first pump and dump! Learn how to not be a sucker in the stock market", t=1:03:47 (LAZR, choppy) and t=1:20:33–1:21:41 (AMRS, EXEL, LAZR)*
 
 #### 1.8.11 The broad-based warning sign, restated
 
