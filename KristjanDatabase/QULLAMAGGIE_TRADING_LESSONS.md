@@ -1921,7 +1921,11 @@ Later in the same session he groups **LAZR (Luminar Technologies)** into the ide
 
 Two weeks after AMRS/EXEL, describing deteriorating breadth rather than an individual setup: "we've seen the warning signs when it comes to breakouts — over the past couple of weeks there's been a lot of failed breakouts and a lot of just very sluggish breakouts, not the action we had in November and December and even early January." Same isolated-vs-broad distinction drawn out fully in 1.8.16: a failed breakout on one name is a reset opportunity, but a cluster of them across the market reads as the market itself weakening.
 
-- *2021-02-18, "Know when your setups work and don't work", t=1:21:49*
+He immediately names the exception that proves the rule: **CCIV**, one of the "select few stocks [that have] made big moves" despite the weak breadth — "I bought the CCIV last week, and it went up 75% in a few days." What follows is a candid, self-critical addendum, not a victory lap: "the funny thing is, I actually had it on the first day here, if I remember correctly — no, I had it here, I think, and I also had it here — I had it like several times, every time I sold it because I didn't trust it, [and it] just keeps going higher." A broad-based failed-breakout environment doesn't mean nothing works — it means the stocks that do work are rarer and easier to talk yourself out of, and his own CCIV trade history is the same "selling too early" weakness he names as his single biggest recurring one elsewhere (5.3) playing out on a name that was actually right the whole time.
+
+![1786218625127](image/QULLAMAGGIE_TRADING_LESSONS/1786218625127.png)
+
+- *2021-02-18, "Know when your setups work and don't work", t=1:21:49 (broad-based warning) and t=1:22:15 (CCIV)*
 
 #### 1.8.12 The rule restated, six weeks after AMRS/EXEL
 
