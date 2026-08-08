@@ -181,7 +181,7 @@ This is a summary and paraphrase of his publicly stated views and trade narratio
      - [1.8.3 When not to wait for the reset](#183-when-not-to-wait-for-the-reset)
      - [1.8.4 LVGO (Livongo) — &#34;no reason to put stocks on a blacklist&#34;](#184-lvgo-livongo--no-reason-to-put-stocks-on-a-blacklist)
      - [1.8.5 VSTO](#185-vsto)
-     - [1.8.6 The rule generalized to overshoots and undercuts, not just breakouts](#186-the-rule-generalized-to-overshoots-and-undercuts-not-just-breakouts)
+     - [1.8.6 A trendline caveat: the overall trend matters more than an exact touch](#186-a-trendline-caveat-the-overall-trend-matters-more-than-an-exact-touch)
      - [1.8.7 The self-diagnostic nuance: how many is too many](#187-the-self-diagnostic-nuance-how-many-is-too-many)
      - [1.8.8 The rule extended to shorts and breakdowns](#188-the-rule-extended-to-shorts-and-breakdowns)
      - [1.8.9 NUGT — not every failed breakout gets a reset](#189-nugt--not-every-failed-breakout-gets-a-reset)
@@ -1835,11 +1835,19 @@ A breakout that fails and falls back into its base isn't a dead setup — it can
 
 Walking through recent trades, he flags AHPI, stopped out and awaiting a re-break: "it's just like CODX — I bought it here, got stopped out two days later, and the next day it broke out and I re-bought it, and this time it went." He applies the identical logic to a semiconductor breakout he'd passed on and regretted: "AMD is one — I tried to buy it, I bought it here, got stopped out two days later. This breakout I passed on, because it was a laggard like the other semis that broke out like a week earlier and then it faded back... then four days ago it broke out again and it hasn't looked back since." States the rule directly: "the more failed breakouts you have, combined with higher lows and a longer base, the bigger the chance it's going to go — so AHPI, if it re-breaks, I'll be in it maybe even more." Forty minutes earlier in the same session he'd used the same comparison on MU: "even with this pullback it's still holding these higher lows... it looks like AMD, it has these false breakouts, but eventually it's gonna go, the more it tests."
 
+![1786203749356](image/QULLAMAGGIE_TRADING_LESSONS/1786203749356.png)
+
+![1786204267864](image/QULLAMAGGIE_TRADING_LESSONS/1786204267864.png)
+
 - *2020-07-24, "Damn its choppy out there", t=56:39 (MU) and t=1:16:06 (AHPI/CODX/AMD)*
 
 #### 1.8.2 AMD — the one that got away
 
 Six days later, kicking himself for not buying AMD off a fresh range break: "I was contemplating buying it here, but nope, I didn't, because I had this fixed mindset — it had a failed breakout here, had a failed breakout here, so I was like, ah, it's probably gonna fail again. Nope — just look at how perfect it looks on the weekly chart, this is a five-star setup, it built higher lows for a year and this has this clean range break." A dated, self-admitted case of treating prior failures as a permanent black mark and paying for it.
+
+![1786203778662](image/QULLAMAGGIE_TRADING_LESSONS/1786203778662.png)
+
+![1786203971979](image/QULLAMAGGIE_TRADING_LESSONS/1786203971979.png)
 
 - *2020-07-30, "Success in trading is about shrugging off an occasional big loss quick and sticking to your process", t=1:18:13*
 
@@ -1853,17 +1861,23 @@ Asked directly how he handles a failed breakout: "if the breakout closes really 
 
 The fullest worked example. Fielding a question about writing off a stock after it disappoints: "there is no reason to put stocks on a blacklist, absolutely no reason... when you have a couple of failed breakouts and the stock goes sideways, builds higher lows, the setup just gets stronger — it makes no sense putting something that increases its odds of success on a blacklist." He then walks the actual chart: "it's like when I bought Livongo — this was like a six-star setup on a five-star scale, I bought it, it failed, I got stopped out, but then it reset, kept building higher lows, kept building a better base — and here again, failed breakout, I don't remember if I bought it here, it wasn't as good of a setup — and then you kept building higher lows, and then you got this real breakout after, it had gotten tighter and tighter. It makes no sense putting this thing on a blacklist after a couple of fake breakouts — this setup just got stronger. The stock doesn't care that you got frustrated with it."
 
+![1786217034704](image/QULLAMAGGIE_TRADING_LESSONS/1786217034704.png)
+
 - *2020-08-18, "Maybe becoming an activist investor", t=1:34:34*
 
 #### 1.8.5 VSTO
 
 The stock had "a random breakup" a couple of weeks earlier that faded because of broader market weakness, not anything wrong with the stock itself. Rather than writing it off, he kept watching it: "it tried to break out, it failed, pulled back... kept building higher lows and now the setup is even better." Stated as a general principle in the same breath: "your failed breakouts can be very valuable."
 
+![1786217382946](image/QULLAMAGGIE_TRADING_LESSONS/1786217382946.png)
+
 - *2020-09-30, "Lack of good setups again", t=22:28*
 
-#### 1.8.6 The rule generalized to overshoots and undercuts, not just breakouts
+#### 1.8.6 A trendline caveat: the overall trend matters more than an exact touch
 
-Explaining why he trades off trendlines drawn loosely rather than pixel-perfect: "you want to see the overall trend... you want these undercuts and overshoots, you want those false breakdowns and false breakouts — that's where you build setup strength." Confirmation the mechanism isn't specific to upside breakouts; the same tightening-through-failed-tests logic applies wherever a trendline or range edge is repeatedly tested.
+Answering a question about drawing trendlines through precise, "random points": "that's not how it works... it's the overall trend — like, these undercuts and overshoots, they're normal. You want to see the overall trend... the price moves both above and below [the lines you draw], but overall you want these undercuts and overshoots — you want those false breakdowns and false breakouts, that's where you build setup strength." Citing FSLY as the example, where he'd drawn several trend lines through the base: "you need to look at the overall trend... it's all about visualizing the setup." The main point isn't a new failed-breakout setup — it's a caveat on how loosely to read a trendline in the first place: price undercutting or overshooting a drawn line is normal and expected, not a reason to redraw it or doubt the overall trend. The overshoots/undercuts language is a secondary nod back to this section's core rule, not the point of the answer.
+
+![1786217559362](image/QULLAMAGGIE_TRADING_LESSONS/1786217559362.png)
 
 - *2020-10-09, "A lot of wisdon today the last 50 minutes or so", t=1:56:44*
 
@@ -3345,7 +3359,7 @@ Every citation in this document is tagged inline with its date and, where captur
 | 2021-09-17 | [Buy my course for $9999.99](https://www.youtube.com/watch?v=qDUadzvPUGc)                                                                                  | 6.3, 8.9, 9.10                      |
 | 2021-10-14 | [Small caps end of year run? $IWM $TNA](https://www.youtube.com/watch?v=7Kl90d6NPNM)                                                                       | 2.1                                 |
 | 2021-10-21 | [So much opportunity! Hard to get filled](https://www.youtube.com/watch?v=T3VhwZZjeOo)                                                                     | 5.3                                 |
-| 2021-10-27 | [Earnings season is here! (opportunity!)](https://www.youtube.com/watch?v=-XbMHMO9sxo)                                                                     | 1.2, 1.8                             |
+| 2021-10-27 | [Earnings season is here! (opportunity!)](https://www.youtube.com/watch?v=-XbMHMO9sxo)                                                                     | 1.2, 1.8                            |
 | 2021-11-05 | [Markets in free money mode](https://www.youtube.com/watch?v=aL-tAJ7CHv4)                                                                                  | 8.7                                 |
 | 2021-11-09 | [Eventually you need to be able to stand on your own 2 legs](https://www.youtube.com/watch?v=uYkzHI4_2H0)                                                  | 7.10                                |
 | 2021-11-12 | [Study what actually works in the markets and tune out financial media](https://www.youtube.com/watch?v=x7jBeIGqwIs)                                       | 6.8, 7.10                           |
