@@ -59,7 +59,10 @@ MARKET_OPEN = "09:30:00"
 MARKET_CLOSE = "16:00:00"
 
 NYSE = mcal.get_calendar("NYSE")
-_SCHEDULE = NYSE.schedule(start_date="2020-01-01", end_date=(date.today() + timedelta(days=30)).isoformat())
+# Must start before Benzinga's earliest confirmed event (2011-05-12) -- any release_date
+# older than this calendar's start silently resolves to index 0 (searchsorted floor),
+# snapping every such event to the SAME first day instead of failing loudly.
+_SCHEDULE = NYSE.schedule(start_date="2010-01-01", end_date=(date.today() + timedelta(days=30)).isoformat())
 TRADING_DAYS = pd.DatetimeIndex(_SCHEDULE.index.date)
 
 SESSION = requests.Session()
@@ -116,6 +119,9 @@ def classify_timing(time_str):
 
 def resolve_reaction_date(release_date, timing):
     if timing == "UNKNOWN":
+        return None
+    if release_date < TRADING_DAYS[0].date():
+        # would otherwise silently snap to index 0 (the calendar's first day) via searchsorted
         return None
     pos = TRADING_DAYS.searchsorted(pd.Timestamp(release_date), side="left")
     if timing in ("BEFORE_OPEN", "DURING_MARKET"):
