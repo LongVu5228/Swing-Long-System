@@ -57,7 +57,11 @@ def api_get(path, params=None):
     params["apiKey"] = POLYGON_API_KEY
     url = f"{BASE_URL}{path}"
     for attempt in range(1, MAX_RETRIES + 1):
-        resp = SESSION.get(url, params=params, timeout=30)
+        try:
+            resp = SESSION.get(url, params=params, timeout=30)
+        except requests.exceptions.RequestException:
+            time.sleep(2 ** attempt)
+            continue
         if resp.status_code == 429:
             time.sleep(2 ** attempt)
             continue
