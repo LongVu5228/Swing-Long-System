@@ -331,6 +331,27 @@ def bucket_dollarvol(v):
     return "06 | $1B+"
 
 
+def bucket_turnover(v):
+    """Frozen bins per Swing_Long_EP_Master_Findings_CURRENT.md Section 0."""
+    if v is None: return "N/A"
+    if v < 0.5: return "01 | <0.5%"
+    if v < 1: return "02 | 0.5-1%"
+    if v < 2: return "03 | 1-2%"
+    if v < 5: return "04 | 2-5%"
+    if v < 10: return "05 | 5-10%"
+    return "06 | 10%+"
+
+
+def green_red(close, open_):
+    if close is None or open_ is None: return "N/A"
+    return "Green" if close >= open_ else "Red"
+
+
+def same_day(high_date_str, reaction_date):
+    if not high_date_str or high_date_str == "N/A": return "N/A"
+    return "Y" if date.fromisoformat(high_date_str) == reaction_date else "N"
+
+
 CANDLE_ADV_BUCKETS = {
     1: [(0.01, "01 | <0.01x ADV"), (0.03, "02 | 0.01-0.03x ADV"), (0.05, "03 | 0.03-0.05x ADV"), (0.10, "04 | 0.05-0.10x ADV"), (None, "05 | 0.10x+ ADV")],
     5: [(0.05, "01 | <0.05x ADV"), (0.10, "02 | 0.05-0.10x ADV"), (0.17, "03 | 0.10-0.17x ADV"), (0.30, "04 | 0.17-0.30x ADV"), (None, "05 | 0.30x+ ADV")],
@@ -607,7 +628,7 @@ V3_COLUMNS = [
     "actual_revenue", "estimated_revenue", "revenue_surprise_percent", "Revenue Surprise % Category",
     "Revenue EPS Surprise Combo", "EPS YoY Category", "Revenue YoY Category", "TTM EPS Growth %", "TTM Revenue Growth %",
     "Dividend Yield %", "4-Week Price Change %",
-    "Gap Day Open", "Gap Day Close", "gap_pct", "Gap % Category", "adr14", "ADR Category",
+    "Gap Day Open", "Gap Day Close", "Gap Day Green/Red?", "gap_pct", "Gap % Category", "adr14", "ADR Category",
     "pre_gap_market_cap", "Mkt Cap Category", "avg_share_volume_30d", "dollar_volume_proxy_30d",
     "Pre-Gap 30D Avg Dollar Volume", "Pre-Gap 30D Avg Share Volume", "Pregap 30D avg Dollar Volume Category",
     "Pre-Gap 100D Avg Dollar Volume", "Pre-Gap 100D Avg Share Volume",
@@ -615,16 +636,18 @@ V3_COLUMNS = [
     "SPY Trend Color",
     "Gap Day Total Volume", "Gap Day Total Dollar Volume", "Relative Volume Multiple (Whole Day vs 30D Avg)",
     "Whole Day Relative Volume Category",
-    "1M Candle Close", "1M Candle Volume", "1M Candle Relative Volume 30D", "1M Candle Dollar Volume", "1M Volume Category",
-    "5M Candle Close", "5M Candle Volume", "5M Candle Relative Volume 30D", "5M Candle Dollar Volume", "5M Volume Category",
-    "10M Candle Close", "10M Candle Volume", "10M Candle Relative Volume 30D", "10M Candle Dollar Volume", "10M Volume Category",
-    "15M Candle Close", "15M Candle Volume", "15M Candle Relative Volume 30D", "15M Candle Dollar Volume", "15M Volume Category",
-    "30M Candle Close", "30M Candle Volume", "30M Candle Relative Volume 30D", "30M Candle Dollar Volume", "30M Volume Category",
-    "60M Candle Close", "60M Candle Volume", "60M Candle Relative Volume 30D", "60M Candle Dollar Volume", "60M Volume Category",
+    "1M Candle Close", "1M Candle Green/Red?", "1M Candle Volume", "1M Candle Relative Volume 30D", "1M Candle Dollar Volume", "1M Volume Category",
+    "5M Candle Close", "5M Candle Green/Red?", "5M Candle Volume", "5M Candle Relative Volume 30D", "5M Candle Dollar Volume", "5M Volume Category",
+    "10M Candle Close", "10M Candle Green/Red?", "10M Candle Volume", "10M Candle Relative Volume 30D", "10M Candle Dollar Volume", "10M Volume Category",
+    "15M Candle Close", "15M Candle Green/Red?", "15M Candle Volume", "15M Candle Relative Volume 30D", "15M Candle Dollar Volume", "15M Volume Category",
+    "30M Candle Close", "30M Candle Green/Red?", "30M Candle Volume", "30M Candle Relative Volume 30D", "30M Candle Dollar Volume", "30M Volume Category",
+    "60M Candle Close", "60M Candle Green/Red?", "60M Candle Volume", "60M Candle Relative Volume 30D", "60M Candle Dollar Volume", "60M Volume Category",
     "1M High", "1M High Date", "1M High %", "1M High % Category", "1M Close", "1M Close Date", "1M Close Performance %",
     "3M High", "3M High Date", "3M High %", "3M High % Category", "3M Close", "3M Close Date", "3M Close Performance %",
     "3M Close Performance Category",
     "6M High", "6M High Date", "6M High %", "6M High % Category", "6M Close", "6M Close Date", "6M Close Performance %",
+    "Trading Turnover %", "Trading Turnover % Category",
+    "1M High Same Day?", "3M High Same Day?", "6M High Same Day?",
 ]
 
 
@@ -655,6 +678,7 @@ def assemble_row(e, r):
         "Dividend Yield %": na(r.get("div_yield")), "4-Week Price Change %": na(r.get("price_chg_4w")),
 
         "Gap Day Open": na(r.get("gap_open")), "Gap Day Close": na(r.get("gap_close")),
+        "Gap Day Green/Red?": green_red(r.get("gap_close"), r.get("gap_open")),
         "gap_pct": na(e.get("gap_pct")), "Gap % Category": bucket_gap(e.get("gap_pct")),
         "adr14": na(e.get("adr14")), "ADR Category": bucket_adr(e.get("adr14")),
         "pre_gap_market_cap": na(e.get("pre_gap_market_cap")), "Mkt Cap Category": bucket_mktcap(e.get("pre_gap_market_cap")),
@@ -679,6 +703,7 @@ def assemble_row(e, r):
         if r.get(f"vol_{m}m") is not None and e.get("avg_share_volume_30d"):
             rvol = r[f"vol_{m}m"] / e["avg_share_volume_30d"]
         out[f"{m}M Candle Close"] = na(r.get(f"close_{m}m"))
+        out[f"{m}M Candle Green/Red?"] = green_red(r.get(f"close_{m}m"), r.get("gap_open"))
         out[f"{m}M Candle Volume"] = na(r.get(f"vol_{m}m"))
         out[f"{m}M Candle Relative Volume 30D"] = na(rvol)
         out[f"{m}M Candle Dollar Volume"] = na(r.get(f"dvol_{m}m"))
@@ -692,7 +717,13 @@ def assemble_row(e, r):
         out[f"{label} Close"] = na(r.get(f"close_{m}m"))
         out[f"{label} Close Date"] = na(r.get(f"close_{m}m_date"))
         out[f"{label} Close Performance %"] = na(r.get(f"close_{m}m_pct"))
+        out[f"{label} High Same Day?"] = same_day(r.get(f"high_{m}m_date"), e["reaction_date"])
     out["3M Close Performance Category"] = bucket_outcome_pct(r.get("close_3m_pct"))
+
+    turnover = (r.get("dvol30") / e["pre_gap_market_cap"] * 100
+                if r.get("dvol30") is not None and e.get("pre_gap_market_cap") else None)
+    out["Trading Turnover %"] = na(turnover)
+    out["Trading Turnover % Category"] = bucket_turnover(turnover)
 
     return out
 
