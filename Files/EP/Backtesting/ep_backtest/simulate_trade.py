@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Optional
 
+import numpy as np
 import pandas as pd
 
 from . import calendar_utils, config, daily_bars, exits, minute_bars
@@ -76,36 +77,67 @@ def simulate_trade_from_data(
     minute_df: pd.DataFrame,
     daily_df: pd.DataFrame,
 ) -> TradeResult:
-    log = []
-    strategy_id = _strategy_id(entry_type, stop_type)
-    result = TradeResult(
-        ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type,
-        strategy_id=strategy_id, status="", entry_status="",
-    )
-
+    """
+    Convenience path for a single (entry_type, stop_type): finds entry and computes the
+    10SMA series itself. For batch runs across many stop types (or many entry types) on
+    the same event, prefer find_entry()/exits.add_sma10() once up front and call
+    simulate_with_entry() per combination instead -- see run_batch.run_all_72, which
+    exists specifically because re-deriving the entry search (a per-bar Python loop) and
+    the 10SMA rolling window on every one of 72 combinations made a full-universe run
+    ~30x slower than necessary.
+    """
     sessions = calendar_utils.sessions_from(d0, config.MAX_ENTRY_DAY_OFFSET + 1)
-    log.append(f"{ticker} EP Day 0 = {d0}, strategy = {strategy_id}")
-    log.append(f"Entry-valid sessions D0..D+7: {sessions}")
 
     if minute_df is None or minute_df.empty:
-        result.status = config.STATUS_MISSING_MINUTE_DATA
-        result.entry_status = config.STATUS_MISSING_MINUTE_DATA
-        log.append("No minute bars available -- MISSING_MINUTE_DATA")
-        result.audit_log = log
+        result = TradeResult(
+            ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type,
+            strategy_id=_strategy_id(entry_type, stop_type),
+            status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
+            audit_log=[f"{ticker} EP Day 0 = {d0}", "No minute bars available -- MISSING_MINUTE_DATA"],
+        )
         return result
 
     try:
         entry = find_entry(minute_df, d0, sessions, entry_type)
     except ValueError as exc:
-        result.status = config.STATUS_MISSING_MINUTE_DATA
-        result.entry_status = config.STATUS_MISSING_MINUTE_DATA
-        log.append(f"Entry search failed: {exc}")
-        result.audit_log = log
+        result = TradeResult(
+            ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type,
+            strategy_id=_strategy_id(entry_type, stop_type),
+            status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
+            audit_log=[f"{ticker} EP Day 0 = {d0}", f"Entry search failed: {exc}"],
+        )
         return result
 
-    result.or_high = entry.or_high
-    result.trigger = entry.trigger
-    result.entry_status = entry.entry_status
+    daily_sma = exits.add_sma10(daily_df)
+    return simulate_with_entry(ticker, d0, adr14, entry_type, stop_type, entry, minute_df, daily_sma, sessions)
+
+
+def simulate_with_entry(
+    ticker: str,
+    d0: date,
+    adr14: Optional[float],
+    entry_type: str,
+    stop_type: str,
+    entry: EntryResult,
+    minute_df: pd.DataFrame,
+    daily_sma: pd.DataFrame,
+    sessions: list,
+) -> TradeResult:
+    """
+    Runs stop -> position management -> R for an ALREADY-COMPUTED entry search and an
+    already-SMA10-augmented daily frame. Both of those only depend on entry_type (not
+    stop_type), so a caller sweeping all 12 stop types for one entry_type should compute
+    them once and reuse them across all 12 calls.
+    """
+    log = []
+    strategy_id = _strategy_id(entry_type, stop_type)
+    result = TradeResult(
+        ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type,
+        strategy_id=strategy_id, status="", entry_status=entry.entry_status,
+        or_high=entry.or_high, trigger=entry.trigger,
+    )
+    log.append(f"{ticker} EP Day 0 = {d0}, strategy = {strategy_id}")
+    log.append(f"Entry-valid sessions D0..D+7: {sessions}")
     log.append(f"D0 {entry_type} OR high = {entry.or_high:.4f}, trigger = {entry.trigger:.4f}")
 
     if entry.entry_status == config.STATUS_NO_ENTRY:
@@ -135,7 +167,6 @@ def simulate_trade_from_data(
     result.initial_risk_per_share = risk
     log.append(f"Initial stop ({stop_type}) = {stop.stop_price:.4f}, 1R/share = {risk:.4f}")
 
-    daily_sma = exits.add_sma10(daily_df)
     if not exits.has_sufficient_history(daily_sma, entry.entry_session_date):
         result.status = config.STATUS_INELIGIBLE_NO_10SMA
         log.append("Fewer than 10 valid closes as of entry day -- INELIGIBLE_NO_10SMA_HISTORY")
@@ -178,53 +209,90 @@ def simulate_trade_from_data(
 
 
 def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_price, sessions, log):
-    """Returns (exit_timestamp, exit_reference_price, exit_reason) or (None, None, None)."""
+    """
+    Returns (exit_timestamp, exit_reference_price, exit_reason) or (None, None, None).
+
+    Vectorized rather than a per-bar/per-day Python loop -- an earlier row-by-row
+    version (`for j, bar in day_bars.iterrows(): ...`) was the dominant cost of a
+    full-universe run: this step reruns per STOP TYPE (12x per event, since the stop
+    price differs each time and can be crossed at a different bar), over up to ~3,000
+    cached minute bars, so a slow per-row Python loop here is paid 12x per event no
+    matter how much the entry search and 10SMA computation get hoisted out above it.
+    """
     remaining_days = [d for d in sessions if d >= entry.entry_session_date]
 
-    for day in remaining_days:
-        day_bars = minute_df[minute_df["session_date"] == day].sort_values("dt_et").reset_index(drop=True)
-        if day == entry.entry_session_date:
-            day_bars = day_bars[day_bars["dt_et"] >= entry.entry_timestamp].reset_index(drop=True)
-            entry_bar_pos = 0
-        else:
-            entry_bar_pos = None
+    bars = minute_df[
+        minute_df["session_date"].isin(remaining_days) & (minute_df["dt_et"] >= entry.entry_timestamp)
+    ].sort_values("dt_et").reset_index(drop=True)
 
-        for j, bar in day_bars.iterrows():
-            if entry_bar_pos is not None and j == entry_bar_pos:
-                if bar["low"] <= stop_price:
-                    log.append(
-                        f"{bar['dt_et']}: entry bar's own low ({bar['low']:.4f}) <= stop "
-                        f"({stop_price:.4f}) -- same-bar ambiguity, adverse assumption applied"
-                    )
-                    return bar["dt_et"], stop_price, "STOPPED_SAME_BAR_AS_ENTRY"
-                continue
-            if bar["open"] <= stop_price:
-                log.append(f"{bar['dt_et']}: session open ({bar['open']:.4f}) already through stop -- gap-through stop")
-                return bar["dt_et"], bar["open"], "STOPPED_GAP_THROUGH"
-            if bar["low"] <= stop_price:
-                return bar["dt_et"], stop_price, "STOPPED_TRADE_THROUGH"
+    stop_ts = stop_day = stop_ref = stop_reason = None
+    if not bars.empty:
+        is_entry_bar = np.zeros(len(bars), dtype=bool)
+        is_entry_bar[0] = True  # bars are sorted from entry_timestamp onward -> row 0 is the entry bar
+        low = bars["low"].to_numpy()
+        open_ = bars["open"].to_numpy()
+        gap_cond = (~is_entry_bar) & (open_ <= stop_price)  # Section 16: entry bar itself never gap-checked
+        trade_cond = low <= stop_price  # for the entry bar this IS the Section 23 same-bar-adverse check
+        stop_hit = gap_cond | trade_cond
+        if stop_hit.any():
+            idx = int(stop_hit.argmax())  # first True, chronologically (bars are sorted)
+            stop_ts = bars["dt_et"].iloc[idx]
+            stop_day = bars["session_date"].iloc[idx]
+            if is_entry_bar[idx]:
+                stop_reason, stop_ref = "STOPPED_SAME_BAR_AS_ENTRY", stop_price
+                log.append(
+                    f"{stop_ts}: entry bar's own low ({low[idx]:.4f}) <= stop ({stop_price:.4f}) "
+                    "-- same-bar ambiguity, adverse assumption applied"
+                )
+            elif gap_cond[idx]:
+                stop_reason, stop_ref = "STOPPED_GAP_THROUGH", float(open_[idx])
+                log.append(f"{stop_ts}: session open ({stop_ref:.4f}) already through stop -- gap-through stop")
+            else:
+                stop_reason, stop_ref = "STOPPED_TRADE_THROUGH", stop_price
 
-        drow = daily_sma[daily_sma["date"] == day]
-        if drow.empty or pd.isna(drow["sma10"].iloc[0]):
-            continue
-        close, sma10 = float(drow["close"].iloc[0]), float(drow["sma10"].iloc[0])
-        if close < sma10:
-            log.append(f"{day}: close {close:.4f} < 10SMA {sma10:.4f} -- SMA10_EXIT")
-            return day, close, "SMA10_EXIT"
+    # SMA10 close-exit only matters on days strictly before any stop-out day -- once a
+    # stop fires intrabar, that day's close is never reached (Section 24 vs 26 priority).
+    day_frame = daily_sma[daily_sma["date"].isin(remaining_days)].sort_values("date")
+    if stop_day is not None:
+        day_frame = day_frame[day_frame["date"] < stop_day]
+    sma_cond = day_frame["sma10"].notna() & (day_frame["close"] < day_frame["sma10"])
+    if sma_cond.any():
+        row = day_frame.iloc[int(sma_cond.to_numpy().argmax())]
+        log.append(f"{row['date']}: close {row['close']:.4f} < 10SMA {row['sma10']:.4f} -- SMA10_EXIT")
+        return row["date"], row["close"], "SMA10_EXIT"
+
+    if stop_ts is not None:
+        return stop_ts, stop_ref, stop_reason
 
     # Ran out of cached minute-bar coverage (past D+7) without a resolved exit --
     # fall back to daily-bar approximation. See module docstring.
+    #
+    # This can walk forward through YEARS of subsequent daily bars for a position that
+    # rides its 10SMA a long time (V1 has no max holding period, Section 57) -- a plain
+    # Python `for _, row in after.iterrows()` loop measured as the dominant cost of a
+    # full-universe run (each such trade took ~70-100ms, vs. <1ms for the rest of the
+    # simulation combined). Vectorized below: find the first day any exit condition is
+    # true with numpy comparisons instead of a per-row Python loop.
     log.append(f"Position survived through {sessions[-1]} (end of cached minute window) -- switching to daily-bar approximation")
-    after = daily_sma[daily_sma["date"] > sessions[-1]].sort_values("date")
-    for _, row in after.iterrows():
-        if row["open"] <= stop_price:
-            return row["date"], row["open"], "STOPPED_GAP_THROUGH_DAILY_APPROX"
-        if row["low"] <= stop_price:
-            return row["date"], stop_price, "STOPPED_TRADE_THROUGH_DAILY_APPROX"
-        if pd.notna(row["sma10"]) and row["close"] < row["sma10"]:
-            return row["date"], row["close"], "SMA10_EXIT"
+    after = daily_sma[daily_sma["date"] > sessions[-1]].sort_values("date").reset_index(drop=True)
 
-    return None, None, None
+    gap_through = after["open"] <= stop_price
+    trade_through = after["low"] <= stop_price
+    sma_exit = (after["sma10"].notna()) & (after["close"] < after["sma10"])
+    any_exit = gap_through | trade_through | sma_exit
+    if not any_exit.any():
+        return None, None, None
+
+    pos = int(any_exit.to_numpy().argmax())  # first True
+    row = after.iloc[pos]
+    # Priority matches the original day-by-day order: gap-through, then trade-through,
+    # then the SMA10 close check -- all three are evaluated on the SAME day here, so
+    # preserve that same priority when more than one is true on the winning day.
+    if gap_through.iloc[pos]:
+        return row["date"], row["open"], "STOPPED_GAP_THROUGH_DAILY_APPROX"
+    if trade_through.iloc[pos]:
+        return row["date"], stop_price, "STOPPED_TRADE_THROUGH_DAILY_APPROX"
+    return row["date"], row["close"], "SMA10_EXIT"
 
 
 def simulate_trade(ticker: str, d0: date, adr14: Optional[float], entry_type: str, stop_type: str,
