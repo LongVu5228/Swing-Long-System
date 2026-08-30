@@ -2,3 +2,5 @@
 .venv/
 __pycache__/
 *.pyc
+Files/EP/Backtesting/data_cache/
+Files/EP/Backtesting/outputs/
