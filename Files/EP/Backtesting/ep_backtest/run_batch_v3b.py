@@ -229,6 +229,20 @@ def summarize_all_v3b(all_trades: pd.DataFrame) -> pd.DataFrame:
     return summary_df.sort_values("G_score", ascending=False).reset_index(drop=True)
 
 
+def day0_only_summary(all_trades: pd.DataFrame) -> pd.DataFrame:
+    """
+    The same strategy summary, but restricted to trades whose entry fired on D0 itself
+    (entry_day_offset == 0) -- excludes any trade that only triggered on D+1..D+7. A
+    fresh, same-day reaction to the event vs. a late trigger chasing an already-partly-
+    played-out move is a real, plausible distinction (user request 2026-08-31) -- and
+    since entry_day_offset is already a column on every trade row, this costs nothing
+    beyond re-aggregating trades we already have, so it's generated automatically
+    alongside the main summary every run rather than as a manual one-off.
+    """
+    day0_trades = all_trades[(all_trades["status"] != "OK") | (all_trades["entry_day_offset"] == 0)]
+    return summarize_all_v3b(day0_trades)
+
+
 def stage2_base_strategies(stage1_summary_path: str, top_n: int) -> list:
     """Reads screen1's strategy summary and returns the (entry_type, stop_type,
     trail_type) triples of its top N strategies by G_score, de-duplicated (screen1's 324
@@ -294,8 +308,13 @@ def main():
     summary_df = summarize_all_v3b(combined_trades)
     summary_df.to_csv(os.path.join(outputs_dir, summary_filename), index=False)
 
+    day0_summary_filename = summary_filename.replace(".csv", "_day0only.csv")
+    day0_summary_df = day0_only_summary(combined_trades)
+    day0_summary_df.to_csv(os.path.join(outputs_dir, day0_summary_filename), index=False)
+
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3b strategies")
     print(f"strategy summary: {os.path.join(outputs_dir, summary_filename)}")
+    print(f"strategy summary (D0-only entries): {os.path.join(outputs_dir, day0_summary_filename)}")
 
     print("\n--- Sell schedule legend (sell_style x target_ladder x core_pct -> % sold per rung) ---")
     legend = summary_df[["sell_style", "target_ladder", "core_pct", "sell_schedule_desc"]].drop_duplicates()
@@ -309,6 +328,9 @@ def main():
     print(summary_df[cols].head(20).to_string(index=False))
     print("\n--- Bottom 5 by G Score ---")
     print(summary_df[cols].tail(5).to_string(index=False))
+
+    print("\n--- Top 10 by G Score, D0-ONLY entries (excludes D+1..D+7 triggers) ---")
+    print(day0_summary_df[cols].head(10).to_string(index=False))
 
 
 if __name__ == "__main__":
