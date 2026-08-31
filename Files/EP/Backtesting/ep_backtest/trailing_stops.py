@@ -91,7 +91,8 @@ def level_series_for(trail_type: str, daily_sma: pd.DataFrame, initial_stop: flo
     raise ValueError(f"level_series_for() doesn't apply to close-based trail type: {trail_type}")
 
 
-def run_level_based_position_management(minute_df, daily_sma, entry, level_series, sessions, log):
+def run_level_based_position_management(minute_df, daily_sma, entry, level_series, sessions, log,
+                                          is_continuation=False):
     """
     Shared engine for BOTH touch and ratchet trail types -- they differ only in how
     level_series was built (see level_series_for above); once it exists, "find the
@@ -99,6 +100,11 @@ def run_level_based_position_management(minute_df, daily_sma, entry, level_serie
     for either type. Mirrors simulate_trade._run_position_management's structure and
     vectorization approach, generalized from a single fixed stop_price to a per-day
     level.
+
+    is_continuation=True: see simulate_trade._run_position_management's docstring --
+    used by V3's Phase 2 (partial_taking.py), where the position was already open
+    before this scan starts, so the Section 23 same-bar-adverse exemption on the gap
+    check must not apply to the first bar considered here.
 
     Returns (exit_timestamp, exit_reference_price, exit_reason) or (None, None, None).
     """
@@ -112,7 +118,8 @@ def run_level_based_position_management(minute_df, daily_sma, entry, level_serie
     if not bars.empty:
         bar_levels = bars["session_date"].map(level_by_date).to_numpy(dtype=float)
         is_entry_bar = np.zeros(len(bars), dtype=bool)
-        is_entry_bar[0] = True
+        if not is_continuation:
+            is_entry_bar[0] = True
         low = bars["low"].to_numpy()
         open_ = bars["open"].to_numpy()
         gap_cond = (~is_entry_bar) & (open_ <= bar_levels)

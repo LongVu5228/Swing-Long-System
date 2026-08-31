@@ -59,6 +59,19 @@ TRAIL_TYPES = [
 V2_ENTRY_TYPES = ["30m", "60m"]
 V2_STOP_TYPES = ["0.25adr", "0.333333adr", "0.50adr", "1.00adr", "3pct_entry"]
 
+# V3 (Section 47-55) carries forward the Top-5 V2 strategies by G Score, not the full
+# V2 grid -- (entry_type, stop_type, trail_type) tuples, chosen 2026-08-30.
+V3_BASE_STRATEGIES = [
+    ("60m", "3pct_entry", "20ma_touch"),
+    ("60m", "3pct_entry", "low_of_close_below_20ma"),
+    ("60m", "3pct_entry", "close_below_20ma"),
+    ("60m", "0.50adr", "20ma_touch"),
+    ("30m", "3pct_entry", "low_of_close_below_20ma"),
+]
+# User-confirmed choices (2026-08-30): Type-A single-sale profit target, 50/50 core.
+V3_TARGET_PCTS = [0.10, 0.15, 0.20, 0.30, 0.50]
+V3_CORE_PCT = 0.5
+
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
 # showed 1% + 1% round-trip slippage exceeded the width of the 0.5%/1% static stops

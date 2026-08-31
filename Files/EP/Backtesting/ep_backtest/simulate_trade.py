@@ -317,7 +317,116 @@ def simulate_v2_with_entry(
     return _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
 
 
-def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_price, sessions, log, ma_col="sma10"):
+@dataclass
+class TradeResultV3:
+    ticker: str
+    event_date: date
+    entry_type: str
+    stop_type: str
+    trail_type: str
+    target_pct: float
+    core_pct: float
+    strategy_id: str
+
+    status: str
+    entry_status: str
+
+    entry_timestamp: Optional[object] = None
+    entry_day_offset: Optional[int] = None
+    entry_fill: Optional[float] = None
+    initial_stop_price: Optional[float] = None
+    initial_risk_per_share: Optional[float] = None
+
+    partial_timestamp: Optional[object] = None
+    partial_price: Optional[float] = None
+    partial_reason: Optional[str] = None
+
+    core_exit_timestamp: Optional[object] = None
+    core_exit_price: Optional[float] = None
+    core_exit_reason: Optional[str] = None
+
+    realized_R: Optional[float] = None
+    holding_days: Optional[int] = None
+    audit_log: list = field(default_factory=list)
+
+
+def _strategy_id_v3(entry_type: str, stop_type: str, trail_type: str, target_pct: float, core_pct: float) -> str:
+    return f"{_strategy_id(entry_type, stop_type)}__T{trail_type.upper()}__X{target_pct*100:g}__C{core_pct*100:g}"
+
+
+def simulate_v3_with_entry(
+    ticker: str, d0: date, adr14: Optional[float], entry_type: str, stop_type: str, trail_type: str,
+    target_pct: float, core_pct: float, entry: EntryResult, minute_df: pd.DataFrame, daily_sma: pd.DataFrame,
+    sessions: list,
+) -> TradeResultV3:
+    """V3: entry/initial-stop exactly like V1/V2, then partial_taking.run_v3_position_management
+    for the two-phase (partial + core) position management."""
+    from . import partial_taking, trailing_stops  # local import: avoids a module import cycle
+
+    log = []
+    strategy_id = _strategy_id_v3(entry_type, stop_type, trail_type, target_pct, core_pct)
+    result = TradeResultV3(
+        ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type, trail_type=trail_type,
+        target_pct=target_pct, core_pct=core_pct, strategy_id=strategy_id, status="", entry_status=entry.entry_status,
+    )
+    log.append(f"{ticker} EP Day 0 = {d0}, strategy = {strategy_id}")
+
+    if entry.entry_status == config.STATUS_NO_ENTRY:
+        result.status = config.STATUS_NO_ENTRY
+        result.audit_log = log
+        return result
+
+    result.entry_timestamp = entry.entry_timestamp
+    result.entry_day_offset = entry.entry_day_offset
+    result.entry_fill = entry.entry_fill
+    log.append(f"Entry: {entry.fill_reason} at {entry.entry_timestamp}, fill = {entry.entry_fill:.4f}")
+
+    stop = compute_initial_stop(stop_type, entry, adr14)
+    if not stop.valid:
+        result.status = stop.reason or config.STATUS_INVALID_STOP_GEOMETRY
+        log.append(f"Initial stop invalid: {stop.reason}")
+        result.audit_log = log
+        return result
+
+    result.initial_stop_price = stop.stop_price
+    result.initial_risk_per_share = entry.entry_fill - stop.stop_price
+    log.append(f"Initial stop ({stop_type}) = {stop.stop_price:.4f}")
+
+    ma_window = trailing_stops.ma_window_for(trail_type)
+    if not exits.has_sufficient_history(daily_sma, entry.entry_session_date, window=ma_window):
+        result.status = config.STATUS_INELIGIBLE_NO_10SMA
+        log.append(f"Fewer than {ma_window} valid closes as of entry day -- INELIGIBLE_NO_MA_HISTORY")
+        result.audit_log = log
+        return result
+
+    v3 = partial_taking.run_v3_position_management(
+        minute_df, daily_sma, entry, stop.stop_price, entry.entry_fill, trail_type, target_pct, core_pct,
+        sessions, log,
+    )
+
+    result.status = v3.status
+    result.partial_timestamp = v3.partial_timestamp
+    result.partial_price = v3.partial_price
+    result.partial_reason = v3.partial_reason
+    result.core_exit_timestamp = v3.core_exit_timestamp
+    result.core_exit_price = v3.core_exit_price
+    result.core_exit_reason = v3.core_exit_reason
+    result.realized_R = v3.realized_R
+    result.audit_log = log + v3.audit_log
+
+    if result.status == "OK" and result.core_exit_timestamp is not None:
+        exit_date = result.core_exit_timestamp.date() if hasattr(result.core_exit_timestamp, "date") \
+            else result.core_exit_timestamp
+        result.holding_days = len(calendar_utils.TRADING_DAYS[
+            (calendar_utils.TRADING_DAYS.date >= entry.entry_session_date)
+            & (calendar_utils.TRADING_DAYS.date <= exit_date)
+        ]) - 1
+
+    return result
+
+
+def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_price, sessions, log, ma_col="sma10",
+                              is_continuation=False):
     """
     Returns (exit_timestamp, exit_reference_price, exit_reason) or (None, None, None).
 
@@ -331,6 +440,14 @@ def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_pric
     ma_col defaults to "sma10" for V1's standardized exit; V2's close_below_20ma trail
     type (trailing_stops.is_close_based) reuses this exact function with ma_col="sma20"
     rather than duplicating it, since the mechanics are otherwise identical.
+
+    is_continuation=True is for V3's Phase 2 (partial_taking.py): the core position was
+    already open before this scan starts (it's resuming after a partial sale, not a
+    fresh entry), so the Section 23 same-bar-adverse rule -- which exists specifically
+    because an ENTRY order's own fill and a stop touch can be ambiguously ordered within
+    one bar -- doesn't apply to its first bar. Without this flag, Phase 2 was wrongly
+    treating its first considered bar as if a brand-new entry order had just fired
+    there, spuriously applying the adverse-assumption exemption from the gap check.
     """
     remaining_days = [d for d in sessions if d >= entry.entry_session_date]
 
@@ -341,7 +458,8 @@ def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_pric
     stop_ts = stop_day = stop_ref = stop_reason = None
     if not bars.empty:
         is_entry_bar = np.zeros(len(bars), dtype=bool)
-        is_entry_bar[0] = True  # bars are sorted from entry_timestamp onward -> row 0 is the entry bar
+        if not is_continuation:
+            is_entry_bar[0] = True  # bars are sorted from entry_timestamp onward -> row 0 is the entry bar
         low = bars["low"].to_numpy()
         open_ = bars["open"].to_numpy()
         gap_cond = (~is_entry_bar) & (open_ <= stop_price)  # Section 16: entry bar itself never gap-checked
