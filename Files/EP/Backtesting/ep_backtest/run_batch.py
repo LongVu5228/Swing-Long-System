@@ -10,7 +10,7 @@ Usage:
 
 import argparse
 import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 
 import pandas as pd
 from tqdm import tqdm
@@ -42,12 +42,12 @@ def _prefetch(events: pd.DataFrame, workers: int):
             pass
 
 
-def _result_row(result, row, entry_type: str, stop_type: str) -> dict:
+def _result_row(result, chart_pattern, entry_type: str, stop_type: str) -> dict:
     return {
         "strategy_id": result.strategy_id,
         "ticker": result.ticker,
         "event_date": result.event_date,
-        "chart_pattern": row.chart_pattern,
+        "chart_pattern": chart_pattern,
         "entry_type": entry_type,
         "stop_type": stop_type,
         "status": result.status,
@@ -75,59 +75,89 @@ def run_strategy(events: pd.DataFrame, entry_type: str, stop_type: str) -> pd.Da
         result = simulate_trade_from_data(
             row.ticker, row.reaction_date, row.adr14, entry_type, stop_type, minute_df, daily_df
         )
-        rows.append(_result_row(result, row, entry_type, stop_type))
+        rows.append(_result_row(result, row.chart_pattern, entry_type, stop_type))
     return pd.DataFrame(rows)
 
 
-def run_all_72(events: pd.DataFrame) -> pd.DataFrame:
+def _process_one_event(args) -> list:
     """
-    Loads each event's minute/daily bars from cache ONCE, and -- critically -- computes
-    the entry search (find_entry, a per-bar Python loop) and the 10SMA rolling window
-    (add_sma10) only ONCE PER ENTRY TYPE per event, since neither depends on stop_type.
-    A first version of this recomputed both inside every one of the 72 calls, which was
-    measured at ~5s/event (a projected ~3 hours for the full 2,358-event universe);
-    hoisting them out to run once per (event, entry_type) instead of once per (event,
-    entry_type, stop_type) removes a ~12x redundant-recompute factor.
+    Top-level (picklable) worker: runs the full 6x12 grid for ONE event, reading its
+    minute/daily bars from the on-disk cache. Called either directly (sequential mode)
+    or via ProcessPoolExecutor (parallel mode) -- must not depend on any state besides
+    its arguments, since a process-pool worker gets a fresh interpreter with none of the
+    parent's in-memory state.
     """
+    ticker, reaction_date, adr14, chart_pattern = args
     rows = []
-    for row in tqdm(list(events.itertuples()), desc="events (72 strategies each)"):
-        minute_df = minute_bars.get_event_window_minute_bars(row.ticker, row.reaction_date)
-        daily_df = daily_bars.pull_ticker_daily_bars(row.ticker, row.reaction_date)
 
-        if minute_df is None or minute_df.empty:
-            for entry_type in config.ENTRY_TYPES:
-                for stop_type in config.STOP_TYPES:
-                    result = TradeResult(
-                        ticker=row.ticker, event_date=row.reaction_date, entry_type=entry_type,
-                        stop_type=stop_type, strategy_id=_strategy_id(entry_type, stop_type),
-                        status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
-                    )
-                    rows.append(_result_row(result, row, entry_type, stop_type))
-            continue
+    minute_df = minute_bars.get_event_window_minute_bars(ticker, reaction_date)
+    daily_df = daily_bars.pull_ticker_daily_bars(ticker, reaction_date)
 
-        daily_sma = exits.add_sma10(daily_df)
-        sessions = calendar_utils.sessions_from(row.reaction_date, config.MAX_ENTRY_DAY_OFFSET + 1)
+    if minute_df is None or minute_df.empty:
         for entry_type in config.ENTRY_TYPES:
-            try:
-                entry = find_entry(minute_df, row.reaction_date, sessions, entry_type)
-            except ValueError:
-                entry = None
-
             for stop_type in config.STOP_TYPES:
-                if entry is None:
-                    result = TradeResult(
-                        ticker=row.ticker, event_date=row.reaction_date, entry_type=entry_type,
-                        stop_type=stop_type, strategy_id=_strategy_id(entry_type, stop_type),
-                        status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
-                    )
-                else:
-                    result = simulate_with_entry(
-                        row.ticker, row.reaction_date, row.adr14, entry_type, stop_type,
-                        entry, minute_df, daily_sma, sessions,
-                    )
-                rows.append(_result_row(result, row, entry_type, stop_type))
+                result = TradeResult(
+                    ticker=ticker, event_date=reaction_date, entry_type=entry_type,
+                    stop_type=stop_type, strategy_id=_strategy_id(entry_type, stop_type),
+                    status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
+                )
+                rows.append(_result_row(result, chart_pattern, entry_type, stop_type))
+        return rows
 
-    return pd.DataFrame(rows)
+    daily_sma = exits.add_sma10(daily_df)
+    sessions = calendar_utils.sessions_from(reaction_date, config.MAX_ENTRY_DAY_OFFSET + 1)
+    for entry_type in config.ENTRY_TYPES:
+        try:
+            entry = find_entry(minute_df, reaction_date, sessions, entry_type)
+        except ValueError:
+            entry = None
+
+        for stop_type in config.STOP_TYPES:
+            if entry is None:
+                result = TradeResult(
+                    ticker=ticker, event_date=reaction_date, entry_type=entry_type,
+                    stop_type=stop_type, strategy_id=_strategy_id(entry_type, stop_type),
+                    status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
+                )
+            else:
+                result = simulate_with_entry(
+                    ticker, reaction_date, adr14, entry_type, stop_type,
+                    entry, minute_df, daily_sma, sessions,
+                )
+            rows.append(_result_row(result, chart_pattern, entry_type, stop_type))
+
+    return rows
+
+
+def run_all_72(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
+    """
+    Runs the full 6x12 grid for every event. Per-event work is completely independent
+    (each reads its own cached Parquet files), so with workers > 1 this fans out across
+    a ProcessPoolExecutor -- CPU-bound work (numpy/pandas per event), so processes, not
+    threads, are needed to actually use multiple cores (threads stay serialized behind
+    the GIL for this kind of work).
+
+    Within one event, `_process_one_event` still hoists find_entry/add_sma10 out of the
+    stop_type loop (computed once per entry_type, not once per (entry_type, stop_type))
+    and the position-management stop/SMA10 scan is vectorized -- see simulate_trade.py.
+    Those two fixes were what took a naive per-event time from ~5s down to ~0.03s;
+    parallelizing across events on top of that is what this function adds.
+    """
+    arg_list = [
+        (row.ticker, row.reaction_date, row.adr14, row.chart_pattern) for row in events.itertuples()
+    ]
+
+    all_rows = []
+    if workers <= 1:
+        for args in tqdm(arg_list, desc="events (72 strategies each)"):
+            all_rows.extend(_process_one_event(args))
+    else:
+        with ProcessPoolExecutor(max_workers=workers) as ex:
+            for rows in tqdm(ex.map(_process_one_event, arg_list, chunksize=8), total=len(arg_list),
+                              desc=f"events (72 strategies each, {workers} processes)"):
+                all_rows.extend(rows)
+
+    return pd.DataFrame(all_rows)
 
 
 def summarize(trades: pd.DataFrame) -> dict:
@@ -198,7 +228,9 @@ def main():
     parser.add_argument("--stop", default="0.50adr")
     parser.add_argument("--all-72", action="store_true", help="run the full 6x12 V1 grid instead of one strategy")
     parser.add_argument("--limit", type=int, default=None, help="only the first N events (testing)")
-    parser.add_argument("--workers", type=int, default=15)
+    parser.add_argument("--workers", type=int, default=15, help="I/O-bound prefetch thread count")
+    parser.add_argument("--sim-workers", type=int, default=os.cpu_count() or 4,
+                         help="CPU-bound simulation process count for --all-72 (default: all cores)")
     parser.add_argument("--no-prefetch", action="store_true")
     args = parser.parse_args()
 
@@ -224,7 +256,7 @@ def main():
             print(f"{k}: {v}")
         return
 
-    combined_trades = run_all_72(events)
+    combined_trades = run_all_72(events, workers=args.sim_workers)
     combined_trades.to_parquet(os.path.join(config.OUTPUTS_DIR, "trades_all_72.parquet"), index=False)
 
     summary_df = summarize_all(combined_trades)
