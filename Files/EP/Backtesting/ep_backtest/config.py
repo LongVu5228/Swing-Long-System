@@ -144,6 +144,47 @@ assert len(V3B_BROAD_BASE_STRATEGIES) == 60, V3B_BROAD_BASE_STRATEGIES
 
 V3B_BROAD_TARGET_LADDERS = V3_MULTI_TARGET_LADDERS
 
+# Coarse-to-fine screening (user idea, 2026-08-31): the TRUE full grid (6 entries x 12
+# stops x 6 trails x 2 sell styles x 4 ladders x 3 core_pcts = 10,368 combos) is ~40hrs,
+# impractical in one sitting. Two-stage alternative that covers more ground than the
+# broad universe above at LESS total cost (~3.5hr vs ~6hr):
+#
+# Stage 0 (free -- reuses V1's already-completed 72-combo grid, zero new compute):
+# exclude only the stop types that are structurally too tight to survive to an exit
+# decision at ALL, regardless of exit sophistication -- the initial stop never widens
+# under V2/V3/V3b, a trailing stop or partial-taking layer can only tighten it further,
+# so a stop that's already getting hit almost immediately (1-16% win rates, EV as low as
+# -1.14R in the V1 grid) can't be rescued by a better exit. Confirmed via
+# strategy_summary_all_72.csv: 0.5%/1%/trigger-candle-low static/structural stops are a
+# clearly separate, much-worse cluster (EV -0.14 to -1.14) than everything else (EV
+# -0.005 to -0.14) -- the latter group (0.25 ADR, 2% static, LOD) is close enough to
+# breakeven under V1's dumb exit that a real exit could plausibly flip it positive, so
+# those stay IN despite not clearing V1's profitability bar on their own.
+STAGE0_EXCLUDED_STOP_TYPES = ["0.5pct_entry", "1pct_entry", "trigger_candle_low_known_at_entry"]
+
+# Stage 1 (cheap, full breadth): the ~54 surviving entry x stop pairs x all 6 trail
+# types = 324 combos, but FIXED to a single reference profit-taking config (not swept)
+# -- just enough to rank which entry/stop/trail combos have real edge before committing
+# full sell-style x ladder x core_pct depth to only the winners in Stage 2.
+V3B_SCREEN_STAGE1_BASE_STRATEGIES = [
+    (entry_type, stop_type, trail_type)
+    for entry_type in ENTRY_TYPES
+    for stop_type in STOP_TYPES
+    if stop_type not in STAGE0_EXCLUDED_STOP_TYPES
+    for trail_type in TRAIL_TYPES
+]
+assert len(V3B_SCREEN_STAGE1_BASE_STRATEGIES) == 54 * 6, len(V3B_SCREEN_STAGE1_BASE_STRATEGIES)
+
+V3B_SCREEN_STAGE1_SELL_STYLES = ["equal_depletion"]
+V3B_SCREEN_STAGE1_TARGET_LADDERS = {"late_start": V3_MULTI_TARGET_PCTS_LATE_START}
+V3B_SCREEN_STAGE1_CORE_PCTS = [0.5]
+
+# Stage 2 (full depth on the winners): top N strategies from Stage 1 by G_score, re-run
+# with the FULL sell_style x ladder x core_pct sweep (24 combos each). N is a runtime
+# --top-n flag on run_batch_v3b.py, not fixed here -- Stage 2's base_strategies are only
+# known once Stage 1's actual results exist.
+V3B_SCREEN_STAGE2_DEFAULT_TOP_N = 25
+
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
 # showed 1% + 1% round-trip slippage exceeded the width of the 0.5%/1% static stops

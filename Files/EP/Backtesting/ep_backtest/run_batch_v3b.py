@@ -3,17 +3,29 @@ V3b batch runner: multi-target staged partials, both sell styles (equal_depletio
 exponential_remaining) x the core/non-core split sweep (config.V3_CORE_PCTS: 30/50/70%
 core) x the target-ladder starting-point sweep (config.V3_MULTI_TARGET_LADDERS: 4
 ladders -- early_start/start20/late_start/start40, all 5 rungs ending at +50%, varying
-only where profit-taking starts), over either of two strategy universes (--universe):
+only where profit-taking starts), over one of four strategy universes (--universe):
 
 - narrow (default): the Top-5 V2 base strategies (config.V3_BASE_STRATEGIES) -- 5 base x
   2 sell styles x 4 ladders x 3 core_pcts = 120 combos.
 - broad: the FULL V2 entry x stop x trail grid (config.V3B_BROAD_BASE_STRATEGIES) -- 60
   base x 2 sell styles x 4 ladders x 3 core_pcts = 1,440 combos. "Test on the other
   candle types, that big list of possible strategies" (user request 2026-08-31).
+- screen1 / screen2: coarse-to-fine screening (user idea, 2026-08-31) -- an alternative
+  to running the TRUE full grid (6 entries x 12 stops x 6 trails x 2 sell styles x 4
+  ladders x 3 core_pcts = 10,368 combos, ~40hr, impractical in one sitting):
+    screen1: config.V3B_SCREEN_STAGE1_BASE_STRATEGIES (324 combos = the ~54 entry/stop
+      pairs that survive config.STAGE0_EXCLUDED_STOP_TYPES, x all 6 trail types) at a
+      SINGLE reference sell_style/ladder/core_pct (config.V3B_SCREEN_STAGE1_*) --
+      ~1.3hr, ranks which entry/stop/trail combos have real edge.
+    screen2: reads screen1's summary (--stage1-summary), takes the top N strategies by
+      G_score (--top-n, default config.V3B_SCREEN_STAGE2_DEFAULT_TOP_N), and re-runs
+      those N base strategies with the FULL sell_style x ladder x core_pct sweep (24
+      combos each) -- full depth only on the winners screen1 identified.
+  Total for both stages together: ~3.5hr, covering more base strategies (54x6=324 in
+  screen1) than the broad universe (60) at less total time than broad alone (~6hr).
 
-One script instead of two near-duplicates (run_batch_v3b.py + run_batch_v3b_broad.py,
-merged 2026-08-31): a bug in the shared simulation engine only needs fixing -- and
-re-running -- in one place, not two.
+One script instead of separate near-duplicates per universe: a bug in the shared
+simulation engine only needs fixing -- and re-running -- in one place.
 
 Also reports max_favorable_R (MFE) and exit_efficiency (realized_R / MFE) per trade,
 averaged into the strategy summary -- how much of each trade's best price did the exit
@@ -22,6 +34,9 @@ rule actually capture.
 Usage:
     python -m ep_backtest.run_batch_v3b
     python -m ep_backtest.run_batch_v3b --universe broad --limit 100 --sim-workers 4
+    python -m ep_backtest.run_batch_v3b --universe screen1
+    python -m ep_backtest.run_batch_v3b --universe screen2 \
+        --stage1-summary outputs/strategy_summary_v3b_screen1.csv --top-n 25
 """
 
 import argparse
@@ -43,11 +58,17 @@ _SELL_AMOUNTS = {
     "exponential_remaining": config.V3_MULTI_SELL_AMOUNT_EXPONENTIAL,
 }
 
+# Each entry: (base_strategies, target_ladders, sell_styles, core_pcts, trades_filename,
+# summary_filename). "screen2" isn't here -- its base_strategies can only be known once
+# screen1's actual results exist, so it's built at runtime in main() instead.
 _UNIVERSES = {
-    "narrow": (config.V3_BASE_STRATEGIES, config.V3_MULTI_TARGET_LADDERS, "trades_v3b.parquet",
-               "strategy_summary_v3b.csv"),
-    "broad": (config.V3B_BROAD_BASE_STRATEGIES, config.V3B_BROAD_TARGET_LADDERS, "trades_v3b_broad.parquet",
-              "strategy_summary_v3b_broad.csv"),
+    "narrow": (config.V3_BASE_STRATEGIES, config.V3_MULTI_TARGET_LADDERS, SELL_STYLES, config.V3_CORE_PCTS,
+               "trades_v3b.parquet", "strategy_summary_v3b.csv"),
+    "broad": (config.V3B_BROAD_BASE_STRATEGIES, config.V3B_BROAD_TARGET_LADDERS, SELL_STYLES, config.V3_CORE_PCTS,
+              "trades_v3b_broad.parquet", "strategy_summary_v3b_broad.csv"),
+    "screen1": (config.V3B_SCREEN_STAGE1_BASE_STRATEGIES, config.V3B_SCREEN_STAGE1_TARGET_LADDERS,
+                config.V3B_SCREEN_STAGE1_SELL_STYLES, config.V3B_SCREEN_STAGE1_CORE_PCTS,
+                "trades_v3b_screen1.parquet", "strategy_summary_v3b_screen1.csv"),
 }
 
 
@@ -96,14 +117,14 @@ def _missing_data_row(ticker, reaction_date, event_meta, entry_type, stop_type, 
 def _process_one_event(args) -> list:
     """
     Top-level (picklable) worker: runs base_strategies x sell_styles x target_ladders x
-    core_pcts for ONE event. base_strategies/target_ladders are passed in per-call (not
-    read from a module-level config constant here) so the SAME worker function serves
-    either strategy universe under ProcessPoolExecutor -- on Windows (spawn, not fork),
-    a worker process re-imports this module fresh and would never see a runtime mutation
-    to a config constant made in the parent process after import; explicit arguments are
-    pickled and sent to the worker instead, which does work.
+    core_pcts for ONE event. Every axis is passed in per-call (not read from a
+    module-level config constant here) so the SAME worker function serves any universe
+    under ProcessPoolExecutor -- on Windows (spawn, not fork), a worker process
+    re-imports this module fresh and would never see a runtime mutation to a config
+    constant made in the parent process after import; explicit arguments are pickled and
+    sent to the worker instead, which does work.
     """
-    ticker, reaction_date, adr14, event_meta, base_strategies, target_ladders = args
+    ticker, reaction_date, adr14, event_meta, base_strategies, target_ladders, sell_styles, core_pcts = args
     rows = []
 
     minute_df = minute_bars.get_event_window_minute_bars(ticker, reaction_date)
@@ -111,9 +132,9 @@ def _process_one_event(args) -> list:
 
     if minute_df is None or minute_df.empty:
         for entry_type, stop_type, trail_type in base_strategies:
-            for sell_style in SELL_STYLES:
+            for sell_style in sell_styles:
                 for ladder_name in target_ladders:
-                    for core_pct in config.V3_CORE_PCTS:
+                    for core_pct in core_pcts:
                         rows.append(_missing_data_row(ticker, reaction_date, event_meta, entry_type, stop_type,
                                                        trail_type, sell_style, ladder_name, core_pct))
         return rows
@@ -131,9 +152,9 @@ def _process_one_event(args) -> list:
 
     for entry_type, stop_type, trail_type in base_strategies:
         entry = entry_cache[entry_type]
-        for sell_style in SELL_STYLES:
+        for sell_style in sell_styles:
             for ladder_name, target_pcts in target_ladders.items():
-                for core_pct in config.V3_CORE_PCTS:
+                for core_pct in core_pcts:
                     if entry is None:
                         rows.append(_missing_data_row(ticker, reaction_date, event_meta, entry_type, stop_type,
                                                        trail_type, sell_style, ladder_name, core_pct))
@@ -148,10 +169,12 @@ def _process_one_event(args) -> list:
     return rows
 
 
-def run_v3b_grid(events: pd.DataFrame, base_strategies, target_ladders, workers: int = 1) -> pd.DataFrame:
-    n_combos = len(base_strategies) * len(SELL_STYLES) * len(target_ladders) * len(config.V3_CORE_PCTS)
+def run_v3b_grid(events: pd.DataFrame, base_strategies, target_ladders, sell_styles, core_pcts,
+                  workers: int = 1) -> pd.DataFrame:
+    n_combos = len(base_strategies) * len(sell_styles) * len(target_ladders) * len(core_pcts)
     arg_list = [
-        (row.ticker, row.reaction_date, row.adr14, event_meta_from_row(row), base_strategies, target_ladders)
+        (row.ticker, row.reaction_date, row.adr14, event_meta_from_row(row), base_strategies, target_ladders,
+         sell_styles, core_pcts)
         for row in events.itertuples()
     ]
 
@@ -204,27 +227,55 @@ def summarize_all_v3b(all_trades: pd.DataFrame) -> pd.DataFrame:
     return summary_df.sort_values("G_score", ascending=False).reset_index(drop=True)
 
 
+def stage2_base_strategies(stage1_summary_path: str, top_n: int) -> list:
+    """Reads screen1's strategy summary and returns the (entry_type, stop_type,
+    trail_type) triples of its top N strategies by G_score, de-duplicated (screen1's 324
+    strategies are all distinct base strategies already -- single sell_style/ladder/
+    core_pct -- so this is normally a 1:1 mapping, but de-dup defensively anyway)."""
+    stage1 = pd.read_csv(stage1_summary_path)
+    top = stage1.sort_values("G_score", ascending=False).head(top_n)
+    seen = set()
+    base_strategies = []
+    for _, row in top.iterrows():
+        triple = (row["entry_type"], row["stop_type"], row["trail_type"])
+        if triple not in seen:
+            seen.add(triple)
+            base_strategies.append(triple)
+    return base_strategies
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--universe", choices=list(_UNIVERSES), default="narrow",
-                         help="narrow = Top-5 V2 base strategies (60 combos); "
-                              "broad = full V2 entry x stop x trail grid (360 combos)")
+    parser.add_argument("--universe", choices=list(_UNIVERSES) + ["screen2"], default="narrow",
+                         help="narrow/broad = fixed grids; screen1/screen2 = coarse-to-fine screening (see module docstring)")
+    parser.add_argument("--stage1-summary", default=None,
+                         help="screen2 only: path to screen1's strategy_summary_v3b_screen1.csv")
+    parser.add_argument("--top-n", type=int, default=config.V3B_SCREEN_STAGE2_DEFAULT_TOP_N,
+                         help="screen2 only: how many of screen1's top strategies to carry into the full sweep")
     parser.add_argument("--limit", type=int, default=None, help="only the first N events (testing)")
     parser.add_argument("--workers", type=int, default=15, help="I/O-bound prefetch thread count")
     parser.add_argument("--sim-workers", type=int, default=os.cpu_count() or 4)
     parser.add_argument("--no-prefetch", action="store_true")
     args = parser.parse_args()
 
-    base_strategies, target_ladders, trades_filename, summary_filename = _UNIVERSES[args.universe]
+    if args.universe == "screen2":
+        if not args.stage1_summary:
+            parser.error("--universe screen2 requires --stage1-summary <path to screen1's summary csv>")
+        base_strategies = stage2_base_strategies(args.stage1_summary, args.top_n)
+        target_ladders, sell_styles, core_pcts = config.V3_MULTI_TARGET_LADDERS, SELL_STYLES, config.V3_CORE_PCTS
+        trades_filename, summary_filename = "trades_v3b_screen2.parquet", "strategy_summary_v3b_screen2.csv"
+    else:
+        base_strategies, target_ladders, sell_styles, core_pcts, trades_filename, summary_filename = \
+            _UNIVERSES[args.universe]
 
     events = load_ep_v5()
     if args.limit:
         events = events.head(args.limit)
     print(f"{len(events)} events loaded from EP V5")
     print(f"V3b universe: {args.universe} ({len(base_strategies)} base strategies)")
-    print(f"V3b sell styles: {SELL_STYLES}")
+    print(f"V3b sell styles: {sell_styles}")
     print(f"V3b target ladders: {target_ladders}")
-    print(f"V3b core_pcts: {config.V3_CORE_PCTS}")
+    print(f"V3b core_pcts: {core_pcts}")
 
     if not args.no_prefetch:
         _prefetch(events, args.workers)
@@ -234,7 +285,8 @@ def main():
         print(f"--limit set -- writing to {outputs_dir} instead of the real outputs/ dir")
     os.makedirs(outputs_dir, exist_ok=True)
 
-    combined_trades = run_v3b_grid(events, base_strategies, target_ladders, workers=args.sim_workers)
+    combined_trades = run_v3b_grid(events, base_strategies, target_ladders, sell_styles, core_pcts,
+                                    workers=args.sim_workers)
     combined_trades.to_parquet(os.path.join(outputs_dir, trades_filename), index=False)
 
     summary_df = summarize_all_v3b(combined_trades)
