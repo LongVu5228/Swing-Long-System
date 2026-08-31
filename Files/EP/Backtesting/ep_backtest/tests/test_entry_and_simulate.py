@@ -71,7 +71,7 @@ def test_b_gap_through_defining_candle_close_at_high():
 
     result = find_entry(df, D0, SESSIONS, "5m")
     assert result.fill_reason == "gap_through"
-    assert result.entry_fill == round(105 * 1.01, 4)
+    assert result.entry_fill == round(105 * (1 + config.SLIPPAGE_PCT), 4)
 
 
 def test_c_delayed_entry_on_dplus3():

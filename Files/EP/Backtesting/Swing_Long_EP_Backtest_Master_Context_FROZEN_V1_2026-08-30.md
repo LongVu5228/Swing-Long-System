@@ -1391,19 +1391,29 @@ Therefore dashboard changes may require **re-simulation**, not cosmetic post-pro
 
 Store both raw trigger/stop levels and actual fills.
 
-## 60.1 V1 Default Slippage Value — Confirmed
+## 60.1 V1 Default Slippage Value — Confirmed, Revised 2026-08-30
 
 For V1, use a single placeholder convention for all three slippage types:
 
 \[
-Slippage = 1\% \times ReferencePrice
+Slippage = 0.1\% \times ReferencePrice
 \]
+
+**Revision history:** originally set to 1% (2026-08-30, same day). The first full-universe
+V1 run at 1% showed every static-percentage stop at 0.5%-2% landing at exactly 0% win rate —
+not a finding about those entries, but a mechanical artifact: 1% slippage on entry plus 1% on
+the stop exit (≈2% round-trip) exceeded the stop's own width, so `stop_price` for a 0.5% stop
+computed out to a level *above* the original breakout trigger, meaning virtually any normal
+pullback closed the trade. Revised down to 0.1% (≈0.2% round-trip) so it stays comfortably
+below even the tightest stop while still real enough to penalize thin stops. Still an explicit
+placeholder, not a researched cost model — the mechanism (percent of reference price, applied
+symmetrically to entry/stop/normal exits) is unchanged, only the number is smaller.
 
 Where `ReferencePrice` is the price level the fill is measured against for that specific event:
 
-- `entry_slippage`: 1% of the entry trigger price (normal trade-through) or of the session open (gap-through) — added, since it's a long entry.
-- `stop_exit_slippage`: 1% of the initial stop price (normal trade-through) or of the session open (gap-through) — subtracted, since it's a stop-out sell.
-- `normal_exit_slippage`: 1% of the finalized daily close on the 10SMA-exit day — subtracted.
+- `entry_slippage`: 0.1% of the entry trigger price (normal trade-through) or of the session open (gap-through) — added, since it's a long entry.
+- `stop_exit_slippage`: 0.1% of the initial stop price (normal trade-through) or of the session open (gap-through) — subtracted, since it's a stop-out sell.
+- `normal_exit_slippage`: 0.1% of the finalized daily close on the 10SMA-exit day — subtracted.
 
 Example:
 
@@ -2216,7 +2226,7 @@ First make V1 correct and auditable.
 
 **EP Backtest V1 specification is frozen enough to begin coding.**
 
-V1 slippage default confirmed (2026-08-30): flat 1% of reference price, applied to entry/stop/normal-exit fills alike (see Section 60.1). Placeholder, not a researched cost model.
+V1 slippage default confirmed (2026-08-30), revised same day: flat 0.1% of reference price (originally 1%, revised down after the first full-universe run showed 1% mechanically forced 0% win rates on stops <=2% wide), applied to entry/stop/normal-exit fills alike (see Section 60.1). Placeholder, not a researched cost model.
 
 Intentionally deferred issues:
 

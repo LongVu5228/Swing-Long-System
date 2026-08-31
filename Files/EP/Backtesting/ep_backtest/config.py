@@ -42,8 +42,13 @@ assert len(STOP_TYPES) == 12, STOP_TYPES
 # Section 26-27 -- V1 standardized exit
 SMA_WINDOW = 10
 
-# Section 60.1 -- V1 slippage placeholder: 1% of the relevant reference price
-SLIPPAGE_PCT = 0.01
+# Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
+# Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
+# showed 1% + 1% round-trip slippage exceeded the width of the 0.5%/1% static stops
+# outright, mechanically forcing a 0% win rate on those rows regardless of the entries'
+# actual quality. 0.1% keeps the round-trip cost (~0.2%) comfortably below even the
+# tightest stop while still penalizing thin stops relative to wide ones.
+SLIPPAGE_PCT = 0.001
 
 # Section 80 -- tick size
 TICK_SIZE = 0.01
