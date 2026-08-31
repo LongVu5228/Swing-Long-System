@@ -109,8 +109,10 @@ def run_v2_grid(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
         for args in tqdm(arg_list, desc=f"events ({n_combos} V2 strategies each)"):
             all_rows.extend(_process_one_event(args))
     else:
+        # chunksize=2 -- see run_batch.run_all_72's identical comment: per-event work
+        # time varies a lot, a small chunksize keeps workers from idling on a slow chunk.
         with ProcessPoolExecutor(max_workers=workers) as ex:
-            for rows in tqdm(ex.map(_process_one_event, arg_list, chunksize=8), total=len(arg_list),
+            for rows in tqdm(ex.map(_process_one_event, arg_list, chunksize=2), total=len(arg_list),
                               desc=f"events ({n_combos} V2 strategies each, {workers} processes)"):
                 all_rows.extend(rows)
 

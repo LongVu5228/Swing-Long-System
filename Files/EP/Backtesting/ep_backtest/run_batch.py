@@ -170,8 +170,16 @@ def run_all_72(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
         for args in tqdm(arg_list, desc="events (72 strategies each)"):
             all_rows.extend(_process_one_event(args))
     else:
+        # chunksize=2, not the ProcessPoolExecutor default (~len/workers, effectively
+        # huge here): per-event work time varies a lot -- a MISSING_MINUTE_DATA event
+        # returns near-instantly while a fully-simulated one runs the whole strategy
+        # grid -- so a small chunksize lets an idle worker grab new work sooner instead
+        # of sitting on a slow chunk while other workers finish early. 2026-08-31,
+        # user request: "what can we do to speed up the scripts" on a 4-core/8-thread
+        # laptop -- this is the one safe, zero-risk lever available locally (see
+        # config.py's screening pipeline for the bigger one: don't run more than needed).
         with ProcessPoolExecutor(max_workers=workers) as ex:
-            for rows in tqdm(ex.map(_process_one_event, arg_list, chunksize=8), total=len(arg_list),
+            for rows in tqdm(ex.map(_process_one_event, arg_list, chunksize=2), total=len(arg_list),
                               desc=f"events (72 strategies each, {workers} processes)"):
                 all_rows.extend(rows)
 
