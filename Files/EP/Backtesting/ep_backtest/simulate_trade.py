@@ -55,6 +55,9 @@ class TradeResult:
     realized_R: Optional[float] = None
     holding_days: Optional[int] = None
 
+    max_favorable_R: Optional[float] = None
+    exit_efficiency: Optional[float] = None
+
     audit_log: list = field(default_factory=list)
 
 
@@ -178,7 +181,8 @@ def simulate_with_entry(
     exit_ts, exit_ref_price, exit_reason = _run_position_management(
         minute_df, daily_sma, entry, stop.stop_price, sessions, log
     )
-    return _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
+    result = _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
+    return _attach_exit_efficiency(result, minute_df, daily_sma, entry, risk)
 
 
 def _finalize_exit(result: TradeResult, entry: EntryResult, risk: float, exit_ts, exit_ref_price,
@@ -212,6 +216,22 @@ def _finalize_exit(result: TradeResult, entry: EntryResult, risk: float, exit_ts
 
     result.status = "OK"
     result.audit_log = log
+    return result
+
+
+def _attach_exit_efficiency(result: TradeResult, minute_df: pd.DataFrame, daily_sma: pd.DataFrame,
+                             entry: EntryResult, risk: float) -> TradeResult:
+    """Shared tail for V1/V2: post-hoc MFE / exit-efficiency, no effect on the exit
+    decision itself. Only meaningful for a fully resolved ("OK") trade."""
+    if result.status != "OK":
+        return result
+
+    exit_date = result.exit_timestamp.date() if hasattr(result.exit_timestamp, "date") else result.exit_timestamp
+    result.max_favorable_R = trade_metrics.compute_max_favorable_r(
+        minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_date,
+        entry.entry_fill, risk,
+    )
+    result.exit_efficiency = trade_metrics.compute_exit_efficiency(result.realized_R, result.max_favorable_R)
     return result
 
 
@@ -314,7 +334,8 @@ def simulate_v2_with_entry(
             minute_df, daily_sma, entry, level_series, sessions, log
         )
 
-    return _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
+    result = _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
+    return _attach_exit_efficiency(result, minute_df, daily_sma, entry, risk)
 
 
 @dataclass
@@ -347,6 +368,10 @@ class TradeResultV3:
 
     realized_R: Optional[float] = None
     holding_days: Optional[int] = None
+
+    max_favorable_R: Optional[float] = None
+    exit_efficiency: Optional[float] = None
+
     audit_log: list = field(default_factory=list)
 
 
@@ -421,6 +446,12 @@ def simulate_v3_with_entry(
             (calendar_utils.TRADING_DAYS.date >= entry.entry_session_date)
             & (calendar_utils.TRADING_DAYS.date <= exit_date)
         ]) - 1
+
+        result.max_favorable_R = trade_metrics.compute_max_favorable_r(
+            minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_date,
+            entry.entry_fill, result.initial_risk_per_share,
+        )
+        result.exit_efficiency = trade_metrics.compute_exit_efficiency(result.realized_R, result.max_favorable_R)
 
     return result
 

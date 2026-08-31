@@ -64,6 +64,8 @@ def _result_row(result, chart_pattern, entry_type: str, stop_type: str) -> dict:
         "exit_reason": result.exit_reason,
         "realized_R": result.realized_R,
         "holding_days": result.holding_days,
+        "max_favorable_R": result.max_favorable_R,
+        "exit_efficiency": result.exit_efficiency,
     }
 
 
@@ -181,6 +183,17 @@ def summarize(trades: pd.DataFrame) -> dict:
 
     other_status = trades[~trades["status"].isin([config.STATUS_NO_ENTRY, "OK"])]["status"].value_counts().to_dict()
 
+    # Exit efficiency (realized_R / MFE) is only meaningful for trades that had a real
+    # move to give back -- a trade that ticks up 0.01R before a routine stop-out produces
+    # an efficiency ratio like -76 (dividing a normal ~-1R loss by a near-zero MFE), a
+    # division-by-near-zero artifact, not a real signal. Filtering to trades that reached
+    # at least 1R of unrealized profit at some point is what makes the average
+    # interpretable; the unfiltered version is kept too for transparency but should not
+    # be read as "how good are our exits" on its own. See run_batch_v3b.summarize_all_v3b,
+    # which this mirrors.
+    has_mfe = "max_favorable_R" in triggered.columns
+    real_movers = triggered[triggered["max_favorable_R"] >= 1.0] if has_mfe else triggered.iloc[0:0]
+
     return {
         "eligible_events": eligible,
         "no_entry": int(no_entry),
@@ -196,6 +209,11 @@ def summarize(trades: pd.DataFrame) -> dict:
         "median_R": triggered["realized_R"].median() if n else float("nan"),
         "std_R": triggered["realized_R"].std() if n else float("nan"),
         "avg_hold_days": triggered["holding_days"].mean() if n else float("nan"),
+        "pct_trades_with_real_move": len(real_movers) / n if n else float("nan"),
+        "avg_exit_efficiency": real_movers["exit_efficiency"].mean() if len(real_movers) else float("nan"),
+        "median_exit_efficiency": real_movers["exit_efficiency"].median() if len(real_movers) else float("nan"),
+        "avg_exit_efficiency_unfiltered": triggered["exit_efficiency"].mean() if n else float("nan"),
+        "avg_max_favorable_R": triggered["max_favorable_R"].mean() if n and has_mfe else float("nan"),
         "other_status_counts": other_status,
     }
 
@@ -265,7 +283,8 @@ def main():
     print(f"\nwrote {len(combined_trades)} trade rows across 72 strategies")
     print(f"strategy summary: {os.path.join(config.OUTPUTS_DIR, 'strategy_summary_all_72.csv')}")
     print("\n--- Top 10 by G Score ---")
-    cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R", "G_score"]
+    cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
+            "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]
     print(summary_df[cols].head(10).to_string(index=False))
     print("\n--- Bottom 5 by G Score ---")
     print(summary_df[cols].tail(5).to_string(index=False))

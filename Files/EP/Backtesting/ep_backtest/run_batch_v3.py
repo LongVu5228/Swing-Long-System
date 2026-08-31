@@ -46,6 +46,8 @@ def _result_row(result: TradeResultV3, chart_pattern) -> dict:
         "core_exit_reason": result.core_exit_reason,
         "realized_R": result.realized_R,
         "holding_days": result.holding_days,
+        "max_favorable_R": result.max_favorable_R,
+        "exit_efficiency": result.exit_efficiency,
     }
 
 
@@ -167,7 +169,8 @@ def main():
 
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3 strategies")
     print(f"strategy summary: {os.path.join(config.OUTPUTS_DIR, 'strategy_summary_v3.csv')}")
-    cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R", "G_score"]
+    cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
+            "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]
     print("\n--- Top 10 by G Score ---")
     print(summary_df[cols].head(10).to_string(index=False))
     print("\n--- Bottom 5 by G Score ---")

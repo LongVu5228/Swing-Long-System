@@ -4,14 +4,15 @@ partial_taking.py's single-sale version. User's confirmed choices (2026-08-30):
 
 - Targets spaced every 10% from entry: +10%, +20%, +30%, +40%, +50%.
 - Both sell styles requested, run side by side:
-  - EQUAL_DEPLETION (Section 52): sell a fixed 10 percentage points of the ORIGINAL
-    position at each target crossed, until the 50% non-core is fully depleted (so all
-    5 targets, hit in order, exactly exhaust it).
+  - EQUAL_DEPLETION (Section 52): sell an equal slice of the ORIGINAL position at each
+    target crossed -- (1 - core_pct) / n_targets per rung -- so all targets, hit in
+    order, exactly exhaust the non-core bucket regardless of the core/non-core split
+    (10pp/target at the original 50/50; 14pp/target at 30/70; 6pp/target at 70/30).
   - EXPONENTIAL_REMAINING (Section 53): sell 20% of whatever non-core REMAINS at each
-    target crossed. The first sale is the same size as equal-depletion's (20% of the
-    initial 50% non-core = 10pp), but every sale after that is smaller, leaving a
-    shrinking tail that can still be partly unsold after all 5 targets -- that residual
-    just keeps riding under the trailing stop indefinitely, same as a smaller "core."
+    target crossed. The first sale is the same size as equal-depletion's first rung,
+    but every sale after that is smaller, leaving a shrinking tail that can still be
+    partly unsold after all 5 targets -- that residual just keeps riding under the
+    trailing stop indefinitely, same as a smaller "core."
 - Breakeven activates once, after the FIRST sale (any target), exactly like the
   single-sale version -- never re-activated or re-tightened by later sales themselves
   (only the ongoing trailing stop can tighten it further from there).
@@ -112,6 +113,18 @@ def run_multi_partial_position_management(
     non_core_remaining = 1.0 - core_pct
     total_sold_pct = 0.0
     sales = []
+
+    if sell_style == "equal_depletion" and target_prices:
+        # Scale the per-target sell size to core_pct so the ladder always fully
+        # exhausts non-core across all rungs, regardless of split. Previously this was
+        # a FIXED 10pp/target (config.V3_MULTI_SELL_AMOUNT_EQUAL) calibrated only for
+        # the 50/50 split -- it silently capped out early for a large core_pct (e.g.
+        # C70's 30% non-core hit the cap after 3 targets) and, worse, made C30 and C50
+        # produce byte-for-byte identical trades (5 x 10pp = 50pp always exhausts BOTH
+        # a 70% and a 50% non-core bucket the same way, with the leftover just rolling
+        # into the same final sale either way). Confirmed on the 2026-08-31 core-pct
+        # sweep run: every equal_depletion strategy showed C30 == C50 exactly.
+        sell_amount = non_core_remaining / len(target_prices)
 
     scan_minute_df, scan_sessions = minute_df, sessions
     scan_entry = entry

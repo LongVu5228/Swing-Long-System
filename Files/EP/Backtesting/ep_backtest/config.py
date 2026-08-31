@@ -72,12 +72,22 @@ V3_BASE_STRATEGIES = [
 V3_TARGET_PCTS = [0.10, 0.15, 0.20, 0.30, 0.50]
 V3_CORE_PCT = 0.5
 
+# Core/non-core split sweep (user idea, 2026-08-31): don't assume 50/50 is right --
+# compare a core-heavy split (70% core, only 30% sold off via targets -- rides winners
+# harder) against a non-core-heavy split (30% core, 70% sold off via targets -- banks
+# profit earlier/more aggressively) against the original 50/50. Used by V3b's batch
+# runner; V3 (single-sale) still uses the fixed V3_CORE_PCT above.
+V3_CORE_PCTS = [0.3, 0.5, 0.7]
+
 # V3b: multi-target staged partials (Section 50/52/53/54), user-confirmed 2026-08-30 --
 # targets every 10% from entry up to 50%, both sell styles tested side by side. Same
 # 50/50 core as V3.
 V3_MULTI_TARGET_PCTS = [0.10, 0.20, 0.30, 0.40, 0.50]
-# equal_depletion: sell this many percentage points of the ORIGINAL position at each
-# target crossed -- 10pp x 5 targets exactly exhausts the 50% non-core.
+# equal_depletion: this is the per-target sell size ONLY at the original 50/50 core
+# split (10pp x 5 targets exactly exhausts a 50% non-core). At other core_pct values in
+# the sweep below, multi_partial_taking.py recomputes the actual per-target size as
+# (1 - core_pct) / n_targets so every split's ladder still exactly exhausts its own
+# non-core bucket -- see that module's docstring (2026-08-31 fix).
 V3_MULTI_SELL_AMOUNT_EQUAL = 0.10
 # exponential_remaining: sell this fraction of whatever non-core REMAINS at each target
 # crossed. Chosen so the FIRST sale matches equal_depletion's exactly (20% of the
