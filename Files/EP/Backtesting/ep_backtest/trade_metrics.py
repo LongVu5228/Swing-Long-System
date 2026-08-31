@@ -20,7 +20,7 @@ def compute_max_favorable_r(
     daily_sma: pd.DataFrame,
     entry_timestamp,
     entry_session_date,
-    exit_date,
+    exit_timestamp,
     entry_fill: float,
     risk: float,
 ) -> Optional[float]:
@@ -30,19 +30,49 @@ def compute_max_favorable_r(
     the position was still open at that moment (a pure price statistic, not a
     size-weighted one; the standard MFE definition).
 
-    Entry day uses minute-bar highs (only from entry_timestamp onward -- a trade can't
-    have "run up" before it was entered). Every day after that through exit_date uses
-    the daily high directly; daily resolution is sufficient there since the goal is just
-    "what was the peak price," not an intrabar-precise fill.
+    `exit_timestamp` is the RAW exit event (whatever the caller's own result stores) --
+    either a tz-aware intraday Timestamp (a real minute-precision fill) or a plain date
+    (a close-based exit, inherently end-of-day, or a daily-bar-approximation fallback
+    beyond the D0-D+7 minute-cached window -- Section 78). Passing a bare date here and
+    letting every day through it use the FULL day's high (including price action AFTER
+    an intraday exit that same day) was a real bug, confirmed 2026-08-31: a trade that
+    stopped out at 10am on some later day but the stock spiked at 2pm that same day had
+    that afternoon spike counted toward its own MFE, silently understating
+    exit_efficiency on every intraday exit.
+
+    Entry day: minute-bar highs from entry_timestamp onward, capped at exit_timestamp too
+    if the trade both entered AND exited the same day. Days strictly between entry and
+    exit: the full daily high (the position was open the whole day, no cap needed). The
+    exit day itself (when after the entry day): capped at exit_timestamp using minute
+    bars IF they're cached for that day (D0-D+7) -- otherwise (a close-based end-of-day
+    exit, which genuinely was exposed to the whole day, or a daily-approximation exit
+    beyond the minute-cached window, where no finer data exists at all) the full day's
+    high is used, same as before.
     """
-    entry_day_bars = minute_df[
-        (minute_df["session_date"] == entry_session_date) & (minute_df["dt_et"] >= entry_timestamp)
-    ]
+    has_exit_time = hasattr(exit_timestamp, "date")  # tz-aware Timestamp => a real intraday moment is known
+    exit_date = exit_timestamp.date() if has_exit_time else exit_timestamp
+
+    entry_day_mask = (minute_df["session_date"] == entry_session_date) & (minute_df["dt_et"] >= entry_timestamp)
+    if has_exit_time and exit_date == entry_session_date:
+        entry_day_mask &= minute_df["dt_et"] <= exit_timestamp
+    entry_day_bars = minute_df[entry_day_mask]
     peak = float(entry_day_bars["high"].max()) if not entry_day_bars.empty else entry_fill
 
-    later_days = daily_sma[(daily_sma["date"] > entry_session_date) & (daily_sma["date"] <= exit_date)]
-    if not later_days.empty:
-        peak = max(peak, float(later_days["high"].max()))
+    between_days = daily_sma[(daily_sma["date"] > entry_session_date) & (daily_sma["date"] < exit_date)]
+    if not between_days.empty:
+        peak = max(peak, float(between_days["high"].max()))
+
+    if exit_date > entry_session_date:
+        exit_day_minute_bars = (
+            minute_df[(minute_df["session_date"] == exit_date) & (minute_df["dt_et"] <= exit_timestamp)]
+            if has_exit_time else minute_df.iloc[0:0]
+        )
+        if not exit_day_minute_bars.empty:
+            peak = max(peak, float(exit_day_minute_bars["high"].max()))
+        else:
+            exit_day_row = daily_sma[daily_sma["date"] == exit_date]
+            if not exit_day_row.empty:
+                peak = max(peak, float(exit_day_row["high"].iloc[0]))
 
     if risk <= 0:
         return None

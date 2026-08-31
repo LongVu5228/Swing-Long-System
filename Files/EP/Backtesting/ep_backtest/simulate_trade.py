@@ -226,9 +226,8 @@ def _attach_exit_efficiency(result: TradeResult, minute_df: pd.DataFrame, daily_
     if result.status != "OK":
         return result
 
-    exit_date = result.exit_timestamp.date() if hasattr(result.exit_timestamp, "date") else result.exit_timestamp
     result.max_favorable_R = trade_metrics.compute_max_favorable_r(
-        minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_date,
+        minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, result.exit_timestamp,
         entry.entry_fill, risk,
     )
     result.exit_efficiency = trade_metrics.compute_exit_efficiency(result.realized_R, result.max_favorable_R)
@@ -448,7 +447,7 @@ def simulate_v3_with_entry(
         ]) - 1
 
         result.max_favorable_R = trade_metrics.compute_max_favorable_r(
-            minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_date,
+            minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, result.core_exit_timestamp,
             entry.entry_fill, result.initial_risk_per_share,
         )
         result.exit_efficiency = trade_metrics.compute_exit_efficiency(result.realized_R, result.max_favorable_R)
@@ -577,7 +576,7 @@ def simulate_multi_v3_with_entry(
 
         risk = entry.entry_fill - stop.stop_price
         result.max_favorable_R = trade_metrics.compute_max_favorable_r(
-            minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_date,
+            minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_ts,
             entry.entry_fill, risk,
         )
         result.exit_efficiency = trade_metrics.compute_exit_efficiency(result.realized_R, result.max_favorable_R)

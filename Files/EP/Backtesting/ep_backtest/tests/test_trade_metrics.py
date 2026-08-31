@@ -60,6 +60,68 @@ def test_mfe_stops_looking_after_exit_date():
     assert abs(mfe - 2.0) < 1e-9  # (110-100)/5, NOT influenced by day d2's 500 high
 
 
+def test_mfe_ignores_same_day_bars_after_an_intraday_exit():
+    # Regression test for a real bug: entry-day bars were never capped at the exit time
+    # at all (only at entry_timestamp on the lower end) -- a same-day entry-and-exit
+    # trade's MFE could include a spike that happened AFTER the position was already
+    # closed, understating exit_efficiency on every such trade.
+    d0 = date(2024, 1, 2)
+    entry_ts = datetime.combine(d0, datetime.min.time(), tzinfo=config.ET).replace(hour=9, minute=45)
+    exit_ts = datetime.combine(d0, datetime.min.time(), tzinfo=config.ET).replace(hour=10, minute=0)
+    minute_df = pd.DataFrame([
+        _minute_bar(d0, 945, 100),   # entry bar
+        _minute_bar(d0, 950, 105),   # the real peak WHILE the position was open
+        _minute_bar(d0, 1000, 106),  # the exit bar itself -- still counts (<=exit_ts)
+        _minute_bar(d0, 1005, 200),  # AFTER the exit -- must NOT count
+    ])
+    daily_sma = pd.DataFrame(columns=["date", "high"])
+
+    mfe = compute_max_favorable_r(minute_df, daily_sma, entry_ts, d0, exit_ts, entry_fill=100.0, risk=5.0)
+    assert abs(mfe - 1.2) < 1e-9, "peak must be 106 (at/before the exit), not the post-exit 200 spike"
+
+
+def test_mfe_caps_a_later_days_peak_at_the_intraday_exit_time():
+    # Regression test for the broader version of the same bug: for any day AFTER entry,
+    # the OLD code used that whole day's daily high through exit_date inclusive, so a
+    # trade that stopped out at 10am on a later day still had that same afternoon's
+    # price action counted toward its own MFE if the stock kept running post-exit.
+    d0 = date(2024, 1, 2)
+    d1 = date(2024, 1, 3)
+    entry_ts = datetime.combine(d0, datetime.min.time(), tzinfo=config.ET).replace(hour=9, minute=31)
+    exit_ts = datetime.combine(d1, datetime.min.time(), tzinfo=config.ET).replace(hour=10, minute=0)
+    minute_df = pd.DataFrame([
+        _minute_bar(d0, 931, 101),
+        _minute_bar(d1, 945, 108),   # before the exit on the exit day -- counts
+        _minute_bar(d1, 1000, 109),  # the exit bar itself -- still counts (<=exit_ts)
+        _minute_bar(d1, 1400, 300),  # AFTER the exit, same day -- must NOT count
+    ])
+    daily_sma = pd.DataFrame([
+        {"date": d0, "high": 101},
+        {"date": d1, "high": 300},  # the OLD (buggy) code would have used this full-day high
+    ])
+
+    mfe = compute_max_favorable_r(minute_df, daily_sma, entry_ts, d0, exit_ts, entry_fill=100.0, risk=5.0)
+    assert abs(mfe - 1.8) < 1e-9, "peak must be 109 (at/before the exit), not the post-exit 300 spike"
+
+
+def test_mfe_still_uses_full_day_high_for_a_close_based_exit():
+    # A close-based exit (SMA10/20_EXIT) is inherently an end-of-day event -- the
+    # position genuinely was exposed to that whole day's price action, so the full daily
+    # high is CORRECT here, not a limitation. Exit is passed as a plain date (no intraday
+    # precision available), matching how such exits are actually stored.
+    d0 = date(2024, 1, 2)
+    d1 = date(2024, 1, 3)
+    entry_ts = datetime.combine(d0, datetime.min.time(), tzinfo=config.ET).replace(hour=9, minute=31)
+    minute_df = pd.DataFrame([_minute_bar(d0, 931, 101)])
+    daily_sma = pd.DataFrame([
+        {"date": d0, "high": 101},
+        {"date": d1, "high": 130},  # the close-based exit day's OWN high -- must still count in full
+    ])
+
+    mfe = compute_max_favorable_r(minute_df, daily_sma, entry_ts, d0, d1, entry_fill=100.0, risk=5.0)
+    assert abs(mfe - 6.0) < 1e-9  # (130-100)/5
+
+
 def test_exit_efficiency_full_capture_and_partial_giveback():
     assert abs(compute_exit_efficiency(realized_R=5.0, max_favorable_R=5.0) - 1.0) < 1e-9
     assert abs(compute_exit_efficiency(realized_R=2.0, max_favorable_R=10.0) - 0.2) < 1e-9
