@@ -11,7 +11,7 @@ from .. import calendar_utils, config
 from ..entry import EntryResult
 from ..entry import find_entry
 from ..exits import add_sma10
-from ..multi_partial_taking import _downside_scan, run_multi_partial_position_management
+from ..multi_partial_taking import _downside_scan, describe_sell_schedule, run_multi_partial_position_management
 from ..simulate_trade import simulate_multi_v3_with_entry, simulate_v2_with_entry
 
 D0 = calendar_utils.sessions_from(pd.Timestamp("2024-01-02").date(), 1)[0]
@@ -180,6 +180,44 @@ def test_double_gap_sells_two_targets_worth_in_one_event_at_actual_price():
     assert abs(result.first_sale_price - gap_price) < gap_price * 0.01
     assert result.first_sale_reason.endswith("_1of2")
     assert result.n_sales >= 2
+
+
+def test_describe_sell_schedule_matches_a_real_simulation_that_hits_every_target():
+    # Regression test guarding against the display (describe_sell_schedule, used for the
+    # summary's human-readable sell-schedule column) ever silently drifting from what the
+    # live simulation actually does -- both call the same _next_sell_pct() helper, but a
+    # future edit to one call site without the other would go unnoticed without this.
+    minute_df, prior_rows, entry = _entry_and_prior_daily()
+    ef = entry.entry_fill
+    targets = [round(ef * (1 + p), 4) for p in config.V3_MULTI_TARGET_PCTS]
+
+    # Every future day gaps straight to the next target in turn, so all 5 rungs fire in
+    # order with nothing else intervening -- exactly what describe_sell_schedule assumes.
+    days = _future_days(6)
+    rows = list(prior_rows)
+    for i, day in enumerate(days[:5]):
+        rows.append(_daily_row(day, targets[i], targets[i] + 0.5, targets[i] - 0.5, targets[i]))
+    rows.append(_daily_row(days[5], ef - 5, ef - 4, ef - 6, ef - 5))  # resolves the leftover core
+
+    daily_df = pd.DataFrame(rows)
+    daily_sma = add_sma10(daily_df)
+
+    for sell_style, sell_amount in [("equal_depletion", config.V3_MULTI_SELL_AMOUNT_EQUAL),
+                                     ("exponential_remaining", config.V3_MULTI_SELL_AMOUNT_EXPONENTIAL)]:
+        for core_pct in (0.3, 0.5, 0.7):
+            result = run_multi_partial_position_management(
+                minute_df, daily_sma, entry, ef * 0.95, ef, "close_below_20ma",
+                config.V3_MULTI_TARGET_PCTS, sell_style, sell_amount, core_pct=core_pct,
+                sessions=SESSIONS, log=[],
+            )
+            assert result.status == "OK"
+            target_sales = [s for s in result.sales if s.reason.startswith("TARGET")]
+            assert len(target_sales) == 5
+
+            expected = describe_sell_schedule(sell_style, core_pct, 5)
+            actual = [s.pct_of_original for s in target_sales]
+            for exp, act in zip(expected, actual):
+                assert abs(exp - act) < 1e-9, (sell_style, core_pct, expected, actual)
 
 
 def test_ordinary_trade_through_crosses_multiple_targets_each_at_its_own_price():

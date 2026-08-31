@@ -54,6 +54,38 @@ from .simulate_trade import _run_position_management, _slip_sub
 SELL_STYLES = ["equal_depletion", "exponential_remaining"]
 
 
+def _next_sell_pct(sell_style: str, sell_amount: float, non_core_remaining: float) -> float:
+    """The fraction of the ORIGINAL position sold at ONE target crossing, given how much
+    non-core remains right before it. Shared by the live simulation loop below and
+    describe_sell_schedule() (a pure, trade-independent preview of the same math, used
+    for reporting) so the two can never silently drift apart."""
+    if sell_style == "equal_depletion":
+        return min(sell_amount, non_core_remaining)
+    return min(non_core_remaining * sell_amount, non_core_remaining)
+
+
+def describe_sell_schedule(sell_style: str, core_pct: float, n_targets: int) -> list:
+    """The sequence of per-rung sell sizes (as a fraction of the ORIGINAL position) this
+    strategy's targets would produce if every rung were reached in order with nothing
+    else intervening -- a pure function of the strategy's own parameters (no trade, no
+    price action involved), for describing/reporting what a strategy_id actually does
+    mechanically. Added 2026-08-31: the strategy_id string alone doesn't say how much
+    gets sold at each rung, and that wasn't otherwise visible anywhere in the output."""
+    if n_targets <= 0:
+        return []
+    non_core_remaining = 1.0 - core_pct
+    sell_amount = (
+        non_core_remaining / n_targets if sell_style == "equal_depletion"
+        else config.V3_MULTI_SELL_AMOUNT_EXPONENTIAL
+    )
+    schedule = []
+    for _ in range(n_targets):
+        sell_pct = _next_sell_pct(sell_style, sell_amount, non_core_remaining)
+        schedule.append(sell_pct)
+        non_core_remaining -= sell_pct
+    return schedule
+
+
 @dataclass
 class Sale:
     timestamp: object
@@ -215,10 +247,7 @@ def run_multi_partial_position_management(
             fill_level = target_ref if is_gap else tp
             fill = _slip_sub(fill_level)
             last_fill = fill
-            if sell_style == "equal_depletion":
-                sell_pct = min(sell_amount, non_core_remaining)
-            else:
-                sell_pct = min(non_core_remaining * sell_amount, non_core_remaining)
+            sell_pct = _next_sell_pct(sell_style, sell_amount, non_core_remaining)
             sales.append(Sale(target_ts, fill, sell_pct, f"{target_reason}_{i}of{len(crossed)}"))
             total_sold_pct += sell_pct
             non_core_remaining -= sell_pct

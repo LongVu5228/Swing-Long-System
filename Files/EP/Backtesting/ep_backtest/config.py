@@ -102,22 +102,38 @@ V3_MULTI_SELL_AMOUNT_EXPONENTIAL = 0.20
 # gets sold per rung.
 V3_MULTI_TARGET_PCTS_LATE_START = [0.30, 0.35, 0.40, 0.45, 0.50]
 
+
+def _evenly_spaced_ladder(start_pct: float, end_pct: float = 0.50, n_rungs: int = 5) -> list:
+    """5 rungs evenly spaced from start_pct to end_pct (inclusive), e.g. start_pct=0.20 ->
+    20/27.5/35/42.5/50%. Used to build the starting-point sweep below -- every ladder ends
+    at the same +50% and has the same rung COUNT, varying only WHERE profit-taking starts,
+    so the sweep isolates that one variable instead of confounding it with step size too."""
+    step = (end_pct - start_pct) / (n_rungs - 1)
+    return [round(start_pct + i * step, 6) for i in range(n_rungs)]
+
+
+# Starting-point sweep (user idea, 2026-08-31): "early_start" (begins at 10%) vs
+# "late_start" (begins at 30%) only tested two points -- this fills in the gaps so WHERE
+# profit-taking starts is tested as its own explicit dimension, not just two anecdotal
+# choices. early_start/late_start keep their original names (and exact original values)
+# for continuity with earlier results; start20/start40 are the new in-between points.
 V3_MULTI_TARGET_LADDERS = {
-    "early_start": V3_MULTI_TARGET_PCTS,
-    "late_start": V3_MULTI_TARGET_PCTS_LATE_START,
+    "early_start": V3_MULTI_TARGET_PCTS,               # 10/20/30/40/50
+    "start20": _evenly_spaced_ladder(0.20),             # 20/27.5/35/42.5/50
+    "late_start": V3_MULTI_TARGET_PCTS_LATE_START,      # 30/35/40/45/50
+    "start40": _evenly_spaced_ladder(0.40),             # 40/42.5/45/47.5/50
 }
 
 # Broadened strategy universe (user request, 2026-08-31): "test on the other candle
 # types, that big list of possible strategies" -- the FULL V2 entry x stop x trail grid
 # (60 combos) as V3b base strategies, instead of just the narrowed Top-5 V2 winners used
-# above. Run via run_batch_v3b_broad.py, NOT run_batch_v3b.py (which keeps using the
-# narrow Top-5 list, unchanged, for backward comparability with earlier results).
+# above. Run via `run_batch_v3b.py --universe broad` (merged into run_batch_v3b.py
+# 2026-08-31 -- was briefly its own run_batch_v3b_broad.py script).
 #
-# Scoped down from the full sell-style x ladder x core cross product to keep runtime
-# bounded (~1.5hr vs ~3hr for the full 60x2x2x3=720 cross product, user's explicit
-# choice 2026-08-31): late_start only, since it beat early_start on EVERY one of the 5
-# original base strategies x 2 sell styles already tested -- not worth re-proving at
-# 12x the base-strategy count. Full sell-style x core_pct sweep is kept.
+# base_strategies x sell_style(2) x ladder x core_pct(3) = 360 combos per ladder. User's
+# explicit choice 2026-08-31: run the FULL 4-ladder starting-point sweep here too (1,440
+# combos, ~6hr), not just late_start -- see V3_MULTI_TARGET_LADDERS above for what the 4
+# ladders are and why.
 V3B_BROAD_BASE_STRATEGIES = [
     (entry_type, stop_type, trail_type)
     for entry_type in V2_ENTRY_TYPES
@@ -126,7 +142,7 @@ V3B_BROAD_BASE_STRATEGIES = [
 ]
 assert len(V3B_BROAD_BASE_STRATEGIES) == 60, V3B_BROAD_BASE_STRATEGIES
 
-V3B_BROAD_TARGET_LADDERS = {"late_start": V3_MULTI_TARGET_PCTS_LATE_START}
+V3B_BROAD_TARGET_LADDERS = V3_MULTI_TARGET_LADDERS
 
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run

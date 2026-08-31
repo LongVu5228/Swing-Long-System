@@ -1,15 +1,15 @@
 """
 V3b batch runner: multi-target staged partials, both sell styles (equal_depletion,
 exponential_remaining) x the core/non-core split sweep (config.V3_CORE_PCTS: 30/50/70%
-core), over either of two strategy universes (--universe):
+core) x the target-ladder starting-point sweep (config.V3_MULTI_TARGET_LADDERS: 4
+ladders -- early_start/start20/late_start/start40, all 5 rungs ending at +50%, varying
+only where profit-taking starts), over either of two strategy universes (--universe):
 
-- narrow (default): the Top-5 V2 base strategies x both target ladders
-  (config.V3_BASE_STRATEGIES x config.V3_MULTI_TARGET_LADDERS) -- 60 combos.
-- broad: the FULL V2 entry x stop x trail grid x the late_start ladder only
-  (config.V3B_BROAD_BASE_STRATEGIES x config.V3B_BROAD_TARGET_LADDERS) -- 360 combos.
-  "Test on the other candle types, that big list of possible strategies" (user request
-  2026-08-31). Scoped to late_start only to keep runtime bounded -- see config.py's
-  comment on V3B_BROAD_TARGET_LADDERS for why.
+- narrow (default): the Top-5 V2 base strategies (config.V3_BASE_STRATEGIES) -- 5 base x
+  2 sell styles x 4 ladders x 3 core_pcts = 120 combos.
+- broad: the FULL V2 entry x stop x trail grid (config.V3B_BROAD_BASE_STRATEGIES) -- 60
+  base x 2 sell styles x 4 ladders x 3 core_pcts = 1,440 combos. "Test on the other
+  candle types, that big list of possible strategies" (user request 2026-08-31).
 
 One script instead of two near-duplicates (run_batch_v3b.py + run_batch_v3b_broad.py,
 merged 2026-08-31): a bug in the shared simulation engine only needs fixing -- and
@@ -34,7 +34,7 @@ from tqdm import tqdm
 from . import calendar_utils, config, daily_bars, exits, minute_bars
 from .entry import find_entry
 from .load_events import load_ep_v5
-from .multi_partial_taking import SELL_STYLES
+from .multi_partial_taking import SELL_STYLES, describe_sell_schedule
 from .run_batch import _prefetch, effective_outputs_dir, summarize
 from .simulate_trade import TradeResultMultiV3, _strategy_id_multi_v3, simulate_multi_v3_with_entry
 
@@ -183,6 +183,16 @@ def summarize_all_v3b(all_trades: pd.DataFrame) -> pd.DataFrame:
         # pct_trades_with_real_move / avg_exit_efficiency / avg_max_favorable_R etc. are
         # already computed by summarize() (shared with V1/V2/V3) -- see run_batch.summarize.
 
+        # Spell out what the strategy_id actually DOES mechanically -- the id string
+        # alone doesn't say how much gets sold at each rung, and that wasn't visible
+        # anywhere else in the output (user feedback 2026-08-31: "I just don't know what
+        # the sell criteria really is, not informative enough").
+        target_pcts = config.V3_MULTI_TARGET_LADDERS[row["target_ladder"]]
+        schedule = describe_sell_schedule(row["sell_style"], row["core_pct"], len(target_pcts))
+        summary["sell_schedule_desc"] = " + ".join(
+            f"{s * 100:g}% at +{t * 100:g}%" for s, t in zip(schedule, target_pcts)
+        )
+
         summaries.append(summary)
 
     summary_df = pd.DataFrame(summaries)
@@ -232,6 +242,13 @@ def main():
 
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3b strategies")
     print(f"strategy summary: {os.path.join(outputs_dir, summary_filename)}")
+
+    print("\n--- Sell schedule legend (sell_style x target_ladder x core_pct -> % sold per rung) ---")
+    legend = summary_df[["sell_style", "target_ladder", "core_pct", "sell_schedule_desc"]].drop_duplicates()
+    legend = legend.sort_values(["sell_style", "target_ladder", "core_pct"])
+    for _, row in legend.iterrows():
+        print(f"  {row['sell_style']} / {row['target_ladder']} / C{row['core_pct']*100:g}: {row['sell_schedule_desc']}")
+
     cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
             "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]
     print("\n--- Top 20 by G Score ---")

@@ -194,6 +194,16 @@ def summarize(trades: pd.DataFrame) -> dict:
     has_mfe = "max_favorable_R" in triggered.columns
     real_movers = triggered[triggered["max_favorable_R"] >= 1.0] if has_mfe else triggered.iloc[0:0]
 
+    # Split real movers by outcome: "avg_exit_efficiency" alone blends genuine winners
+    # (positive efficiency -- kept most of what they ran up) with trades that touched 1R+
+    # unrealized profit and then round-tripped all the way to a loss before breakeven
+    # ever activated (necessarily negative efficiency, by construction, whenever they
+    # exist). At a 15-35% win rate, that second group dominates the population and drags
+    # the blended average deep negative on its own -- not informative about exit timing
+    # on the trades that actually worked. Splitting them shows both stories separately.
+    winning_real_movers = real_movers[real_movers["realized_R"] > 1e-9]
+    losing_real_movers = real_movers[real_movers["realized_R"] <= 1e-9]
+
     return {
         "eligible_events": eligible,
         "no_entry": int(no_entry),
@@ -214,6 +224,11 @@ def summarize(trades: pd.DataFrame) -> dict:
         "median_exit_efficiency": real_movers["exit_efficiency"].median() if len(real_movers) else float("nan"),
         "avg_exit_efficiency_unfiltered": triggered["exit_efficiency"].mean() if n else float("nan"),
         "avg_max_favorable_R": triggered["max_favorable_R"].mean() if n and has_mfe else float("nan"),
+        # Real movers split by outcome -- see the comment above winning_real_movers.
+        "pct_real_movers_still_won": len(winning_real_movers) / len(real_movers) if len(real_movers) else float("nan"),
+        "avg_exit_efficiency_winners": winning_real_movers["exit_efficiency"].mean() if len(winning_real_movers) else float("nan"),
+        "median_exit_efficiency_winners": winning_real_movers["exit_efficiency"].median() if len(winning_real_movers) else float("nan"),
+        "avg_exit_efficiency_round_trip_losers": losing_real_movers["exit_efficiency"].mean() if len(losing_real_movers) else float("nan"),
         "other_status_counts": other_status,
     }
 
