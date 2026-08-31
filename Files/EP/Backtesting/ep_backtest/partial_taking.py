@@ -91,6 +91,62 @@ def _day_of(ts):
     return ts.date() if hasattr(ts, "date") else ts
 
 
+def restrict_to_after(minute_df, sessions, after_day, after_ts):
+    """
+    Bars/sessions still usable for a scan continuing from right after `after_ts` (on
+    `after_day`) -- shared by V3's Phase 2 and multi_partial_taking's per-target loop,
+    both of which need to avoid re-scanning bars/days already consumed by an earlier
+    stage of the same trade.
+
+    Real bug this guards against: `sessions` is always the ORIGINAL fixed D0..D+7 list
+    (Section 78's cached minute-bar window), so filtering it to `>= after_day` goes
+    EMPTY whenever the triggering event itself only resolved beyond D+7 -- i.e. whenever
+    the event was already found via the daily-bar-approximation fallback, which is
+    common for any target/level that takes more than 8 sessions to reach. The scanning
+    functions use `sessions[-1]` purely as "where does the minute-precision window end,
+    and daily approximation take over" -- an empty list must NOT be read as "nothing
+    left to check," it must be read as "we're already past the minute window, so the
+    daily-approximation phase should start immediately from `after_day`." Returning an
+    empty list here made every downstream caller (both V3's Phase 2 and V3b's per-target
+    loop) give up and report STILL_OPEN_AT_DATA_END the moment any triggering event fired
+    beyond D+7, even when plenty more daily history was available to keep scanning.
+    """
+    sessions_after = [d for d in sessions if d >= after_day]
+    if not sessions_after:
+        sessions_after = [after_day]  # sentinel: daily-approximation resumes strictly after this
+    if hasattr(after_ts, "date"):
+        minute_after = minute_df[
+            (minute_df["session_date"] > after_day)
+            | ((minute_df["session_date"] == after_day) & (minute_df["dt_et"] > after_ts))
+        ]
+    else:
+        minute_after = minute_df[minute_df["session_date"] > after_day]
+    return minute_after, sessions_after
+
+
+def make_continuation_entry(entry: EntryResult, ts, day, entry_fill: float) -> EntryResult:
+    """
+    A fabricated EntryResult so a later stage of the same trade can reuse the exact same
+    V2 scanning functions unchanged -- they only need entry_timestamp/entry_session_date
+    to know where to start looking, which for a continuation is "right after the
+    previous stage's event." entry_fill is preserved as the ORIGINAL entry price (never
+    the event that triggered this continuation) since it's still what defines 1R.
+    """
+    # ts is either already a tz-aware datetime (an intraday minute-window event) or a
+    # plain date (a daily-approximation event) -- the latter must be localized to ET,
+    # not left tz-naive, or every downstream comparison against minute_df["dt_et"]
+    # (always tz-aware) raises TypeError: Cannot compare tz-naive and tz-aware.
+    entry_timestamp = ts if hasattr(ts, "date") else pd.Timestamp(ts).tz_localize(config.ET)
+    return EntryResult(
+        entry_status=config.STATUS_VALID_TRADE, or_high=entry.or_high, trigger=entry.trigger,
+        entry_timestamp=entry_timestamp,
+        entry_day_offset=None, entry_session_date=day, entry_fill=entry_fill,
+        fill_reason=entry.fill_reason, entry_bar_index=None,
+        lod_known_at_entry=entry.lod_known_at_entry,
+        trigger_candle_low_known_at_entry=entry.trigger_candle_low_known_at_entry,
+    )
+
+
 _END_OF_DAY_REASONS = ("SMA10_EXIT", "SMA20_EXIT")
 
 
@@ -204,34 +260,12 @@ def run_v3_position_management(
     log.append(f"Target reached ({target_reason} at {target_ts}), fill = {partial_fill:.4f} -- "
                f"selling {(1-core_pct)*100:g}% non-core, moving core stop to breakeven ({entry_fill:.4f})")
 
-    # Phase 2 must not re-scan bars/days already consumed by Phase 1 -- restrict to
-    # sessions on/after the target day, and if the target fired intraday on a day still
-    # inside the cached minute window, restrict that day's bars to after the target bar.
+    # Phase 2 must not re-scan bars/days already consumed by Phase 1.
     target_day = _day_of(target_ts)
-    phase2_sessions = [d for d in sessions if d >= target_day]
-    if hasattr(target_ts, "date"):
-        phase2_minute_df = minute_df[
-            (minute_df["session_date"] > target_day)
-            | ((minute_df["session_date"] == target_day) & (minute_df["dt_et"] > target_ts))
-        ]
-    else:
-        phase2_minute_df = minute_df[minute_df["session_date"] > target_day]
+    phase2_minute_df, phase2_sessions = restrict_to_after(minute_df, sessions, target_day, target_ts)
+    phase2_entry = make_continuation_entry(entry, target_ts, target_day, entry_fill)
 
-    # A fabricated EntryResult so Phase 2 can reuse the exact same V2 scanning
-    # functions unchanged -- they only need entry_timestamp/entry_session_date to know
-    # where to start looking, which for Phase 2 is "right after the target fired."
-    phase2_entry = EntryResult(
-        entry_status=config.STATUS_VALID_TRADE, or_high=entry.or_high, trigger=entry.trigger,
-        entry_timestamp=target_ts if hasattr(target_ts, "date") else pd.Timestamp(target_ts),
-        entry_day_offset=None, entry_session_date=target_day, entry_fill=entry_fill,
-        fill_reason=entry.fill_reason, entry_bar_index=None,
-        lod_known_at_entry=entry.lod_known_at_entry,
-        trigger_candle_low_known_at_entry=entry.trigger_candle_low_known_at_entry,
-    )
-
-    if not phase2_sessions or (phase2_minute_df.empty and daily_sma[daily_sma["date"] > sessions[-1]].empty):
-        core_ts, core_ref, core_reason = None, None, None
-    elif trailing_stops.is_close_based(trail_type):
+    if trailing_stops.is_close_based(trail_type):
         core_ts, core_ref, core_reason = _run_position_management(
             phase2_minute_df, daily_sma, phase2_entry, entry_fill, phase2_sessions, log,
             ma_col=trailing_stops.ma_column_for(trail_type), is_continuation=True,

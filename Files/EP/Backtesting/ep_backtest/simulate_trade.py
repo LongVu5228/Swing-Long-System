@@ -425,6 +425,120 @@ def simulate_v3_with_entry(
     return result
 
 
+@dataclass
+class TradeResultMultiV3:
+    ticker: str
+    event_date: date
+    entry_type: str
+    stop_type: str
+    trail_type: str
+    sell_style: str
+    core_pct: float
+    strategy_id: str
+
+    status: str
+    entry_status: str
+
+    entry_timestamp: Optional[object] = None
+    entry_day_offset: Optional[int] = None
+    entry_fill: Optional[float] = None
+    initial_stop_price: Optional[float] = None
+
+    n_sales: int = 0
+    first_sale_timestamp: Optional[object] = None
+    first_sale_price: Optional[float] = None
+    first_sale_reason: Optional[str] = None
+    last_sale_timestamp: Optional[object] = None
+    last_sale_price: Optional[float] = None
+    last_sale_reason: Optional[str] = None
+    last_sale_pct: Optional[float] = None
+
+    realized_R: Optional[float] = None
+    holding_days: Optional[int] = None
+    audit_log: list = field(default_factory=list)
+
+
+def _strategy_id_multi_v3(entry_type: str, stop_type: str, trail_type: str, sell_style: str, core_pct: float) -> str:
+    return f"{_strategy_id(entry_type, stop_type)}__T{trail_type.upper()}__{sell_style.upper()}__C{core_pct*100:g}"
+
+
+def simulate_multi_v3_with_entry(
+    ticker: str, d0: date, adr14: Optional[float], entry_type: str, stop_type: str, trail_type: str,
+    target_pcts: list, sell_style: str, sell_amount: float, core_pct: float, entry: EntryResult,
+    minute_df: pd.DataFrame, daily_sma: pd.DataFrame, sessions: list,
+) -> TradeResultMultiV3:
+    """V3b: entry/initial-stop exactly like V1/V2/V3, then
+    multi_partial_taking.run_multi_partial_position_management for the staged
+    multi-target sell-down."""
+    from . import multi_partial_taking  # local import: avoids a module import cycle
+
+    log = []
+    strategy_id = _strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, core_pct)
+    result = TradeResultMultiV3(
+        ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type, trail_type=trail_type,
+        sell_style=sell_style, core_pct=core_pct, strategy_id=strategy_id, status="", entry_status=entry.entry_status,
+    )
+    log.append(f"{ticker} EP Day 0 = {d0}, strategy = {strategy_id}")
+
+    if entry.entry_status == config.STATUS_NO_ENTRY:
+        result.status = config.STATUS_NO_ENTRY
+        result.audit_log = log
+        return result
+
+    result.entry_timestamp = entry.entry_timestamp
+    result.entry_day_offset = entry.entry_day_offset
+    result.entry_fill = entry.entry_fill
+    log.append(f"Entry: {entry.fill_reason} at {entry.entry_timestamp}, fill = {entry.entry_fill:.4f}")
+
+    stop = compute_initial_stop(stop_type, entry, adr14)
+    if not stop.valid:
+        result.status = stop.reason or config.STATUS_INVALID_STOP_GEOMETRY
+        log.append(f"Initial stop invalid: {stop.reason}")
+        result.audit_log = log
+        return result
+
+    result.initial_stop_price = stop.stop_price
+    log.append(f"Initial stop ({stop_type}) = {stop.stop_price:.4f}")
+
+    from . import trailing_stops
+    ma_window = trailing_stops.ma_window_for(trail_type)
+    if not exits.has_sufficient_history(daily_sma, entry.entry_session_date, window=ma_window):
+        result.status = config.STATUS_INELIGIBLE_NO_10SMA
+        log.append(f"Fewer than {ma_window} valid closes as of entry day -- INELIGIBLE_NO_MA_HISTORY")
+        result.audit_log = log
+        return result
+
+    mp = multi_partial_taking.run_multi_partial_position_management(
+        minute_df, daily_sma, entry, stop.stop_price, entry.entry_fill, trail_type, target_pcts,
+        sell_style, sell_amount, core_pct, sessions, log,
+    )
+
+    result.status = mp.status
+    result.realized_R = mp.realized_R
+    result.n_sales = len(mp.sales)
+    result.audit_log = log + mp.audit_log
+
+    if mp.sales:
+        first, last = mp.sales[0], mp.sales[-1]
+        result.first_sale_timestamp = first.timestamp
+        result.first_sale_price = first.price
+        result.first_sale_reason = first.reason
+        result.last_sale_timestamp = last.timestamp
+        result.last_sale_price = last.price
+        result.last_sale_reason = last.reason
+        result.last_sale_pct = last.pct_of_original
+
+    if result.status == "OK" and mp.sales:
+        exit_ts = mp.sales[-1].timestamp
+        exit_date = exit_ts.date() if hasattr(exit_ts, "date") else exit_ts
+        result.holding_days = len(calendar_utils.TRADING_DAYS[
+            (calendar_utils.TRADING_DAYS.date >= entry.entry_session_date)
+            & (calendar_utils.TRADING_DAYS.date <= exit_date)
+        ]) - 1
+
+    return result
+
+
 def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_price, sessions, log, ma_col="sma10",
                               is_continuation=False):
     """

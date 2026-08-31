@@ -72,6 +72,19 @@ V3_BASE_STRATEGIES = [
 V3_TARGET_PCTS = [0.10, 0.15, 0.20, 0.30, 0.50]
 V3_CORE_PCT = 0.5
 
+# V3b: multi-target staged partials (Section 50/52/53/54), user-confirmed 2026-08-30 --
+# targets every 10% from entry up to 50%, both sell styles tested side by side. Same
+# 50/50 core as V3.
+V3_MULTI_TARGET_PCTS = [0.10, 0.20, 0.30, 0.40, 0.50]
+# equal_depletion: sell this many percentage points of the ORIGINAL position at each
+# target crossed -- 10pp x 5 targets exactly exhausts the 50% non-core.
+V3_MULTI_SELL_AMOUNT_EQUAL = 0.10
+# exponential_remaining: sell this fraction of whatever non-core REMAINS at each target
+# crossed. Chosen so the FIRST sale matches equal_depletion's exactly (20% of the
+# initial 50% non-core = 10pp), making the two styles directly comparable on their
+# opening move -- every sale after that is smaller for exponential, tapering off.
+V3_MULTI_SELL_AMOUNT_EXPONENTIAL = 0.20
+
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
 # showed 1% + 1% round-trip slippage exceeded the width of the 0.5%/1% static stops
