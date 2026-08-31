@@ -87,7 +87,7 @@ def test_equal_depletion_five_targets_with_a_double_gap_then_core_exit():
     result = simulate_multi_v3_with_entry(
         "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
         target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
-        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, core_pct=0.5, entry=entry, minute_df=minute_df,
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, target_ladder="early_start", core_pct=0.5, entry=entry, minute_df=minute_df,
         daily_sma=daily_sma, sessions=SESSIONS,
     )
 
@@ -101,6 +101,42 @@ def test_equal_depletion_five_targets_with_a_double_gap_then_core_exit():
     # even though the final 50% core sale landed below breakeven (a modest loss on that
     # slice) and pulls the weighted average down substantially.
     assert result.realized_R > 2.0
+
+
+def test_exit_efficiency_reflects_giveback_after_the_final_sale():
+    # Entry -> target hit -> price pushes to a HIGHER peak than any sale actually
+    # captured -> pulls back and closes the core out below that peak. max_favorable_R
+    # must reflect the true peak (not any individual sale price), and exit_efficiency
+    # must be meaningfully below 1.0 since real profit was given back before the exit.
+    minute_df, prior_rows, entry = _entry_and_prior_daily()
+    ef = entry.entry_fill
+    targets = [round(ef * (1 + p), 4) for p in config.V3_MULTI_TARGET_PCTS]
+
+    days = _future_days(2)
+    rows = list(prior_rows)
+    # Day A: crosses target[0], but ALSO prints a much higher high intraday (the peak)
+    # that nothing ever sells at.
+    peak_price = targets[0] + 20.0
+    rows.append(_daily_row(days[0], targets[0] - 1, peak_price, targets[0] - 2, targets[0]))
+    # Day B: hard pullback closes out everything else well below that peak.
+    rows.append(_daily_row(days[1], ef - 5, ef - 4, ef - 6, ef - 5))
+
+    daily_df = pd.DataFrame(rows)
+    daily_sma = add_sma10(daily_df)
+
+    result = simulate_multi_v3_with_entry(
+        "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
+        target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, target_ladder="early_start", core_pct=0.5, entry=entry,
+        minute_df=minute_df, daily_sma=daily_sma, sessions=SESSIONS,
+    )
+
+    assert result.status == "OK"
+    risk = result.entry_fill - result.initial_stop_price
+    expected_mfe = (peak_price - result.entry_fill) / risk
+    assert abs(result.max_favorable_R - expected_mfe) < 1e-6
+    assert result.exit_efficiency is not None and result.exit_efficiency < 0.5, \
+        "most of the peak gain was given back -- efficiency should be low"
 
 
 def test_double_gap_sells_two_targets_worth_in_one_event_at_actual_price():
@@ -122,7 +158,7 @@ def test_double_gap_sells_two_targets_worth_in_one_event_at_actual_price():
     result = simulate_multi_v3_with_entry(
         "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
         target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
-        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, core_pct=0.5, entry=entry, minute_df=minute_df,
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, target_ladder="early_start", core_pct=0.5, entry=entry, minute_df=minute_df,
         daily_sma=daily_sma, sessions=SESSIONS,
     )
 
@@ -153,7 +189,7 @@ def test_exponential_remaining_sales_shrink_and_first_sale_matches_equal_depleti
     result = simulate_multi_v3_with_entry(
         "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
         target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="exponential_remaining",
-        sell_amount=config.V3_MULTI_SELL_AMOUNT_EXPONENTIAL, core_pct=0.5, entry=entry, minute_df=minute_df,
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EXPONENTIAL, target_ladder="early_start", core_pct=0.5, entry=entry, minute_df=minute_df,
         daily_sma=daily_sma, sessions=SESSIONS,
     )
 
@@ -223,7 +259,7 @@ def test_multi_neither_stop_nor_target_resolves_reports_still_open_without_crash
     result = simulate_multi_v3_with_entry(
         "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
         target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
-        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, core_pct=0.5, entry=entry, minute_df=minute_df,
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, target_ladder="early_start", core_pct=0.5, entry=entry, minute_df=minute_df,
         daily_sma=daily_sma, sessions=SESSIONS,
     )
 
@@ -247,7 +283,7 @@ def test_multi_target_never_reached_matches_v2():
     result = simulate_multi_v3_with_entry(
         "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
         target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
-        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, core_pct=0.5, entry=entry, minute_df=minute_df,
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, target_ladder="early_start", core_pct=0.5, entry=entry, minute_df=minute_df,
         daily_sma=daily_sma, sessions=SESSIONS,
     )
 

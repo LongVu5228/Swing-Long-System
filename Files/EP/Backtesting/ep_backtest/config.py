@@ -85,6 +85,18 @@ V3_MULTI_SELL_AMOUNT_EQUAL = 0.10
 # opening move -- every sale after that is smaller for exponential, tapering off.
 V3_MULTI_SELL_AMOUNT_EXPONENTIAL = 0.20
 
+# Alternate target ladder (user idea, 2026-08-31): don't take any profit until the move
+# has proven itself -- no rungs below 30%, then 5% steps. Same rung COUNT (5) and the
+# same per-rung sell_amount constants above, so this is an apples-to-apples comparison
+# against V3_MULTI_TARGET_PCTS -- only WHEN profit-taking starts changes, not how much
+# gets sold per rung.
+V3_MULTI_TARGET_PCTS_LATE_START = [0.30, 0.35, 0.40, 0.45, 0.50]
+
+V3_MULTI_TARGET_LADDERS = {
+    "early_start": V3_MULTI_TARGET_PCTS,
+    "late_start": V3_MULTI_TARGET_PCTS_LATE_START,
+}
+
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
 # showed 1% + 1% round-trip slippage exceeded the width of the 0.5%/1% static stops

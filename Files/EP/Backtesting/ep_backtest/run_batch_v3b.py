@@ -1,7 +1,12 @@
 """
-V3b batch runner: multi-target staged partials (equal_depletion AND
-exponential_remaining) x the Top-5 V2 strategies, at config.V3_MULTI_TARGET_PCTS /
+V3b batch runner: multi-target staged partials, both sell styles (equal_depletion,
+exponential_remaining) x both target ladders (early_start: 10/20/30/40/50%, late_start:
+30/35/40/45/50% -- config.V3_MULTI_TARGET_LADDERS) x the Top-5 V2 base strategies, at
 config.V3_CORE_PCT. Same "carry forward the strong region" philosophy as V2/V3.
+
+Also reports max_favorable_R (MFE) and exit_efficiency (realized_R / MFE) per trade,
+averaged into the strategy summary -- how much of each trade's best price did the exit
+rule actually capture.
 
 Usage:
     python -m ep_backtest.run_batch_v3b
@@ -38,6 +43,7 @@ def _result_row(result: TradeResultMultiV3, chart_pattern) -> dict:
         "stop_type": result.stop_type,
         "trail_type": result.trail_type,
         "sell_style": result.sell_style,
+        "target_ladder": result.target_ladder,
         "core_pct": result.core_pct,
         "status": result.status,
         "entry_status": result.entry_status,
@@ -53,11 +59,24 @@ def _result_row(result: TradeResultMultiV3, chart_pattern) -> dict:
         "last_sale_reason": result.last_sale_reason,
         "realized_R": result.realized_R,
         "holding_days": result.holding_days,
+        "max_favorable_R": result.max_favorable_R,
+        "exit_efficiency": result.exit_efficiency,
     }
 
 
+def _missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type, trail_type, sell_style,
+                       target_ladder) -> dict:
+    result = TradeResultMultiV3(
+        ticker=ticker, event_date=reaction_date, entry_type=entry_type, stop_type=stop_type,
+        trail_type=trail_type, sell_style=sell_style, target_ladder=target_ladder, core_pct=config.V3_CORE_PCT,
+        strategy_id=_strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, target_ladder, config.V3_CORE_PCT),
+        status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
+    )
+    return _result_row(result, chart_pattern)
+
+
 def _process_one_event(args) -> list:
-    """Top-level (picklable) worker: runs the Top-5-strategies x 2-sell-styles grid for ONE event."""
+    """Top-level (picklable) worker: runs the Top-5-strategies x 2-sell-styles x 2-ladders grid for ONE event."""
     ticker, reaction_date, adr14, chart_pattern = args
     rows = []
 
@@ -67,13 +86,9 @@ def _process_one_event(args) -> list:
     if minute_df is None or minute_df.empty:
         for entry_type, stop_type, trail_type in config.V3_BASE_STRATEGIES:
             for sell_style in SELL_STYLES:
-                result = TradeResultMultiV3(
-                    ticker=ticker, event_date=reaction_date, entry_type=entry_type, stop_type=stop_type,
-                    trail_type=trail_type, sell_style=sell_style, core_pct=config.V3_CORE_PCT,
-                    strategy_id=_strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, config.V3_CORE_PCT),
-                    status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
-                )
-                rows.append(_result_row(result, chart_pattern))
+                for ladder_name in config.V3_MULTI_TARGET_LADDERS:
+                    rows.append(_missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type,
+                                                   trail_type, sell_style, ladder_name))
         return rows
 
     daily_sma = exits.add_sma10(daily_df)
@@ -90,26 +105,23 @@ def _process_one_event(args) -> list:
     for entry_type, stop_type, trail_type in config.V3_BASE_STRATEGIES:
         entry = entry_cache[entry_type]
         for sell_style in SELL_STYLES:
-            if entry is None:
-                result = TradeResultMultiV3(
-                    ticker=ticker, event_date=reaction_date, entry_type=entry_type, stop_type=stop_type,
-                    trail_type=trail_type, sell_style=sell_style, core_pct=config.V3_CORE_PCT,
-                    strategy_id=_strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, config.V3_CORE_PCT),
-                    status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
-                )
-            else:
-                result = simulate_multi_v3_with_entry(
-                    ticker, reaction_date, adr14, entry_type, stop_type, trail_type,
-                    config.V3_MULTI_TARGET_PCTS, sell_style, _SELL_AMOUNTS[sell_style], config.V3_CORE_PCT,
-                    entry, minute_df, daily_sma, sessions,
-                )
-            rows.append(_result_row(result, chart_pattern))
+            for ladder_name, target_pcts in config.V3_MULTI_TARGET_LADDERS.items():
+                if entry is None:
+                    rows.append(_missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type,
+                                                   trail_type, sell_style, ladder_name))
+                else:
+                    result = simulate_multi_v3_with_entry(
+                        ticker, reaction_date, adr14, entry_type, stop_type, trail_type,
+                        target_pcts, sell_style, _SELL_AMOUNTS[sell_style], ladder_name, config.V3_CORE_PCT,
+                        entry, minute_df, daily_sma, sessions,
+                    )
+                    rows.append(_result_row(result, chart_pattern))
 
     return rows
 
 
 def run_v3b_grid(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
-    n_combos = len(config.V3_BASE_STRATEGIES) * len(SELL_STYLES)
+    n_combos = len(config.V3_BASE_STRATEGIES) * len(SELL_STYLES) * len(config.V3_MULTI_TARGET_LADDERS)
     arg_list = [(row.ticker, row.reaction_date, row.adr14, row.chart_pattern) for row in events.itertuples()]
 
     all_rows = []
@@ -134,7 +146,25 @@ def summarize_all_v3b(all_trades: pd.DataFrame) -> pd.DataFrame:
         summary["stop_type"] = row["stop_type"]
         summary["trail_type"] = row["trail_type"]
         summary["sell_style"] = row["sell_style"]
+        summary["target_ladder"] = row["target_ladder"]
         summary["strategy_id"] = strategy_id
+
+        triggered = trades[trades["status"] == "OK"]
+        # Exit efficiency (realized_R / MFE) is only a meaningful concept for trades
+        # that actually had a real move to give back -- a trade that ticks up 0.01R
+        # before a routine stop-out produces an efficiency ratio like -76 (dividing a
+        # normal ~-1R loss by a near-zero MFE), which is a division-by-near-zero
+        # artifact, not a real signal about exit quality. Filtering to trades that
+        # reached at least 1R of unrealized profit at some point is what makes the
+        # average interpretable; the unfiltered version is kept too for transparency
+        # but should not be read as "how good are our exits" on its own.
+        real_movers = triggered[triggered["max_favorable_R"] >= 1.0]
+        summary["pct_trades_with_real_move"] = len(real_movers) / len(triggered) if len(triggered) else float("nan")
+        summary["avg_exit_efficiency"] = real_movers["exit_efficiency"].mean()
+        summary["median_exit_efficiency"] = real_movers["exit_efficiency"].median()
+        summary["avg_exit_efficiency_unfiltered"] = triggered["exit_efficiency"].mean()
+        summary["avg_max_favorable_R"] = triggered["max_favorable_R"].mean()
+
         summaries.append(summary)
 
     summary_df = pd.DataFrame(summaries)
@@ -159,7 +189,9 @@ def main():
         events = events.head(args.limit)
     print(f"{len(events)} events loaded from EP V5")
     print(f"V3b base strategies: {config.V3_BASE_STRATEGIES}")
-    print(f"V3b targets: {config.V3_MULTI_TARGET_PCTS}, sell styles: {SELL_STYLES}, core_pct: {config.V3_CORE_PCT}")
+    print(f"V3b sell styles: {SELL_STYLES}")
+    print(f"V3b target ladders: {config.V3_MULTI_TARGET_LADDERS}")
+    print(f"V3b core_pct: {config.V3_CORE_PCT}")
 
     if not args.no_prefetch:
         _prefetch(events, args.workers)
@@ -174,7 +206,8 @@ def main():
 
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3b strategies")
     print(f"strategy summary: {os.path.join(config.OUTPUTS_DIR, 'strategy_summary_v3b.csv')}")
-    cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R", "G_score"]
+    cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
+            "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]
     print("\n--- All strategies by G Score ---")
     print(summary_df[cols].to_string(index=False))
 

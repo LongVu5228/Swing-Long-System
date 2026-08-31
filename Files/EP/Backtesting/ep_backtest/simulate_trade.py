@@ -20,7 +20,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from . import calendar_utils, config, daily_bars, exits, minute_bars
+from . import calendar_utils, config, daily_bars, exits, minute_bars, trade_metrics
 from .entry import EntryResult, find_entry
 from .initial_stop import StopResult, compute_initial_stop
 
@@ -433,6 +433,7 @@ class TradeResultMultiV3:
     stop_type: str
     trail_type: str
     sell_style: str
+    target_ladder: str
     core_pct: float
     strategy_id: str
 
@@ -455,28 +456,35 @@ class TradeResultMultiV3:
 
     realized_R: Optional[float] = None
     holding_days: Optional[int] = None
+    max_favorable_R: Optional[float] = None
+    exit_efficiency: Optional[float] = None
     audit_log: list = field(default_factory=list)
 
 
-def _strategy_id_multi_v3(entry_type: str, stop_type: str, trail_type: str, sell_style: str, core_pct: float) -> str:
-    return f"{_strategy_id(entry_type, stop_type)}__T{trail_type.upper()}__{sell_style.upper()}__C{core_pct*100:g}"
+def _strategy_id_multi_v3(entry_type: str, stop_type: str, trail_type: str, sell_style: str,
+                           target_ladder: str, core_pct: float) -> str:
+    return (f"{_strategy_id(entry_type, stop_type)}__T{trail_type.upper()}__{sell_style.upper()}"
+            f"__L{target_ladder.upper()}__C{core_pct*100:g}")
 
 
 def simulate_multi_v3_with_entry(
     ticker: str, d0: date, adr14: Optional[float], entry_type: str, stop_type: str, trail_type: str,
-    target_pcts: list, sell_style: str, sell_amount: float, core_pct: float, entry: EntryResult,
-    minute_df: pd.DataFrame, daily_sma: pd.DataFrame, sessions: list,
+    target_pcts: list, sell_style: str, sell_amount: float, target_ladder: str, core_pct: float,
+    entry: EntryResult, minute_df: pd.DataFrame, daily_sma: pd.DataFrame, sessions: list,
 ) -> TradeResultMultiV3:
     """V3b: entry/initial-stop exactly like V1/V2/V3, then
     multi_partial_taking.run_multi_partial_position_management for the staged
-    multi-target sell-down."""
+    multi-target sell-down. target_ladder is just a label (e.g. "early_start" /
+    "late_start") distinguishing which target_pcts list this run used, for output/
+    strategy-id purposes -- it has no effect on the simulation itself."""
     from . import multi_partial_taking  # local import: avoids a module import cycle
 
     log = []
-    strategy_id = _strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, core_pct)
+    strategy_id = _strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, target_ladder, core_pct)
     result = TradeResultMultiV3(
         ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type, trail_type=trail_type,
-        sell_style=sell_style, core_pct=core_pct, strategy_id=strategy_id, status="", entry_status=entry.entry_status,
+        sell_style=sell_style, target_ladder=target_ladder, core_pct=core_pct, strategy_id=strategy_id,
+        status="", entry_status=entry.entry_status,
     )
     log.append(f"{ticker} EP Day 0 = {d0}, strategy = {strategy_id}")
 
@@ -535,6 +543,13 @@ def simulate_multi_v3_with_entry(
             (calendar_utils.TRADING_DAYS.date >= entry.entry_session_date)
             & (calendar_utils.TRADING_DAYS.date <= exit_date)
         ]) - 1
+
+        risk = entry.entry_fill - stop.stop_price
+        result.max_favorable_R = trade_metrics.compute_max_favorable_r(
+            minute_df, daily_sma, entry.entry_timestamp, entry.entry_session_date, exit_date,
+            entry.entry_fill, risk,
+        )
+        result.exit_efficiency = trade_metrics.compute_exit_efficiency(result.realized_R, result.max_favorable_R)
 
     return result
 
