@@ -11,7 +11,7 @@ from .. import calendar_utils, config
 from ..entry import EntryResult
 from ..entry import find_entry
 from ..exits import add_sma10
-from ..multi_partial_taking import _downside_scan
+from ..multi_partial_taking import _downside_scan, run_multi_partial_position_management
 from ..simulate_trade import simulate_multi_v3_with_entry, simulate_v2_with_entry
 
 D0 = calendar_utils.sessions_from(pd.Timestamp("2024-01-02").date(), 1)[0]
@@ -60,6 +60,16 @@ def _future_days(n):
             days.append(d)
         d += timedelta(days=1)
     return days
+
+
+def _prior_days(n):
+    days = []
+    d = D0 - timedelta(days=1)
+    while len(days) < n:
+        if calendar_utils.is_trading_day(d):
+            days.append(d)
+        d -= timedelta(days=1)
+    return sorted(days)
 
 
 def test_equal_depletion_five_targets_with_a_double_gap_then_core_exit():
@@ -172,6 +182,101 @@ def test_double_gap_sells_two_targets_worth_in_one_event_at_actual_price():
     assert result.n_sales >= 2
 
 
+def test_ordinary_trade_through_crosses_multiple_targets_each_at_its_own_price():
+    # Regression test for a real bug: find_target_reached used to return target_price
+    # (the single level being searched for) even for an ORDINARY (non-gap) trade-through,
+    # so `crossed = [tp for tp in target_prices if tp <= target_ref]` could only ever
+    # match the ONE target being searched for -- a single day's high blowing through
+    # several targets without gapping at the open only ever registered one sale. Fixed by
+    # returning the day's actual achieved price (its high) for crossing detection, while
+    # filling each crossed target at ITS OWN resting level (not a shared price, unlike a
+    # genuine gap) since ordinary price action passes through each level in turn.
+    minute_df, prior_rows, entry = _entry_and_prior_daily()
+    ef = entry.entry_fill
+    targets = [round(ef * (1 + p), 4) for p in config.V3_MULTI_TARGET_PCTS]  # +10/20/30/40/50%
+
+    days = _future_days(2)
+    rows = list(prior_rows)
+    # Day A: opens BELOW target[0] (not a gap), but its HIGH trades through target[0],
+    # target[1], AND target[2] in one ordinary intraday move.
+    rows.append(_daily_row(days[0], targets[0] - 1, targets[2] + 2, targets[0] - 2, targets[1]))
+    # Day B: hard pullback resolves the remaining core.
+    rows.append(_daily_row(days[1], ef - 5, ef - 4, ef - 6, ef - 5))
+
+    daily_df = pd.DataFrame(rows)
+    daily_sma = add_sma10(daily_df)
+
+    initial_stop_price = ef * 0.95  # matches "5pct_entry"
+    result = run_multi_partial_position_management(
+        minute_df, daily_sma, entry, initial_stop_price, ef, "close_below_20ma",
+        config.V3_MULTI_TARGET_PCTS, "equal_depletion", config.V3_MULTI_SELL_AMOUNT_EQUAL,
+        core_pct=0.5, sessions=SESSIONS, log=[],
+    )
+
+    assert result.status == "OK"
+    target_sales = [s for s in result.sales if s.reason.startswith("TARGET_TRADE_THROUGH")]
+    # All 3 targets crossed in this single day must be registered as separate sales, not
+    # just the one being searched for.
+    assert len(target_sales) == 3
+    # Each must fill at its OWN target level (not the day's high, and not a shared price).
+    for sale, target_price in zip(target_sales, targets[:3]):
+        assert abs(sale.price - target_price) < target_price * 0.01
+    assert len({round(s.price, 2) for s in target_sales}) == 3, \
+        "each crossed target should fill at a DIFFERENT price, unlike a genuine gap"
+
+
+def test_ratchet_floor_survives_a_partial_instead_of_resetting_to_breakeven():
+    # Regression test for a real bug: the ratchet's cumulative-max was being scoped to
+    # the CONTINUATION date (when a target fired) instead of the trade's real entry date,
+    # so any ratchet floor established BEFORE the partial was silently forgotten once
+    # Phase 2 began -- a direct violation of "trailing stops never loosen" (Section 46).
+    entry = EntryResult(
+        entry_status=config.STATUS_VALID_TRADE, or_high=99.0, trigger=100.0,
+        entry_timestamp=pd.Timestamp(D0).tz_localize(config.ET), entry_day_offset=0,
+        entry_session_date=D0, entry_fill=100.0, fill_reason="normal_trade_through",
+        entry_bar_index=None, lod_known_at_entry=99.0, trigger_candle_low_known_at_entry=99.0,
+    )
+    minute_df = pd.DataFrame(columns=["dt_et", "session_date", "open", "high", "low", "close"])
+
+    d1, d2, d3, d4 = _future_days(4)
+    rows = []
+    for day in _prior_days(25):
+        rows.append({"date": day, "open": 90.0, "high": 91.0, "low": 89.0, "close": 90.0, "sma20": 91.0})
+    rows.append({"date": D0, "open": 99.0, "high": 100.5, "low": 98.5, "close": 100.2, "sma20": 91.5})
+    # D0+1: a qualifying ratchet day (close < sma20) whose LOW (103) sits well ABOVE both
+    # the initial stop and breakeven -- this is the floor that must survive the partial.
+    rows.append({"date": d1, "open": 105.0, "high": 107.0, "low": 103.0, "close": 104.0, "sma20": 106.0})
+    # D0+2: an ordinary (non-gap) move through the first target (+10% = 110), staying well
+    # above the D0+1 ratchet floor so the downside scan doesn't fire first.
+    rows.append({"date": d2, "open": 109.0, "high": 111.0, "low": 108.0, "close": 110.5, "sma20": 100.0})
+    # D0+3: OPENS above the ratchet floor (103, no gap-through) then trades down through
+    # it intraday to a low BETWEEN breakeven (100) and the floor -- must stop out HERE,
+    # at the floor itself, if it correctly survived the partial.
+    rows.append({"date": d3, "open": 103.5, "high": 104.0, "low": 101.0, "close": 101.5, "sma20": 100.0})
+    # D0+4: a hard pullback that resolves the trade regardless, so a still-buggy version
+    # (which would have missed D0+3's 101 low against a wrongly-reset 100 floor) doesn't
+    # just report STILL_OPEN and dodge the assertion.
+    rows.append({"date": d4, "open": 90.0, "high": 91.0, "low": 89.0, "close": 90.0, "sma20": 100.0})
+
+    daily_sma = pd.DataFrame(rows)
+
+    result = simulate_multi_v3_with_entry(
+        "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="low_of_close_below_20ma",
+        target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, target_ladder="early_start", core_pct=0.5, entry=entry,
+        minute_df=minute_df, daily_sma=daily_sma, sessions=SESSIONS,
+    )
+
+    assert result.status == "OK"
+    # The core must exit on D0+3 at the preserved ratchet floor (~103), not ride through
+    # to D0+4's much lower breakeven-only fill (~100) -- slippage keeps it just under 103.
+    assert result.last_sale_price is not None
+    assert result.last_sale_price > 102.0, (
+        f"core exit at {result.last_sale_price} -- the pre-partial ratchet floor (~103) "
+        f"was lost, position rode down to breakeven (~100) instead"
+    )
+
+
 def test_exponential_remaining_sales_shrink_and_first_sale_matches_equal_depletion():
     minute_df, prior_rows, entry = _entry_and_prior_daily()
     ef = entry.entry_fill
@@ -236,6 +341,7 @@ def test_downside_scan_reference_price_is_not_conflated_with_floor():
     status, _, _ = _downside_scan(
         minute_df, daily_sma, continuation_entry, floor=100.0, reference_price=108.0,
         trail_type="20ma_touch", sessions=[D0], log=[], is_continuation=True,
+        original_entry_date=D0,
     )
     assert status != "INVALID"
 

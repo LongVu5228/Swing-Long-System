@@ -62,6 +62,15 @@ def ratchet_level_series(daily_sma: pd.DataFrame, ma_col: str, initial_stop: flo
     Section 46: cumulative max of {that day's low : that day's close < that day's MA},
     known only as of the NEXT day's open (shift(1)) and floored at the initial stop.
 
+    `entry_date` must ALWAYS be the trade's ORIGINAL entry date, never a later
+    continuation date (e.g. when a partial-taking phase 2 resumes after a target fires).
+    Passing a later date here forgets any ratchet floor that was already established
+    between the real entry and that later date, which can make the floor DROP relative
+    to what it legitimately was before the partial -- a direct violation of "trailing
+    stops never loosen" (confirmed real bug, 2026-08-31: both partial_taking.py's Phase 2
+    and multi_partial_taking.py's per-target loop were passing the continuation date here
+    instead of preserving the original).
+
     `daily_sma` covers a ticker's ENTIRE multi-year cached history, not just the life of
     this one trade -- a plain global cummax would let a qualifying low from years before
     this specific EP event (a completely different price regime) leak forward and become

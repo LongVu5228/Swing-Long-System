@@ -222,6 +222,23 @@ def other_status_count(d: dict) -> int:
     return sum(d.values())
 
 
+def effective_outputs_dir(limit) -> str:
+    """
+    `--limit` truncates the INPUT events for a quick smoke test, but on its own does
+    nothing to the OUTPUT path -- a smoke test and a real full-scale run write to the
+    exact same file. Confirmed as a real, repeatable mistake (2026-08-31): three
+    consecutive `--limit` smoke tests against run_batch_v3b.py silently overwrote real,
+    already-completed full-scale results (two of the four output files were destroyed
+    outright; a third only survived because it happened to be open in Excel at that
+    exact moment, purely by luck). Every batch runner's main() must route through this
+    instead of using config.OUTPUTS_DIR directly, so a `--limit` run is STRUCTURALLY
+    unable to touch a real output file, not just conventionally expected not to.
+    """
+    if limit:
+        return os.path.join(config.OUTPUTS_DIR, "smoketest")
+    return config.OUTPUTS_DIR
+
+
 def summarize_all(all_trades: pd.DataFrame) -> pd.DataFrame:
     summaries = []
     for (entry_type, stop_type), trades in all_trades.groupby(["entry_type", "stop_type"]):
@@ -260,11 +277,14 @@ def main():
     if not args.no_prefetch:
         _prefetch(events, args.workers)
 
-    os.makedirs(config.OUTPUTS_DIR, exist_ok=True)
+    outputs_dir = effective_outputs_dir(args.limit)
+    if args.limit:
+        print(f"--limit set -- writing to {outputs_dir} instead of the real outputs/ dir")
+    os.makedirs(outputs_dir, exist_ok=True)
 
     if not args.all_72:
         trades = run_strategy(events, args.entry, args.stop)
-        out_path = os.path.join(config.OUTPUTS_DIR, f"trades_E{args.entry.upper()}__S{args.stop.upper()}.parquet")
+        out_path = os.path.join(outputs_dir, f"trades_E{args.entry.upper()}__S{args.stop.upper()}.parquet")
         trades.to_parquet(out_path, index=False)
         print(f"\nwrote {len(trades)} trade rows to {out_path}")
 
@@ -275,13 +295,13 @@ def main():
         return
 
     combined_trades = run_all_72(events, workers=args.sim_workers)
-    combined_trades.to_parquet(os.path.join(config.OUTPUTS_DIR, "trades_all_72.parquet"), index=False)
+    combined_trades.to_parquet(os.path.join(outputs_dir, "trades_all_72.parquet"), index=False)
 
     summary_df = summarize_all(combined_trades)
-    summary_df.to_csv(os.path.join(config.OUTPUTS_DIR, "strategy_summary_all_72.csv"), index=False)
+    summary_df.to_csv(os.path.join(outputs_dir, "strategy_summary_all_72.csv"), index=False)
 
     print(f"\nwrote {len(combined_trades)} trade rows across 72 strategies")
-    print(f"strategy summary: {os.path.join(config.OUTPUTS_DIR, 'strategy_summary_all_72.csv')}")
+    print(f"strategy summary: {os.path.join(outputs_dir, 'strategy_summary_all_72.csv')}")
     print("\n--- Top 10 by G Score ---")
     cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
             "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]

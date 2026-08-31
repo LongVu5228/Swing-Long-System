@@ -39,7 +39,12 @@ from .entry import EntryResult
 from .simulate_trade import _run_position_management
 
 
-def find_target_reached(minute_df, daily_sma, entry: EntryResult, target_price: float, sessions, log):
+def is_gap_reason(reason) -> bool:
+    return reason is not None and "GAP_THROUGH" in reason
+
+
+def find_target_reached(minute_df, daily_sma, entry: EntryResult, target_price: float, sessions, log,
+                         is_continuation: bool = False):
     """
     Mirror image of trailing_stops.run_level_based_position_management's downside scan,
     but upside and against a FIXED level (the target never moves): gap-through if a bar
@@ -47,8 +52,30 @@ def find_target_reached(minute_df, daily_sma, entry: EntryResult, target_price: 
     minute-precision-then-daily-approximation-fallback structure as every other scan in
     this project, for the same reason (Section 78 only caches minute bars D0..D+7).
 
-    Returns (target_timestamp, fill_reference_price, "TARGET_GAP_THROUGH" |
-    "TARGET_TRADE_THROUGH" | "TARGET_SAME_BAR_AS_ENTRY") or (None, None, None).
+    Returns (target_timestamp, achieved_price, "TARGET_GAP_THROUGH" | "TARGET_TRADE_THROUGH"
+    | "TARGET_SAME_BAR_AS_ENTRY" | ..._DAILY_APPROX) or (None, None, None).
+
+    `achieved_price` is the actual best price reached in the crossing bar/day -- the
+    bar's open for a gap-through, or its HIGH for an ordinary trade-through (NOT
+    target_price itself, as an earlier version returned). A caller checking only ONE
+    target should still fill at target_price for a trade-through (a resting limit order
+    fills AT its own level when touched, not at whatever high the bar goes on to reach)
+    and at achieved_price for a gap-through (see is_gap_reason). A caller checking
+    MULTIPLE resting targets at once (multi_partial_taking's ladder) needs achieved_price
+    to detect every target crossed within this single bar/day -- confirmed real bug,
+    2026-08-31: returning target_price unconditionally meant an ordinary (non-gap)
+    trade-through that blew past several targets in one bar only ever registered ONE of
+    them, since `[tp for tp in targets if tp <= target_price]` can only ever match the
+    one target being searched for.
+
+    is_continuation=True: the caller is resuming an already-open position (a later
+    target search in multi_partial_taking's ladder, not a genuine entry), so the Section
+    23 same-bar-adverse "ambiguous ordering" exemption -- which only makes sense for a
+    real entry bar -- must NOT apply to this scan's first bar. Mirrors
+    trailing_stops.run_level_based_position_management's is_continuation flag; without
+    it, a later target reached on the very first bar of a continuation's scan window was
+    wrongly treated as ambiguous "same bar as entry" and collapsed to a single fill at
+    target_price, skipping the multi-crossing check entirely.
     """
     remaining_days = [d for d in sessions if d >= entry.entry_session_date]
     bars = minute_df[
@@ -57,7 +84,8 @@ def find_target_reached(minute_df, daily_sma, entry: EntryResult, target_price: 
 
     if not bars.empty:
         is_entry_bar = np.zeros(len(bars), dtype=bool)
-        is_entry_bar[0] = True
+        if not is_continuation:
+            is_entry_bar[0] = True
         high = bars["high"].to_numpy()
         open_ = bars["open"].to_numpy()
         gap_cond = (~is_entry_bar) & (open_ >= target_price)
@@ -70,7 +98,7 @@ def find_target_reached(minute_df, daily_sma, entry: EntryResult, target_price: 
                 return ts, target_price, "TARGET_SAME_BAR_AS_ENTRY"
             if gap_cond[idx]:
                 return ts, float(open_[idx]), "TARGET_GAP_THROUGH"
-            return ts, target_price, "TARGET_TRADE_THROUGH"
+            return ts, float(high[idx]), "TARGET_TRADE_THROUGH"
 
     after = daily_sma[daily_sma["date"] > sessions[-1]].sort_values("date").reset_index(drop=True)
     if after.empty:
@@ -84,7 +112,7 @@ def find_target_reached(minute_df, daily_sma, entry: EntryResult, target_price: 
     row = after.iloc[pos]
     if gap_through.iloc[pos]:
         return row["date"], row["open"], "TARGET_GAP_THROUGH_DAILY_APPROX"
-    return row["date"], target_price, "TARGET_TRADE_THROUGH_DAILY_APPROX"
+    return row["date"], float(row["high"]), "TARGET_TRADE_THROUGH_DAILY_APPROX"
 
 
 def _day_of(ts):
@@ -255,7 +283,12 @@ def run_v3_position_management(
 
     # Target won: sell the non-core fraction at the target, move remaining core's floor
     # to breakeven, and continue with Phase 2 -- the exact same scan, higher floor.
-    partial_fill = _slip_sub(target_ref)
+    # Fill at target_price for an ordinary trade-through (a resting limit order fills at
+    # its own level, not wherever the bar's high goes on to reach -- target_ref is now
+    # that bar's high, only useful for multi-target detection, see find_target_reached)
+    # or at the real gap price for a gap-through.
+    fill_level = target_ref if is_gap_reason(target_reason) else target_price
+    partial_fill = _slip_sub(fill_level)
     partial_R = (partial_fill - entry_fill) / risk
     log.append(f"Target reached ({target_reason} at {target_ts}), fill = {partial_fill:.4f} -- "
                f"selling {(1-core_pct)*100:g}% non-core, moving core stop to breakeven ({entry_fill:.4f})")
@@ -271,17 +304,23 @@ def run_v3_position_management(
             ma_col=trailing_stops.ma_column_for(trail_type), is_continuation=True,
         )
     else:
-        core_level_series = trailing_stops.level_series_for(trail_type, daily_sma, entry_fill, target_day)
+        # entry.entry_session_date (the ORIGINAL entry date), not target_day -- see
+        # trailing_stops.ratchet_level_series's docstring. Passing target_day here was a
+        # real bug: it forgot any ratchet floor already established between entry and
+        # the partial, letting Phase 2's floor drop below what it legitimately was.
+        core_level_series = trailing_stops.level_series_for(trail_type, daily_sma, entry_fill, entry.entry_session_date)
         # Same invalid-geometry guard as Phase 1, checked against the actual traded
-        # price at the moment Phase 2 begins (target_ref) rather than entry_fill --
-        # the same "MA hasn't caught up to a violent move" scenario could in principle
-        # recur here too, just relative to where the position is when the partial fires
-        # rather than relative to the original entry.
+        # price at the moment Phase 2 begins (fill_level -- the real partial fill price,
+        # NOT target_ref, which for an ordinary trade-through is now the bar's HIGH, not
+        # a price the position was actually transacted at) rather than entry_fill -- the
+        # same "MA hasn't caught up to a violent move" scenario could in principle recur
+        # here too, just relative to where the position is when the partial fires rather
+        # than relative to the original entry.
         target_day_level = core_level_series[daily_sma["date"] == target_day]
-        if not target_day_level.empty and float(target_day_level.iloc[0]) >= target_ref:
+        if not target_day_level.empty and float(target_day_level.iloc[0]) >= fill_level:
             log.append(
                 f"Core trailing level on target day ({float(target_day_level.iloc[0]):.4f}) >= "
-                f"target fill ({target_ref:.4f}) -- INVALID_STOP_GEOMETRY"
+                f"target fill ({fill_level:.4f}) -- INVALID_STOP_GEOMETRY"
             )
             return V3Result(status=config.STATUS_INVALID_STOP_GEOMETRY, audit_log=log)
 

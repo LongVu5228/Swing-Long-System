@@ -25,10 +25,15 @@ each step -- find_target_reached, the V2 downside scan, and the continuation hel
 (restrict_to_after / make_continuation_entry) that keep each step point-in-time safe
 and non-overlapping with bars/days already consumed by earlier steps.
 
-Section 54 (gap through multiple targets): if the achieved price on a single crossing
-event is at or above MORE than one remaining target, all of those targets are
-considered reached at once, filled at the SAME actual achieved price (not their
-individual stale target levels) -- handled by the `crossed` computation below.
+Section 54 (crossing multiple targets in one bar/day): if the achieved price on a
+single crossing event is at or above MORE than one remaining target, all of those
+targets are considered reached at once -- handled by the `crossed` computation below.
+A gap fills every crossed target at the SAME real gap price (no orderly price discovery
+happened between the pre-gap and post-gap price). An ordinary trade-through fills each
+crossed target at ITS OWN resting level (price passed through them in order, so each
+would have filled individually) -- fixed 2026-08-31 after confirming the original
+version only ever detected/filled the ONE target being searched for on a non-gap
+multi-target crossing.
 """
 
 from dataclasses import dataclass, field
@@ -40,6 +45,7 @@ from .partial_taking import (
     _day_of,
     _stop_wins,
     find_target_reached,
+    is_gap_reason,
     make_continuation_entry,
     restrict_to_after,
 )
@@ -64,7 +70,8 @@ class MultiPartialResult:
     audit_log: list = field(default_factory=list)
 
 
-def _downside_scan(minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, sessions, log, is_continuation):
+def _downside_scan(minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, sessions, log,
+                    is_continuation, original_entry_date):
     """
     One downside stop/trailing check, reused at every step of the loop.
 
@@ -83,13 +90,20 @@ def _downside_scan(minute_df, daily_sma, scan_entry, floor, reference_price, tra
     fill for the very first call, the most recent target's fill price afterward) --
     exactly mirroring how partial_taking.run_v3_position_management's Phase 2 correctly
     checks against target_ref, not entry_fill.
+
+    `original_entry_date` (the trade's REAL entry date, never a continuation date) is
+    separate from `scan_entry.entry_session_date` (which IS a continuation date after the
+    first target) for the same reason: trailing_stops.ratchet_level_series's cumulative
+    max must be scoped to the whole trade's post-entry history, not reset at each
+    continuation -- passing scan_entry.entry_session_date here was a real bug that forgot
+    any ratchet floor already established before the most recent target fired.
     """
     if trailing_stops.is_close_based(trail_type):
         return _run_position_management(
             minute_df, daily_sma, scan_entry, floor, sessions, log,
             ma_col=trailing_stops.ma_column_for(trail_type), is_continuation=is_continuation,
         )
-    level_series = trailing_stops.level_series_for(trail_type, daily_sma, floor, scan_entry.entry_session_date)
+    level_series = trailing_stops.level_series_for(trail_type, daily_sma, floor, original_entry_date)
     entry_day_level = level_series[daily_sma["date"] == scan_entry.entry_session_date]
     if not entry_day_level.empty and float(entry_day_level.iloc[0]) >= reference_price:
         log.append(
@@ -136,7 +150,7 @@ def run_multi_partial_position_management(
     while True:
         stop_ts, stop_ref, stop_reason = _downside_scan(
             scan_minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, scan_sessions, log,
-            is_continuation,
+            is_continuation, entry.entry_session_date,
         )
         if stop_ts == "INVALID":
             return MultiPartialResult(status=config.STATUS_INVALID_STOP_GEOMETRY, audit_log=log)
@@ -154,7 +168,8 @@ def run_multi_partial_position_management(
 
         next_target = target_prices[0]
         target_ts, target_ref, target_reason = find_target_reached(
-            scan_minute_df, daily_sma, scan_entry, next_target, scan_sessions, log
+            scan_minute_df, daily_sma, scan_entry, next_target, scan_sessions, log,
+            is_continuation=is_continuation,
         )
 
         if stop_ts is None and target_ts is None:
@@ -175,13 +190,31 @@ def run_multi_partial_position_management(
                        f"(no further targets reached)")
             break
 
-        # Target(s) reached -- Section 54: a gap can cross more than one remaining
-        # target at once, all filled at the SAME actual achieved price.
+        # Target(s) reached. target_ref is the ACTUAL achieved price in this bar/day (the
+        # bar's open for a gap, its high for an ordinary trade-through -- see
+        # find_target_reached), used here to detect every target crossed at once, not
+        # just the one being searched for.
+        #
+        # Section 54 (gap): no orderly price discovery happened between the pre-gap and
+        # post-gap price, so every crossed target fills at the SAME real gap price.
+        #
+        # An ordinary (non-gap) trade-through can ALSO cross more than one target within
+        # a single bar/day -- confirmed real bug, 2026-08-31: the previous version filled
+        # every crossed target at target_ref regardless of gap vs trade-through, which
+        # for a trade-through either missed extra crossed targets entirely (target_ref
+        # used to be hardcoded to the searched-for level) or, after fixing that, would
+        # have overpaid every crossed target at the bar's HIGH instead of each target's
+        # own resting level. A resting limit sell order at each level fills AT that level
+        # as price passes through it in order -- not at a shared price.
+        is_gap = is_gap_reason(target_reason)
         crossed = [tp for tp in target_prices if tp <= target_ref + 1e-9]
-        fill = _slip_sub(target_ref)
-        for i, _ in enumerate(crossed, start=1):
+        last_fill = None
+        for i, tp in enumerate(crossed, start=1):
             if non_core_remaining <= 1e-9:
                 break
+            fill_level = target_ref if is_gap else tp
+            fill = _slip_sub(fill_level)
+            last_fill = fill
             if sell_style == "equal_depletion":
                 sell_pct = min(sell_amount, non_core_remaining)
             else:
@@ -190,7 +223,8 @@ def run_multi_partial_position_management(
             total_sold_pct += sell_pct
             non_core_remaining -= sell_pct
 
-        log.append(f"{target_ts}: {len(crossed)} target(s) crossed at once, fill = {fill:.4f}, "
+        log.append(f"{target_ts}: {len(crossed)} target(s) crossed at once "
+                   f"({'gap, shared fill' if is_gap else 'trade-through, each at its own level'}), "
                    f"non-core remaining = {non_core_remaining*100:g}%")
 
         target_prices = target_prices[len(crossed):]
@@ -198,7 +232,7 @@ def run_multi_partial_position_management(
             floor = entry_fill
             breakeven_activated = True
             log.append(f"Breakeven activated: floor = {entry_fill:.4f}")
-        reference_price = fill  # the actual traded price this phase is resuming from
+        reference_price = last_fill  # the actual traded price this phase is resuming from
 
         target_day = _day_of(target_ts)
         scan_minute_df, scan_sessions = restrict_to_after(minute_df, sessions, target_day, target_ts)

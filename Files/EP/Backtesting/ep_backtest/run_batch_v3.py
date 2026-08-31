@@ -18,7 +18,7 @@ from tqdm import tqdm
 from . import calendar_utils, config, daily_bars, exits, minute_bars
 from .entry import find_entry
 from .load_events import load_ep_v5
-from .run_batch import _prefetch, summarize
+from .run_batch import _prefetch, effective_outputs_dir, summarize
 from .simulate_trade import TradeResultV3, _strategy_id_v3, simulate_v3_with_entry
 
 
@@ -159,16 +159,19 @@ def main():
     if not args.no_prefetch:
         _prefetch(events, args.workers)
 
-    os.makedirs(config.OUTPUTS_DIR, exist_ok=True)
+    outputs_dir = effective_outputs_dir(args.limit)
+    if args.limit:
+        print(f"--limit set -- writing to {outputs_dir} instead of the real outputs/ dir")
+    os.makedirs(outputs_dir, exist_ok=True)
 
     combined_trades = run_v3_grid(events, workers=args.sim_workers)
-    combined_trades.to_parquet(os.path.join(config.OUTPUTS_DIR, "trades_v3.parquet"), index=False)
+    combined_trades.to_parquet(os.path.join(outputs_dir, "trades_v3.parquet"), index=False)
 
     summary_df = summarize_all_v3(combined_trades)
-    summary_df.to_csv(os.path.join(config.OUTPUTS_DIR, "strategy_summary_v3.csv"), index=False)
+    summary_df.to_csv(os.path.join(outputs_dir, "strategy_summary_v3.csv"), index=False)
 
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3 strategies")
-    print(f"strategy summary: {os.path.join(config.OUTPUTS_DIR, 'strategy_summary_v3.csv')}")
+    print(f"strategy summary: {os.path.join(outputs_dir, 'strategy_summary_v3.csv')}")
     cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
             "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]
     print("\n--- Top 10 by G Score ---")

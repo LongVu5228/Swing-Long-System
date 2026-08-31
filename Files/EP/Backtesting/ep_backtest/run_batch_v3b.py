@@ -1,9 +1,19 @@
 """
 V3b batch runner: multi-target staged partials, both sell styles (equal_depletion,
-exponential_remaining) x both target ladders (early_start: 10/20/30/40/50%, late_start:
-30/35/40/45/50% -- config.V3_MULTI_TARGET_LADDERS) x the Top-5 V2 base strategies x the
-core/non-core split sweep (config.V3_CORE_PCTS: 30/50/70% core). Same "carry forward the
-strong region" philosophy as V2/V3.
+exponential_remaining) x the core/non-core split sweep (config.V3_CORE_PCTS: 30/50/70%
+core), over either of two strategy universes (--universe):
+
+- narrow (default): the Top-5 V2 base strategies x both target ladders
+  (config.V3_BASE_STRATEGIES x config.V3_MULTI_TARGET_LADDERS) -- 60 combos.
+- broad: the FULL V2 entry x stop x trail grid x the late_start ladder only
+  (config.V3B_BROAD_BASE_STRATEGIES x config.V3B_BROAD_TARGET_LADDERS) -- 360 combos.
+  "Test on the other candle types, that big list of possible strategies" (user request
+  2026-08-31). Scoped to late_start only to keep runtime bounded -- see config.py's
+  comment on V3B_BROAD_TARGET_LADDERS for why.
+
+One script instead of two near-duplicates (run_batch_v3b.py + run_batch_v3b_broad.py,
+merged 2026-08-31): a bug in the shared simulation engine only needs fixing -- and
+re-running -- in one place, not two.
 
 Also reports max_favorable_R (MFE) and exit_efficiency (realized_R / MFE) per trade,
 averaged into the strategy summary -- how much of each trade's best price did the exit
@@ -11,7 +21,7 @@ rule actually capture.
 
 Usage:
     python -m ep_backtest.run_batch_v3b
-    python -m ep_backtest.run_batch_v3b --limit 100 --sim-workers 4
+    python -m ep_backtest.run_batch_v3b --universe broad --limit 100 --sim-workers 4
 """
 
 import argparse
@@ -25,12 +35,19 @@ from . import calendar_utils, config, daily_bars, exits, minute_bars
 from .entry import find_entry
 from .load_events import load_ep_v5
 from .multi_partial_taking import SELL_STYLES
-from .run_batch import _prefetch, summarize
+from .run_batch import _prefetch, effective_outputs_dir, summarize
 from .simulate_trade import TradeResultMultiV3, _strategy_id_multi_v3, simulate_multi_v3_with_entry
 
 _SELL_AMOUNTS = {
     "equal_depletion": config.V3_MULTI_SELL_AMOUNT_EQUAL,
     "exponential_remaining": config.V3_MULTI_SELL_AMOUNT_EXPONENTIAL,
+}
+
+_UNIVERSES = {
+    "narrow": (config.V3_BASE_STRATEGIES, config.V3_MULTI_TARGET_LADDERS, "trades_v3b.parquet",
+               "strategy_summary_v3b.csv"),
+    "broad": (config.V3B_BROAD_BASE_STRATEGIES, config.V3B_BROAD_TARGET_LADDERS, "trades_v3b_broad.parquet",
+              "strategy_summary_v3b_broad.csv"),
 }
 
 
@@ -77,17 +94,25 @@ def _missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_typ
 
 
 def _process_one_event(args) -> list:
-    """Top-level (picklable) worker: runs the Top-5-strategies x 2-sell-styles x 2-ladders grid for ONE event."""
-    ticker, reaction_date, adr14, chart_pattern = args
+    """
+    Top-level (picklable) worker: runs base_strategies x sell_styles x target_ladders x
+    core_pcts for ONE event. base_strategies/target_ladders are passed in per-call (not
+    read from a module-level config constant here) so the SAME worker function serves
+    either strategy universe under ProcessPoolExecutor -- on Windows (spawn, not fork),
+    a worker process re-imports this module fresh and would never see a runtime mutation
+    to a config constant made in the parent process after import; explicit arguments are
+    pickled and sent to the worker instead, which does work.
+    """
+    ticker, reaction_date, adr14, chart_pattern, base_strategies, target_ladders = args
     rows = []
 
     minute_df = minute_bars.get_event_window_minute_bars(ticker, reaction_date)
     daily_df = daily_bars.pull_ticker_daily_bars(ticker, reaction_date)
 
     if minute_df is None or minute_df.empty:
-        for entry_type, stop_type, trail_type in config.V3_BASE_STRATEGIES:
+        for entry_type, stop_type, trail_type in base_strategies:
             for sell_style in SELL_STYLES:
-                for ladder_name in config.V3_MULTI_TARGET_LADDERS:
+                for ladder_name in target_ladders:
                     for core_pct in config.V3_CORE_PCTS:
                         rows.append(_missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type,
                                                        trail_type, sell_style, ladder_name, core_pct))
@@ -96,7 +121,7 @@ def _process_one_event(args) -> list:
     daily_sma = exits.add_sma10(daily_df)
     sessions = calendar_utils.sessions_from(reaction_date, config.MAX_ENTRY_DAY_OFFSET + 1)
 
-    entries_needed = sorted({e for e, s, t in config.V3_BASE_STRATEGIES})
+    entries_needed = sorted({e for e, s, t in base_strategies})
     entry_cache = {}
     for entry_type in entries_needed:
         try:
@@ -104,10 +129,10 @@ def _process_one_event(args) -> list:
         except ValueError:
             entry_cache[entry_type] = None
 
-    for entry_type, stop_type, trail_type in config.V3_BASE_STRATEGIES:
+    for entry_type, stop_type, trail_type in base_strategies:
         entry = entry_cache[entry_type]
         for sell_style in SELL_STYLES:
-            for ladder_name, target_pcts in config.V3_MULTI_TARGET_LADDERS.items():
+            for ladder_name, target_pcts in target_ladders.items():
                 for core_pct in config.V3_CORE_PCTS:
                     if entry is None:
                         rows.append(_missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type,
@@ -123,10 +148,12 @@ def _process_one_event(args) -> list:
     return rows
 
 
-def run_v3b_grid(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
-    n_combos = (len(config.V3_BASE_STRATEGIES) * len(SELL_STYLES) * len(config.V3_MULTI_TARGET_LADDERS)
-                * len(config.V3_CORE_PCTS))
-    arg_list = [(row.ticker, row.reaction_date, row.adr14, row.chart_pattern) for row in events.itertuples()]
+def run_v3b_grid(events: pd.DataFrame, base_strategies, target_ladders, workers: int = 1) -> pd.DataFrame:
+    n_combos = len(base_strategies) * len(SELL_STYLES) * len(target_ladders) * len(config.V3_CORE_PCTS)
+    arg_list = [
+        (row.ticker, row.reaction_date, row.adr14, row.chart_pattern, base_strategies, target_ladders)
+        for row in events.itertuples()
+    ]
 
     all_rows = []
     if workers <= 1:
@@ -169,38 +196,48 @@ def summarize_all_v3b(all_trades: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--universe", choices=list(_UNIVERSES), default="narrow",
+                         help="narrow = Top-5 V2 base strategies (60 combos); "
+                              "broad = full V2 entry x stop x trail grid (360 combos)")
     parser.add_argument("--limit", type=int, default=None, help="only the first N events (testing)")
     parser.add_argument("--workers", type=int, default=15, help="I/O-bound prefetch thread count")
     parser.add_argument("--sim-workers", type=int, default=os.cpu_count() or 4)
     parser.add_argument("--no-prefetch", action="store_true")
     args = parser.parse_args()
 
+    base_strategies, target_ladders, trades_filename, summary_filename = _UNIVERSES[args.universe]
+
     events = load_ep_v5()
     if args.limit:
         events = events.head(args.limit)
     print(f"{len(events)} events loaded from EP V5")
-    print(f"V3b base strategies: {config.V3_BASE_STRATEGIES}")
+    print(f"V3b universe: {args.universe} ({len(base_strategies)} base strategies)")
     print(f"V3b sell styles: {SELL_STYLES}")
-    print(f"V3b target ladders: {config.V3_MULTI_TARGET_LADDERS}")
+    print(f"V3b target ladders: {target_ladders}")
     print(f"V3b core_pcts: {config.V3_CORE_PCTS}")
 
     if not args.no_prefetch:
         _prefetch(events, args.workers)
 
-    os.makedirs(config.OUTPUTS_DIR, exist_ok=True)
+    outputs_dir = effective_outputs_dir(args.limit)
+    if args.limit:
+        print(f"--limit set -- writing to {outputs_dir} instead of the real outputs/ dir")
+    os.makedirs(outputs_dir, exist_ok=True)
 
-    combined_trades = run_v3b_grid(events, workers=args.sim_workers)
-    combined_trades.to_parquet(os.path.join(config.OUTPUTS_DIR, "trades_v3b.parquet"), index=False)
+    combined_trades = run_v3b_grid(events, base_strategies, target_ladders, workers=args.sim_workers)
+    combined_trades.to_parquet(os.path.join(outputs_dir, trades_filename), index=False)
 
     summary_df = summarize_all_v3b(combined_trades)
-    summary_df.to_csv(os.path.join(config.OUTPUTS_DIR, "strategy_summary_v3b.csv"), index=False)
+    summary_df.to_csv(os.path.join(outputs_dir, summary_filename), index=False)
 
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3b strategies")
-    print(f"strategy summary: {os.path.join(config.OUTPUTS_DIR, 'strategy_summary_v3b.csv')}")
+    print(f"strategy summary: {os.path.join(outputs_dir, summary_filename)}")
     cols = ["strategy_id", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
             "pct_trades_with_real_move", "avg_exit_efficiency", "G_score"]
-    print("\n--- All strategies by G Score ---")
-    print(summary_df[cols].to_string(index=False))
+    print("\n--- Top 20 by G Score ---")
+    print(summary_df[cols].head(20).to_string(index=False))
+    print("\n--- Bottom 5 by G Score ---")
+    print(summary_df[cols].tail(5).to_string(index=False))
 
 
 if __name__ == "__main__":
