@@ -8,8 +8,10 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 from .. import calendar_utils, config
+from ..entry import EntryResult
 from ..entry import find_entry
 from ..exits import add_sma10
+from ..multi_partial_taking import _downside_scan
 from ..simulate_trade import simulate_multi_v3_with_entry, simulate_v2_with_entry
 
 D0 = calendar_utils.sessions_from(pd.Timestamp("2024-01-02").date(), 1)[0]
@@ -162,6 +164,44 @@ def test_exponential_remaining_sales_shrink_and_first_sale_matches_equal_depleti
     # The final stop-out then sells the leftover non-core AND the 50% core TOGETHER in
     # one event (they aren't separate sales): 100 - 10 - 8 = 82pp of the original.
     assert abs(result.last_sale_pct - 0.82) < 1e-6
+
+
+def test_downside_scan_reference_price_is_not_conflated_with_floor():
+    # Regression test for a real bug found on the first full-universe V3b run: passing
+    # the SAME value for both `floor` (used to compute the level series via
+    # clip(lower=floor)) and `reference_price` (used to validate the level) made the
+    # invalid-geometry check TAUTOLOGICALLY true the moment floor==entry_fill
+    # (breakeven, active from the second target onward) -- level = max(prior_MA, floor)
+    # is ALWAYS >= floor by construction, so comparing it against floor again flagged
+    # every such continuation invalid regardless of whether the setup was actually
+    # nonsensical. Confirmed on real data: WYNN 2016-02-12 resolved to +9.76R under
+    # close_below_20ma but was wrongly discarded entirely (INVALID_STOP_GEOMETRY) under
+    # 20ma_touch on the identical setup, purely because of this.
+    daily_sma = pd.DataFrame({
+        "date": [D0 - timedelta(days=1), D0, D0 + timedelta(days=1)],
+        "close": [105.0, 106.0, 107.0],
+        "sma20": [105.0, 106.0, 107.0],  # an ordinary, rising trailing MA
+        "low": [104.0, 105.0, 106.0],
+        "open": [104.5, 105.5, 106.5],
+        "high": [105.5, 106.5, 107.5],
+    })
+    minute_df = pd.DataFrame(columns=["dt_et", "session_date", "open", "high", "low", "close"])
+    continuation_entry = EntryResult(
+        entry_status=config.STATUS_VALID_TRADE, or_high=100.0, trigger=100.01,
+        entry_timestamp=pd.Timestamp(D0).tz_localize(config.ET), entry_day_offset=None,
+        entry_session_date=D0, entry_fill=100.0, fill_reason="normal_trade_through",
+        entry_bar_index=None, lod_known_at_entry=99.0, trigger_candle_low_known_at_entry=99.0,
+    )
+
+    # floor = 100 (breakeven); level on D0 = max(prior day's sma20=105, floor=100) = 105.
+    # The buggy version compared 105 against floor (100) -- 105 >= 100 -> falsely
+    # INVALID. The fix compares against reference_price (108, the actual price this
+    # continuation resumed from, e.g. a target fill) -- 105 < 108, must NOT be invalid.
+    status, _, _ = _downside_scan(
+        minute_df, daily_sma, continuation_entry, floor=100.0, reference_price=108.0,
+        trail_type="20ma_touch", sessions=[D0], log=[], is_continuation=True,
+    )
+    assert status != "INVALID"
 
 
 def test_multi_neither_stop_nor_target_resolves_reports_still_open_without_crashing():

@@ -63,8 +63,26 @@ class MultiPartialResult:
     audit_log: list = field(default_factory=list)
 
 
-def _downside_scan(minute_df, daily_sma, scan_entry, floor, trail_type, sessions, log, is_continuation):
-    """One downside stop/trailing check, reused at every step of the loop."""
+def _downside_scan(minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, sessions, log, is_continuation):
+    """
+    One downside stop/trailing check, reused at every step of the loop.
+
+    `floor` and `reference_price` must NOT be the same value once breakeven has
+    activated -- `floor` is the price used to compute the level series (clip(lower=
+    floor)), while `reference_price` is what the invalid-geometry guard checks that
+    level against. Confirmed as a real bug on the first full-universe V3b run: the
+    original code passed scan_entry.entry_fill for both, and once floor==entry_fill
+    (breakeven, active from the second target onward), the check `level >= entry_fill`
+    became TAUTOLOGICALLY true by construction (the level series is clipped to be >=
+    floor==entry_fill no matter what), so every touch/ratchet trade that ever reached a
+    single target got marked INVALID_STOP_GEOMETRY from that point on -- including real
+    winners (WYNN 2016-02-12 resolved correctly to +9.76R under close_below_20ma but was
+    wrongly discarded entirely under 20ma_touch on the identical setup). reference_price
+    must be the actual traded price at the START of this scan phase (the original entry
+    fill for the very first call, the most recent target's fill price afterward) --
+    exactly mirroring how partial_taking.run_v3_position_management's Phase 2 correctly
+    checks against target_ref, not entry_fill.
+    """
     if trailing_stops.is_close_based(trail_type):
         return _run_position_management(
             minute_df, daily_sma, scan_entry, floor, sessions, log,
@@ -72,10 +90,10 @@ def _downside_scan(minute_df, daily_sma, scan_entry, floor, trail_type, sessions
         )
     level_series = trailing_stops.level_series_for(trail_type, daily_sma, floor, scan_entry.entry_session_date)
     entry_day_level = level_series[daily_sma["date"] == scan_entry.entry_session_date]
-    if not entry_day_level.empty and float(entry_day_level.iloc[0]) >= scan_entry.entry_fill:
+    if not entry_day_level.empty and float(entry_day_level.iloc[0]) >= reference_price:
         log.append(
             f"Trailing level on {scan_entry.entry_session_date} ({float(entry_day_level.iloc[0]):.4f}) >= "
-            f"reference price ({scan_entry.entry_fill:.4f}) -- INVALID_STOP_GEOMETRY"
+            f"reference price ({reference_price:.4f}) -- INVALID_STOP_GEOMETRY"
         )
         return "INVALID", None, None
     return trailing_stops.run_level_based_position_management(
@@ -98,12 +116,14 @@ def run_multi_partial_position_management(
     scan_minute_df, scan_sessions = minute_df, sessions
     scan_entry = entry
     floor = initial_stop_price
+    reference_price = entry_fill  # see _downside_scan's docstring: NOT the same as floor once breakeven activates
     breakeven_activated = False
     is_continuation = False
 
     while True:
         stop_ts, stop_ref, stop_reason = _downside_scan(
-            scan_minute_df, daily_sma, scan_entry, floor, trail_type, scan_sessions, log, is_continuation
+            scan_minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, scan_sessions, log,
+            is_continuation,
         )
         if stop_ts == "INVALID":
             return MultiPartialResult(status=config.STATUS_INVALID_STOP_GEOMETRY, audit_log=log)
@@ -165,6 +185,7 @@ def run_multi_partial_position_management(
             floor = entry_fill
             breakeven_activated = True
             log.append(f"Breakeven activated: floor = {entry_fill:.4f}")
+        reference_price = fill  # the actual traded price this phase is resuming from
 
         target_day = _day_of(target_ts)
         scan_minute_df, scan_sessions = restrict_to_after(minute_df, sessions, target_day, target_ts)
