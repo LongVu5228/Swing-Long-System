@@ -124,6 +124,14 @@ def run_multi_partial_position_management(
             scan_minute_df, daily_sma, scan_entry, next_target, scan_sessions, log
         )
 
+        if stop_ts is None and target_ts is None:
+            # _stop_wins() alone can't distinguish this from "stop_ts is None but
+            # target_ts is set" (its first check fires either way) -- must be checked
+            # explicitly here, or the code falls through to the "target won" branch
+            # with target_ref=None and crashes. Matches the equivalent guard in
+            # partial_taking.run_v3_position_management.
+            return MultiPartialResult(status="STILL_OPEN_AT_DATA_END", sales=sales, audit_log=log)
+
         if _stop_wins(stop_ts, stop_reason, target_ts):
             if stop_ts is None:
                 return MultiPartialResult(status="STILL_OPEN_AT_DATA_END", sales=sales, audit_log=log)

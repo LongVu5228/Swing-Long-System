@@ -164,6 +164,33 @@ def test_exponential_remaining_sales_shrink_and_first_sale_matches_equal_depleti
     assert abs(result.last_sale_pct - 0.82) < 1e-6
 
 
+def test_multi_neither_stop_nor_target_resolves_reports_still_open_without_crashing():
+    # Regression test for a real bug found on the full-universe run: when data just
+    # runs out with neither the downside scan NOR the target scan ever resolving,
+    # _stop_wins() alone can't tell "genuinely nothing resolved" apart from "stop_ts is
+    # None but a target WAS found" (its first check fires the same way for both) --
+    # without an explicit guard, the code fell through to the "target won" branch with
+    # target_ref=None and crashed on `target_ref + 1e-9`.
+    minute_df, prior_rows, entry = _entry_and_prior_daily()
+    ef = entry.entry_fill
+    days = _future_days(1)
+    rows = list(prior_rows)
+    # A perfectly quiet day: no target threatened, no stop threatened, then data ends.
+    rows.append(_daily_row(days[0], ef, ef + 0.1, ef - 0.1, ef))
+    daily_df = pd.DataFrame(rows)
+    daily_sma = add_sma10(daily_df)
+
+    result = simulate_multi_v3_with_entry(
+        "TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry", trail_type="close_below_20ma",
+        target_pcts=config.V3_MULTI_TARGET_PCTS, sell_style="equal_depletion",
+        sell_amount=config.V3_MULTI_SELL_AMOUNT_EQUAL, core_pct=0.5, entry=entry, minute_df=minute_df,
+        daily_sma=daily_sma, sessions=SESSIONS,
+    )
+
+    assert result.status == "STILL_OPEN_AT_DATA_END"
+    assert result.realized_R is None
+
+
 def test_multi_target_never_reached_matches_v2():
     # Sanity cross-check: if price never gets anywhere near even the first target, the
     # whole trade must resolve exactly like V2 (single downside exit, no partial sales).
