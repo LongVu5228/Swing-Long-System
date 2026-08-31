@@ -36,6 +36,8 @@ class TradeResult:
     status: str  # config.STATUS_* codes, or "OK" for a fully resolved trade
     entry_status: str
 
+    trail_type: Optional[str] = None  # V2 only; None for V1 trades
+
     or_high: Optional[float] = None
     trigger: Optional[float] = None
     entry_timestamp: Optional[object] = None
@@ -176,17 +178,22 @@ def simulate_with_entry(
     exit_ts, exit_ref_price, exit_reason = _run_position_management(
         minute_df, daily_sma, entry, stop.stop_price, sessions, log
     )
+    return _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
 
+
+def _finalize_exit(result: TradeResult, entry: EntryResult, risk: float, exit_ts, exit_ref_price,
+                    exit_reason, log: list) -> TradeResult:
+    """Shared tail: turn a (exit_ts, exit_ref_price, exit_reason) triple into R + the
+    rest of the TradeResult. Used by both V1's simulate_with_entry and V2's
+    simulate_v2_with_entry -- they differ only in how the exit is found, not in how the
+    exit is turned into R once found."""
     if exit_reason is None:
         result.status = "STILL_OPEN_AT_DATA_END"
         log.append("No exit condition fired before the end of available daily data -- STILL_OPEN_AT_DATA_END")
         result.audit_log = log
         return result
 
-    if exit_reason == "SMA10_EXIT":
-        exit_fill = _slip_sub(exit_ref_price)
-    else:  # any STOPPED_* variant
-        exit_fill = _slip_sub(exit_ref_price)
+    exit_fill = _slip_sub(exit_ref_price)
 
     result.exit_timestamp = exit_ts
     result.exit_price = round(exit_fill, 4)
@@ -208,7 +215,89 @@ def simulate_with_entry(
     return result
 
 
-def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_price, sessions, log):
+def simulate_v2_with_entry(
+    ticker: str,
+    d0: date,
+    adr14: Optional[float],
+    entry_type: str,
+    stop_type: str,
+    trail_type: str,
+    entry: EntryResult,
+    minute_df: pd.DataFrame,
+    daily_sma: pd.DataFrame,
+    sessions: list,
+) -> TradeResult:
+    """
+    V2 counterpart to simulate_with_entry: same entry/initial-stop handling, but position
+    management is one of the 6 Section 43 trailing-stop types instead of the fixed
+    close-below-10SMA rule. daily_sma must already have both sma10 and sma20 columns
+    (exits.add_sma10 provides both).
+    """
+    from . import trailing_stops  # local import: avoids a module-level cycle risk if
+    # trailing_stops ever needs anything from simulate_trade in the future.
+
+    log = []
+    strategy_id = f"{_strategy_id(entry_type, stop_type)}__T{trail_type.upper()}"
+    result = TradeResult(
+        ticker=ticker, event_date=d0, entry_type=entry_type, stop_type=stop_type,
+        strategy_id=strategy_id, trail_type=trail_type, status="", entry_status=entry.entry_status,
+        or_high=entry.or_high, trigger=entry.trigger,
+    )
+    log.append(f"{ticker} EP Day 0 = {d0}, strategy = {strategy_id}")
+    log.append(f"Entry-valid sessions D0..D+7: {sessions}")
+    log.append(f"D0 {entry_type} OR high = {entry.or_high:.4f}, trigger = {entry.trigger:.4f}")
+
+    if entry.entry_status == config.STATUS_NO_ENTRY:
+        result.status = config.STATUS_NO_ENTRY
+        log.append(f"No fill through {sessions[-1]} close -- NO_ENTRY")
+        result.audit_log = log
+        return result
+
+    result.entry_timestamp = entry.entry_timestamp
+    result.entry_day_offset = entry.entry_day_offset
+    result.entry_fill = entry.entry_fill
+    result.fill_reason = entry.fill_reason
+    log.append(
+        f"Entry: {entry.fill_reason} at {entry.entry_timestamp} "
+        f"(day offset D+{entry.entry_day_offset}), fill = {entry.entry_fill:.4f}"
+    )
+
+    stop = compute_initial_stop(stop_type, entry, adr14)
+    if not stop.valid:
+        result.status = stop.reason or config.STATUS_INVALID_STOP_GEOMETRY
+        log.append(f"Initial stop invalid: {stop.reason} (stop_price={stop.stop_price})")
+        result.audit_log = log
+        return result
+
+    result.initial_stop_price = stop.stop_price
+    risk = entry.entry_fill - stop.stop_price
+    result.initial_risk_per_share = risk
+    log.append(f"Initial stop ({stop_type}) = {stop.stop_price:.4f}, 1R/share = {risk:.4f}")
+
+    ma_window = trailing_stops.ma_window_for(trail_type)
+    if not exits.has_sufficient_history(daily_sma, entry.entry_session_date, window=ma_window):
+        result.status = config.STATUS_INELIGIBLE_NO_10SMA
+        log.append(f"Fewer than {ma_window} valid closes as of entry day -- INELIGIBLE_NO_MA_HISTORY")
+        result.audit_log = log
+        return result
+
+    if trailing_stops.is_close_based(trail_type):
+        exit_ts, exit_ref_price, exit_reason = _run_position_management(
+            minute_df, daily_sma, entry, stop.stop_price, sessions, log,
+            ma_col=trailing_stops.ma_column_for(trail_type),
+        )
+    else:
+        level_series = trailing_stops.level_series_for(
+            trail_type, daily_sma, stop.stop_price, entry.entry_session_date
+        )
+        exit_ts, exit_ref_price, exit_reason = trailing_stops.run_level_based_position_management(
+            minute_df, daily_sma, entry, level_series, sessions, log
+        )
+
+    return _finalize_exit(result, entry, risk, exit_ts, exit_ref_price, exit_reason, log)
+
+
+def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_price, sessions, log, ma_col="sma10"):
     """
     Returns (exit_timestamp, exit_reference_price, exit_reason) or (None, None, None).
 
@@ -218,6 +307,10 @@ def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_pric
     price differs each time and can be crossed at a different bar), over up to ~3,000
     cached minute bars, so a slow per-row Python loop here is paid 12x per event no
     matter how much the entry search and 10SMA computation get hoisted out above it.
+
+    ma_col defaults to "sma10" for V1's standardized exit; V2's close_below_20ma trail
+    type (trailing_stops.is_close_based) reuses this exact function with ma_col="sma20"
+    rather than duplicating it, since the mechanics are otherwise identical.
     """
     remaining_days = [d for d in sessions if d >= entry.entry_session_date]
 
@@ -250,16 +343,18 @@ def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_pric
             else:
                 stop_reason, stop_ref = "STOPPED_TRADE_THROUGH", stop_price
 
-    # SMA10 close-exit only matters on days strictly before any stop-out day -- once a
-    # stop fires intrabar, that day's close is never reached (Section 24 vs 26 priority).
+    exit_label = "SMA10_EXIT" if ma_col == "sma10" else "SMA20_EXIT"
+
+    # Close-exit only matters on days strictly before any stop-out day -- once a stop
+    # fires intrabar, that day's close is never reached (Section 24 vs 26 priority).
     day_frame = daily_sma[daily_sma["date"].isin(remaining_days)].sort_values("date")
     if stop_day is not None:
         day_frame = day_frame[day_frame["date"] < stop_day]
-    sma_cond = day_frame["sma10"].notna() & (day_frame["close"] < day_frame["sma10"])
+    sma_cond = day_frame[ma_col].notna() & (day_frame["close"] < day_frame[ma_col])
     if sma_cond.any():
         row = day_frame.iloc[int(sma_cond.to_numpy().argmax())]
-        log.append(f"{row['date']}: close {row['close']:.4f} < 10SMA {row['sma10']:.4f} -- SMA10_EXIT")
-        return row["date"], row["close"], "SMA10_EXIT"
+        log.append(f"{row['date']}: close {row['close']:.4f} < {ma_col} {row[ma_col]:.4f} -- {exit_label}")
+        return row["date"], row["close"], exit_label
 
     if stop_ts is not None:
         return stop_ts, stop_ref, stop_reason
@@ -278,7 +373,7 @@ def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_pric
 
     gap_through = after["open"] <= stop_price
     trade_through = after["low"] <= stop_price
-    sma_exit = (after["sma10"].notna()) & (after["close"] < after["sma10"])
+    sma_exit = (after[ma_col].notna()) & (after["close"] < after[ma_col])
     any_exit = gap_through | trade_through | sma_exit
     if not any_exit.any():
         return None, None, None
@@ -286,13 +381,13 @@ def _run_position_management(minute_df, daily_sma, entry: EntryResult, stop_pric
     pos = int(any_exit.to_numpy().argmax())  # first True
     row = after.iloc[pos]
     # Priority matches the original day-by-day order: gap-through, then trade-through,
-    # then the SMA10 close check -- all three are evaluated on the SAME day here, so
+    # then the MA close check -- all three are evaluated on the SAME day here, so
     # preserve that same priority when more than one is true on the winning day.
     if gap_through.iloc[pos]:
         return row["date"], row["open"], "STOPPED_GAP_THROUGH_DAILY_APPROX"
     if trade_through.iloc[pos]:
         return row["date"], stop_price, "STOPPED_TRADE_THROUGH_DAILY_APPROX"
-    return row["date"], row["close"], "SMA10_EXIT"
+    return row["date"], row["close"], exit_label
 
 
 def simulate_trade(ticker: str, d0: date, adr14: Optional[float], entry_type: str, stop_type: str,

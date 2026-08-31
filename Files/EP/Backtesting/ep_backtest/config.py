@@ -41,6 +41,23 @@ assert len(STOP_TYPES) == 12, STOP_TYPES
 
 # Section 26-27 -- V1 standardized exit
 SMA_WINDOW = 10
+SMA20_WINDOW = 20
+
+# Section 43-46 -- V2 trailing-stop grid (6 types)
+TRAIL_TYPES = [
+    "10ma_touch",
+    "close_below_10ma",
+    "low_of_close_below_10ma",
+    "20ma_touch",
+    "close_below_20ma",
+    "low_of_close_below_20ma",
+]
+
+# Section 86 -- V2 carries forward the strong V1 region, not the full 72-combo grid.
+# Chosen 2026-08-30: the entries/stops that were consistently positive across BOTH of
+# the strongest V1 entry timeframes (30m, 60m) at 0.1% slippage.
+V2_ENTRY_TYPES = ["30m", "60m"]
+V2_STOP_TYPES = ["0.25adr", "0.333333adr", "0.50adr", "1.00adr", "3pct_entry"]
 
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
