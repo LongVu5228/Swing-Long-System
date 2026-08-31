@@ -153,6 +153,51 @@ def test_v2_ratchet_does_not_exit_on_the_close_below_ma_event_itself():
     assert result.status == "STILL_OPEN_AT_DATA_END"
 
 
+def test_v2_touch_level_above_entry_fill_is_invalid_not_a_fabricated_win():
+    # Regression test for a real bug found in the first full V2 run: after a steep
+    # enough decline, "yesterday's finalized MA" (the touch level, Section 44) can still
+    # sit ABOVE the entry price -- it hasn't caught down to the crash yet. CCL entered
+    # at $12.22 on 2020-03-20 got a touch level of $25.64 (the prior day's 20MA, still
+    # elevated from the pre-crash price), and the same-bar-adverse rule then used that
+    # unreachable level as an exit FILL PRICE, fabricating a ~36x "win" at a price the
+    # stock never actually traded. This must be treated as invalid stop geometry
+    # instead, exactly like an initial stop >= entry (Section 31).
+    bars = [_bar(D0, 930, 11, 12, 10.5, 11.8)]  # OR high 12 -> trigger 12.01
+    bars.append(_bar(D0, 931, 11.9, 12.5, 11.5, 12.2))  # entry fires here, low 11.5 is safe
+    bars += _flat_day(D0, start_hhmm=932, n=5, price=12.2)
+    minute_df = _to_df(bars)
+
+    daily_rows = []
+    base = D0 - timedelta(days=45)
+    # A crash into D0: closes fall from ~50 down to ~12 over the prior weeks, so the
+    # rolling 20-day average is still sitting far above the current $12 price.
+    closes = list(range(50, 12, -2))
+    i = 0
+    d = base
+    while len(daily_rows) < 25:
+        if calendar_utils.is_trading_day(d):
+            c = closes[min(i, len(closes) - 1)]
+            daily_rows.append({"date": d, "open": c, "high": c, "low": c - 1, "close": float(c), "volume": 10000})
+            i += 1
+        d += timedelta(days=1)
+    daily_rows.append({"date": D0, "open": 11, "high": 12.5, "low": 10.5, "close": 12.0, "volume": 50000})
+    daily_df = pd.DataFrame(daily_rows)
+    daily_sma = add_sma10(daily_df)
+
+    sessions = calendar_utils.sessions_from(D0, config.MAX_ENTRY_DAY_OFFSET + 1)
+    entry = find_entry(minute_df, D0, sessions, "1m")
+    assert entry.entry_status == config.STATUS_VALID_TRADE
+    assert entry.entry_fill < daily_sma[daily_sma["date"] < D0]["sma20"].iloc[-1], \
+        "test setup check: prior day's sma20 really must be above the entry fill"
+
+    result = simulate_v2_with_entry("TEST", D0, adr14=0.06, entry_type="1m", stop_type="5pct_entry",
+                                     trail_type="20ma_touch", entry=entry, minute_df=minute_df,
+                                     daily_sma=daily_sma, sessions=sessions)
+
+    assert result.status == config.STATUS_INVALID_STOP_GEOMETRY
+    assert result.realized_R is None, "must not fabricate a win from an unreachable level"
+
+
 def test_v2_close_below_20ma_matches_v1_close_below_10ma_mechanics():
     # Sanity check that generalizing _run_position_management's ma_col param didn't
     # change V1's behavior: an sma20-based close-exit should fire the same way V1's

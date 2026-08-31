@@ -290,6 +290,26 @@ def simulate_v2_with_entry(
         level_series = trailing_stops.level_series_for(
             trail_type, daily_sma, stop.stop_price, entry.entry_session_date
         )
+
+        # Same invalid-geometry guard Section 31 already applies to the initial stop
+        # (stop >= entry_fill is nonsensical), extended to the trailing level actually
+        # in force on the entry day. Needed because "touch" uses the prior day's
+        # finalized MA (Section 44) -- after a steep enough decline, that MA can still
+        # sit ABOVE the entry price (it hasn't caught down to the crash yet), which
+        # produced a real bug: the same-bar-adverse rule then used that unreachable
+        # level as an exit FILL PRICE, fabricating gains at a price the stock never
+        # actually traded (confirmed on CCL 2020-03-20: entry $12.22, fabricated "exit"
+        # at $25.64 -- the prior day's 20MA, still elevated from the pre-crash price).
+        entry_day_level = level_series[daily_sma["date"] == entry.entry_session_date]
+        if not entry_day_level.empty and float(entry_day_level.iloc[0]) >= entry.entry_fill:
+            result.status = config.STATUS_INVALID_STOP_GEOMETRY
+            log.append(
+                f"Trailing level on entry day ({float(entry_day_level.iloc[0]):.4f}) >= "
+                f"entry fill ({entry.entry_fill:.4f}) -- INVALID_STOP_GEOMETRY"
+            )
+            result.audit_log = log
+            return result
+
         exit_ts, exit_ref_price, exit_reason = trailing_stops.run_level_based_position_management(
             minute_df, daily_sma, entry, level_series, sessions, log
         )
