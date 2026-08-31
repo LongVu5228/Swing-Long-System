@@ -107,6 +107,27 @@ V3_MULTI_TARGET_LADDERS = {
     "late_start": V3_MULTI_TARGET_PCTS_LATE_START,
 }
 
+# Broadened strategy universe (user request, 2026-08-31): "test on the other candle
+# types, that big list of possible strategies" -- the FULL V2 entry x stop x trail grid
+# (60 combos) as V3b base strategies, instead of just the narrowed Top-5 V2 winners used
+# above. Run via run_batch_v3b_broad.py, NOT run_batch_v3b.py (which keeps using the
+# narrow Top-5 list, unchanged, for backward comparability with earlier results).
+#
+# Scoped down from the full sell-style x ladder x core cross product to keep runtime
+# bounded (~1.5hr vs ~3hr for the full 60x2x2x3=720 cross product, user's explicit
+# choice 2026-08-31): late_start only, since it beat early_start on EVERY one of the 5
+# original base strategies x 2 sell styles already tested -- not worth re-proving at
+# 12x the base-strategy count. Full sell-style x core_pct sweep is kept.
+V3B_BROAD_BASE_STRATEGIES = [
+    (entry_type, stop_type, trail_type)
+    for entry_type in V2_ENTRY_TYPES
+    for stop_type in V2_STOP_TYPES
+    for trail_type in TRAIL_TYPES
+]
+assert len(V3B_BROAD_BASE_STRATEGIES) == 60, V3B_BROAD_BASE_STRATEGIES
+
+V3B_BROAD_TARGET_LADDERS = {"late_start": V3_MULTI_TARGET_PCTS_LATE_START}
+
 # Section 60.1 -- V1 slippage placeholder: 0.1% of the relevant reference price.
 # Revised down from an initial 1% (2026-08-30) after the first full-universe V1 run
 # showed 1% + 1% round-trip slippage exceeded the width of the 0.5%/1% static stops
