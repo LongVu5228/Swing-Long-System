@@ -18,7 +18,7 @@ from tqdm import tqdm
 from . import calendar_utils, config, daily_bars, exits, minute_bars
 from .entry import find_entry
 from .load_events import load_ep_v5
-from .run_batch import _prefetch, effective_outputs_dir, other_status_count, summarize
+from .run_batch import _prefetch, effective_outputs_dir, event_meta_from_row, other_status_count, summarize
 from .simulate_trade import TradeResult, simulate_v2_with_entry
 
 
@@ -26,12 +26,12 @@ def _strategy_id_v2(entry_type: str, stop_type: str, trail_type: str) -> str:
     return f"E{entry_type.upper()}__S{stop_type.upper()}__T{trail_type.upper()}"
 
 
-def _result_row(result, chart_pattern) -> dict:
+def _result_row(result, event_meta: dict) -> dict:
     return {
         "strategy_id": result.strategy_id,
         "ticker": result.ticker,
         "event_date": result.event_date,
-        "chart_pattern": chart_pattern,
+        **event_meta,
         "entry_type": result.entry_type,
         "stop_type": result.stop_type,
         "trail_type": result.trail_type,
@@ -53,7 +53,7 @@ def _result_row(result, chart_pattern) -> dict:
 
 def _process_one_event(args) -> list:
     """Top-level (picklable) worker: runs the V2 region's full grid for ONE event."""
-    ticker, reaction_date, adr14, chart_pattern = args
+    ticker, reaction_date, adr14, event_meta = args
     rows = []
 
     minute_df = minute_bars.get_event_window_minute_bars(ticker, reaction_date)
@@ -69,7 +69,7 @@ def _process_one_event(args) -> list:
                         strategy_id=_strategy_id_v2(entry_type, stop_type, trail_type),
                         status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
                     )
-                    rows.append(_result_row(result, chart_pattern))
+                    rows.append(_result_row(result, event_meta))
         return rows
 
     daily_sma = exits.add_sma10(daily_df)  # adds both sma10 and sma20
@@ -95,14 +95,14 @@ def _process_one_event(args) -> list:
                         ticker, reaction_date, adr14, entry_type, stop_type, trail_type,
                         entry, minute_df, daily_sma, sessions,
                     )
-                rows.append(_result_row(result, chart_pattern))
+                rows.append(_result_row(result, event_meta))
 
     return rows
 
 
 def run_v2_grid(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
     n_combos = len(config.V2_ENTRY_TYPES) * len(config.V2_STOP_TYPES) * len(config.TRAIL_TYPES)
-    arg_list = [(row.ticker, row.reaction_date, row.adr14, row.chart_pattern) for row in events.itertuples()]
+    arg_list = [(row.ticker, row.reaction_date, row.adr14, event_meta_from_row(row)) for row in events.itertuples()]
 
     all_rows = []
     if workers <= 1:

@@ -35,7 +35,7 @@ from . import calendar_utils, config, daily_bars, exits, minute_bars
 from .entry import find_entry
 from .load_events import load_ep_v5
 from .multi_partial_taking import SELL_STYLES, describe_sell_schedule
-from .run_batch import _prefetch, effective_outputs_dir, summarize
+from .run_batch import _prefetch, effective_outputs_dir, event_meta_from_row, summarize
 from .simulate_trade import TradeResultMultiV3, _strategy_id_multi_v3, simulate_multi_v3_with_entry
 
 _SELL_AMOUNTS = {
@@ -51,12 +51,12 @@ _UNIVERSES = {
 }
 
 
-def _result_row(result: TradeResultMultiV3, chart_pattern) -> dict:
+def _result_row(result: TradeResultMultiV3, event_meta: dict) -> dict:
     return {
         "strategy_id": result.strategy_id,
         "ticker": result.ticker,
         "event_date": result.event_date,
-        "chart_pattern": chart_pattern,
+        **event_meta,
         "entry_type": result.entry_type,
         "stop_type": result.stop_type,
         "trail_type": result.trail_type,
@@ -82,7 +82,7 @@ def _result_row(result: TradeResultMultiV3, chart_pattern) -> dict:
     }
 
 
-def _missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type, trail_type, sell_style,
+def _missing_data_row(ticker, reaction_date, event_meta, entry_type, stop_type, trail_type, sell_style,
                        target_ladder, core_pct) -> dict:
     result = TradeResultMultiV3(
         ticker=ticker, event_date=reaction_date, entry_type=entry_type, stop_type=stop_type,
@@ -90,7 +90,7 @@ def _missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_typ
         strategy_id=_strategy_id_multi_v3(entry_type, stop_type, trail_type, sell_style, target_ladder, core_pct),
         status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
     )
-    return _result_row(result, chart_pattern)
+    return _result_row(result, event_meta)
 
 
 def _process_one_event(args) -> list:
@@ -103,7 +103,7 @@ def _process_one_event(args) -> list:
     to a config constant made in the parent process after import; explicit arguments are
     pickled and sent to the worker instead, which does work.
     """
-    ticker, reaction_date, adr14, chart_pattern, base_strategies, target_ladders = args
+    ticker, reaction_date, adr14, event_meta, base_strategies, target_ladders = args
     rows = []
 
     minute_df = minute_bars.get_event_window_minute_bars(ticker, reaction_date)
@@ -114,7 +114,7 @@ def _process_one_event(args) -> list:
             for sell_style in SELL_STYLES:
                 for ladder_name in target_ladders:
                     for core_pct in config.V3_CORE_PCTS:
-                        rows.append(_missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type,
+                        rows.append(_missing_data_row(ticker, reaction_date, event_meta, entry_type, stop_type,
                                                        trail_type, sell_style, ladder_name, core_pct))
         return rows
 
@@ -135,7 +135,7 @@ def _process_one_event(args) -> list:
             for ladder_name, target_pcts in target_ladders.items():
                 for core_pct in config.V3_CORE_PCTS:
                     if entry is None:
-                        rows.append(_missing_data_row(ticker, reaction_date, chart_pattern, entry_type, stop_type,
+                        rows.append(_missing_data_row(ticker, reaction_date, event_meta, entry_type, stop_type,
                                                        trail_type, sell_style, ladder_name, core_pct))
                     else:
                         result = simulate_multi_v3_with_entry(
@@ -143,7 +143,7 @@ def _process_one_event(args) -> list:
                             target_pcts, sell_style, _SELL_AMOUNTS[sell_style], ladder_name, core_pct,
                             entry, minute_df, daily_sma, sessions,
                         )
-                        rows.append(_result_row(result, chart_pattern))
+                        rows.append(_result_row(result, event_meta))
 
     return rows
 
@@ -151,7 +151,7 @@ def _process_one_event(args) -> list:
 def run_v3b_grid(events: pd.DataFrame, base_strategies, target_ladders, workers: int = 1) -> pd.DataFrame:
     n_combos = len(base_strategies) * len(SELL_STYLES) * len(target_ladders) * len(config.V3_CORE_PCTS)
     arg_list = [
-        (row.ticker, row.reaction_date, row.adr14, row.chart_pattern, base_strategies, target_ladders)
+        (row.ticker, row.reaction_date, row.adr14, event_meta_from_row(row), base_strategies, target_ladders)
         for row in events.itertuples()
     ]
 

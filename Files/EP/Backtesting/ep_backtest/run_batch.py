@@ -42,12 +42,28 @@ def _prefetch(events: pd.DataFrame, workers: int):
             pass
 
 
-def _result_row(result, chart_pattern, entry_type: str, stop_type: str) -> dict:
+# Per-event metadata worth carrying into every trade-level output row for post-hoc
+# slicing (year-by-year is already done via event_date; this adds ADR and turnover --
+# ADR was the #1 predictor and turnover the #2 predictor in this project's earlier EP
+# research, see Swing_Long_EP_Master_Findings_CURRENT.md) WITHOUT needing to re-run the
+# simulation later -- these are static properties of the event itself, untouched by
+# which strategy is being simulated. Add a name here (and to the raw EP V5 read, if it
+# isn't already a column there) rather than joining trades back to events after the fact
+# every time a new slicing question comes up.
+EVENT_META_COLUMNS = ["chart_pattern", "adr14", "adr_category", "trading_turnover_pct",
+                       "trading_turnover_pct_category"]
+
+
+def event_meta_from_row(row) -> dict:
+    return {col: getattr(row, col) for col in EVENT_META_COLUMNS}
+
+
+def _result_row(result, event_meta: dict, entry_type: str, stop_type: str) -> dict:
     return {
         "strategy_id": result.strategy_id,
         "ticker": result.ticker,
         "event_date": result.event_date,
-        "chart_pattern": chart_pattern,
+        **event_meta,
         "entry_type": entry_type,
         "stop_type": stop_type,
         "status": result.status,
@@ -77,7 +93,7 @@ def run_strategy(events: pd.DataFrame, entry_type: str, stop_type: str) -> pd.Da
         result = simulate_trade_from_data(
             row.ticker, row.reaction_date, row.adr14, entry_type, stop_type, minute_df, daily_df
         )
-        rows.append(_result_row(result, row.chart_pattern, entry_type, stop_type))
+        rows.append(_result_row(result, event_meta_from_row(row), entry_type, stop_type))
     return pd.DataFrame(rows)
 
 
@@ -89,7 +105,7 @@ def _process_one_event(args) -> list:
     its arguments, since a process-pool worker gets a fresh interpreter with none of the
     parent's in-memory state.
     """
-    ticker, reaction_date, adr14, chart_pattern = args
+    ticker, reaction_date, adr14, event_meta = args
     rows = []
 
     minute_df = minute_bars.get_event_window_minute_bars(ticker, reaction_date)
@@ -103,7 +119,7 @@ def _process_one_event(args) -> list:
                     stop_type=stop_type, strategy_id=_strategy_id(entry_type, stop_type),
                     status=config.STATUS_MISSING_MINUTE_DATA, entry_status=config.STATUS_MISSING_MINUTE_DATA,
                 )
-                rows.append(_result_row(result, chart_pattern, entry_type, stop_type))
+                rows.append(_result_row(result, event_meta, entry_type, stop_type))
         return rows
 
     daily_sma = exits.add_sma10(daily_df)
@@ -126,7 +142,7 @@ def _process_one_event(args) -> list:
                     ticker, reaction_date, adr14, entry_type, stop_type,
                     entry, minute_df, daily_sma, sessions,
                 )
-            rows.append(_result_row(result, chart_pattern, entry_type, stop_type))
+            rows.append(_result_row(result, event_meta, entry_type, stop_type))
 
     return rows
 
@@ -146,7 +162,7 @@ def run_all_72(events: pd.DataFrame, workers: int = 1) -> pd.DataFrame:
     parallelizing across events on top of that is what this function adds.
     """
     arg_list = [
-        (row.ticker, row.reaction_date, row.adr14, row.chart_pattern) for row in events.itertuples()
+        (row.ticker, row.reaction_date, row.adr14, event_meta_from_row(row)) for row in events.itertuples()
     ]
 
     all_rows = []
