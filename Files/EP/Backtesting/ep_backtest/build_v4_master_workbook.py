@@ -3,23 +3,25 @@ Builds "V4 Master Strategies.xlsx" -- the human-facing rollup of screen2's resul
 combining everything that used to be separate ad-hoc queries into one workbook (user
 request 2026-08-31). Tabs:
 
-- Screen2 All Days / Screen2 Day 0: the full 600-strategy summaries, unfiltered and
-  restricted to D0-only entries respectively (mirrors run_batch_v3b.py's own two output
-  CSVs for the same run).
-- Era Breakdown - All Days / Era Breakdown - Day 0: every (era, strategy) cell, both
-  entry scopes.
-- All Data (Filterable): every row from all four tabs above, unioned into one long table
+- Screen2 All Days / Screen2 Day 0 / Screen2 Day 1+: the full 600-strategy summaries,
+  unfiltered, restricted to D0-only entries, and restricted to D+1..D+7-only entries
+  respectively (mirrors run_batch_v3b.py's own three output CSVs for the same run --
+  Day 1+ added alongside Day 0 for symmetry, user request 2026-08-31: "not fair to have
+  day 0 and all days, but not day 1+").
+- Era Breakdown - All Days / Era Breakdown - Day 0 / Era Breakdown - Day 1+: every
+  (era, strategy) cell, all three entry scopes.
+- All Data (Filterable): every row from all six tabs above, unioned into one long table
   with `era` (including a synthetic "00 | ALL ERAS" row for the full-history aggregate)
-  and `entry_scope` ("All Days" / "Day 0 Only") as explicit columns, with an Excel
-  AutoFilter applied to the header row -- lets you filter by era and/or entry scope
-  directly in Excel instead of switching tabs.
+  and `entry_scope` ("All Days" / "Day 0 Only" / "Day 1+ Only") as explicit columns,
+  with an Excel AutoFilter applied to the header row -- lets you filter by era and/or
+  entry scope directly in Excel instead of switching tabs.
 - Consistent Across Eras: the strategies that hold up across every COMPLETE era (i.e.
   excluding 2022 -- a known-bad regime for this whole strategy class -- and 2026+ -- a
   known-incomplete year subject to STILL_OPEN_AT_DATA_END right-censoring, see
   trade_metrics.py / run_batch.summarize). "Consistent" = G_score > MIN_G_SCORE in every
   one of those 5 eras -- a different, arguably more important cut than "best on average,"
   since a strategy can win on aggregate by having a few outsized eras rather than being
-  reliably solid throughout.
+  reliably solid throughout. Built from the All Days scope.
 
 Usage:
     python -m ep_backtest.build_v4_master_workbook
@@ -33,33 +35,32 @@ import pandas as pd
 from openpyxl.utils import get_column_letter
 
 from . import config
-from .run_batch_v3b import day0_only_summary, summarize_all_v3b
+from .run_batch_v3b import day0_only_summary, day1plus_only_summary, summarize_all_v3b
 from .year_breakdown import summarize_by_era
 
 EXCLUDED_ERAS_FOR_CONSISTENCY = ["05 | 2022", "07 | 2026+"]
 
+_LEAD_COLS = ["era", "entry_scope", "strategy_id", "entry_type", "stop_type", "trail_type", "sell_style",
+              "target_ladder", "core_pct", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R",
+              "total_R", "G_score"]
 
-def _combined_filterable_table(all_days_summary, day0_summary, era_all, era_day0) -> pd.DataFrame:
-    all_days_agg = all_days_summary.copy()
-    all_days_agg["era"] = "00 | ALL ERAS (2012-2026)"
-    all_days_agg["entry_scope"] = "All Days"
 
-    day0_agg = day0_summary.copy()
-    day0_agg["era"] = "00 | ALL ERAS (2012-2026)"
-    day0_agg["entry_scope"] = "Day 0 Only"
+def _combined_filterable_table(scopes: dict) -> pd.DataFrame:
+    """scopes: {entry_scope_label: (aggregate_summary_df, era_summary_df)}."""
+    pieces = []
+    for label, (aggregate_df, era_df) in scopes.items():
+        agg = aggregate_df.copy()
+        agg["era"] = "00 | ALL ERAS (2012-2026)"
+        agg["entry_scope"] = label
+        pieces.append(agg)
 
-    era_all = era_all.copy()
-    era_all["entry_scope"] = "All Days"
+        era = era_df.copy()
+        era["entry_scope"] = label
+        pieces.append(era)
 
-    era_day0 = era_day0.copy()
-    era_day0["entry_scope"] = "Day 0 Only"
-
-    combined = pd.concat([all_days_agg, day0_agg, era_all, era_day0], ignore_index=True)
-    lead_cols = ["era", "entry_scope", "strategy_id", "entry_type", "stop_type", "trail_type", "sell_style",
-                 "target_ladder", "core_pct", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R",
-                 "total_R", "G_score"]
-    other_cols = [c for c in combined.columns if c not in lead_cols]
-    combined = combined[lead_cols + other_cols]
+    combined = pd.concat(pieces, ignore_index=True)
+    other_cols = [c for c in combined.columns if c not in _LEAD_COLS]
+    combined = combined[_LEAD_COLS + other_cols]
     return combined.sort_values(["era", "entry_scope", "G_score"], ascending=[True, True, False]).reset_index(drop=True)
 
 
@@ -93,20 +94,29 @@ def _autofilter(writer, sheet_name: str, df: pd.DataFrame):
 def build(trades_path: str, min_g_score: float, out_path: str):
     trades = pd.read_parquet(trades_path)
     day0_trades = trades[(trades["status"] != "OK") | (trades["entry_day_offset"] == 0)]
+    day1plus_trades = trades[(trades["status"] != "OK") | (trades["entry_day_offset"] >= 1)]
 
     all_days_summary = summarize_all_v3b(trades)
     day0_summary = day0_only_summary(trades)
+    day1plus_summary = day1plus_only_summary(trades)
     era_all = summarize_by_era(trades)
     era_day0 = summarize_by_era(day0_trades)
+    era_day1plus = summarize_by_era(day1plus_trades)
 
-    combined = _combined_filterable_table(all_days_summary, day0_summary, era_all, era_day0)
+    combined = _combined_filterable_table({
+        "All Days": (all_days_summary, era_all),
+        "Day 0 Only": (day0_summary, era_day0),
+        "Day 1+ Only": (day1plus_summary, era_day1plus),
+    })
     consistent = _consistent_across_eras(era_all, min_g_score)
 
     sheets = {
         "Screen2 All Days": all_days_summary,
         "Screen2 Day 0": day0_summary,
+        "Screen2 Day 1+": day1plus_summary,
         "Era Breakdown - All Days": era_all,
         "Era Breakdown - Day 0": era_day0,
+        "Era Breakdown - Day 1+": era_day1plus,
         "All Data (Filterable)": combined,
         f"Consistent Across Eras (G>{min_g_score:g})": consistent,
     }

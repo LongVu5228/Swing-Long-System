@@ -243,6 +243,15 @@ def day0_only_summary(all_trades: pd.DataFrame) -> pd.DataFrame:
     return summarize_all_v3b(day0_trades)
 
 
+def day1plus_only_summary(all_trades: pd.DataFrame) -> pd.DataFrame:
+    """The complement of day0_only_summary -- entries that only triggered on D+1..D+7,
+    excluding D0. Added alongside day0_only_summary (user request 2026-08-31: "not fair
+    to have day 0 and all days, but not day 1+") so the comparison is symmetric instead
+    of requiring a mental subtraction from "all days" to infer the late-trigger case."""
+    day1plus_trades = all_trades[(all_trades["status"] != "OK") | (all_trades["entry_day_offset"] >= 1)]
+    return summarize_all_v3b(day1plus_trades)
+
+
 def stage2_base_strategies(stage1_summary_path: str, top_n: int) -> list:
     """Reads screen1's strategy summary and returns the (entry_type, stop_type,
     trail_type) triples of its top N strategies by G_score, de-duplicated (screen1's 324
@@ -312,9 +321,14 @@ def main():
     day0_summary_df = day0_only_summary(combined_trades)
     day0_summary_df.to_csv(os.path.join(outputs_dir, day0_summary_filename), index=False)
 
+    day1plus_summary_filename = summary_filename.replace(".csv", "_day1plus.csv")
+    day1plus_summary_df = day1plus_only_summary(combined_trades)
+    day1plus_summary_df.to_csv(os.path.join(outputs_dir, day1plus_summary_filename), index=False)
+
     print(f"\nwrote {len(combined_trades)} trade rows across {len(summary_df)} V3b strategies")
     print(f"strategy summary: {os.path.join(outputs_dir, summary_filename)}")
     print(f"strategy summary (D0-only entries): {os.path.join(outputs_dir, day0_summary_filename)}")
+    print(f"strategy summary (D+1..D+7 entries): {os.path.join(outputs_dir, day1plus_summary_filename)}")
 
     print("\n--- Sell schedule legend (sell_style x target_ladder x core_pct -> % sold per rung) ---")
     legend = summary_df[["sell_style", "target_ladder", "core_pct", "sell_schedule_desc"]].drop_duplicates()
@@ -331,6 +345,8 @@ def main():
 
     print("\n--- Top 10 by G Score, D0-ONLY entries (excludes D+1..D+7 triggers) ---")
     print(day0_summary_df[cols].head(10).to_string(index=False))
+    print("\n--- Top 10 by G Score, D+1..D+7-ONLY entries (excludes D0 triggers) ---")
+    print(day1plus_summary_df[cols].head(10).to_string(index=False))
 
 
 if __name__ == "__main__":
