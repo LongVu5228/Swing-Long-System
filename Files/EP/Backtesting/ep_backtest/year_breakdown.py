@@ -53,6 +53,25 @@ def add_era(trades: pd.DataFrame) -> pd.DataFrame:
     return trades
 
 
+# Strategy-defining columns to carry through into every (year/era, strategy) row --
+# summarize() itself only computes performance stats, it never copies these over, so
+# without this the year/era tables ended up with entry_type/stop_type/etc. blank while
+# the plain aggregate summaries (run_batch.summarize_all_v3b and friends, which DO copy
+# these) had them filled in -- confirmed as a real bug 2026-08-31 once the two were
+# unioned into one table and the gap became visible. Different engines expose different
+# subsets of these (V1 only has entry_type/stop_type, V3b has all of them) -- checked
+# for presence rather than assumed, so this one function works for every engine's output
+# per this module's own "works against any of the four engines" contract.
+_STRATEGY_DESC_COLUMNS = ["entry_type", "stop_type", "trail_type", "sell_style", "target_ladder", "core_pct",
+                          "target_pct"]
+
+
+def _copy_strategy_desc_columns(summary: dict, group: pd.DataFrame) -> None:
+    for col in _STRATEGY_DESC_COLUMNS:
+        if col in group.columns:
+            summary[col] = group[col].iloc[0]
+
+
 def summarize_by_year(trades: pd.DataFrame) -> pd.DataFrame:
     trades = add_year(trades)
     summaries = []
@@ -60,6 +79,7 @@ def summarize_by_year(trades: pd.DataFrame) -> pd.DataFrame:
         summary = summarize(group)
         summary["year"] = int(year)
         summary["strategy_id"] = strategy_id
+        _copy_strategy_desc_columns(summary, group)
         summaries.append(summary)
 
     summary_df = pd.DataFrame(summaries)
@@ -78,6 +98,7 @@ def summarize_by_era(trades: pd.DataFrame) -> pd.DataFrame:
         summary = summarize(group)
         summary["era"] = era
         summary["strategy_id"] = strategy_id
+        _copy_strategy_desc_columns(summary, group)
         summaries.append(summary)
 
     summary_df = pd.DataFrame(summaries)
