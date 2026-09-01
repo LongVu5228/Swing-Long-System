@@ -18,6 +18,7 @@ def add_sma10(daily_df: pd.DataFrame) -> pd.DataFrame:
     backward compatibility with existing V1 call sites; it now also adds sma20.
     """
     df = daily_df.sort_values("date").reset_index(drop=True).copy()
+    df["sma5"] = df["close"].rolling(config.SMA5_WINDOW).mean()
     df["sma10"] = df["close"].rolling(config.SMA_WINDOW).mean()
     df["sma20"] = df["close"].rolling(config.SMA20_WINDOW).mean()
     return df

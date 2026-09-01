@@ -42,6 +42,7 @@ assert len(STOP_TYPES) == 12, STOP_TYPES
 # Section 26-27 -- V1 standardized exit
 SMA_WINDOW = 10
 SMA20_WINDOW = 20
+SMA5_WINDOW = 5  # only used by the experimental adaptive-tighten trail type below
 
 # Section 43-46 -- V2 trailing-stop grid (6 types)
 TRAIL_TYPES = [
@@ -52,6 +53,30 @@ TRAIL_TYPES = [
     "close_below_20ma",
     "low_of_close_below_20ma",
 ]
+
+# Experimental variant (user idea 2026-09-01), NOT part of the frozen TRAIL_TYPES grid
+# above -- deliberately kept separate so it can be compared head-to-head against plain
+# 20ma_touch without touching any already-run V1/V2/V3/V3b grid. See
+# trailing_stops.touch_level_series_with_fallback: falls back to the ADR/pct initial stop
+# on any day the raw touch level is still above the position's reference price (the exact
+# scenario plain 20ma_touch discards the trade for entirely -- ~16% of setups, confirmed
+# on trades_v3b_screen2.parquet), switching over to the real touch level once it catches
+# down below the reference price.
+TRAIL_TYPE_20MA_TOUCH_ADR_FALLBACK = "20ma_touch_adr_fallback"
+
+# Experimental (user idea 2026-09-01): "once a trade proves itself, tighten the trail
+# instead of chasing a distant fixed target." The MFE distribution check on
+# trades_v3b_screen2_corrected.parquet showed only 1.5% of setups ever reach +70% and
+# 0.5% reach +100% -- a scheduled target rung out there would affect too few trades to
+# matter, but the SAME population's winners only capture ~47% of their own peak move on
+# average (avg_exit_efficiency_winners), meaning the 10MA trail is giving back a lot of
+# gain on the winners that DO run. This trail type stays close_below_10ma until the
+# trade closes an intraday high at or above ACTIVATION_PCT above entry, then permanently
+# switches to the much tighter close_below_5ma from that point on -- only wired into the
+# V3b multi-target engine (multi_partial_taking.py), which is what every strategy
+# comparison in this project actually uses; not added to V1/V2/V3's single-target paths.
+TRAIL_TYPE_CLOSE_BELOW_ADAPTIVE_5_10 = "close_below_adaptive_5_10"
+ADAPTIVE_TIGHTEN_ACTIVATION_PCT = 0.30
 
 # Section 86 -- V2 carries forward the strong V1 region, not the full 72-combo grid.
 # Chosen 2026-08-30: the entries/stops that were consistently positive across BOTH of
@@ -122,6 +147,18 @@ V3_MULTI_TARGET_LADDERS = {
     "start20": _evenly_spaced_ladder(0.20),             # 20/27.5/35/42.5/50
     "late_start": V3_MULTI_TARGET_PCTS_LATE_START,      # 30/35/40/45/50
     "start40": _evenly_spaced_ladder(0.40),             # 40/42.5/45/47.5/50
+}
+
+# Experimental (user idea 2026-09-01): "we're stuck with no partials past 50%... stocks
+# can go up 70%" -- every ladder above stops selling non-core shares by +50%, after which
+# ONLY the core_pct rider (already uncapped, exits via the trailing stop whenever that
+# fires) captures further upside. This spreads the SAME rung count across a wider range
+# instead, so the non-core sales themselves extend out to +100% rather than bunching up by
+# +50%. NOT added to V3_MULTI_TARGET_LADDERS above (that dict is the frozen 4-ladder
+# sweep) -- kept separate so it can be tested head-to-head against start40 without
+# touching any already-run grid.
+V3_MULTI_TARGET_LADDERS_EXTENDED_TO_100 = {
+    "start40_to_100": _evenly_spaced_ladder(0.40, end_pct=1.00),  # 40/55/70/85/100
 }
 
 # Broadened strategy universe (user request, 2026-08-31): "test on the other candle

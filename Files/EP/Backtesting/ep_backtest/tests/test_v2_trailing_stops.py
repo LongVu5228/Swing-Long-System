@@ -11,7 +11,12 @@ from .. import calendar_utils, config
 from ..entry import find_entry
 from ..exits import add_sma10
 from ..simulate_trade import simulate_v2_with_entry
-from ..trailing_stops import ratchet_level_series, touch_level_series
+from ..trailing_stops import (
+    build_adaptive_ma_column,
+    ratchet_level_series,
+    touch_level_series,
+    touch_level_series_with_fallback,
+)
 
 D0 = calendar_utils.sessions_from(pd.Timestamp("2024-01-02").date(), 1)[0]
 SESSIONS = calendar_utils.sessions_from(D0, 8)
@@ -81,6 +86,93 @@ def test_ratchet_ignores_pre_entry_history():
     # d4 qualifies (101<103), low=100 > 98 -> ratchet UP to 100
     levels = ratchet_level_series(df, "sma10", initial_stop=90, entry_date="d3")
     assert list(levels) == [90, 90, 90, 98, 100]
+
+
+def test_touch_fallback_real_rejection_case_recovers_instead_of_invalidating():
+    # d1's prior MA is unknown (NaN->floor). d2's prior MA=110 (>= reference 100) --
+    # would be INVALID_STOP_GEOMETRY territory for plain touch on entry day if entry
+    # were d2; fallback must serve `floor` (90) that day instead. d3's prior MA=95 (<100)
+    # activates; from then on the real MA level is used (102 on d4, matching prior-day
+    # sma20 shifted).
+    df = pd.DataFrame({
+        "date": ["d1", "d2", "d3", "d4"],
+        "sma20": [999, 110, 95, 102],  # shift(1): d1=NaN, d2=999, d3=110, d4=95
+    })
+    levels = touch_level_series_with_fallback(df, "sma20", floor=90, entry_date="d2", reference_price=100)
+    # entry_date=d2 -> only d2 onward can activate.
+    # d1 (before entry): irrelevant, but formula still fills it in -- not asserted.
+    # d2: raw = min-floored(999)=999, after_entry=True, 999<100? No -> not activated -> floor=90
+    # d3: raw = 110 (prior sma20 shift), 110<100? No -> still not activated -> 90
+    # d4: raw = 95, 95<100? Yes -> ACTIVATES -> use raw=95 (not floor)
+    assert list(levels)[1:] == [90, 90, 95]
+
+
+def test_touch_fallback_stays_activated_even_if_ma_rises_back_above_reference():
+    # Once activated, must behave exactly like plain touch_level_series (allowed to
+    # loosen) -- must NOT revert to floor even if the MA later climbs back up.
+    df = pd.DataFrame({
+        "date": ["d1", "d2", "d3"],
+        "sma20": [80, 80, 150],  # shift(1): d1=NaN, d2=80, d3=80
+    })
+    levels = touch_level_series_with_fallback(df, "sma20", floor=90, entry_date="d1", reference_price=100)
+    # d1: raw=fillna(90)=90 (clipped at floor already >= floor), 90<100 -> activates immediately
+    # d2: raw=max(80,90)=90 (clip lower=floor), still counts as activated from d1 onward regardless
+    assert list(levels) == [90, 90, 90]
+
+
+def test_touch_fallback_ignores_pre_entry_history():
+    # Same masking requirement as the ratchet type (FSLR 2012 bug class) -- a qualifying
+    # day before entry_date must not leak into the "activated" state.
+    df = pd.DataFrame({
+        "date": ["d1", "d2", "d3", "d4"],
+        "sma20": [10, 999, 999, 50],  # shift(1): d1=NaN, d2=10, d3=999, d4=999
+    })
+    # entry_date=d3: d2's qualifying MA (10, pre-entry) must NOT activate the trade.
+    # d3: raw=999 (>=reference 100) -> not activated -> floor=90
+    # d4: raw=999 -> still not activated -> floor=90
+    levels = touch_level_series_with_fallback(df, "sma20", floor=90, entry_date="d3", reference_price=100)
+    assert list(levels)[2:] == [90, 90]
+
+
+def test_adaptive_ma_stays_on_base_col_until_activation_high_reached():
+    # entry_fill=100, activation_pct=0.30 -> threshold=130. d1/d2's highs (110, 125) never
+    # reach it -- adaptive_ma must equal sma10 those days. d3's high=131 clears it -> from
+    # d3 on, adaptive_ma must equal sma5 instead, even though d3's own sma10 value differs.
+    df = pd.DataFrame({
+        "date": ["d1", "d2", "d3", "d4"],
+        "high": [110, 125, 131, 128],
+        "sma10": [95, 96, 97, 98],
+        "sma5":  [99, 100, 101, 102],
+    })
+    out = build_adaptive_ma_column(df, entry_fill=100, entry_date="d1", activation_pct=0.30)
+    assert list(out["adaptive_ma"]) == [95, 96, 101, 102]
+
+
+def test_adaptive_ma_stays_activated_even_if_price_pulls_back_after():
+    # Once activated (d2 clears threshold), must stay on sma5 even on a later day whose
+    # high no longer clears the threshold (sticky, matching every other "activated" trail
+    # variant's design in this project).
+    df = pd.DataFrame({
+        "date": ["d1", "d2", "d3"],
+        "high": [110, 135, 115],  # d3's high no longer clears 130 -- must NOT deactivate
+        "sma10": [95, 96, 97],
+        "sma5":  [99, 100, 101],
+    })
+    out = build_adaptive_ma_column(df, entry_fill=100, entry_date="d1", activation_pct=0.30)
+    assert list(out["adaptive_ma"]) == [95, 100, 101]
+
+
+def test_adaptive_ma_ignores_pre_entry_history():
+    # Same masking requirement as every other "activated" trail variant here -- a
+    # qualifying high before entry_date must not leak into the activated state.
+    df = pd.DataFrame({
+        "date": ["d1", "d2", "d3"],
+        "high": [200, 110, 115],  # d1's high clears threshold but is BEFORE entry
+        "sma10": [95, 96, 97],
+        "sma5":  [99, 100, 101],
+    })
+    out = build_adaptive_ma_column(df, entry_fill=100, entry_date="d2", activation_pct=0.30)
+    assert list(out["adaptive_ma"]) == [95, 96, 97]  # never activates -- d2/d3 highs don't clear 130
 
 
 def test_v2_touch_exits_intrabar_even_though_close_recovers():

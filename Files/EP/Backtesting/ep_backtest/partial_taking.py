@@ -245,7 +245,7 @@ def run_v3_position_management(
         )
     else:
         level_series = trailing_stops.level_series_for(
-            trail_type, daily_sma, initial_stop_price, entry.entry_session_date
+            trail_type, daily_sma, initial_stop_price, entry.entry_session_date, reference_price=entry_fill
         )
         # Same invalid-geometry guard as V2 (see simulate_trade.simulate_v2_with_entry):
         # a touch level can legitimately sit above the entry price after a steep enough
@@ -308,7 +308,9 @@ def run_v3_position_management(
         # trailing_stops.ratchet_level_series's docstring. Passing target_day here was a
         # real bug: it forgot any ratchet floor already established between entry and
         # the partial, letting Phase 2's floor drop below what it legitimately was.
-        core_level_series = trailing_stops.level_series_for(trail_type, daily_sma, entry_fill, entry.entry_session_date)
+        core_level_series = trailing_stops.level_series_for(
+            trail_type, daily_sma, entry_fill, entry.entry_session_date, reference_price=fill_level
+        )
         # Same invalid-geometry guard as Phase 1, checked against the actual traded
         # price at the moment Phase 2 begins (fill_level -- the real partial fill price,
         # NOT target_ref, which for an ordinary trade-through is now the bar's HIGH, not

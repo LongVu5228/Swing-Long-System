@@ -307,7 +307,7 @@ def simulate_v2_with_entry(
         )
     else:
         level_series = trailing_stops.level_series_for(
-            trail_type, daily_sma, stop.stop_price, entry.entry_session_date
+            trail_type, daily_sma, stop.stop_price, entry.entry_session_date, reference_price=entry.entry_fill
         )
 
         # Same invalid-geometry guard Section 31 already applies to the initial stop

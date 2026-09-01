@@ -51,6 +51,38 @@ def is_ratchet(trail_type: str) -> bool:
     return trail_type in ("low_of_close_below_10ma", "low_of_close_below_20ma")
 
 
+def is_touch_with_fallback(trail_type: str) -> bool:
+    return trail_type in ("10ma_touch_adr_fallback", "20ma_touch_adr_fallback")
+
+
+def is_adaptive_close_based(trail_type: str) -> bool:
+    return trail_type == config.TRAIL_TYPE_CLOSE_BELOW_ADAPTIVE_5_10
+
+
+def build_adaptive_ma_column(daily_sma: pd.DataFrame, entry_fill: float, entry_date, activation_pct: float,
+                              base_ma_col: str = "sma10", tight_ma_col: str = "sma5") -> pd.DataFrame:
+    """
+    Returns a COPY of daily_sma with an "adaptive_ma" column: base_ma_col every day, until
+    the first day (at/after entry_date) whose HIGH reaches entry_fill*(1+activation_pct)
+    -- from that day on, permanently tight_ma_col instead. User idea 2026-09-01: keep the
+    normal 10MA trail until a trade has proven itself by running up activation_pct, then
+    tighten to the 5MA so less of a big winner's peak gets given back before exit.
+
+    Activation uses the day's HIGH (an intraday touch counts, even if that day closes back
+    down) -- deciding this at end-of-day, once the full day's range is already known, so
+    it's still only ever used to inform THAT SAME day's close-based check, never an
+    earlier one (no lookahead). Masked to start at entry_date and made sticky via cummax,
+    mirroring ratchet_level_series's identical requirement (see that function's docstring)
+    -- an unmasked check could activate off a qualifying day years before this trade.
+    """
+    df = daily_sma.copy()
+    threshold_price = entry_fill * (1 + activation_pct)
+    after_entry = df["date"] >= entry_date
+    activated = (after_entry & (df["high"] >= threshold_price)).cummax()
+    df["adaptive_ma"] = df[tight_ma_col].where(activated, df[base_ma_col])
+    return df
+
+
 def touch_level_series(daily_sma: pd.DataFrame, ma_col: str, initial_stop: float) -> pd.Series:
     """Section 44: yesterday's finalized MA, floored at the original initial stop."""
     prior_ma = daily_sma[ma_col].shift(1)
@@ -91,8 +123,44 @@ def ratchet_level_series(daily_sma: pd.DataFrame, ma_col: str, initial_stop: flo
     return level_known_at_open.clip(lower=initial_stop).fillna(initial_stop)
 
 
-def level_series_for(trail_type: str, daily_sma: pd.DataFrame, initial_stop: float, entry_date) -> pd.Series:
+def touch_level_series_with_fallback(daily_sma: pd.DataFrame, ma_col: str, floor: float, entry_date,
+                                      reference_price: float) -> pd.Series:
+    """
+    User idea 2026-09-01: "should the ADR stop be the first stop... only when the 20ma
+    is above ADR price, then switch to 20ma touch." Plain touch_level_series() uses
+    yesterday's finalized MA outright, which after a big enough gap can sit AT OR ABOVE
+    reference_price (the entry fill, or the fill that started the current phase) --
+    unusable as a protective floor (a stop above where you got in is nonsensical), so the
+    caller's invalid-geometry guard discards the trade entirely (~16% of setups under
+    20ma_touch, confirmed via trades_v3b_screen2.parquet).
+
+    Here, instead of discarding, every day the raw MA level is still >= reference_price
+    just uses `floor` (the same ADR-based stop the trade would use with no trail at all)
+    -- once the MA finally closes below reference_price on some day at/after entry, this
+    permanently "activates" and behaves exactly like plain touch_level_series from then on
+    (touch levels are allowed to loosen if the MA pulls back -- see that function's
+    docstring -- so once activated this never falls back to floor again, matching what
+    the already-tested 84% of 20ma_touch trades already do post-entry).
+
+    Masked to `entry_date` onward and made sticky via cummax -- mirrors
+    ratchet_level_series's identical masking requirement (an unmasked activation could
+    fire off a qualifying day from years before this trade, a different price regime
+    entirely; see that function's FSLR 2012 bug writeup).
+    """
+    prior_ma = daily_sma[ma_col].shift(1)
+    raw = prior_ma.clip(lower=floor).fillna(floor)
+    after_entry = daily_sma["date"] >= entry_date
+    activated = (after_entry & (raw < reference_price)).cummax()
+    return raw.where(activated, floor)
+
+
+def level_series_for(trail_type: str, daily_sma: pd.DataFrame, initial_stop: float, entry_date,
+                      reference_price: float = None) -> pd.Series:
     ma_col = ma_column_for(trail_type)
+    if is_touch_with_fallback(trail_type):
+        if reference_price is None:
+            raise ValueError(f"level_series_for({trail_type!r}) requires reference_price")
+        return touch_level_series_with_fallback(daily_sma, ma_col, initial_stop, entry_date, reference_price)
     if is_touch(trail_type):
         return touch_level_series(daily_sma, ma_col, initial_stop)
     if is_ratchet(trail_type):

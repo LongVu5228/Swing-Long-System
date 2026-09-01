@@ -103,7 +103,7 @@ class MultiPartialResult:
 
 
 def _downside_scan(minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, sessions, log,
-                    is_continuation, original_entry_date):
+                    is_continuation, original_entry_date, original_entry_fill=None):
     """
     One downside stop/trailing check, reused at every step of the loop.
 
@@ -135,7 +135,17 @@ def _downside_scan(minute_df, daily_sma, scan_entry, floor, reference_price, tra
             minute_df, daily_sma, scan_entry, floor, sessions, log,
             ma_col=trailing_stops.ma_column_for(trail_type), is_continuation=is_continuation,
         )
-    level_series = trailing_stops.level_series_for(trail_type, daily_sma, floor, original_entry_date)
+    if trailing_stops.is_adaptive_close_based(trail_type):
+        adaptive_daily_sma = trailing_stops.build_adaptive_ma_column(
+            daily_sma, original_entry_fill, original_entry_date, config.ADAPTIVE_TIGHTEN_ACTIVATION_PCT,
+        )
+        return _run_position_management(
+            minute_df, adaptive_daily_sma, scan_entry, floor, sessions, log,
+            ma_col="adaptive_ma", is_continuation=is_continuation,
+        )
+    level_series = trailing_stops.level_series_for(
+        trail_type, daily_sma, floor, original_entry_date, reference_price=reference_price
+    )
     entry_day_level = level_series[daily_sma["date"] == scan_entry.entry_session_date]
     if not entry_day_level.empty and float(entry_day_level.iloc[0]) >= reference_price:
         log.append(
@@ -182,7 +192,7 @@ def run_multi_partial_position_management(
     while True:
         stop_ts, stop_ref, stop_reason = _downside_scan(
             scan_minute_df, daily_sma, scan_entry, floor, reference_price, trail_type, scan_sessions, log,
-            is_continuation, entry.entry_session_date,
+            is_continuation, entry.entry_session_date, original_entry_fill=entry_fill,
         )
         if stop_ts == "INVALID":
             return MultiPartialResult(status=config.STATUS_INVALID_STOP_GEOMETRY, audit_log=log)
