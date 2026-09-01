@@ -91,6 +91,18 @@ def load_ep_v5(refresh: bool = False) -> pd.DataFrame:
 
     df = df.dropna(subset=["reaction_date", "ticker"]).reset_index(drop=True)
 
+    # A handful of (ticker, reaction_date) pairs appear more than once in EP V5 -- e.g.
+    # PACS 2025-11-20 appears 3x (event_id "45981PACS" all three times) with identical
+    # chart_pattern/adr14/gap_pct, only fiscalperiod differing (Q3 2025, Q1 2025, Q4
+    # 2024 -- a delayed-filing catch-up reporting several quarters the same day).
+    # Confirmed real, 2026-08-31: since every simulator in this project keys purely off
+    # (ticker, reaction_date, adr14) -- all identical across these rows -- they don't
+    # represent distinct trading opportunities, they're the SAME price reaction counted
+    # 2-3 times, silently inflating every run's event count by a tiny amount (2 of 1,079
+    # tickers, ~0.13% of events). Which duplicate is kept doesn't matter for simulation
+    # purposes (the price-relevant columns are identical); keep the first for determinism.
+    df = df.drop_duplicates(subset=["ticker", "reaction_date"], keep="first").reset_index(drop=True)
+
     os.makedirs(config.CACHE_DIR, exist_ok=True)
     df.to_parquet(config.EVENTS_PARQUET, index=False)
     return df

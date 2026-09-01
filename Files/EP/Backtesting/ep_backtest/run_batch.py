@@ -51,7 +51,7 @@ def _prefetch(events: pd.DataFrame, workers: int):
 # isn't already a column there) rather than joining trades back to events after the fact
 # every time a new slicing question comes up.
 EVENT_META_COLUMNS = ["chart_pattern", "adr14", "adr_category", "trading_turnover_pct",
-                       "trading_turnover_pct_category"]
+                       "trading_turnover_pct_category", "spy_trend_color"]
 
 
 def event_meta_from_row(row) -> dict:
