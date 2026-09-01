@@ -232,7 +232,16 @@ def summarize(trades: pd.DataFrame) -> dict:
         "eligible_events": eligible,
         "no_entry": int(no_entry),
         "triggered_trades": n,
-        "entry_rate": n / (eligible - other_status_count(other_status)) if eligible else float("nan"),
+        # Guards against eligible==0 (nothing to summarize) AND the subtler case where
+        # eligible > 0 but every row is an "other status" (e.g. a thin slice -- a rare
+        # chart_pattern in an early era -- where every row happens to be
+        # MISSING_MINUTE_DATA) -- eligible - other_status_count() can be exactly zero
+        # even though eligible itself is nonzero, which divided by zero and crashed the
+        # first time a sparse (chart_pattern, era) slice was queried, 2026-08-31.
+        "entry_rate": (
+            n / (eligible - other_status_count(other_status))
+            if eligible and (eligible - other_status_count(other_status)) else float("nan")
+        ),
         "win_rate": win_rate,
         "avg_winner_R": avg_winner,
         "avg_loser_R": avg_loser,
