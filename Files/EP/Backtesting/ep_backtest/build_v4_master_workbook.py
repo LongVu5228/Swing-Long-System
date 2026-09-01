@@ -10,7 +10,25 @@ request 2026-08-31). Tabs:
   day 0 and all days, but not day 1+").
 - Era Breakdown - All Days / Era Breakdown - Day 0 / Era Breakdown - Day 1+: every
   (era, strategy) cell, all three entry scopes.
-- All Data (Filterable): every row from all six tabs above, unioned into one long table
+- Chart Pattern Breakdown - All Days / Day 0 / Day 1+: every (chart_pattern, strategy)
+  cell, all three entry scopes -- same idea as the era breakdown, sliced by EP V5's
+  chart_pattern taxonomy instead of calendar time (user request 2026-08-31, "how about
+  by chart pattern"). Kept as its own set of tabs rather than folded into "All Data
+  (Filterable)" -- unioning a 3rd slicing dimension in there would multiply that table's
+  row count by the number of chart patterns (~10x) for a question this is answering on
+  its own.
+- SPY Trend Breakdown - All Days / Day 0 / Day 1+: every (spy_trend_color, strategy)
+  cell, all three entry scopes -- sliced by the Chillax Moving Average SPY trend
+  classification (Green/Light Green/Yellow/Downtrend), already computed in EP V5. User
+  request 2026-08-31: "do the strats perform better on days where SPY is uptrending...
+  testing chillaxmax's script accuracy."
+- Chart Pattern x Era: chart_pattern x era, POOLED across all 600 strategy variants
+  (not broken out per strategy -- a per-strategy x pattern x era cell would mostly be
+  too thin to trust). User request 2026-08-31: "look at the chart patterns, do anything
+  emerge when paired with year?" Found: CPH (Cup with Handle) is the only pattern
+  positive in every era including 2022, when 0 of 600 strategies were profitable in the
+  era-only breakdown -- a real candidate signal-quality filter, not just noise.
+- All Data (Filterable): every row from the era-breakdown tabs, unioned into one long table
   with `era` (including a synthetic "00 | ALL ERAS" row for the full-history aggregate)
   and `entry_scope` ("All Days" / "Day 0 Only" / "Day 1+ Only") as explicit columns,
   with an Excel AutoFilter applied to the header row -- lets you filter by era and/or
@@ -36,7 +54,12 @@ from openpyxl.utils import get_column_letter
 
 from . import config
 from .run_batch_v3b import day0_only_summary, day1plus_only_summary, summarize_all_v3b
-from .year_breakdown import summarize_by_era
+from .year_breakdown import (
+    summarize_by_chart_pattern,
+    summarize_by_era,
+    summarize_by_pattern_and_era,
+    summarize_by_spy_trend,
+)
 
 EXCLUDED_ERAS_FOR_CONSISTENCY = ["05 | 2022", "07 | 2026+"]
 
@@ -103,6 +126,16 @@ def build(trades_path: str, min_g_score: float, out_path: str):
     era_day0 = summarize_by_era(day0_trades)
     era_day1plus = summarize_by_era(day1plus_trades)
 
+    pattern_all = summarize_by_chart_pattern(trades)
+    pattern_day0 = summarize_by_chart_pattern(day0_trades)
+    pattern_day1plus = summarize_by_chart_pattern(day1plus_trades)
+
+    spy_all = summarize_by_spy_trend(trades)
+    spy_day0 = summarize_by_spy_trend(day0_trades)
+    spy_day1plus = summarize_by_spy_trend(day1plus_trades)
+
+    pattern_x_era = summarize_by_pattern_and_era(trades)
+
     combined = _combined_filterable_table({
         "All Days": (all_days_summary, era_all),
         "Day 0 Only": (day0_summary, era_day0),
@@ -117,6 +150,13 @@ def build(trades_path: str, min_g_score: float, out_path: str):
         "Era Breakdown - All Days": era_all,
         "Era Breakdown - Day 0": era_day0,
         "Era Breakdown - Day 1+": era_day1plus,
+        "Chart Pattern Breakdown - All Days": pattern_all,
+        "Chart Pattern Breakdown - Day 0": pattern_day0,
+        "Chart Pattern Breakdown - Day 1+": pattern_day1plus,
+        "SPY Trend Breakdown - All Days": spy_all,
+        "SPY Trend Breakdown - Day 0": spy_day0,
+        "SPY Trend Breakdown - Day 1+": spy_day1plus,
+        "Chart Pattern x Era": pattern_x_era,
         "All Data (Filterable)": combined,
         f"Consistent Across Eras (G>{min_g_score:g})": consistent,
     }

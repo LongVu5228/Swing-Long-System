@@ -110,6 +110,88 @@ def summarize_by_era(trades: pd.DataFrame) -> pd.DataFrame:
     return summary_df.sort_values(["era", "G_score"], ascending=[True, False]).reset_index(drop=True)
 
 
+def summarize_by_chart_pattern(trades: pd.DataFrame) -> pd.DataFrame:
+    """chart_pattern is already a column on every trade row (run_batch.event_meta_from_row)
+    -- no bucketing/binning needed here, unlike year/era. User request 2026-08-31: "how
+    about by chart pattern."""
+    summaries = []
+    for (pattern, strategy_id), group in trades.groupby(["chart_pattern", "strategy_id"]):
+        summary = summarize(group)
+        summary["chart_pattern"] = pattern
+        summary["strategy_id"] = strategy_id
+        _copy_strategy_desc_columns(summary, group)
+        summaries.append(summary)
+
+    summary_df = pd.DataFrame(summaries)
+    ev_cap, pf_cap = 0.30, 2.0
+    summary_df["ev_score"] = (summary_df["EV_R"] / ev_cap * 10).clip(0, 10)
+    summary_df["pf_score"] = (summary_df["profit_factor"] / pf_cap * 10).clip(0, 10)
+    summary_df["G_score"] = 0.5 * summary_df["ev_score"] + 0.5 * summary_df["pf_score"]
+    summary_df = summary_df.drop(columns=["other_status_counts"])
+    return summary_df.sort_values(["chart_pattern", "G_score"], ascending=[True, False]).reset_index(drop=True)
+
+
+def summarize_by_spy_trend(trades: pd.DataFrame) -> pd.DataFrame:
+    """spy_trend_color is already a column on every trade row (run_batch.event_meta_from_row)
+    -- the Chillax Moving Average SPY trend classification (Green/Light Green/Yellow/
+    Downtrend), computed once for SPY and joined to every event by date regardless of
+    ticker. User request 2026-08-31: "do the strats perform better on days where SPY is
+    uptrending... testing chillaxmax's script accuracy." """
+    summaries = []
+    for (trend, strategy_id), group in trades.groupby(["spy_trend_color", "strategy_id"]):
+        summary = summarize(group)
+        summary["spy_trend_color"] = trend
+        summary["strategy_id"] = strategy_id
+        _copy_strategy_desc_columns(summary, group)
+        summaries.append(summary)
+
+    summary_df = pd.DataFrame(summaries)
+    ev_cap, pf_cap = 0.30, 2.0
+    summary_df["ev_score"] = (summary_df["EV_R"] / ev_cap * 10).clip(0, 10)
+    summary_df["pf_score"] = (summary_df["profit_factor"] / pf_cap * 10).clip(0, 10)
+    summary_df["G_score"] = 0.5 * summary_df["ev_score"] + 0.5 * summary_df["pf_score"]
+    summary_df = summary_df.drop(columns=["other_status_counts"])
+    return summary_df.sort_values(["spy_trend_color", "G_score"], ascending=[True, False]).reset_index(drop=True)
+
+
+def summarize_by_pattern_and_era(trades: pd.DataFrame) -> pd.DataFrame:
+    """
+    chart_pattern x era, POOLED across every strategy variant in `trades` (not broken
+    out per strategy_id like the other summarize_by_* functions) -- user request
+    2026-08-31: "look at the chart patterns, do anything emerge when paired with year?"
+    A per-strategy x pattern x era breakdown would mostly be too thin to trust (with 600
+    strategies x 10 patterns x 7 eras, a typical cell would only have single-digit
+    trades); pooling across strategies keeps sample sizes meaningful (thousands of trades
+    per cell) at the cost of not being able to say WHICH exact strategy benefits, only
+    whether the (pattern, era) combination itself looks structurally strong or weak
+    across the whole grid.
+
+    Found via this exact query, 2026-08-31: CPH (Cup with Handle) was the only pattern
+    positive in every era including 2022, when literally 0 of 600 strategies were
+    profitable in the era-only breakdown -- suggesting chart_pattern could be a real
+    signal-quality filter, not just noise.
+    """
+    trades = add_era(trades)
+    rows = []
+    for (pattern, era), group in trades.groupby(["chart_pattern", "era"]):
+        summary = summarize(group)
+        summary["chart_pattern"] = pattern
+        summary["era"] = era
+        rows.append(summary)
+
+    summary_df = pd.DataFrame(rows)
+    ev_cap, pf_cap = 0.30, 2.0
+    summary_df["ev_score"] = (summary_df["EV_R"] / ev_cap * 10).clip(0, 10)
+    summary_df["pf_score"] = (summary_df["profit_factor"] / pf_cap * 10).clip(0, 10)
+    summary_df["G_score"] = 0.5 * summary_df["ev_score"] + 0.5 * summary_df["pf_score"]
+    summary_df = summary_df.drop(columns=["other_status_counts"])
+    lead_cols = ["chart_pattern", "era", "triggered_trades", "win_rate", "RR", "profit_factor", "EV_R", "total_R",
+                 "G_score"]
+    other_cols = [c for c in summary_df.columns if c not in lead_cols]
+    summary_df = summary_df[lead_cols + other_cols]
+    return summary_df.sort_values(["chart_pattern", "era"]).reset_index(drop=True)
+
+
 def top_n_per_year(summary_df: pd.DataFrame, n: int = 5, min_trades: int = 10,
                     sort_by: str = "G_score") -> pd.DataFrame:
     """min_trades filters out (year, strategy) cells too thin to trust -- with ~2,358
