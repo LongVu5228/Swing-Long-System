@@ -342,6 +342,75 @@ Built and run in response to "so then what's next? whites reality check?" — no
 
 **Conclusion communicated to user**: this is the single most rigorous piece of evidence produced this session for "the edge is real, not a byproduct of testing 600 combinations" — meaningfully stronger than the walk-forward pilot, the plain OOS split, or the naive bootstrap, specifically because it's the only test that explicitly corrects for the size of the search that produced the pick. **Explicitly NOT the same claim as "guaranteed to make money going forward"** — pushed back firmly on that framing when the user asked; statistical significance describes the historical data, not a forecast, and known live risks (the 2026 drawdown clusters, the slippage breakeven margin, possible future regime/edge decay) are untouched by this test.
 
+### Hansen SPA test (three-variant extension of White's RC)
+User explicitly asked for this by name ("run the hanzen spa test on it too, make sure its robust too"). Implemented all three of Hansen's (2005) recentering variants on top of the same event×strategy matrix and bootstrap machinery, reusing identical resample draws across all three for a fair comparison:
+- **SPA_l** (lower/conservative): recenter every strategy to its own mean regardless of sign — mathematically identical to the White RC construction already run.
+- **SPA_u** (upper/most powerful): only recenter strategies with positive observed means to zero; leave already-negative strategies at their own (already-null-compatible) mean.
+- **SPA_c** (Hansen's recommended middle ground): data-dependent threshold rule (`f̄_k ≥ -sqrt(2·ln(ln(n))·var_k/n)`).
+
+**Result: all three converged to identical numbers.** Diagnosed why (not a bug): checked the full `f_l` distribution across all 600 strategies and found **every single one has a positive EV_R** (min=0.466R, max=0.968R, zero strategies at or below zero). Hansen's refinement only matters when a candidate pool has a real mix of good and bad performers to treat differently — but Screen2's 600 strategies already survived Stage0 and Screen1's earlier quality filters before reaching this test, so there's no "clearly bad" sub-population left to differentiate. All three variants: null mean 0.912, std 0.836, 95th pct 2.257, 99th pct 2.756, **p < 0.0005** for all three.
+
+### Critical correction: the p<0.0005 figure was overstated (user caught this, correctly)
+User pushed back ("p value seems unrealistically low") — well-founded skepticism, validated by re-running the bootstrap properly. **The flaw**: the original bootstrap resampled individual EVENTS independently (iid), but this project has direct, repeated proof that trades cluster in time (the March-May 2026 streak, the August 2026 cluster, 2022 as a whole bad year) — an iid bootstrap can never reproduce that kind of clustered luck, which understates the true null distribution's spread and makes the real result look more extreme than it should.
+
+**Fix**: moving block bootstrap — resample contiguous chunks of L consecutive chronologically-ordered events instead of single events, at several block lengths to show sensitivity:
+
+| Block length | Null 95th pct | Null 99th pct | Null max (of 2000) | p-value (overall best strategy, t=4.330) |
+|---|---|---|---|---|
+| 1 (≈ original iid) | 2.156 | 2.747 | 3.912 | 0.0000 |
+| 10 events | 2.572 | 3.277 | 4.607 | **0.0005** |
+| 25 events | 2.780 | 3.510 | 4.848 | **0.0010** |
+| 50 events | 2.867 | 3.652 | 4.674 | **0.0020** |
+
+Same correction applied to the 4th chosen one's own t-stat (3.709):
+
+| Block length | p-value |
+|---|---|
+| 1 | 0.0005 |
+| 10 | 0.0025 |
+| 25 | 0.0040 |
+| **50** | **0.0100** |
+
+**Corrected conclusion**: still statistically significant at every block length tested — even at the most conservative 50-event blocks (roughly a 1-year correlated window), the overall best strategy is p≈0.002 (1 in 500) and the 4th chosen one is p≈0.01 (1 in 100). **But the original p<0.0005 headline number was genuinely too aggressive and has been superseded by these block-bootstrap figures** — this is the number to use going forward, not the original iid-event one. Good example of a user catching a real methodological gap through healthy skepticism rather than the check being purely academic.
+
+---
+
+## 12b. "2nd attempt" quick test — informal, deliberately look-ahead-tolerant ("cheat and peek")
+
+Explicit user framing: "lets just cheat a little and look ahead lol" — not the rigorous §13 build, a fast gut-check using full-history data freely (no train/test discipline) to see if the idea has any legs before investing in the real version.
+
+### Three variants tested, on the 4th chosen one's losers (455 losing trades)
+
+**v1 — daily-bar approximation, reference = stop-out day's HOD.** For each loser, scan up to 10 trading days forward for the first day whose high clears the stop-out day's high; fill at that level (or the gap-open price if gapped through); 0.5×ADR stop from there; exit via `close_below_20ma` (daily-bar scan) or the new stop, whichever first.
+
+Hit two real bugs before getting a trustworthy number:
+1. Checked the entry day's own low against the new stop — meaningless at daily resolution (no way to know if that low happened before or after the breakout within the same day). Fixed by starting the stop/trail scan from the day *after* entry.
+2. **Unit-mismatch bug**: wrote the stop as `entry_price - 0.5*adr14`, treating `adr14` as a dollar figure. It's actually a *percentage* of price (real formula, from `initial_stop.py`: `entry_fill * (1 - adr14 * multiplier)`). This turned a normal ~4% stop into a stop a few *cents* wide, exploding R-multiples into the thousands (one trade showed avg_R=-1238). Fixed to `entry_price * (1 - 0.5*adr14)`.
+
+Clean result after both fixes: **323/455 triggered (71.0%), win 18.9%, PF 0.968, total_R -11.1** — roughly breakeven. Also flagged (not fixed, low impact): `FCEL` and `SDRL` show clearly corrupted cached daily-bar prices (entry_price in the tens of thousands) — stale pre-split-adjustment data, didn't blow up the aggregate since risk scaled proportionally with the same bad price, but the two rows' dollar values are garbage.
+
+**v2 — daily-bar approximation, reference = high across the entire original trade (entry→stop-out), not just the stop-out day.** Same mechanics otherwise. Result: **291/455 triggered (64.0%), win 17.2%, PF 0.880, total_R -38.7** — slightly worse, not better (higher bar to reclaim → fewer, more-extended entries).
+
+**v3 — minute-precision, proper Option-2 mechanic** (built after user clarified: "wait for the first 1 hour to go above that HOD price, then put a buy order over that high of the hour candle"). Used `minute_bars.get_event_window_minute_bars(ticker, stop_out_date)` for a fresh 8-session intraday window per loser (455 fresh Polygon pulls, threaded, ~55s). For each of the 7 days after stop-out: compute that day's own first-60-minute (9:30-10:30 ET) high; if it clears the stop-out day's HOD, that's the qualifying candle — entry trigger is *that candle's own high* (not the raw HOD level), filled via the standard gap-through/trade-through convention. Exit stayed at daily resolution (0.5×ADR stop + `close_below_20ma`) for speed.
+
+**Result: 234/455 triggered (51.4%), win 19.2%, avg winner 6.22R, avg loser -1.18R, RR 5.27, PF 1.254, EV_R 0.242R, total_R +56.7.** Meaningfully better than v1/v2 — validates the original design instinct that candle-confirmation should filter fakeouts a raw-level buy-stop can't distinguish. Exit-type breakdown is the real story: `CLOSE_BELOW_20MA` exits (49 of 234, the trades that survive to actually ride the trend) win 91.8% of the time averaging +5.68R; everything else is a clean, capped loss (`STOP_TRADE_THROUGH` -1.00R exactly, `STOP_GAP` -1.85R average).
+
+### Critical year-by-year finding: the whole positive result is one year
+
+| Year | Trades | PF | Total R |
+|---|---|---|---|
+| 2018-2023 (combined) | ~64 | mostly <1.0 | net negative |
+| 2020 | 30 | 1.49 | +11.6 |
+| 2024 | 29 | 1.17 | +4.7 |
+| **2025** | **50** | **2.13** | **+53.6** |
+| 2026 | 56 | 0.80 | -11.9 |
+
+**2025 alone contributes +53.6R of the total +56.7R — every other year combined sums to just +3.1R, essentially flat.** 2013-2015 produced zero valid re-entry trades at all. Most individual years (2018, 2019, 2021, 2022, 2023, 2026) are below breakeven on their own.
+
+**Verdict (user's own words: "yeah honestly that's super sketch," agreed)**: this is the same single-year-dependency red flag applied everywhere else this session (DT-family, drawdown clusters) — the v3 entry mechanic upgrade is real and mechanically sound (candle confirmation genuinely improves trade quality, the exit-type breakdown is internally consistent), but the *system* as tested is not validated — it's mostly flat-to-negative propped up by one standout year. **Explicit conclusion: the 2nd attempt remains an open, promising-but-unproven thread, not a strategy to act on.** It would need the full §13 gauntlet (drawdown, streak, OOS, walk-forward, Reality Check) before being trustworthy — this quick test is exactly why that bar exists, not a formality to skip.
+
+Output: `outputs/walkforward/second_attempt_quicktest.csv` (v1), `second_attempt_quicktest_fullspan_high.csv` (v2), `second_attempt_minute_precision.csv` (v3, the one with entry_timestamp/trigger_day detail).
+
 ---
 
 ## 13. Methodology for validating the "2nd attempt" re-entry system (planned, not yet executed)
@@ -370,8 +439,8 @@ Planned validation sequence, explicitly **the same gauntlet used on the primary 
 - **Parameter-neighborhood test**: nudge stop/ADR/ladder values slightly, check if performance degrades smoothly or falls off a cliff (smoothness = more trustworthy, cliff = likely overfit combo). Flagged since early in the broader project, never run.
 - **Liquidity-tier breakdown of the slippage sensitivity**: split by `adr_category`/`trading_turnover_pct_category` (already columns in the trade data) to see if the slippage danger zone is concentrated in the thinnest-liquidity names (filterable) or spread evenly (unavoidable).
 - **Concurrency / capital-capacity check**: how many trades would be open simultaneously at any point — the backtest implicitly assumes unlimited concurrent capital; a real account capped at, say, 10 positions would experience clustered bad stretches (like Aug 2026) much more sharply.
-- ~~Statistical significance / bootstrap CI on EV_R~~ — **done, see §12** (naive bootstrap CI + the much stronger search-corrected White's Reality Check, p<0.0005 on the overall best strategy; 4th chosen one individually clears the same bar).
-- **Re-entry / "2nd attempt" mechanical system**: entry design discussed, full validation methodology planned (§13), actual system still never built or backtested.
+- ~~Statistical significance / bootstrap CI on EV_R~~ — **done, see §12**, including the Hansen SPA three-variant extension and a critical self-correction: the original p<0.0005 (iid-event bootstrap) was overstated per the user's own well-founded skepticism; the corrected block-bootstrap figures (accounting for time-clustering) are **p≈0.001-0.002 for the overall best strategy and p≈0.01 for the 4th chosen one** at the most conservative (50-event) block length tested — still significant, just not as extreme as first reported. Use these corrected numbers, not the original ones, in any future reference to this result.
+- **Re-entry / "2nd attempt" mechanical system**: entry design discussed, full validation methodology planned (§13), and an informal "cheat and peek" quick test run (§12b) — **result: not validated, likely one lucky year (2025) propping up an otherwise flat-to-negative sample.** The full §13 gauntlet is still needed before this is trustworthy; the quick test only proved the candle-confirmation entry mechanic (vs a raw price-level trigger) is mechanically sound, not that the overall system has a real edge.
 - **IWM-200MA regime filter**: built and validated as usable (§8) but never actually applied/layered onto the final chosen strategy's numbers.
 - **Slippage baseline discrepancy**: project memory says "slippage = 1% of ref price" but the actual `config.SLIPPAGE_PCT` constant is 0.1%. Not reconciled this session — worth checking which is correct/intended.
 - **Re-deriving the `DT*`-family exclusion using train-only data**: flagged in §12 — the current walk-forward pilot applies the DT-family filter as a fixed input (discovered using the full dataset), which is a small, honest leak of future information into an otherwise-blind test. Re-deriving the filter from 2012-2019 data alone (does the same pattern-quality gap show up using only train data?) would close that gap.
@@ -393,8 +462,9 @@ Planned validation sequence, explicitly **the same gauntlet used on the primary 
 - `outputs/V4 Master Strategies (20MA Fallback Fix).xlsx` — rebuilt master workbook reflecting the corrected Consistent-10 (pre-DT-filter-discovery version; NOT yet rebuilt with the DT-family filter applied — that would be a natural next step if resuming this work).
 - Various `outputs/trades_slippage_*.parquet` and `.log` files — one-off slippage sensitivity re-runs, single-threaded.
 - `outputs/walkforward/` — **dedicated subfolder for all walk-forward pilot outputs, kept separate from the main `outputs/` files per explicit user instruction.** Contains `trades_screen1_train2019.parquet`, `strategy_summary_screen1_train2019.csv`, `trades_screen2_train2019.parquet`, `strategy_summary_screen2_train2019.csv`, `trades_winner_fulleval.parquet` (the walk-forward winner simulated across the full event set, used for both the train/test report and the bootstrap CI).
-- The White's Reality Check script was run ad-hoc (not saved as a permanent file this session) — reusable logic: pivot `trades_v3b_screen2_corrected.parquet` (OK, DT-family-excluded) into an event×strategy `realized_R` matrix keyed by `ticker|event_date`, compute per-strategy t-stats, de-mean each strategy by its own observed mean, block-bootstrap by resampling whole events, take the max t-stat across strategies per resample, compare to the observed best. Worth formalizing into a proper script (e.g. `ep_backtest/reality_check.py`) if this becomes a recurring check.
+- The White's Reality Check / Hansen SPA script was run ad-hoc (not saved as a permanent file this session) — reusable logic: pivot `trades_v3b_screen2_corrected.parquet` (OK, DT-family-excluded) into an event×strategy `realized_R` matrix keyed by `ticker|event_date`, chronologically order it, compute per-strategy t-stats, de-mean each strategy by its own observed mean (or apply the SPA_u/SPA_c recentering rules), **moving block bootstrap** by resampling contiguous chunks of L consecutive events (not individual events — the iid version understates time-clustering and overstates significance, see §12's correction), take the max t-stat across strategies per resample, compare to the observed best across several block lengths (1/10/25/50) to show sensitivity. Worth formalizing into a proper script (e.g. `ep_backtest/reality_check.py`) if this becomes a recurring check — and the block-bootstrap version should be the default, not the iid one.
+- `outputs/walkforward/second_attempt_quicktest.csv` (v1: daily-bar, stop-out-day HOD reference), `second_attempt_quicktest_fullspan_high.csv` (v2: daily-bar, full-trade-high reference), `second_attempt_minute_precision.csv` (v3: minute-precision candle-confirmation entry, the best-performing but still year-2025-dependent version) — see §12b.
 
 ---
 
-*End of dump. Written by Claude (Sonnet 5) for handoff to ChatGPT, 2026-09-01. Updated same day with the walk-forward pilot, bootstrap CI, and White's Reality Check results (§12), the planned 2nd-attempt validation methodology (§13), and a refreshed open-items list (§14).*
+*End of dump. Written by Claude (Sonnet 5) for handoff to ChatGPT, 2026-09-01. Updated same day (extended session) with: the walk-forward pilot, bootstrap CI, White's Reality Check and Hansen SPA test results plus a critical block-bootstrap correction to the original p-value (§12), the planned 2nd-attempt validation methodology (§13) and an informal "cheat and peek" quick test of it across three entry-mechanic variants — result: not validated, appears driven by one strong year (§12b), and a refreshed open-items list (§14). Session ended here for the night.*
