@@ -301,21 +301,85 @@ Breakeven RR for 24.8% win rate = (1-0.248)/0.248 = 3.03; actual RR 5.44 → **1
 
 ---
 
-## 12. Explicitly open / not done
+## 12. Walk-forward pilot, bootstrap CI, and White's Reality Check (session continued, post-dump)
 
-- **Full walk-forward re-optimization**: re-run the entire Stage0→Screen1→Screen2 search restricted to train-only data at each point in time, to test whether these strategies would have actually been *discovered* using only past information (not just re-scored). Deferred every time it's come up — most rigorous OOS test possible, also the most expensive (same order of magnitude as the original ~3.5hr Screen1+Screen2 run).
-- **Parameter-neighborhood test**: nudge stop/ADR/ladder values slightly, check if performance degrades smoothly or falls off a cliff (smoothness = more trustworthy, cliff = likely overfit combo). Flagged since early in the broader project, never run.
-- **Liquidity-tier breakdown of the slippage sensitivity**: split by `adr_category`/`trading_turnover_pct_category` (already columns in the trade data) to see if the slippage danger zone is concentrated in the thinnest-liquidity names (filterable) or spread evenly (unavoidable).
-- **Concurrency / capital-capacity check**: how many trades would be open simultaneously at any point — the backtest implicitly assumes unlimited concurrent capital; a real account capped at, say, 10 positions would experience clustered bad stretches (like Aug 2026) much more sharply.
-- **Statistical significance / bootstrap CI on EV_R**: never formally quantified whether the edge could plausibly be zero given trade count and R-variance.
-- **Re-entry / "2nd attempt" mechanical system**: evidence-gathering done (see §9), actual system never built or tested.
-- **IWM-200MA regime filter**: built and validated as usable (§8) but never actually applied/layered onto the final chosen strategy's numbers.
-- **Slippage baseline discrepancy**: project memory says "slippage = 1% of ref price" but the actual `config.SLIPPAGE_PCT` constant is 0.1%. Not reconciled this session — worth checking which is correct/intended.
-- **Final decision**: user has NOT yet committed to a single final strategy among the 4 "chosen ones" — session ended with #4 as the most recent pick and this summary doc requested, not an explicit final choice.
+Done as direct follow-through on §14's two highest-priority open items, in response to the user asking "why does walk-forward matter, what if strats don't pass" and "any other tests like statistical sig/bootstrap."
+
+### Walk-forward re-optimization pilot (train ≤ 2019, test ≥ 2020)
+Rationale (explained to user in depth): every prior "OOS" check in this project re-scored an **already-selected** strategy on held-out data — but the strategy was selected (Screen1 ranking → Screen2 sweep → consistency filter) using a process that had already seen the full 14-year dataset, including the "test" years. That's a weaker test than genuinely asking "would this process have found and picked a strategy using only past information."
+
+Implementation: filtered EP V5 events to `reaction_date year <= 2019` (311 of 2355 events, 13.2%), re-ran Screen1 (324 combos) and Screen2 (top-25 → 600 combos) restricted to that train-only event set, applying the same `DT`/`DT SW`/`DT U` chart-pattern exclusion used everywhere else this session (flagged to the user as a real, if minor, leak of future-informed knowledge into an otherwise-blind test — the exclusion decision itself was validated on the full dataset; a fully clean version would re-derive the DT-family finding using train-only data too — not done). Ran on `outputs/walkforward/` (new subfolder, nothing in the main `outputs/` touched, per explicit user instruction).
+
+**Real bug hit and fixed along the way**: the first attempt hung for ~50 minutes doing nothing useful. Root cause: the ad-hoc script's top-level code wasn't guarded behind `if __name__ == "__main__":` — on Windows, `ProcessPoolExecutor` uses spawn (not fork), so each of the 8 worker processes re-imported the unguarded script as `__main__` and re-executed the *entire pipeline* from scratch (visible in the log as repeated "train events: 311..." / "Prefetching daily bars..." lines from multiple processes). Fixed by wrapping everything in `def main(): ... / if __name__ == "__main__": main()`, matching the convention every other script in `ep_backtest/` already uses. Also hit a second, quick bug: overwriting the `reaction_date` column with `pd.to_datetime()` broke a downstream comparison against plain `datetime.date` objects inside `run_v3b_grid`'s worker function — fixed by deriving the year filter into a separate variable instead of mutating the column.
+
+**Result — genuinely encouraging:**
+- Winner picked using only 2012-2019 data: `E60M__S3PCT_ENTRY__TCLOSE_BELOW_10MA__EXPONENTIAL_REMAINING__LSTART20__C30` (a combo not among the four "chosen ones" — new to this run).
+- TRAIN (≤2019, 78 trades): win 32.1%, PF 2.05, EV_R 0.713R, G=10.00 (capped).
+- **TEST (≥2020, 532 trades, genuinely never seen by any stage of selection): win 24.2%, PF 1.66, EV_R 0.531R, total_R +282.4, G=9.16.**
+- Real degradation (~25% EV_R decline train→test) but stayed clearly, robustly profitable on a *much larger* out-of-sample set than it was even selected from. Total elapsed: 1466s (~24.4 min) once the bug was fixed.
+- Caveat given to user: this is **one** vantage point. A second/third window (e.g. train≤2021, train≤2023) was proposed as a natural follow-up to see if the pattern holds generally, not done this session.
+- Clarified explicitly for the user: a positive walk-forward result validates the *discovery process*, not one strategy chosen forever — real practice would mean periodically re-running the full pipeline as new data accumulates, not freezing on whatever this pilot's winner is.
+
+Outputs: `outputs/walkforward/trades_screen1_train2019.parquet`, `strategy_summary_screen1_train2019.csv`, `trades_screen2_train2019.parquet`, `strategy_summary_screen2_train2019.csv`, `trades_winner_fulleval.parquet`.
+
+### Naive bootstrap CI on the walk-forward winner's test-period trades
+User asked whether the walk-forward result "passes the null sampling bootstrap method test with a small p value." Computed directly on the 532 test-period trades (`trades_winner_fulleval.parquet`, DT-family excluded, year≥2020): mean R=0.531, std=3.865, **t-stat=3.17**, 95% CI [0.202, 0.859] (parametric) / [0.212, 0.867] (10,000-resample bootstrap), only **0.02%** of bootstrap resamples had mean ≤ 0. Clearly clears a naive significance bar (p≈0.0016 two-tailed).
+
+**Explicitly flagged limitation**: this treats the 532 trades as the *only* thing ever tested — it does not correct for the fact that this exact strategy was hand-picked as the single best of 600 candidates on train data. That correction is what White's Reality Check (next) is for.
+
+### White's Reality Check (simplified implementation)
+Built and run in response to "so then what's next? whites reality check?" — no new backtest needed, computed entirely from already-existing trade-level data (`trades_v3b_screen2_corrected.parquet`).
+
+**Method** (a defensible simplification of White 2000 / close to Hansen's studentized SPA test, not a textbook-exact reproduction):
+1. Pivoted all 600 Screen2 strategies' OK, DT-family-excluded trades into an event × strategy matrix of `realized_R` (keyed by `ticker|event_date`).
+2. **Real finding along the way, not a bug**: the matrix collapsed to only **639 unique events** (not 2355) — verified this is real, not an error. Screen2's 25 base strategies only span 2 entry timeframes (30m/60m) × 4 stop types, and `DT*`-family exclusion removes the same ~61% of events regardless of which strategy is looking at them (it's a property of the ticker/event, not the strategy) — so all 600 "different" strategies end up trading almost the exact same overlapping ~603-639-event core population, just with different exit mechanics on top. This actually strengthens the case for using a joint, same-event bootstrap (preserves that correlation structure automatically) rather than weakening the test.
+3. Computed each strategy's own t-stat (`EV_R / standard_error`) on the real data; observed best: `E30M__S0.50ADR__T20MA_TOUCH_ADR_FALLBACK__EQUAL_DEPLETION__LSTART20__C30`, t=4.330 (EV_R=0.679, n=634).
+4. De-meaned each strategy's trade series by its own observed mean (enforces a genuine zero-edge null for every strategy simultaneously).
+5. Block-bootstrapped by resampling whole **events** (not individual trades) with replacement — preserves the joint cross-strategy correlation on any given event — B=2000 resamples; for each resample, recomputed every strategy's t-stat on the de-meaned residuals and took the max across all 600.
+6. **p-value = fraction of resamples where the null-world max t-stat ≥ the observed 4.330 = 0 / 2000 (p < 0.0005).** Null-world max-t distribution: mean 0.912, std 0.836, 95th pct 2.257, 99th pct 2.756 — the real observed best (4.330) isn't marginally above that ceiling, it's far beyond it.
+
+**Also checked the 4th chosen one specifically** (`E60M__S0.50ADR__TCLOSE_BELOW_20MA__EQUAL_DEPLETION__LSTART20__C50`, since the WRC's "observed best" was a different strategy): its own t-stat = 3.709 (n=605, EV_R=0.618), which **clears the same null distribution's 99th percentile (2.756)** — i.e., it holds up individually under the same search-corrected test, not just by association with the overall winner.
+
+**Conclusion communicated to user**: this is the single most rigorous piece of evidence produced this session for "the edge is real, not a byproduct of testing 600 combinations" — meaningfully stronger than the walk-forward pilot, the plain OOS split, or the naive bootstrap, specifically because it's the only test that explicitly corrects for the size of the search that produced the pick. **Explicitly NOT the same claim as "guaranteed to make money going forward"** — pushed back firmly on that framing when the user asked; statistical significance describes the historical data, not a forecast, and known live risks (the 2026 drawdown clusters, the slippage breakeven margin, possible future regime/edge decay) are untouched by this test.
 
 ---
 
-## 13. Key file/output reference
+## 13. Methodology for validating the "2nd attempt" re-entry system (planned, not yet executed)
+
+Discussed in response to "how will i train the 2nd attempt for robustness." Entry-design conversation (separate, see §9) landed on leaning toward a breakout-over-the-stop-out-day's-HOD trigger, confirmed via an N-minute candle (reuses `find_entry()`), bounded to roughly a 10-trading-day watch window (grounded in the recovery-timing data already gathered in §9).
+
+Planned validation sequence, explicitly **the same gauntlet used on the primary system this session, in the same order, but with a higher bar** — because this is a system built on top of an already-searched system, which compounds curve-fitting risk (this was flagged as a concern the first time the "2nd attempt" idea came up, and reiterated here):
+
+1. Build the trigger population honestly: every losing trade from the primary system, full 14-year history, no cherry-picking.
+2. Simulate with the same rigor as everything else (point-in-time data, real slippage).
+3. Chart-pattern breakdown on the *re-entry* population specifically — do not assume `DT*`'s effect transfers; it's a different selected population.
+4. Era/year consistency check.
+5. Chronological max drawdown + longest losing streak.
+6. Outlier/tail-dependency (top-10% contribution) check.
+7. Single-split OOS.
+8. Slippage sensitivity.
+9. **Walk-forward validation and White's Reality Check — treat as mandatory, not optional**, given the compounding-search risk: testing several entry-trigger/window/stop variants for the re-entry system will produce strategies trading heavily overlapping subsets of "stopped-out tickers," the same correlated multi-comparison problem the 600 Screen2 strategies had.
+
+**Coupling risk flagged**: the re-entry population is defined by *which* trades the primary system stops out of — if the primary system's exit rules change, the re-entry system's training population shifts too. The two should be treated as a linked pair, re-validated together, not independently validated once and left alone.
+
+---
+
+## 14. Explicitly open / not done
+
+- ~~Full walk-forward re-optimization~~ — **done for one vantage point (train≤2019), see §12.** A second/third window (train≤2021, train≤2023) to confirm the pattern generalizes across cutoffs is still open.
+- **Parameter-neighborhood test**: nudge stop/ADR/ladder values slightly, check if performance degrades smoothly or falls off a cliff (smoothness = more trustworthy, cliff = likely overfit combo). Flagged since early in the broader project, never run.
+- **Liquidity-tier breakdown of the slippage sensitivity**: split by `adr_category`/`trading_turnover_pct_category` (already columns in the trade data) to see if the slippage danger zone is concentrated in the thinnest-liquidity names (filterable) or spread evenly (unavoidable).
+- **Concurrency / capital-capacity check**: how many trades would be open simultaneously at any point — the backtest implicitly assumes unlimited concurrent capital; a real account capped at, say, 10 positions would experience clustered bad stretches (like Aug 2026) much more sharply.
+- ~~Statistical significance / bootstrap CI on EV_R~~ — **done, see §12** (naive bootstrap CI + the much stronger search-corrected White's Reality Check, p<0.0005 on the overall best strategy; 4th chosen one individually clears the same bar).
+- **Re-entry / "2nd attempt" mechanical system**: entry design discussed, full validation methodology planned (§13), actual system still never built or backtested.
+- **IWM-200MA regime filter**: built and validated as usable (§8) but never actually applied/layered onto the final chosen strategy's numbers.
+- **Slippage baseline discrepancy**: project memory says "slippage = 1% of ref price" but the actual `config.SLIPPAGE_PCT` constant is 0.1%. Not reconciled this session — worth checking which is correct/intended.
+- **Re-deriving the `DT*`-family exclusion using train-only data**: flagged in §12 — the current walk-forward pilot applies the DT-family filter as a fixed input (discovered using the full dataset), which is a small, honest leak of future information into an otherwise-blind test. Re-deriving the filter from 2012-2019 data alone (does the same pattern-quality gap show up using only train data?) would close that gap.
+- **Final decision**: user has NOT yet committed to a single final strategy among the 4 "chosen ones" — session continued into deep robustness/significance testing (walk-forward, bootstrap, White's Reality Check) rather than a final pick being made.
+
+---
+
+## 15. Key file/output reference
 
 - `ep_backtest/config.py` — all frozen constants, plus this session's additions (`TRAIL_TYPE_20MA_TOUCH_ADR_FALLBACK`, `TRAIL_TYPE_CLOSE_BELOW_ADAPTIVE_5_10`, `ADAPTIVE_TIGHTEN_ACTIVATION_PCT`, `SMA5_WINDOW`, `V3_MULTI_TARGET_LADDERS_EXTENDED_TO_100` (built, unused)).
 - `ep_backtest/trailing_stops.py` — `touch_level_series_with_fallback()`, `build_adaptive_ma_column()`, `is_touch_with_fallback()`, `is_adaptive_close_based()`.
@@ -328,7 +392,9 @@ Breakeven RR for 24.8% win rate = (1-0.248)/0.248 = 3.03; actual RR 5.44 → **1
 - `outputs/oos_test_dtexcluded.csv` — re-run OOS split on corrected data.
 - `outputs/V4 Master Strategies (20MA Fallback Fix).xlsx` — rebuilt master workbook reflecting the corrected Consistent-10 (pre-DT-filter-discovery version; NOT yet rebuilt with the DT-family filter applied — that would be a natural next step if resuming this work).
 - Various `outputs/trades_slippage_*.parquet` and `.log` files — one-off slippage sensitivity re-runs, single-threaded.
+- `outputs/walkforward/` — **dedicated subfolder for all walk-forward pilot outputs, kept separate from the main `outputs/` files per explicit user instruction.** Contains `trades_screen1_train2019.parquet`, `strategy_summary_screen1_train2019.csv`, `trades_screen2_train2019.parquet`, `strategy_summary_screen2_train2019.csv`, `trades_winner_fulleval.parquet` (the walk-forward winner simulated across the full event set, used for both the train/test report and the bootstrap CI).
+- The White's Reality Check script was run ad-hoc (not saved as a permanent file this session) — reusable logic: pivot `trades_v3b_screen2_corrected.parquet` (OK, DT-family-excluded) into an event×strategy `realized_R` matrix keyed by `ticker|event_date`, compute per-strategy t-stats, de-mean each strategy by its own observed mean, block-bootstrap by resampling whole events, take the max t-stat across strategies per resample, compare to the observed best. Worth formalizing into a proper script (e.g. `ep_backtest/reality_check.py`) if this becomes a recurring check.
 
 ---
 
-*End of dump. Written by Claude (Sonnet 5) for handoff to ChatGPT, 2026-09-01.*
+*End of dump. Written by Claude (Sonnet 5) for handoff to ChatGPT, 2026-09-01. Updated same day with the walk-forward pilot, bootstrap CI, and White's Reality Check results (§12), the planned 2nd-attempt validation methodology (§13), and a refreshed open-items list (§14).*
