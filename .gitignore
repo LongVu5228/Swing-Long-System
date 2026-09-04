@@ -4,3 +4,8 @@ __pycache__/
 *.pyc
 Files/EP/Backtesting/data_cache/
 Files/EP/Backtesting/outputs/
+
+# EP long-side automation: secrets and runtime state, never committed
+Files/EP/Automation/New Automation Scripts/credentials.json
+Files/EP/Automation/New Automation Scripts/state/
+Files/EP/Automation/New Automation Scripts/logs/
