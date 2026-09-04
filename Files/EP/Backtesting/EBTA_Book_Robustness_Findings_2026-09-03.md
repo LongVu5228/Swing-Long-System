@@ -112,7 +112,49 @@ What this suggests: the *broad idea* behind the EP strategy (buy the gap-up even
 
 ---
 
-## 4. Putting it all together — the honest bottom line
+## 4. A follow-up test — what if we pick the winner by smallest drawdown instead of raw return?
+
+This wasn't planned going in — it came from a good catch while looking at the results above. Fold 3's winning strategy used a 15-minute entry timeframe, which structurally tends to have a lower win rate than a 60-minute entry (checked against the full ~35,000-trade population: 15-minute entries average 23.2% win rate vs 60-minute's 24.6% — a real but modest gap). But fold 3's actual pick came in at a **9.2%** win rate on its test — far below even the normal 15-minute average. That raised a fair question: is the way we're picking "the winner" (highest **G-score**, a blend of average return and profit factor) missing something a person would catch instantly just by looking at the equity curve?
+
+**The blind spot in G-score:** it only looks at average profit-per-trade and the ratio of money won to money lost. It has **zero concept of the ride** — how deep the account goes underwater before it recovers, or how many losses in a row it takes to get there. A strategy can have a great average return while still being a strategy no one could actually sit through in real life.
+
+### What we tested
+
+For each of the 3 walk-forward folds, instead of just taking the highest-G-score strategy from the training data, we also computed two alternative picks using the *same* already-cached training results (no new backtesting needed, just re-crunching numbers we already had):
+
+- **Lowest drawdown pick** — whichever strategy had the smallest worst-case dip from a peak to a trough in its running total, during training.
+- **Calmar pick** — a risk-adjusted score (total profit ÷ worst drawdown) that rewards strategies for making good money *relative to* how rough the ride was, rather than picking the smallest drawdown no matter how little the strategy actually made.
+
+Then we tested all three picks (G-score, lowest-drawdown, Calmar) on that fold's real, never-seen test years, exactly like before.
+
+### What we found — it's a mixed but very informative result
+
+**Fold 3 (2024-2026 test) — the drawdown-aware pick was a massive improvement:**
+
+| | G-score pick | Drawdown-aware pick (Calmar) |
+|---|---|---|
+| Win rate | 9.2% | 15.3% |
+| Average profit per trade | 0.118R | 0.788R |
+| Worst drawdown | **−108R** | −32R |
+| Total profit | 38R | 248R |
+
+The G-score pick had to survive being **108R underwater** just to eventually net 38R total — an almost unbearable ride for very little payoff. The Calmar pick made over 6x more money while going through a third of the pain. This is exactly the failure mode we suspected: G-score doesn't know or care how bad the journey looks, only the destination on average.
+
+**Fold 2 (2022-2023 test) — the opposite happened.** Here, the ordinary G-score pick actually did *better* out of sample (0.50R average profit per trade) than either drawdown-aware pick (0.23R and 0.17R). So "always prefer the smoothest-looking training result" is not a universal upgrade — sometimes it just picks a strategy that happened to look calm during training by chance, and that calm doesn't carry forward either.
+
+**Fold 1 (2020-2026 test) — a wash,** with the drawdown-aware picks earning slightly more total profit but not actually showing a smaller drawdown once tested for real.
+
+### The most interesting part wasn't the win/loss score — it was consistency
+
+Across all three folds, the two drawdown-aware picks kept landing on **nearly the same underlying recipe**: a stop based on the stock's volatility (ADR), a trail that exits once price touches below the 20-day moving average, an early-starting profit-taking schedule, and a 30% core position. Only the entry timeframe changed (60-minute in fold 1, 30-minute in folds 2 and 3).
+
+Compare that to the ordinary G-score picks, which chose a **completely different, unrelated combination of rules every single time** (see the table in Section 3) — different entry timing, different stop type, different trail, different profit-taking schedule, no overlap at all between any of the three.
+
+That's a meaningful signal on its own: selecting by "smoothest ride relative to profit" instead of "highest raw average return" seems to point toward something closer to one real, stable underlying strategy, rather than a different lucky combination fitted to whichever years happen to be in the training window each time. It didn't win every single test, but it's a genuinely useful alternative lens — and probably a better way to sanity-check any future "winner" than raw G-score alone.
+
+---
+
+## 5. Putting it all together — the honest bottom line
 
 **The good news:** every test this project has run — the search-bias correction (White's Reality Check / Hansen SPA), the original walk-forward test, and now this random-entry control group — has found *some* real, positive edge that's hard to fully explain away as luck or as a testing artifact. This isn't a strategy with zero substance behind it.
 
@@ -125,17 +167,18 @@ None of this means the strategy is fake or worthless — it means our confidence
 
 ---
 
-## 5. Open questions worth investigating next
+## 6. Open questions worth investigating next
 
 1. **Why did the 2024-2026 test decay so much more than the earlier ones?** Is it something specific to that period (market regime, volatility environment), or a sign of general edge decay over time?
 2. **Given that the exact "winning" parameters keep changing, does a simpler, less fine-tuned version of the strategy hold up more consistently** across all three time windows than any single hyper-optimized pick does?
 3. **Can the "is it just long-bias" gap be tightened up** — e.g., a bigger random-entry control sample, or extending the same test to the other 3 "chosen ones," not just the 4th?
 4. These sit alongside the still-open items from the main session dump doc (parameter-neighborhood sensitivity, liquidity/slippage-tier breakdown, concurrent-position capital capacity, the split-adjustment data-quality question, and the IWM-200MA regime filter).
+5. **Section 4's drawdown-aware selection needs more folds to trust as a rule, not just a one-off.** It won decisively in fold 3, lost in fold 2, and was a wash in fold 1 — three data points isn't enough to say "always select this way." Worth re-testing on a few more train/test windows before treating it as the new default over G-score.
 
 ---
 
-## 6. Where the code and data live
+## 7. Where the code and data live
 
-- New reusable scripts: `ep_backtest/noise_benchmark.py` (Test 1) and `ep_backtest/walkforward_fold.py` (Test 2, reusable for any train/test year split).
+- New reusable scripts: `ep_backtest/noise_benchmark.py` (Test 1), `ep_backtest/walkforward_fold.py` (Test 2, reusable for any train/test year split), `ep_backtest/drawdown_aware_pick.py` (Section 4's drawdown/Calmar re-selection, reuses each fold's already-cached screen2 output).
 - Test 1 outputs: `outputs/robustness/` (noise trade log, candidate noise dates, bootstrap results).
 - Test 2 outputs: `outputs/walkforward/fold2_train2021/` and `outputs/walkforward/fold3_train2023/` (screen1/screen2 trade logs, strategy summaries, winner test results). The original fold (train≤2019) lives directly under `outputs/walkforward/` from the earlier session.
