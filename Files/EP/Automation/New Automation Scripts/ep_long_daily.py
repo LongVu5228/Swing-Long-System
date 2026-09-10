@@ -10,7 +10,8 @@ SMA trail), same 4-tab Google Sheet, but two real differences:
    each morning by Task Scheduler (~9:20 ET), does its work, and exits
    cleanly around SESSION_SHUTDOWN_TIME -- Task Scheduler relaunches it the
    next morning. A multi-day-held position's protective stop/ladder orders
-   rest at the broker (TIF=GTC+) independent of whether this process is
+   rest at the broker (TIF=GTC -- regular hours only, not GTC+; see the
+   "Live-test findings" note in README.md for why) independent of whether this process is
    connected, and the daily 20-SMA trail check only needs the process alive
    sometime around the close, which it always is under this schedule.
    State still persists to disk and reconciles against live DAS
@@ -808,14 +809,14 @@ def backfill_or_from_minchart(sock: socket.socket, ticker: str, day0: date, up_t
 def place_entry_watch_order(sock: socket.socket, ticker: str, shares: int, trigger_price: float) -> int:
     token = next_token()
     pending_token_context[token] = {"kind": "entry", "ticker": ticker}
-    send_line(sock, f"NEWORDER {token} B {ticker} {ROUTE_ENTRY} {shares} STOPMKT {trigger_price:.2f} TIF=GTC+")
+    send_line(sock, f"NEWORDER {token} B {ticker} {ROUTE_ENTRY} {shares} STOPMKT {trigger_price:.2f} TIF=GTC")
     return token
 
 
 def place_protective_stop(sock: socket.socket, ticker: str, shares: int, stop_price: float) -> int:
     token = next_token()
     pending_token_context[token] = {"kind": "stop", "ticker": ticker}
-    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_STOP} {shares} STOPMKT {stop_price:.2f} TIF=GTC+ Pref={ROUTE_STOP}")
+    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_STOP} {shares} STOPMKT {stop_price:.2f} TIF=GTC Pref={ROUTE_STOP}")
     return token
 
 
@@ -828,7 +829,7 @@ def place_ladder_rung(sock: socket.socket, ticker: str, shares: int, price: floa
     gets there. Reverted from the earlier STOPMKT design after that live test."""
     token = next_token()
     pending_token_context[token] = {"kind": "rung", "ticker": ticker, "rung_idx": rung_idx}
-    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_LADDER} {shares} {price:.2f} TIF=GTC+")
+    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_LADDER} {shares} {price:.2f} TIF=GTC")
     return token
 
 

@@ -47,8 +47,8 @@ shorting, no locates, no 4 AM premarket stop coverage.
 
 ## Live-test findings (2026-09-10)
 
-Real DAS connection testing on this account surfaced two things worth
-knowing, both already fixed in `ep_long_daily.py`:
+Real DAS connection testing on this account surfaced three things worth
+knowing, all already fixed in `ep_long_daily.py`:
 
 - **Route confirmed: `SMAT`** for all five route constants (see the
   order-routes section under Setup for the full story -- `PRO20`, carried
@@ -63,6 +63,16 @@ knowing, both already fixed in `ep_long_daily.py`:
   is the correct mechanism for "sell only once price rises to X." The
   protective stop (`ROUTE_STOP`, below market) is unaffected -- that
   direction is exactly what a sell-stop is supposed to do.
+- **Entry/stop/ladder orders use `TIF=GTC` (regular hours only), not
+  `GTC+` (extended hours).** Both persist across days identically -- `GTC`
+  doesn't disappear overnight, the `+` only widens which *sessions* an order
+  is eligible to trigger in, not how long it lives. `GTC+` would let a stop
+  or target fire during pre/post-market's thin, erratic liquidity -- a
+  regime the backtest never modeled at all (it assumes gap-throughs resolve
+  at the next *regular*-session open, see `ep_backtest/simulate_trade.py`'s
+  gap-through convention). Plain `GTC` keeps live behavior faithful to that:
+  an overnight gap just fills at the next day's regular open once the
+  session opens, instead of executing mid-gap in an untested session type.
 
 ## How it works
 
