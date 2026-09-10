@@ -1735,6 +1735,11 @@ def main() -> Optional[str]:
             weekday_ok = now.weekday() < 5
 
             if weekday_ok and hhmmss >= SESSION_SHUTDOWN_TIME:
+                # Guaranteed final snapshot -- don't rely on the 5-minute periodic
+                # timer's luck to have caught the last few minutes before exit.
+                sync_watch_list_sheet(state)
+                if state["positions"]:
+                    sync_positions_sheet(state)
                 notify(
                     "Session shutdown time reached -- disconnecting for the day; Task Scheduler will relaunch tomorrow morning.",
                     title="EP Long Daily -- Daily Shutdown",
