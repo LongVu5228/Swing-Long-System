@@ -1744,6 +1744,13 @@ def main() -> Optional[str]:
     send_line(sock, "ReturnFullLv1 YES")
 
     try:
+        # Immediate, impossible-to-miss confirmation of WHICH account this
+        # connection is actually talking to -- check this before anything else
+        # happens, especially on a first-ever live connection to this account.
+        equity = fetch_equity_snapshot(sock, timeout_sec=5.0)
+        equity_str = f"${equity:,.2f}" if equity is not None else "UNKNOWN (fetch failed/timed out)"
+        print(f"\n{'='*60}\nCONNECTED -- DAS_HOST={DAS_HOST} DAS_PORT={DAS_PORT} ACCT={DAS_ACCT}\nCurrent equity: {equity_str}\n{'='*60}\n")
+
         reconcile_on_startup(sock, state)
 
         for ticker in list(state["watches"].keys()) + list(state["positions"].keys()):
@@ -1753,7 +1760,9 @@ def main() -> Optional[str]:
         backfill_or_in_progress_after_reconnect(sock, state, datetime.now(ET))
 
         notify(
-            f"EP Long Daily engine started/reconnected. Tracking {len(state['watches'])} watch(es), {len(state['positions'])} position(s).",
+            f"EP Long Daily engine started/reconnected -- **account {DAS_ACCT}**, equity **{equity_str}**. "
+            f"Tracking {len(state['watches'])} watch(es), {len(state['positions'])} position(s). "
+            "**Verify this is the correct account before trusting today's run.**",
             title="EP Long Daily -- Started",
             color=0x2ECC71,
         )
