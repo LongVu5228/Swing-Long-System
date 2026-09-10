@@ -201,11 +201,18 @@ TRAIL_EXIT_TIF = "AtClose"   # fallback to "MKT"-style immediate exit if your br
 # These are CARRIED OVER GUESSES from the short-side scripts' conventions,
 # not confirmed for long-side buy/sell orders on this account. CONFIRM with
 # your broker / a small live test before trusting these for size.
-ROUTE_ENTRY = "PRO20"     # buy-stop entry order route, and size-adjust ADD (buy more) route -- CONFIRM
-ROUTE_STOP = "SMAT"       # protective sell-stop route (DAS smart route, supports STOPMKT) -- reused from short side, lower risk
-ROUTE_ADJUST = "PRO20"    # size-adjust TRIM (sell some) route during reconciliation -- CONFIRM
-ROUTE_LADDER = "PRO20"    # sell-STOP ladder target route -- CONFIRM
-ROUTE_EXIT = "PRO20"      # market/AtClose sell route for the trailing-stop full-position exit -- CONFIRM
+ROUTE_ENTRY = "SMAT"      # buy-stop entry order route, and size-adjust ADD (buy more) route
+ROUTE_STOP = "SMAT"       # protective sell-stop route (DAS smart route, supports STOPMKT)
+ROUTE_ADJUST = "SMAT"     # size-adjust TRIM (sell some) route during reconciliation
+ROUTE_LADDER = "SMAT"     # sell-STOP ladder target route
+ROUTE_EXIT = "SMAT"       # market/AtClose sell route for the trailing-stop full-position exit
+# CONFIRMED live 2026-09-10: a real NEWORDER/CANCEL round-trip on this account
+# (BUY, SPY, 1 share, STOPMKT via route SMAT) went Sending -> Accepted -> Canceled
+# cleanly. PRO20 (the old carried-over guess) was rejected: "Can't Find Route![RGEL]".
+# Only the BUY direction has been directly tested -- SMAT is DAS's own smart-routing
+# layer (not a specific ECN destination), and the short-side scripts already use it
+# for BUY-to-cover orders, so it's a reasonable bet for the SELL side too (stop/
+# ladder/exit/trim), but watch the first real stop/ladder placement closely to confirm.
 
 # =========================
 # STATE PERSISTENCE

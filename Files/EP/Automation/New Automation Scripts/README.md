@@ -191,14 +191,22 @@ source of truth.
    Realized P&L/R are kept as real numbers (not decorated strings like the
    two dashboard tabs) specifically so you can sum/average/pivot them later.
 
-4. **Confirm the order routes.** `ROUTE_ENTRY`, `ROUTE_ADJUST`, `ROUTE_LADDER`,
-   and `ROUTE_EXIT` (all currently defaulted to `PRO20`) and `ROUTE_STOP`
-   (`SMAT`) are carried over guesses from the short-side scripts' route
-   conventions -- **DAS route codes are broker-specific and not documented
-   in the CMD API manual**, so these need a real confirmation (or a small
-   live test with 1 share) before trusting them at size. Edit the constants
-   near the top of `ep_long_daily.py` if your broker uses different codes
-   for buy-side vs. sell-side or for stop vs. limit orders.
+4. **Order routes -- confirmed 2026-09-10.** All five (`ROUTE_ENTRY`,
+   `ROUTE_STOP`, `ROUTE_ADJUST`, `ROUTE_LADDER`, `ROUTE_EXIT`) are set to
+   `SMAT`, verified with a real `NEWORDER`/`CANCEL` round-trip on this
+   account (1-share SPY buy-stop, 1% away, went Sending -> Accepted ->
+   Canceled cleanly). The original carried-over guess, `PRO20`, was rejected
+   outright: `Can't Find Route![RGEL]` -- route codes turned out to be
+   scoped per-account on this broker, not broker-wide, so the short-side
+   scripts' working routes didn't transfer over. Only the BUY direction was
+   directly tested this way; SMAT is DAS's own smart-routing layer (not a
+   specific ECN destination) and the short-side scripts already use it for
+   BUY-to-cover orders, so it's a reasonable bet for the SELL side too
+   (stop/ladder/exit/trim) -- but watch the first real stop/ladder placement
+   closely to confirm. `test_das_live.py` and `test_das_routes.py` in this
+   folder are the diagnostic scripts used to find this; keep them around for
+   future route/connectivity troubleshooting (harmless -- `test_das_routes.py`
+   is read-only, and `test_das_live.py` always cancels its own test order).
 
 5. **Run it once by hand first**: `python ep_long_daily.py`. It runs a
    startup self-test against literal sample lines from the CMD API manual
@@ -270,3 +278,10 @@ source of truth.
   if both were somehow launched.
 - `logs/` -- daily tee'd terminal output per script (`ep_long_daily_*.txt` /
   `ep_long_*.txt`), gitignored, created automatically.
+- `test_das_live.py` -- diagnostic: connects, confirms account/equity, fetches
+  a live SPY quote, then tries a small set of candidate routes for a 1-share
+  buy-stop 1% away, canceling the moment one is accepted. This is how `SMAT`
+  was confirmed (see order-routes note above). Safe to rerun any time.
+- `test_das_routes.py` -- diagnostic: read-only `GET RouteStatus` query,
+  no orders touched. A lighter-weight check when you just want to see what
+  DAS reports without placing anything.
