@@ -34,7 +34,7 @@ Daily sequence: idle after launch -> ONE sheet read at 09:29:30 ET -> at
 alextweak.py's evaluate_morning_filter exactly, using the official-open T&S
 print, condition bit 0x20) -> track the 60m opening range for confirmed
 candidates -> arm a buy-stop at OR high + $0.01 -> on fill, reconcile size
-to the fixed-stop-anchored target -> place the stop + 5 sell-STOP ladder
+to the fixed-stop-anchored target -> place the stop + 5 limit-sell ladder
 targets off the reconciled average fill -> manage breakeven/trail/exit same
 as the continuous version -> exit for the day around SESSION_SHUTDOWN_TIME.
 
@@ -204,7 +204,7 @@ TRAIL_EXIT_TIF = "AtClose"   # fallback to "MKT"-style immediate exit if your br
 ROUTE_ENTRY = "SMAT"      # buy-stop entry order route, and size-adjust ADD (buy more) route
 ROUTE_STOP = "SMAT"       # protective sell-stop route (DAS smart route, supports STOPMKT)
 ROUTE_ADJUST = "SMAT"     # size-adjust TRIM (sell some) route during reconciliation
-ROUTE_LADDER = "SMAT"     # sell-STOP ladder target route
+ROUTE_LADDER = "SMAT"     # resting limit-sell ladder target route
 ROUTE_EXIT = "SMAT"       # market/AtClose sell route for the trailing-stop full-position exit
 # CONFIRMED live 2026-09-10: a real NEWORDER/CANCEL round-trip on this account
 # (BUY, SPY, 1 share, STOPMKT via route SMAT) went Sending -> Accepted -> Canceled
@@ -820,11 +820,15 @@ def place_protective_stop(sock: socket.socket, ticker: str, shares: int, stop_pr
 
 
 def place_ladder_rung(sock: socket.socket, ticker: str, shares: int, price: float, rung_idx: int) -> int:
-    """Sell-STOP (not a resting limit) -- converts to a market sell once triggered,
-    guaranteeing the sale fires rather than risking a no-fill on a brief touch."""
+    """Resting LIMIT sell (NOT a stop) -- confirmed live 2026-09-10 that a sell-stop
+    placed ABOVE market fires immediately (a sell-stop's trigger condition is
+    "price <= stop price," which is already true above current price, so DAS
+    treats it as instantly marketable). A limit order is the correct mechanism
+    for "sell only once price rises to X" -- it just sits until price actually
+    gets there. Reverted from the earlier STOPMKT design after that live test."""
     token = next_token()
     pending_token_context[token] = {"kind": "rung", "ticker": ticker, "rung_idx": rung_idx}
-    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_LADDER} {shares} STOPMKT {price:.2f} TIF=GTC+")
+    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_LADDER} {shares} {price:.2f} TIF=GTC+")
     return token
 
 
@@ -893,7 +897,7 @@ def _finalize_position(sock: socket.socket, state: dict, ticker: str) -> None:
     ladder_desc = ", ".join(f"+{p*100:.1f}%→${r['price']:.2f} ({r['shares']}sh)" for p, r in zip(LADDER_PCTS, ladder))
     notify(
         f"{ticker}: size reconciled -- {qty}sh @ avg ${avg_fill:.2f}. Fixed stop ${fixed_stop_px:.2f} (1R=${r_risk_amount:,.2f}). "
-        f"Ladder (sell-STOP): {ladder_desc}. Core {CORE_PCT*100:.0f}% rides the {TRAIL_MA_WINDOW}-day SMA trail.",
+        f"Ladder (limit-sell): {ladder_desc}. Core {CORE_PCT*100:.0f}% rides the {TRAIL_MA_WINDOW}-day SMA trail.",
         title="EP Long Daily -- Entered",
         color=0x2ECC71,
     )

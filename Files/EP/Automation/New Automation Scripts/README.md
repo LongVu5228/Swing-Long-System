@@ -45,6 +45,25 @@ the proven short-side system (`Old Swing Short Scripts/Algo/algo/alextweak.py`):
 Both scripts are meaningfully simpler than the short-side system -- no
 shorting, no locates, no 4 AM premarket stop coverage.
 
+## Live-test findings (2026-09-10)
+
+Real DAS connection testing on this account surfaced two things worth
+knowing, both already fixed in `ep_long_daily.py`:
+
+- **Route confirmed: `SMAT`** for all five route constants (see the
+  order-routes section under Setup for the full story -- `PRO20`, carried
+  over from the short side, was rejected outright on this account).
+- **Ladder targets are resting LIMIT sell orders, not sell-stops.** An
+  earlier design used sell-STOP orders for the ladder (place a stop above
+  market, "trigger" once price gets there). Live-tested and confirmed wrong:
+  a sell-stop's trigger condition is "price <= stop price," which is already
+  true when the stop is placed *above* current market price -- so DAS treats
+  it as instantly marketable and fires it immediately, not once price
+  actually climbs there. Reverted to plain limit sells for the ladder, which
+  is the correct mechanism for "sell only once price rises to X." The
+  protective stop (`ROUTE_STOP`, below market) is unaffected -- that
+  direction is exactly what a sell-stop is supposed to do.
+
 ## How it works
 
 The Google Sheet has 4 tabs. You only ever touch the first one; the other
@@ -81,7 +100,7 @@ source of truth.
    real-time regardless of when the sheet itself gets written).
 3. On fill: `ep_long_daily.py` first reconciles size to the fixed,
    trigger-anchored stop (see "Which script to run" above), then places the
-   stop-market order and 5 sell-STOP ladder orders at +20/27.5/35/42.5/50%
+   stop-market order and 5 resting limit-sell ladder orders at +20/27.5/35/42.5/50%
    off the reconciled average fill, each for 10% of the final share count.
    The remaining 50% ("core") never gets a ladder order. The position (and
    its History row) become visible on the sheet at the next EOD sync.
