@@ -47,8 +47,9 @@ shorting, no locates, no 4 AM premarket stop coverage.
 
 ## Live-test findings (2026-09-10)
 
-Real DAS connection testing on this account surfaced three things worth
-knowing, all already fixed in `ep_long_daily.py`:
+Real DAS connection testing on this account, plus a direct line-by-line
+comparison against the proven short-side scripts, surfaced five things
+worth knowing, all already fixed in `ep_long_daily.py`:
 
 - **Route confirmed: `SMAT`** for all five route constants (see the
   order-routes section under Setup for the full story -- `PRO20`, carried
@@ -73,6 +74,25 @@ knowing, all already fixed in `ep_long_daily.py`:
   gap-through convention). Plain `GTC` keeps live behavior faithful to that:
   an overnight gap just fills at the next day's regular open once the
   session opens, instead of executing mid-gap in an untested session type.
+- **Gap-confirm timeout now matches `alextweak.py` exactly, fallback and
+  all.** The original implementation gave up and rejected the candidate if
+  the official-open T&S print (condition bit `0x20`) never arrived within
+  5 minutes -- an invented value, not checked against the reference. The
+  proven pattern times out after just **10 seconds** (`09:30:10`) and, on
+  timeout, does NOT reject -- it falls back to the last known Lv1 **bid**
+  price and runs the identical gap-confirmation logic against that instead,
+  only rejecting outright if there's no bid at all (e.g. halted at the
+  open). Matched exactly, including adding the bid-tracking cache
+  (`last_bid_cache`) that was missing before.
+- **Trail-exit no longer uses `TIF=AtClose`.** That TIF has zero precedent
+  anywhere in the short-side scripts -- it was never tested in this
+  codebase, live or otherwise. `cover.py`'s "Sentinel" end-of-day cleanup
+  (its own proven get-flat-near-the-close mechanism) uses a marketable
+  limit at `ask * 1.01` for a cover, falling back to a plain `MKT` if no
+  live ask is known -- `TIF=DAY+` throughout, no `AtClose` anywhere. Ported
+  that exact pattern for the sell side (`bid * (1 - TRAIL_EXIT_MARKETABLE_PCT)`,
+  `MKT` fallback) instead of relying on an order type this account has
+  never actually tried.
 
 ## How it works
 
@@ -120,8 +140,11 @@ source of truth.
 5. Every trading day, a few minutes before the close, the engine checks
    whether today's close is below the 20-day SMA of closes. If so, it cancels
    the stop and any un-filled ladder rungs and sells everything remaining via
-   an `AtClose` order. This is the only way the "core" 50% ever exits, absent
-   a stop-out first. Either way, its **History** row gets its Exit
+   a marketable limit at bid minus a cushion (MKT fallback if no live bid) --
+   the exact pattern `cover.py`'s Sentinel cleanup uses, not `TIF=AtClose`
+   (which has zero precedent anywhere in this codebase, see "Live-test
+   findings"). This is the only way the "core" 50% ever exits, absent a
+   stop-out first. Either way, its **History** row gets its Exit
    Date/Reason/P&L/R filled in at EOD -- nothing is ever deleted from
    History, it's the permanent YTD record.
 6. All of this is persisted to disk after every change (`ep_long_daily.py`
@@ -263,13 +286,13 @@ source of truth.
   assumes a fill at the literal closing print the instant a close violates
   the 20-day SMA. Live, the engine checks a few minutes early
   (`CLOSE_CHECK_TIME`, default 15:55 ET) using the last trade price as a
-  stand-in for the close, then submits an `AtClose` order so the real fill
-  happens at the actual close. Price can still move in those last few
-  minutes; verify your broker/DAS's `AtClose` semantics and submission
-  cutoff, and adjust `CLOSE_CHECK_TIME` if needed. If `AtClose` proves
-  unreliable, switch `TRAIL_EXIT_TIF` to `"DAY+"` and it'll be an immediate
-  market sell instead of waiting for the close print.
-- **Order routes are unconfirmed guesses** (see setup step 4).
+  stand-in for the close, then exits via a marketable limit at bid minus
+  `TRAIL_EXIT_MARKETABLE_PCT` (falling back to plain `MKT` with no live bid)
+  -- `cover.py`'s proven Sentinel-cleanup pattern, not `TIF=AtClose`. Price
+  can still move in those last few minutes before the real 16:00 close;
+  that gap is inherent to checking early rather than a broker-specific risk.
+- **Order routes and TIFs are confirmed for this account (2026-09-10)** --
+  see "Live-test findings" above for the full story.
 - **No holiday calendar dependency required, but recommended**: entry-watch
   expiry (`D0 + 7 trading sessions`) uses `pandas_market_calendars` (NYSE) if
   it's installed in this environment, for holiday-accurate session counting;

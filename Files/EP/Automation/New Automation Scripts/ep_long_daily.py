@@ -183,18 +183,21 @@ ADJUST_ORDER_STUCK_TIMEOUT_SEC = 120.0  # release the single-flight slot if no t
 
 # ===== DAILY LIFECYCLE =====
 SHEET_READ_TIME = "09:29:30"      # single one-shot Entry Sheet read each morning (not continuous, unlike ep_long_engine.py)
-GAP_CONFIRM_GRACE_UNTIL = "09:35:00"  # if the official-open print never arrives by this time, reject the candidate
+GAP_CONFIRM_GRACE_UNTIL = "09:30:10"  # matches alextweak.py's market_open_timeout exactly (10s after the open)
 SESSION_SHUTDOWN_TIME = "16:15:00"    # exits cleanly here (a short buffer past the close for AtClose fills to settle); Task Scheduler relaunches tomorrow
 DAS_PORT_WAIT_MIN = 10.0              # wait this long for the DAS CMD API port before giving up (Task Scheduler may fire slightly before DAS finishes logging in)
 
 # When to run the once-a-day "close below Nday SMA?" check. Real close is
 # 16:00:00 ET; this fires a few minutes early using the live last price as a
-# stand-in for the closing print, then submits an AtClose order so the ACTUAL
-# fill happens at the real close (see README "Trailing exit" for why this
-# is an approximation of the backtest's same-day-close-fill assumption, not
-# an exact reproduction).
+# stand-in for the closing print (see README "Trailing exit" for why this is
+# an approximation of the backtest's same-day-close-fill assumption). The
+# exit itself mirrors cover.py's proven Sentinel-cleanup pattern exactly
+# (NOT TIF=AtClose, which has zero precedent anywhere in this codebase):
+# cancel outstanding orders, then a marketable limit at bid -+ a cushion,
+# falling back to a plain MKT if no live bid is known.
 CLOSE_CHECK_TIME = "15:55:00"
-TRAIL_EXIT_TIF = "AtClose"   # fallback to "MKT"-style immediate exit if your broker rejects AtClose this close to the bell -- see README
+TRAIL_EXIT_TIF = "DAY+"
+TRAIL_EXIT_MARKETABLE_PCT = 0.01   # sell limit at bid * (1 - this), guarantees a fill like cover.py's ask*1.01 cover
 
 # ===== DAS ORDER ROUTES =====
 # NOTE: DAS route codes are broker/OM-specific and are NOT enumerated in the
@@ -369,6 +372,7 @@ MIN_BAR_RE = re.compile(
     re.IGNORECASE,
 )
 QUOTE_LAST_RE = re.compile(r"\bL:(\d+\.?\d*)")
+QUOTE_BID_RE = re.compile(r"\bB:(\d+\.?\d*)")
 
 
 def parse_das_position_long(line: str) -> Optional[Tuple[str, int]]:
@@ -436,6 +440,7 @@ order_index: Dict[str, dict] = {}             # order_id -> same context dict
 token_to_order_id: Dict[int, str] = {}
 or_high_tracker: Dict[str, float] = {}        # ticker -> running max price during today's OR window
 last_price_cache: Dict[str, float] = {}       # ticker -> most recent trade/quote price
+last_bid_cache: Dict[str, float] = {}         # ticker -> most recent Lv1 bid (9:30:10 gap-confirm fallback, mirrors alextweak.py's last_bid)
 
 
 def next_token() -> int:
@@ -834,9 +839,17 @@ def place_ladder_rung(sock: socket.socket, ticker: str, shares: int, price: floa
 
 
 def place_trail_exit(sock: socket.socket, ticker: str, shares: int) -> int:
+    """Marketable limit at bid * (1 - TRAIL_EXIT_MARKETABLE_PCT), falling back to
+    a plain MKT if no live bid is cached -- mirrors cover.py's proven Sentinel
+    cleanup exactly (ask*1.01 for a cover there; bid*0.99 here for a sell)."""
     token = next_token()
     pending_token_context[token] = {"kind": "exit", "ticker": ticker}
-    send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_EXIT} {shares} MKT TIF={TRAIL_EXIT_TIF}")
+    bid = last_bid_cache.get(ticker)
+    if bid and bid > 0:
+        limit_price = round(bid * (1 - TRAIL_EXIT_MARKETABLE_PCT), 2)
+        send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_EXIT} {shares} {limit_price:.2f} TIF={TRAIL_EXIT_TIF}")
+    else:
+        send_line(sock, f"NEWORDER {token} S {ticker} {ROUTE_EXIT} {shares} MKT TIF={TRAIL_EXIT_TIF}")
     return token
 
 
@@ -1134,21 +1147,29 @@ def evaluate_gap_confirm(state: dict, ticker: str, open_px: float) -> None:
 
 
 def expire_unconfirmed_gap_watches(state: dict, now: datetime) -> None:
-    """Safety net: if the official-open print (condition bit 0x20) never arrives
-    -- e.g. the ticker is halted at the open -- don't hang in PENDING_GAP_CONFIRM
-    forever; reject and move on."""
+    """Mirrors alextweak.py's 9:30:10 morning-filter fallback exactly: if the
+    official-open print (condition bit 0x20) hasn't arrived by 10 seconds after
+    the open, DON'T just give up -- fall back to the last known Lv1 bid and run
+    the same gap-confirmation logic against that instead. Only reject outright
+    if there's no bid at all (e.g. halted at the open with zero quotes)."""
     if now.strftime("%H:%M:%S") < GAP_CONFIRM_GRACE_UNTIL:
         return
     today_str = now.strftime("%Y-%m-%d")
     for ticker, watch in list(state["watches"].items()):
         if watch["status"] != WatchStatus.PENDING_GAP_CONFIRM.value or watch["day0"] != today_str:
             continue
-        notify(
-            f"{ticker}: no official-open print seen by {GAP_CONFIRM_GRACE_UNTIL} ET (possibly halted at the open) -- rejected.",
-            title="EP Long Daily -- Gap Filter Timeout", color=0xE67E22,
-        )
-        state["watches"].pop(ticker, None)
-        save_state(state)
+        fallback_bid = last_bid_cache.get(ticker)
+        if fallback_bid and fallback_bid > 0:
+            print(f"[{ticker}] {GAP_CONFIRM_GRACE_UNTIL} timeout -- using bid ${fallback_bid:.2f} for gap confirmation.")
+            evaluate_gap_confirm(state, ticker, fallback_bid)
+        else:
+            notify(
+                f"{ticker}: no official-open print AND no bid available by {GAP_CONFIRM_GRACE_UNTIL} ET "
+                "(likely halted at the open) -- rejected.",
+                title="EP Long Daily -- Gap Filter Timeout", color=0xE67E22,
+            )
+            state["watches"].pop(ticker, None)
+            save_state(state)
 
 
 def on_tick_price(state: dict, ticker: str, price: float, ts_time: str, condition: int) -> None:
@@ -1465,7 +1486,7 @@ def run_daily_close_checks(sock: socket.socket, state: dict) -> None:
             shares = pos["shares_remaining"]
             place_trail_exit(sock, ticker, shares)
             notify(
-                f"{ticker}: close (~${est_close:.2f}) below {TRAIL_MA_WINDOW}-day SMA -- exiting remaining {shares}sh via {TRAIL_EXIT_TIF} order.",
+                f"{ticker}: close (~${est_close:.2f}) below {TRAIL_MA_WINDOW}-day SMA -- exiting remaining {shares}sh (marketable limit, MKT fallback).",
                 title="EP Long Daily -- Trail Exit Triggered",
                 color=0xE67E22,
             )
@@ -1583,6 +1604,12 @@ def handle_quote_line(line: str) -> None:
     if m:
         try:
             last_price_cache[ticker] = float(m.group(1))
+        except ValueError:
+            pass
+    mb = QUOTE_BID_RE.search(line)
+    if mb:
+        try:
+            last_bid_cache[ticker] = float(mb.group(1))
         except ValueError:
             pass
 
