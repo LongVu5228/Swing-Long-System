@@ -11,12 +11,39 @@ Source of the strategy rules: `Files/EP/Backtesting/Swing_Long_EP_Backtest_Sessi
 (section 10) and the `ep_backtest/` package (`entry.py`, `initial_stop.py`,
 `trailing_stops.py`, `multi_partial_taking.py`, `config.py`).
 
-This is meaningfully simpler than the short-side system
-(`Old Swing Short Scripts/`) -- no shorting, no locates, no 4 AM premarket
-stop coverage. But it runs differently: it's **one continuously-running
-process**, not a fresh script launched and exited each day, because an EP
-long entry can sit watching for a breakout for over a week (D0..D0+7), and
-once filled a position can be held for weeks riding a trailing stop.
+## Which script to run
+
+**`ep_long_daily.py` is the one you actually run.** `ep_long_engine.py` is
+kept as an unused backup/reference -- same strategy shape, but it's a
+continuously-running process rather than a daily launch, and its sizing/stop
+were anchored to the actual fill price instead of the planned trigger. Don't
+launch both against the same DAS account.
+
+`ep_long_daily.py`'s two real differences from the backup, both ported from
+the proven short-side system (`Old Swing Short Scripts/Algo/algo/alextweak.py`):
+
+1. **Daily lifecycle, not continuous.** Task Scheduler launches it fresh each
+   morning (~9:20 ET); it does one Entry Sheet read at 09:29:30, confirms
+   each candidate's gap % live at 09:30:00, manages the day, and exits
+   cleanly around 16:15 ET -- Task Scheduler relaunches it the next morning.
+   A held position's stop/ladder orders rest at the broker (`TIF=GTC+`)
+   independent of whether this process is running, so multi-day holds
+   survive the daily on/off cycle fine; state still persists to disk and
+   reconciles against live DAS positions/orders on every reconnect.
+2. **Sizing/stop anchored to the planned trigger price, not the fill.**
+   `fixed_stop_px` is computed once when the buy-stop is armed (off the OR
+   breakout trigger) and never recalculated from the actual fill. If the
+   entry fills worse (slippage) or better than planned, a size-reconciliation
+   loop -- ported from `alextweak.py`'s `run_size_reconciliation` /
+   `adjust_order_pending` single-flight gate -- trims or adds shares via
+   plain market orders until `(avg_fill - fixed_stop_px) * shares` lands back
+   on the original target dollar risk. Only one such adjust order is ever in
+   flight per ticker at a time (the fix for a past "two orders at once"
+   failure). Verified against a worked $5.10-planned/$5.20-filled example --
+   see the scratchpad test if you want to rerun it.
+
+Both scripts are meaningfully simpler than the short-side system -- no
+shorting, no locates, no 4 AM premarket stop coverage.
 
 ## How it works
 
@@ -97,15 +124,22 @@ of each.
 
    **Tab 1 -- "Entry Sheet"** (the only one you edit):
 
-   | Ticker | Gap % | ADR14 % | Chart Pattern | Enabled |
-   |---|---|---|---|---|
+   | Ticker | Gap % | ADR14 % | Chart Pattern | Enabled | Yday Close |
+   |---|---|---|---|---|---|
+
+   **`ep_long_daily.py` requires the "Yday Close" column** (add it to your
+   existing sheet if it's not there yet -- `ep_long_engine.py`, the unused
+   backup, doesn't need it). It's the actual dollar close, e.g. `3.29` --
+   used to live-confirm each candidate's gap % at the 09:30:00 official open
+   print, mirroring `alextweak.py`'s morning filter exactly. The sheet's own
+   Gap % column stays purely informational, same as before.
 
    - No date column -- a row present here is always treated as **today's**
      candidate (add it the morning of the EP). The engine clears every row
      it processes (armed, skipped, or rejected) so nothing lingers into
      tomorrow as a false "today" candidate.
    - **Gap %** is informational only (flows through to History) -- not used
-     in any calculation.
+     in any calculation; **Yday Close** is what's actually checked live.
    - **ADR14 %**: as a percent, e.g. `5.2` means 5.2%. This is the one
      number the whole stop calculation depends on -- get it right
      (14-trading-day average high-low range as % of the pre-gap close; see
@@ -118,6 +152,10 @@ of each.
      shouldn't be entering DT-family tickers yourself.
    - **Enabled**: `TRUE`/`FALSE` (or `1`/`yes`). A `FALSE` row is left alone
      (not cleared) so you can flip it on later.
+   - **Yday Close**: `ep_long_daily.py` only -- rejects the candidate outright
+     (with a Discord alert) if missing/invalid, or if the live 9:30 gap %
+     comes in under 5% (`MIN_GAP_PERCENT`) or the open is under $2
+     (`MIN_PRICE`), both adjustable constants near the top of the script.
 
    **Tab 2 -- "Current Watch List"** (bot-writes; one row per unfilled
    resting buy-stop order): Ticker, Armed Date (D0), OR High, Trigger Price,
@@ -138,31 +176,34 @@ of each.
    Realized P&L/R are kept as real numbers (not decorated strings like the
    two dashboard tabs) specifically so you can sum/average/pivot them later.
 
-4. **Confirm the order routes.** `ROUTE_ENTRY`, `ROUTE_LADDER`, and
-   `ROUTE_EXIT` (all currently defaulted to `PRO20`) and `ROUTE_STOP`
+4. **Confirm the order routes.** `ROUTE_ENTRY`, `ROUTE_ADJUST`, `ROUTE_LADDER`,
+   and `ROUTE_EXIT` (all currently defaulted to `PRO20`) and `ROUTE_STOP`
    (`SMAT`) are carried over guesses from the short-side scripts' route
    conventions -- **DAS route codes are broker-specific and not documented
    in the CMD API manual**, so these need a real confirmation (or a small
    live test with 1 share) before trusting them at size. Edit the constants
-   near the top of `ep_long_engine.py` if your broker uses different codes
+   near the top of `ep_long_daily.py` if your broker uses different codes
    for buy-side vs. sell-side or for stop vs. limit orders.
 
-5. **Run it once by hand first**: `python ep_long_engine.py`. It runs a
+5. **Run it once by hand first**: `python ep_long_daily.py`. It runs a
    startup self-test against literal sample lines from the CMD API manual
    (order/trade/bar/position/account-info field positions) and refuses to
    start if any of those assumptions don't hold. Watch the console/log for
    the reconciliation output and the "Started" Discord message.
 
-6. **Task Scheduler**: since Task Scheduler already manages the short-side
-   `launcher.py` on this VPS, add a task for this engine too:
-   - Trigger: **At startup** (covers the weekend maintenance reboot) and
-     optionally also **daily at ~8:45 AM ET** with "if the task is already
-     running, do nothing" -- this way a crash gets picked back up same-day
-     without creating a duplicate if it's still alive.
-   - Action: run `python.exe` with `ep_long_engine.py` as the argument and
+6. **Task Scheduler** (for `ep_long_daily.py` -- the one you actually run):
+   - Trigger: **daily at ~09:20 ET**, weekdays. It idles until 09:29:30 for
+     the Entry Sheet read, then handles the rest of the day, and exits
+     cleanly around 16:15 ET -- so this single daily trigger is all you
+     need (no "at startup" trigger required the way a continuous process
+     would want, though adding one as a same-day crash-recovery net is
+     harmless: `wait_for_das_port` makes it tolerant of firing before DAS
+     has finished logging in, and the singleton lock prevents a duplicate
+     if the scheduled instance is still alive).
+   - Action: run `python.exe` with `ep_long_daily.py` as the argument and
      this folder as the working directory.
-   - The engine's own singleton lock (`ep_long_engine.lock` in `%TEMP%`)
-     prevents two copies from running simultaneously regardless.
+   - Its own singleton lock (`ep_long_daily.lock` in `%TEMP%`, separate from
+     `ep_long_engine.py`'s) prevents two copies from running simultaneously.
 
 ## Known simplifications / things to watch (read before trusting this at size)
 
@@ -198,12 +239,19 @@ of each.
 
 ## Files in this folder
 
-- `ep_long_engine.py` -- the engine (everything above).
+- `ep_long_daily.py` -- **the one you run.** Daily lifecycle, trigger-price-
+  anchored sizing/stop, size reconciliation (see "Which script to run").
+- `ep_long_engine.py` -- unused backup/reference (continuous process,
+  fill-price-anchored stop). Not launched, not maintained going forward.
 - `notify_discord.py` -- identical copy of the short-side system's Discord
   webhook helper (shares the same cross-process rate limiter in `%TEMP%`).
-- `.env.example` -- template; copy to `.env` and fill in (gitignored).
+- `.env.example` -- template; copy to `.env` and fill in (gitignored). Both
+  scripts read the same `.env`.
 - `credentials.json` -- you provide this (Google service-account key,
-  gitignored).
-- `state/ep_long_state.json` -- persisted watches/positions (gitignored,
-  created automatically).
-- `logs/` -- daily tee'd terminal output (gitignored, created automatically).
+  gitignored). Shared by both scripts.
+- `state/ep_long_daily_state.json` -- `ep_long_daily.py`'s persisted
+  watches/positions (gitignored, created automatically). `ep_long_engine.py`
+  uses a separate `state/ep_long_state.json` so the two never collide even
+  if both were somehow launched.
+- `logs/` -- daily tee'd terminal output per script (`ep_long_daily_*.txt` /
+  `ep_long_*.txt`), gitignored, created automatically.
