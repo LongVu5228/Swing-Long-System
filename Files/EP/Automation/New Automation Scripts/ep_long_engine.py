@@ -103,9 +103,41 @@ MAX_SHARES_CAP = 1_000_000
 
 # ===== GOOGLE SHEETS =====
 SHEET_CREDENTIALS_FILE = os.environ.get("SHEET_CREDENTIALS_FILE", "credentials.json")
-SHEET_NAME = os.environ.get("GOOGLE_SHEET_NAME", "EP Long Entry Sheet")
-SHEET_TAB_INDEX = 0
-TRADE_LOG_WORKSHEET = os.environ.get("TRADE_LOG_WORKSHEET", "EP Long Trade Log")
+SHEET_ID = os.environ.get("GOOGLE_SHEET_ID", "").strip()  # preferred: the id from the sheet's URL (.../d/<ID>/edit)
+SHEET_NAME = os.environ.get("GOOGLE_SHEET_NAME", "Swing Algo Entry Sheet")  # fallback if GOOGLE_SHEET_ID is unset
+
+# Four tabs: "Entry Sheet" is the only one you edit (input); the other three are
+# fully bot-managed live views, rebuilt from in-memory state on every change.
+ENTRY_SHEET_WORKSHEET = "Entry Sheet"
+WATCH_LIST_WORKSHEET = "Current Watch List"
+POSITIONS_WORKSHEET = "Current Positions"
+HISTORY_WORKSHEET = "History"
+
+_READONLY_SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly", "https://www.googleapis.com/auth/drive.readonly"]
+_READWRITE_SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+
+
+def _sheets_client(write: bool = False) -> gspread.Client:
+    scopes = _READWRITE_SCOPES if write else _READONLY_SCOPES
+    json_path = os.path.join(_SCRIPT_DIR, SHEET_CREDENTIALS_FILE)
+    creds = Credentials.from_service_account_file(json_path, scopes=scopes)
+    return gspread.authorize(creds)
+
+
+def _open_sheet(client: gspread.Client):
+    """Opens by GOOGLE_SHEET_ID (robust -- survives renames, no name-collision risk)
+    if set, else falls back to matching by GOOGLE_SHEET_NAME."""
+    if SHEET_ID:
+        return client.open_by_key(SHEET_ID)
+    return client.open(SHEET_NAME)
+
+
+def _col_letter(n: int) -> str:
+    letters = ""
+    while n > 0:
+        n, rem = divmod(n - 1, 26)
+        letters = chr(65 + rem) + letters
+    return letters
 
 # =========================
 # STRATEGY CONFIG -- Chosen One #4 (see module docstring)
@@ -169,7 +201,6 @@ def save_state(state: dict) -> None:
 class WatchStatus(str, Enum):
     PENDING_OR = "PENDING_OR"   # before the opening-range window has closed
     ARMED = "ARMED"             # buy-stop resting at the broker
-    ERROR = "ERROR"             # invalid geometry / no OR data -- will not be retried automatically
 
 
 # =========================
@@ -417,22 +448,18 @@ def add_trading_days(d: date, n: int) -> date:
 
 
 # =========================
-# GOOGLE SHEETS -- candidate read + optional trade log write
+# GOOGLE SHEETS -- "Entry Sheet" (input) + "Current Watch List" / "Current Positions" /
+# "History" (bot-managed output views)
 # =========================
-_trade_log_broken = False
-
-
 def get_candidates_from_sheet() -> List[dict]:
-    """Reads the 'EP Long Entry Sheet' (tab 0). Required columns (case-insensitive):
-    Ticker, Reaction Date, ADR14 %, Chart Pattern, Enabled. 'Gap %' is optional/informational.
+    """Reads the 'Entry Sheet' tab. Columns (case-insensitive): Ticker, Gap %, ADR14 %,
+    Chart Pattern, Enabled. No date column -- a row present here is always treated as
+    TODAY's candidate (you add it the morning of the EP). The caller clears every row
+    it processes -- armed, skipped, or rejected -- so nothing ever lingers to be
+    wrongly treated as a fresh candidate tomorrow.
     """
-    scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly", "https://www.googleapis.com/auth/drive.readonly"]
-    json_path = os.path.join(_SCRIPT_DIR, SHEET_CREDENTIALS_FILE)
-    creds = Credentials.from_service_account_file(json_path, scopes=scopes)
-    client = gspread.authorize(creds)
-    ws = client.open(SHEET_NAME).get_worksheet(SHEET_TAB_INDEX)
-    if ws is None:
-        return []
+    client = _sheets_client(write=False)
+    ws = _open_sheet(client).worksheet(ENTRY_SHEET_WORKSHEET)
     rows = ws.get_all_values()
     if len(rows) < 2:
         return []
@@ -442,66 +469,187 @@ def get_candidates_from_sheet() -> List[dict]:
         return header.index(name) if name in header else None
 
     i_ticker = col("ticker")
-    i_date = col("reaction date")
+    i_gap = col("gap %")
     i_adr = col("adr14 %")
     i_pattern = col("chart pattern")
     i_enabled = col("enabled")
-    required = [i_ticker, i_date, i_adr, i_pattern, i_enabled]
+    required = [i_ticker, i_adr, i_pattern, i_enabled]
     if None in required:
-        print("ERROR: EP Long sheet missing a required column (Ticker / Reaction Date / ADR14 % / Chart Pattern / Enabled).")
+        print("ERROR: Entry Sheet missing a required column (Ticker / ADR14 % / Chart Pattern / Enabled).")
         return []
 
     out = []
-    width = max(x for x in required if x is not None) + 1
-    for r in rows[1:]:
+    width = max(x for x in (required + [i_gap]) if x is not None) + 1
+    for sheet_row, r in enumerate(rows[1:], start=2):
         r = r + [""] * (width - len(r))
         ticker = r[i_ticker].strip().upper()
-        date_str = r[i_date].strip()
         pattern = r[i_pattern].strip().upper()
         enabled = r[i_enabled].strip().lower()
+        if not (ticker and enabled in ("true", "t", "1", "yes", "y")):
+            continue  # blank / not-yet-enabled rows are left alone, not consumed
         try:
             adr14_pct = float(r[i_adr].replace("%", "").strip()) / 100.0
         except ValueError:
             adr14_pct = None
-        if not (ticker and date_str and adr14_pct and enabled in ("true", "t", "1", "yes", "y")):
-            continue
-        if pattern in DT_FAMILY_PATTERNS:
-            continue  # backtest-confirmed exclusion (session dump sec. 3) -- applied here, not inside the sim engine
-        day0 = None
-        for fmt in ("%m/%d/%Y", "%Y-%m-%d"):
+        gap_pct = None
+        if i_gap is not None:
             try:
-                day0 = datetime.strptime(date_str, fmt).date()
-                break
+                gap_pct = float(r[i_gap].replace("%", "").strip())
             except ValueError:
-                continue
-        if day0 is None:
-            continue
-        out.append({"ticker": ticker, "day0": day0, "adr14_pct": adr14_pct, "chart_pattern": pattern})
+                gap_pct = None
+        out.append(
+            {"row": sheet_row, "ticker": ticker, "gap_pct": gap_pct, "adr14_pct": adr14_pct, "chart_pattern": pattern}
+        )
     return out
 
 
-def log_trade_event_to_sheet(event: str, ticker: str, shares: int, price: float, note: str = "") -> None:
-    global _trade_log_broken
-    if _trade_log_broken:
+def clear_entry_sheet_rows(row_indices: List[int]) -> None:
+    if not row_indices:
         return
     try:
-        scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-        json_path = os.path.join(_SCRIPT_DIR, SHEET_CREDENTIALS_FILE)
-        creds = Credentials.from_service_account_file(json_path, scopes=scopes)
-        client = gspread.authorize(creds)
-        ws = client.open(SHEET_NAME).worksheet(TRADE_LOG_WORKSHEET)
+        client = _sheets_client(write=True)
+        ws = _open_sheet(client).worksheet(ENTRY_SHEET_WORKSHEET)
+        ws.batch_clear([f"A{r}:E{r}" for r in row_indices])
+    except Exception as e:
+        notify(f"Failed to clear processed Entry Sheet row(s): {e}", title="EP Long -- Sheet Error", color=0xF39C12)
+
+
+def _rebuild_worksheet_rows(worksheet_name: str, rows: List[list], num_cols: int) -> None:
+    """Shared helper for the two 'live view' tabs (Watch List, Positions): clears all
+    data rows (row 2+) then writes `rows` starting at A2 -- always a full snapshot of
+    current in-memory state, never incrementally edited, so the sheet can't drift."""
+    client = _sheets_client(write=True)
+    ws = _open_sheet(client).worksheet(worksheet_name)
+    existing = ws.get_all_values()
+    existing_rows = max(0, len(existing) - 1)
+    last_col = _col_letter(num_cols)
+    if existing_rows:
+        ws.batch_clear([f"A2:{last_col}{1 + existing_rows}"])
+    if rows:
+        # RAW, not USER_ENTERED: these rows mix native numbers with decorated display
+        # strings like "+8.5%" / "$10,850.00" -- USER_ENTERED's auto-parsing mangles a
+        # leading "+" on a percent string into a bare decimal (confirmed: "+8.5%" -> "0.085").
+        # RAW guarantees exactly what we computed is exactly what's displayed.
+        ws.update(rows, f"A2:{last_col}{1 + len(rows)}", value_input_option="RAW")
+
+
+def sync_watch_list_sheet(state: dict) -> None:
+    try:
+        today = datetime.now(ET).date()
+        rows = []
+        for w in state["watches"].values():
+            if w["status"] != WatchStatus.ARMED.value:
+                continue
+            expiry_str = w.get("expiry_date") or ""
+            days_left = ""
+            if expiry_str:
+                try:
+                    days_left = (datetime.strptime(expiry_str, "%Y-%m-%d").date() - today).days
+                except ValueError:
+                    days_left = ""
+            rows.append(
+                [
+                    w["ticker"], w["day0"], w.get("or_high", ""), w.get("trigger_price", ""),
+                    w.get("planned_shares", ""), "Buy Stop -> Market", ROUTE_ENTRY,
+                    expiry_str, days_left, "Watching",
+                ]
+            )
+        _rebuild_worksheet_rows(WATCH_LIST_WORKSHEET, rows, 10)
+    except Exception as e:
+        notify(f"Failed to sync 'Current Watch List' tab: {e}", title="EP Long -- Sheet Sync Error", color=0xF39C12)
+
+
+def sync_positions_sheet(state: dict) -> None:
+    try:
+        rows = []
+        for p in state["positions"].values():
+            entry_fill = p["entry_fill"]
+            shares_total = p["shares_total"]
+            shares_rem = p["shares_remaining"]
+            position_size = entry_fill * shares_total
+            r_risk = p.get("r_risk_amount", 0.0)
+            remaining_pct = (shares_rem / shares_total * 100) if shares_total else 0
+            last_price = last_price_cache.get(p["ticker"])
+            current_size = shares_rem * last_price if last_price is not None else ""
+            unrealized_pct = ((last_price - entry_fill) / entry_fill * 100) if last_price is not None else ""
+            core_shares = round(shares_total * CORE_PCT)
+            targets = []
+            for rung in p["ladder"]:
+                tag = " ✓ Filled" if rung["filled"] else ""
+                targets.append(f"${rung['price']:.2f}{tag}")
+            while len(targets) < len(LADDER_PCTS):
+                targets.append("")
+            rows.append(
+                [
+                    p["ticker"], p["entry_date"], entry_fill, shares_total,
+                    f"${position_size:,.2f}", f"${r_risk:,.2f}",
+                    shares_rem, f"{remaining_pct:.0f}%",
+                    f"${current_size:,.2f}" if current_size != "" else "",
+                    core_shares, p["stop_price"],
+                    "Breakeven" if p["breakeven_applied"] else "Initial ADR Stop",
+                    *targets,
+                    p.get("last_close", ""), p.get("last_sma", ""),
+                    f"{p['last_dist_pct']:+.1f}%" if p.get("last_dist_pct") is not None else "",
+                    f"{unrealized_pct:+.1f}%" if unrealized_pct != "" else "",
+                ]
+            )
+        _rebuild_worksheet_rows(POSITIONS_WORKSHEET, rows, 21)
+    except Exception as e:
+        notify(f"Failed to sync 'Current Positions' tab: {e}", title="EP Long -- Sheet Sync Error", color=0xF39C12)
+
+
+def history_add_entry(
+    ticker: str, entry_date: str, chart_pattern: str, gap_pct: Optional[float],
+    adr14_pct: float, entry_price: float, shares: int, r_risk: float,
+) -> None:
+    try:
+        client = _sheets_client(write=True)
+        ws = _open_sheet(client).worksheet(HISTORY_WORKSHEET)
         ws.append_row(
-            [datetime.now(ET).strftime("%Y-%m-%d %H:%M:%S"), event, ticker, shares, price, note],
+            [
+                entry_date, ticker, chart_pattern, gap_pct if gap_pct is not None else "",
+                round(adr14_pct * 100, 2), entry_price, shares, round(r_risk, 2), "", "", "", "",
+            ],
             table_range="A1",
             value_input_option="USER_ENTERED",
         )
     except Exception as e:
-        _trade_log_broken = True
-        notify(
-            f"Trade-log sheet write failed ({e}) -- disabling further sheet logging this session. Discord remains the record.",
-            title="EP Long -- Trade Log Sheet Error",
-            color=0xF39C12,
+        notify(f"Failed to add '{ticker}' to History tab: {e}", title="EP Long -- Sheet Error", color=0xF39C12)
+
+
+def history_close_entry(
+    ticker: str, entry_date: str, exit_date: str, exit_reason: str,
+    realized_pl: float, realized_r: Optional[float],
+) -> None:
+    try:
+        client = _sheets_client(write=True)
+        ws = _open_sheet(client).worksheet(HISTORY_WORKSHEET)
+        col_a = ws.col_values(1)  # Entry Date
+        col_b = ws.col_values(2)  # Ticker
+        target_row = None
+        for i in range(len(col_b) - 1, 0, -1):  # search from the bottom -- most recent match wins
+            if col_b[i] == ticker and col_a[i] == entry_date:
+                target_row = i + 1
+                break
+        # Realized R/P&L stay real numbers here (not decorated strings like the two
+        # dashboard tabs use) -- History's whole point is later filtering/summing/
+        # averaging in Sheets, which needs actual numeric cells, not text.
+        realized_r_val = round(realized_r, 4) if realized_r is not None else ""
+        if target_row is None:
+            # Shouldn't normally happen (history_add_entry runs at entry) -- append rather than lose the record.
+            ws.append_row(
+                [entry_date, ticker, "", "", "", "", "", "", exit_date, exit_reason, round(realized_pl, 2), realized_r_val],
+                table_range="A1",
+                value_input_option="USER_ENTERED",
+            )
+            return
+        ws.update(
+            f"I{target_row}:L{target_row}",
+            [[exit_date, exit_reason, round(realized_pl, 2), realized_r_val]],
+            value_input_option="USER_ENTERED",
         )
+    except Exception as e:
+        notify(f"Failed to update '{ticker}' History row at close: {e}", title="EP Long -- Sheet Error", color=0xF39C12)
 
 
 # =========================
@@ -610,18 +758,42 @@ def refresh_candidates(sock: socket.socket, state: dict) -> None:
     except Exception as e:
         notify(f"EP Long sheet read failed: {e}", title="EP Long -- Sheet Error", color=0xE74C3C)
         return
+    if not candidates:
+        return
+
     today = datetime.now(ET).date()
-    added = []
+    window_close_hhmm = add_minutes_to_time_str("09:30:00", ENTRY_TF_MIN)[:5]  # e.g. "10:30"
+    armed_msgs: List[str] = []
+    processed_rows: List[int] = []
+
     for c in candidates:
         ticker = c["ticker"]
-        if c["day0"] != today:
-            continue  # OR can only be computed live on D0 itself -- a stale sheet row is not retroactively armed
-        if ticker in state["watches"] or ticker in state["positions"]:
+        processed_rows.append(c["row"])
+
+        if c["chart_pattern"] in DT_FAMILY_PATTERNS:
+            notify(
+                f"{ticker}: Chart Pattern '{c['chart_pattern']}' is in the excluded DT family -- not armed.",
+                title="EP Long -- Candidate Skipped", color=0x95A5A6,
+            )
             continue
+        if c["adr14_pct"] is None:
+            notify(
+                f"{ticker}: ADR14 % missing/invalid on Entry Sheet -- not armed.",
+                title="EP Long -- Candidate Skipped", color=0xE67E22,
+            )
+            continue
+        if ticker in state["watches"] or ticker in state["positions"]:
+            notify(
+                f"{ticker}: already has an open watch or position -- duplicate Entry Sheet row ignored.",
+                title="EP Long -- Candidate Skipped", color=0x95A5A6,
+            )
+            continue
+
         watch = {
             "ticker": ticker,
             "day0": today.strftime("%Y-%m-%d"),
             "adr14_pct": c["adr14_pct"],
+            "gap_pct": c["gap_pct"],
             "chart_pattern": c["chart_pattern"],
             "status": WatchStatus.PENDING_OR.value,
             "or_high": None,
@@ -631,20 +803,28 @@ def refresh_candidates(sock: socket.socket, state: dict) -> None:
             "entry_order_token": None,
             "entry_order_id": None,
             "expiry_date": None,
-            "last_error": None,
         }
         state["watches"][ticker] = watch
         send_line(sock, f"SB {ticker} Lv1")
         send_line(sock, f"SB {ticker} tms")
-        now = datetime.now(ET)
-        if now.strftime("%H:%M:%S") > "09:30:05":
-            backfilled = backfill_or_from_minchart(sock, ticker, today, now.strftime("%H:%M"))
+
+        now_hhmm = datetime.now(ET).strftime("%H:%M")
+        if now_hhmm > "09:30":
+            # Cap the backfill window at the true OR close -- a candidate added at
+            # 2pm must still get the FIRST 60 minutes' high, not "everything so far."
+            backfill_end = min(now_hhmm, window_close_hhmm)
+            backfilled = backfill_or_from_minchart(sock, ticker, today, backfill_end)
             if backfilled:
                 or_high_tracker[ticker] = backfilled
-        added.append(ticker)
-    if added:
+        armed_msgs.append(ticker)
+
+    if armed_msgs:
         save_state(state)
-        notify(f"New EP long candidate(s) armed for today's OR watch: {', '.join(added)}.", title="EP Long -- New Candidates", color=0x3498DB)
+        notify(
+            f"New EP long candidate(s) taken from Entry Sheet, watching today's OR: {', '.join(armed_msgs)}.",
+            title="EP Long -- New Candidates", color=0x3498DB,
+        )
+    clear_entry_sheet_rows(processed_rows)
 
 
 def on_tick_price(state: dict, ticker: str, price: float, ts_time: str) -> None:
@@ -669,6 +849,7 @@ def finalize_or_and_arm_entries(sock: socket.socket, state: dict, now: datetime)
     if hhmmss < window_close_str:
         return
     today_str = now.strftime("%Y-%m-%d")
+    any_armed = False
     for ticker, watch in list(state["watches"].items()):
         if watch["status"] != WatchStatus.PENDING_OR.value or watch["day0"] != today_str:
             continue
@@ -679,8 +860,7 @@ def finalize_or_and_arm_entries(sock: socket.socket, state: dict, now: datetime)
                 title="EP Long -- OR Failed",
                 color=0xE67E22,
             )
-            watch["status"] = WatchStatus.ERROR.value
-            watch["last_error"] = "no_or_ticks"
+            state["watches"].pop(ticker, None)
             save_state(state)
             continue
 
@@ -693,8 +873,7 @@ def finalize_or_and_arm_entries(sock: socket.socket, state: dict, now: datetime)
                 title="EP Long -- Invalid Stop Geometry",
                 color=0xE74C3C,
             )
-            watch["status"] = WatchStatus.ERROR.value
-            watch["last_error"] = "invalid_stop_geometry"
+            state["watches"].pop(ticker, None)
             save_state(state)
             continue
 
@@ -719,12 +898,15 @@ def finalize_or_and_arm_entries(sock: socket.socket, state: dict, now: datetime)
         token = place_entry_watch_order(sock, ticker, shares, trigger)
         watch["entry_order_token"] = token
         save_state(state)
+        any_armed = True
         notify(
             f"{ticker}: {ENTRY_TF_MIN}m OR high = ${or_high:.2f}. Buy-stop ARMED @ ${trigger:.2f} x {shares}sh "
             f"(risk ${risk_dollars:,.2f}, planned stop ${planned_stop:.2f}). Watching through {expiry.isoformat()}.",
             title="EP Long -- Entry Armed",
             color=0x3498DB,
         )
+    if any_armed:
+        sync_watch_list_sheet(state)
 
 
 def watch_day0(watch: dict) -> date:
@@ -732,6 +914,7 @@ def watch_day0(watch: dict) -> date:
 
 
 def expire_stale_watches(sock: socket.socket, state: dict, now: datetime) -> None:
+    any_expired = False
     for ticker, watch in list(state["watches"].items()):
         if watch["status"] != WatchStatus.ARMED.value or not watch.get("expiry_date"):
             continue
@@ -749,6 +932,9 @@ def expire_stale_watches(sock: socket.socket, state: dict, now: datetime) -> Non
         )
         state["watches"].pop(ticker, None)
         save_state(state)
+        any_expired = True
+    if any_expired:
+        sync_watch_list_sheet(state)
 
 
 # =========================
@@ -757,7 +943,11 @@ def expire_stale_watches(sock: socket.socket, state: dict, now: datetime) -> Non
 def on_entry_filled(sock: socket.socket, state: dict, ticker: str, qty: int, price: float) -> None:
     watch = state["watches"].pop(ticker, None)
     adr14_pct = watch["adr14_pct"] if watch else 0.0
+    chart_pattern = watch["chart_pattern"] if watch else ""
+    gap_pct = watch.get("gap_pct") if watch else None
     stop_price = round(price * (1 - adr14_pct * STOP_ADR_MULT), 2)
+    r_risk_amount = round((price - stop_price) * qty, 2)
+    entry_date = datetime.now(ET).strftime("%Y-%m-%d")
 
     ladder = []
     for pct in LADDER_PCTS:
@@ -770,7 +960,7 @@ def on_entry_filled(sock: socket.socket, state: dict, ticker: str, qty: int, pri
     position = {
         "ticker": ticker,
         "entry_fill": price,
-        "entry_date": datetime.now(ET).strftime("%Y-%m-%d"),
+        "entry_date": entry_date,
         "shares_total": qty,
         "shares_remaining": qty,
         "stop_price": stop_price,
@@ -779,17 +969,25 @@ def on_entry_filled(sock: socket.socket, state: dict, ticker: str, qty: int, pri
         "breakeven_applied": False,
         "ladder": ladder,
         "adr14_pct": adr14_pct,
+        "chart_pattern": chart_pattern,
+        "gap_pct": gap_pct,
+        "r_risk_amount": r_risk_amount,
+        "realized_pl": 0.0,
+        "last_close": None,
+        "last_sma": None,
+        "last_dist_pct": None,
     }
     state["positions"][ticker] = position
     save_state(state)
 
     ladder_desc = ", ".join(f"+{p*100:.1f}%→${r['price']:.2f} ({r['shares']}sh)" for p, r in zip(LADDER_PCTS, ladder))
     notify(
-        f"{ticker}: ENTRY FILLED {qty}sh @ ${price:.2f}. Stop ${stop_price:.2f}. Ladder: {ladder_desc}. Core {CORE_PCT*100:.0f}% rides the {TRAIL_MA_WINDOW}-day SMA trail.",
+        f"{ticker}: ENTRY FILLED {qty}sh @ ${price:.2f}. Stop ${stop_price:.2f} (1R=${r_risk_amount:,.2f}). Ladder: {ladder_desc}. "
+        f"Core {CORE_PCT*100:.0f}% rides the {TRAIL_MA_WINDOW}-day SMA trail.",
         title="EP Long -- Entered",
         color=0x2ECC71,
     )
-    log_trade_event_to_sheet("ENTRY", ticker, qty, price)
+    history_add_entry(ticker, entry_date, chart_pattern, gap_pct, adr14_pct, price, qty, r_risk_amount)
 
     position["stop_order_token"] = place_protective_stop(sock, ticker, qty, stop_price)
     for idx, rung in enumerate(ladder):
@@ -797,6 +995,8 @@ def on_entry_filled(sock: socket.socket, state: dict, ticker: str, qty: int, pri
             continue
         rung["order_token"] = place_ladder_rung(sock, ticker, rung["shares"], rung["price"], idx)
     save_state(state)
+    sync_watch_list_sheet(state)  # this ticker just left the watch list...
+    sync_positions_sheet(state)   # ...and now appears here
 
 
 def on_rung_filled(sock: socket.socket, state: dict, ticker: str, rung_idx: int, qty: int, price: float) -> None:
@@ -807,13 +1007,13 @@ def on_rung_filled(sock: socket.socket, state: dict, ticker: str, rung_idx: int,
     rung["filled"] = True
     rung["filled_shares"] = rung.get("filled_shares", 0) + qty
     pos["shares_remaining"] = max(0, pos["shares_remaining"] - qty)
+    pos["realized_pl"] = pos.get("realized_pl", 0.0) + (price - pos["entry_fill"]) * qty
 
     notify(
         f"{ticker}: ladder rung {rung_idx+1}/5 (+{LADDER_PCTS[rung_idx]*100:.1f}%) filled {qty}sh @ ${price:.2f}. Remaining: {pos['shares_remaining']}sh.",
         title="EP Long -- Partial Sold",
         color=0x2ECC71,
     )
-    log_trade_event_to_sheet("PARTIAL", ticker, qty, price, note=f"rung {rung_idx+1}")
 
     if not pos["breakeven_applied"]:
         pos["breakeven_applied"] = True
@@ -824,6 +1024,17 @@ def on_rung_filled(sock: socket.socket, state: dict, ticker: str, rung_idx: int,
     if stop_order_id and pos["shares_remaining"] > 0:
         send_line(sock, f"REPLACE {stop_order_id} {pos['shares_remaining']} STOPMKT {pos['stop_price']:.2f}")
     save_state(state)
+    sync_positions_sheet(state)
+
+
+def _finalize_history_close(pos: dict, exit_reason: str) -> None:
+    r_risk = pos.get("r_risk_amount") or 0.0
+    realized_pl = pos.get("realized_pl", 0.0)
+    realized_r = (realized_pl / r_risk) if r_risk else None
+    history_close_entry(
+        pos["ticker"], pos["entry_date"], datetime.now(ET).strftime("%Y-%m-%d"),
+        exit_reason, realized_pl, realized_r,
+    )
 
 
 def on_stop_filled(sock: socket.socket, state: dict, ticker: str, qty: int, price: float) -> None:
@@ -831,10 +1042,12 @@ def on_stop_filled(sock: socket.socket, state: dict, ticker: str, qty: int, pric
     if not pos:
         return
     pos["shares_remaining"] = max(0, pos["shares_remaining"] - qty)
+    pos["realized_pl"] = pos.get("realized_pl", 0.0) + (price - pos["entry_fill"]) * qty
     notify(f"{ticker}: STOPPED OUT {qty}sh @ ${price:.2f}.", title="EP Long -- Stopped Out", color=0xE74C3C)
-    log_trade_event_to_sheet("STOP", ticker, qty, price)
     _cancel_remaining_ladder(sock, pos)
+    _finalize_history_close(pos, "Stopped Out")
     close_position(state, ticker, "stopped_out")
+    sync_positions_sheet(state)
 
 
 def on_trail_exit_filled(sock: socket.socket, state: dict, ticker: str, qty: int, price: float) -> None:
@@ -842,9 +1055,11 @@ def on_trail_exit_filled(sock: socket.socket, state: dict, ticker: str, qty: int
     if not pos:
         return
     pos["shares_remaining"] = max(0, pos["shares_remaining"] - qty)
+    pos["realized_pl"] = pos.get("realized_pl", 0.0) + (price - pos["entry_fill"]) * qty
     notify(f"{ticker}: TRAIL EXIT filled {qty}sh @ ${price:.2f} (close below {TRAIL_MA_WINDOW}-day SMA).", title="EP Long -- Trail Exit Filled", color=0xE67E22)
-    log_trade_event_to_sheet("TRAIL_EXIT", ticker, qty, price)
+    _finalize_history_close(pos, "Trail Exit (20MA)")
     close_position(state, ticker, "trail_exit")
+    sync_positions_sheet(state)
 
 
 def _cancel_remaining_ladder(sock: socket.socket, pos: dict) -> None:
@@ -868,7 +1083,8 @@ def close_position(state: dict, ticker: str, reason: str) -> None:
 # =========================
 # DAILY TRAILING-STOP (close-below-SMA) CHECK
 # =========================
-def check_daily_trail_exit(sock: socket.socket, ticker: str) -> Tuple[bool, Optional[float]]:
+def check_daily_trail_exit(sock: socket.socket, pos: dict) -> Tuple[bool, Optional[float]]:
+    ticker = pos["ticker"]
     bars = fetch_daily_closes(sock, ticker)
     today = datetime.now(ET).date()
     prior_closes = [c for d, c in bars if d < today]
@@ -880,12 +1096,15 @@ def check_daily_trail_exit(sock: socket.socket, ticker: str) -> Tuple[bool, Opti
     if est_close is None:
         return False, None
     sma = (sum(prior_closes) + est_close) / TRAIL_MA_WINDOW
+    pos["last_close"] = est_close
+    pos["last_sma"] = round(sma, 4)
+    pos["last_dist_pct"] = ((est_close - sma) / sma * 100) if sma else None
     return est_close < sma, est_close
 
 
 def run_daily_close_checks(sock: socket.socket, state: dict) -> None:
     for ticker, pos in list(state["positions"].items()):
-        exit_needed, est_close = check_daily_trail_exit(sock, ticker)
+        exit_needed, est_close = check_daily_trail_exit(sock, pos)
         if exit_needed and est_close is not None:
             _cancel_remaining_ladder(sock, pos)
             stop_order_id = pos.get("stop_order_id") or token_to_order_id.get(pos.get("stop_order_token"))
@@ -898,6 +1117,8 @@ def run_daily_close_checks(sock: socket.socket, state: dict) -> None:
                 title="EP Long -- Trail Exit Triggered",
                 color=0xE67E22,
             )
+    save_state(state)
+    sync_positions_sheet(state)
 
 
 # =========================
@@ -1104,6 +1325,7 @@ def main() -> None:
         buf = b""
         last_ping = time.time()
         last_sheet_refresh_ts = 0.0
+        last_positions_sync_ts = 0.0
         last_close_check_date = state.get("last_close_check_date")
         last_heartbeat_hour = -1
 
@@ -1120,7 +1342,10 @@ def main() -> None:
             for line in lines:
                 dispatch_line(sock, state, line)
 
-            if weekday_ok and "08:55:00" <= hhmmss <= "10:35:00" and (time.time() - last_sheet_refresh_ts) > 120:
+            # Runs all day (not just the morning) so a candidate you add mid-afternoon
+            # still gets picked up same-day -- finalize_or_and_arm_entries below caps
+            # the OR window to the true first-60-minutes regardless of when it's added.
+            if weekday_ok and "08:55:00" <= hhmmss <= "16:00:00" and (time.time() - last_sheet_refresh_ts) > 120:
                 refresh_candidates(sock, state)
                 last_sheet_refresh_ts = time.time()
 
@@ -1134,6 +1359,13 @@ def main() -> None:
                 last_close_check_date = today_key
                 state["last_close_check_date"] = today_key
                 save_state(state)
+
+            # Periodic refresh (independent of fill events) so Current Position Size /
+            # Unrealized % on the sheet track live price throughout the day, not just
+            # at the moment of the last fill.
+            if weekday_ok and state["positions"] and (time.time() - last_positions_sync_ts) > 300:
+                sync_positions_sheet(state)
+                last_positions_sync_ts = time.time()
 
             if now.minute == 0 and now.second < 2 and last_heartbeat_hour != now.hour:
                 notify(

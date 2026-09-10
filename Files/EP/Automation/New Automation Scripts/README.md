@@ -20,27 +20,43 @@ once filled a position can be held for weeks riding a trailing stop.
 
 ## How it works
 
-1. Each morning you add a row to the **EP Long Entry Sheet** Google Sheet
-   (ticker, reaction date, ADR14 %, chart pattern, enabled). The engine reads
-   it -- you don't need to run anything else.
-2. For each new D0 candidate (today's date), the engine subscribes to
-   time & sales and tracks the high of the first 60 minutes (9:30-10:30 ET).
-3. At 10:30:00 ET it computes the breakout trigger (OR high + $0.01), sizes
+The Google Sheet has 4 tabs. You only ever touch the first one; the other
+three are fully bot-managed live views, rebuilt from the engine's own state
+on every change -- see "Google Sheet tabs" below for the full column layout
+of each.
+
+1. The morning of an EP, you add a row to the **Entry Sheet** tab (ticker,
+   gap %, ADR14 %, chart pattern, enabled) -- no date column needed, a row
+   present here is always "today's" candidate. The engine picks it up,
+   subscribes to time & sales, and tracks the high of the first 60 minutes
+   (9:30-10:30 ET). Every row it processes -- armed, skipped, or rejected --
+   gets cleared from Entry Sheet immediately, so nothing lingers to be
+   wrongly re-armed tomorrow.
+2. At 10:30:00 ET it computes the breakout trigger (OR high + $0.01), sizes
    the position off your account equity and the ADR-based stop distance, and
    places a **buy-stop** order good for up to 8 trading sessions (D0..D0+7).
-   If it never fills, the order is canceled and the candidate drops.
-4. On fill: places a protective stop-market order (`entry_fill * (1 - ADR14 * 0.50)`)
+   While that order rests unfilled, it shows up on the **Current Watch List**
+   tab. If it never fills, the order is canceled, the candidate drops off
+   Watch List, and you get a Discord alert.
+3. On fill: places a protective stop-market order (`entry_fill * (1 - ADR14 * 0.50)`)
    and 5 resting limit sell orders (the "ladder") at +20/27.5/35/42.5/50% off
    entry, each for 10% of the original share count. The remaining 50% ("core")
-   never gets a ladder order.
-5. The moment the first ladder rung fills, the stop is replaced to breakeven
-   (`entry_fill`) for whatever shares remain, permanently.
-6. Every trading day, a few minutes before the close, the engine checks
+   never gets a ladder order. The ticker moves from Watch List onto the
+   **Current Positions** tab, and a row is added to **History** (Entry Date
+   through R Risk Amount filled in, Exit columns still blank).
+4. The moment the first ladder rung fills, the stop is replaced to breakeven
+   (`entry_fill`) for whatever shares remain, permanently. Current Positions
+   updates live (which rungs are filled, current stop status, live P&L) --
+   on every fill immediately, plus a background refresh every 5 minutes so
+   Current Position Size / Unrealized % track live price even between fills.
+5. Every trading day, a few minutes before the close, the engine checks
    whether today's close is below the 20-day SMA of closes. If so, it cancels
    the stop and any un-filled ladder rungs and sells everything remaining via
    an `AtClose` order. This is the only way the "core" 50% ever exits, absent
-   a stop-out first.
-7. All of this is persisted to `state/ep_long_state.json` after every change,
+   a stop-out first. Either way the position disappears from Current
+   Positions and its **History** row gets its Exit Date/Reason/P&L/R filled
+   in -- nothing is ever deleted from History, it's the permanent YTD record.
+6. All of this is persisted to `state/ep_long_state.json` after every change,
    and reconciled against DAS's own `GET POSITIONS`/`GET ORDERS` on every
    startup -- so a crash, a manual restart, or the weekend maintenance reboot
    (`WeekendWindowsMaintenance.ps1`) doesn't lose track of anything. If a
@@ -64,37 +80,63 @@ once filled a position can be held for weeks riding a trailing stop.
      measures R-multiples), this is a live-trading addition.
    - `DISCORD_WEBHOOK_URL` -- can reuse the short-side system's webhook, or
      use a separate one for a dedicated channel.
-   - `SHEET_CREDENTIALS_FILE` / `GOOGLE_SHEET_NAME` -- Google service-account
-     JSON filename and the sheet name (defaults to `credentials.json` /
-     `EP Long Entry Sheet`).
+   - `SHEET_CREDENTIALS_FILE` -- Google service-account JSON filename
+     (default `credentials.json`).
+   - `GOOGLE_SHEET_ID` -- **preferred**: the ID from the sheet's URL
+     (`.../spreadsheets/d/<THIS PART>/edit`). Robust against renames; set
+     this and `GOOGLE_SHEET_NAME` is ignored. Leave blank to fall back to
+     opening by name instead.
 2. **Put your Google service-account credentials JSON** in this folder,
    named to match `SHEET_CREDENTIALS_FILE` (default `credentials.json`). This
    can be the **same** service account the short-side system uses (it only
-   needs read access to a new sheet you share with it), or a new one.
-3. **Create the Google Sheet** named to match `GOOGLE_SHEET_NAME` (default
-   `EP Long Entry Sheet`), tab 1 (first tab), with header row:
+   needs access to a new sheet you share with it), or a new one.
+3. **Create the Google Sheet** with 4 tabs, exactly named as below (the bot
+   looks tabs up by name, not position). See this folder's draft workbook
+   for a populated example of all 4 -- ask for a fresh copy if you don't
+   have it, or just build the 4 tabs directly from the layout below.
 
-   | Ticker | Reaction Date | Gap % | ADR14 % | Chart Pattern | Enabled |
-   |---|---|---|---|---|---|
+   **Tab 1 -- "Entry Sheet"** (the only one you edit):
 
-   - **Reaction Date**: `MM/DD/YYYY` or `YYYY-MM-DD`, must be **today's**
-     date for the engine to arm a new watch (a stale date is ignored -- the
-     opening range can only be measured live, on the day itself).
-   - **ADR14 %**: as a percent, e.g. `5.2` means 5.2% (matches how the
-     backtest's own EP V5.xlsx source stores it). This is the one number the
-     whole stop calculation depends on -- get it right (14-trading-day
-     average high-low range as % of the pre-gap close; see
+   | Ticker | Gap % | ADR14 % | Chart Pattern | Enabled |
+   |---|---|---|---|---|
+
+   - No date column -- a row present here is always treated as **today's**
+     candidate (add it the morning of the EP). The engine clears every row
+     it processes (armed, skipped, or rejected) so nothing lingers into
+     tomorrow as a false "today" candidate.
+   - **Gap %** is informational only (flows through to History) -- not used
+     in any calculation.
+   - **ADR14 %**: as a percent, e.g. `5.2` means 5.2%. This is the one
+     number the whole stop calculation depends on -- get it right
+     (14-trading-day average high-low range as % of the pre-gap close; see
      `Scripts/build_benzinga_candidate_list.py` for the exact formula if you
      want to automate computing it instead of eyeballing it).
-   - **Chart Pattern**: `DT`, `DT SW`, and `DT U` are automatically excluded
-     (the single highest-leverage filter found in the whole backtest project
-     -- see session dump section 3). Anything else is fine.
-   - **Enabled**: `TRUE`/`FALSE` (or `1`/`yes`).
+   - **Chart Pattern**: kept for record-keeping (flows into History) and as
+     a safety net -- `DT`, `DT SW`, `DT U` are auto-excluded even if
+     `Enabled=TRUE` (the single highest-leverage filter found in the whole
+     backtest project, see session dump section 3), though in practice you
+     shouldn't be entering DT-family tickers yourself.
+   - **Enabled**: `TRUE`/`FALSE` (or `1`/`yes`). A `FALSE` row is left alone
+     (not cleared) so you can flip it on later.
 
-   Optionally add a second sheet/tab named `EP Long Trade Log` (or set
-   `TRADE_LOG_WORKSHEET` to your own name) if you want entries/partials/stops
-   also appended as rows there, in addition to Discord. Not required --
-   Discord is the primary record and this fails soft if the tab is missing.
+   **Tab 2 -- "Current Watch List"** (bot-writes; one row per unfilled
+   resting buy-stop order): Ticker, Armed Date (D0), OR High, Trigger Price,
+   Shares, Order Type (always "Buy Stop -> Market"), Route, Expires On,
+   Days Left, Status.
+
+   **Tab 3 -- "Current Positions"** (bot-writes; one row per open position,
+   the detailed live dashboard): Ticker, Entry Date, Entry Price, Shares
+   (Orig), Original Position Size ($), R Risk Amount ($), Shares Remaining,
+   Shares Remaining %, Current Position Size ($), Core Shares (Riding
+   Trail), Stop Price, Stop Status, Target +20/27.5/35/42.5/50%, Last Close,
+   20D SMA, Dist. to Trail Exit %, Unrealized %.
+
+   **Tab 4 -- "History"** (bot-writes; one permanent row per trade, for
+   life): Entry Date, Ticker, Chart Pattern, Gap %, ADR14 %, Entry Price,
+   Shares (Orig), R Risk Amount ($), Exit Date, Exit Reason, Realized P&L
+   ($), Realized R. Written at entry, then updated in place at exit --
+   Realized P&L/R are kept as real numbers (not decorated strings like the
+   two dashboard tabs) specifically so you can sum/average/pivot them later.
 
 4. **Confirm the order routes.** `ROUTE_ENTRY`, `ROUTE_LADDER`, and
    `ROUTE_EXIT` (all currently defaulted to `PRO20`) and `ROUTE_STOP`
