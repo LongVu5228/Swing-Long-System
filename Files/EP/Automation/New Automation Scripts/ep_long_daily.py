@@ -76,6 +76,10 @@ ET = ZoneInfo("America/New_York")
 # .env LOADING (no hardcoded secrets, no extra dependency)
 # =========================
 def _load_dotenv(path: str) -> None:
+    """.env always wins over whatever's already in the process environment --
+    NOT os.environ.setdefault(). A stray shell-level env var (e.g. left over
+    from testing a different script in the same terminal session) would
+    otherwise silently shadow this file with no indication anything was wrong."""
     if not os.path.isfile(path):
         return
     with open(path, "r", encoding="utf-8") as f:
@@ -88,7 +92,7 @@ def _load_dotenv(path: str) -> None:
             v = v.strip()
             if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'":
                 v = v[1:-1]
-            os.environ.setdefault(k, v)
+            os.environ[k] = v
 
 
 _load_dotenv(os.path.join(_SCRIPT_DIR, ".env"))
