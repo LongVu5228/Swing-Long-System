@@ -212,14 +212,22 @@ STATE_PATH = os.path.join(STATE_DIR, "ep_long_daily_state.json")
 
 def load_state() -> dict:
     if not os.path.isfile(STATE_PATH):
-        return {"watches": {}, "positions": {}, "closed_positions": [], "last_close_check_date": None}
-    with open(STATE_PATH, "r", encoding="utf-8") as f:
-        state = json.load(f)
+        state = {}
+    else:
+        with open(STATE_PATH, "r", encoding="utf-8") as f:
+            state = json.load(f)
     state.setdefault("watches", {})
     state.setdefault("positions", {})
     state.setdefault("closed_positions", [])
     state.setdefault("last_close_check_date", None)
     state.setdefault("last_sheet_read_date", None)
+    state.setdefault("last_eod_sync_date", None)
+    # Buffered writes -- everything below is only actually sent to Google Sheets
+    # once per day, at EOD (run_eod_updates), not as each event happens. Queued
+    # here rather than lost if an EOD pass is somehow skipped a given day.
+    state.setdefault("pending_entry_sheet_clear_rows", [])
+    state.setdefault("pending_history_opens", [])
+    state.setdefault("pending_history_closes", [])
     return state
 
 
@@ -878,7 +886,15 @@ def _finalize_position(sock: socket.socket, state: dict, ticker: str) -> None:
         title="EP Long Daily -- Entered",
         color=0x2ECC71,
     )
-    history_add_entry(ticker, pos["entry_date"], pos["chart_pattern"], pos.get("gap_pct"), pos["adr14_pct"], avg_fill, qty, r_risk_amount)
+    # Queued, not sent now -- History/Watch-List/Positions sheet writes all
+    # happen once, at EOD (run_eod_updates), not as each event occurs.
+    state["pending_history_opens"].append(
+        {
+            "ticker": ticker, "entry_date": pos["entry_date"], "chart_pattern": pos["chart_pattern"],
+            "gap_pct": pos.get("gap_pct"), "adr14_pct": pos["adr14_pct"], "entry_price": avg_fill,
+            "shares": qty, "r_risk": r_risk_amount,
+        }
+    )
 
     if pos.get("stop_order_id"):
         # A reconcile_on_startup interim stop is already resting (crash-recovery
@@ -892,8 +908,6 @@ def _finalize_position(sock: socket.socket, state: dict, ticker: str) -> None:
             continue
         rung["order_token"] = place_ladder_rung(sock, ticker, rung["shares"], rung["price"], idx)
     save_state(state)
-    sync_watch_list_sheet(state)
-    sync_positions_sheet(state)
 
 
 def run_size_reconciliation(sock: socket.socket, state: dict, ticker: str) -> None:
@@ -1055,13 +1069,17 @@ def refresh_candidates(sock: socket.socket, state: dict) -> None:
         send_line(sock, f"SB {ticker} tms")
         armed_msgs.append(ticker)
 
+    # Cleared at EOD (run_eod_updates), not immediately -- consolidates all
+    # Entry Sheet writes into the single once-a-day batch, same as the other tabs.
+    state["pending_entry_sheet_clear_rows"].extend(processed_rows)
     if armed_msgs:
         save_state(state)
         notify(
             f"Entry Sheet read -- watching for the 9:30 gap confirmation: {', '.join(armed_msgs)}.",
             title="EP Long Daily -- Morning Read", color=0x3498DB,
         )
-    clear_entry_sheet_rows(processed_rows)
+    else:
+        save_state(state)
 
 
 def evaluate_gap_confirm(state: dict, ticker: str, open_px: float) -> None:
@@ -1149,7 +1167,6 @@ def finalize_or_and_arm_entries(sock: socket.socket, state: dict, now: datetime)
     if hhmmss < window_close_str:
         return
     today_str = now.strftime("%Y-%m-%d")
-    any_armed = False
     for ticker, watch in list(state["watches"].items()):
         if watch["status"] != WatchStatus.PENDING_OR.value or watch["day0"] != today_str:
             continue
@@ -1199,15 +1216,12 @@ def finalize_or_and_arm_entries(sock: socket.socket, state: dict, now: datetime)
         token = place_entry_watch_order(sock, ticker, shares, trigger)
         watch["entry_order_token"] = token
         save_state(state)
-        any_armed = True
         notify(
             f"{ticker}: {ENTRY_TF_MIN}m OR high = ${or_high:.2f}. Buy-stop ARMED @ ${trigger:.2f} x {shares}sh "
             f"(risk ${risk_dollars:,.2f}, planned stop ${planned_stop:.2f}). Watching through {expiry.isoformat()}.",
             title="EP Long Daily -- Entry Armed",
             color=0x3498DB,
         )
-    if any_armed:
-        sync_watch_list_sheet(state)
 
 
 def watch_day0(watch: dict) -> date:
@@ -1215,7 +1229,6 @@ def watch_day0(watch: dict) -> date:
 
 
 def expire_stale_watches(sock: socket.socket, state: dict, now: datetime) -> None:
-    any_expired = False
     for ticker, watch in list(state["watches"].items()):
         if watch["status"] != WatchStatus.ARMED.value or not watch.get("expiry_date"):
             continue
@@ -1233,9 +1246,6 @@ def expire_stale_watches(sock: socket.socket, state: dict, now: datetime) -> Non
         )
         state["watches"].pop(ticker, None)
         save_state(state)
-        any_expired = True
-    if any_expired:
-        sync_watch_list_sheet(state)
 
 
 # =========================
@@ -1280,7 +1290,6 @@ def on_entry_fill_tick(sock: socket.socket, state: dict, ticker: str, qty: int, 
             "realized_pl": 0.0, "last_close": None, "last_sma": None, "last_dist_pct": None,
         }
         state["positions"][ticker] = pos
-        sync_watch_list_sheet(state)  # this ticker just left the watch list
 
     pos["net_qty"] += qty
     pos["total_cost"] += qty * price
@@ -1348,16 +1357,19 @@ def on_rung_filled(sock: socket.socket, state: dict, ticker: str, rung_idx: int,
     if stop_order_id and pos["shares_remaining"] > 0:
         send_line(sock, f"REPLACE {stop_order_id} {pos['shares_remaining']} STOPMKT {pos['stop_price']:.2f}")
     save_state(state)
-    sync_positions_sheet(state)
 
 
-def _finalize_history_close(pos: dict, exit_reason: str) -> None:
+def _finalize_history_close(state: dict, pos: dict, exit_reason: str) -> None:
+    """Queued, not sent now -- flushed once at EOD by run_eod_updates."""
     r_risk = pos.get("r_risk_amount") or 0.0
     realized_pl = pos.get("realized_pl", 0.0)
     realized_r = (realized_pl / r_risk) if r_risk else None
-    history_close_entry(
-        pos["ticker"], pos["entry_date"], datetime.now(ET).strftime("%Y-%m-%d"),
-        exit_reason, realized_pl, realized_r,
+    state["pending_history_closes"].append(
+        {
+            "ticker": pos["ticker"], "entry_date": pos["entry_date"],
+            "exit_date": datetime.now(ET).strftime("%Y-%m-%d"), "exit_reason": exit_reason,
+            "realized_pl": realized_pl, "realized_r": realized_r,
+        }
     )
 
 
@@ -1369,9 +1381,8 @@ def on_stop_filled(sock: socket.socket, state: dict, ticker: str, qty: int, pric
     pos["realized_pl"] = pos.get("realized_pl", 0.0) + (price - pos["entry_fill"]) * qty
     notify(f"{ticker}: STOPPED OUT {qty}sh @ ${price:.2f}.", title="EP Long Daily -- Stopped Out", color=0xE74C3C)
     _cancel_remaining_ladder(sock, pos)
-    _finalize_history_close(pos, "Stopped Out")
+    _finalize_history_close(state, pos, "Stopped Out")
     close_position(state, ticker, "stopped_out")
-    sync_positions_sheet(state)
 
 
 def on_trail_exit_filled(sock: socket.socket, state: dict, ticker: str, qty: int, price: float) -> None:
@@ -1381,9 +1392,8 @@ def on_trail_exit_filled(sock: socket.socket, state: dict, ticker: str, qty: int
     pos["shares_remaining"] = max(0, pos["shares_remaining"] - qty)
     pos["realized_pl"] = pos.get("realized_pl", 0.0) + (price - pos["entry_fill"]) * qty
     notify(f"{ticker}: TRAIL EXIT filled {qty}sh @ ${price:.2f} (close below {TRAIL_MA_WINDOW}-day SMA).", title="EP Long Daily -- Trail Exit Filled", color=0xE67E22)
-    _finalize_history_close(pos, "Trail Exit (20MA)")
+    _finalize_history_close(state, pos, "Trail Exit (20MA)")
     close_position(state, ticker, "trail_exit")
-    sync_positions_sheet(state)
 
 
 def _cancel_remaining_ladder(sock: socket.socket, pos: dict) -> None:
@@ -1444,7 +1454,35 @@ def run_daily_close_checks(sock: socket.socket, state: dict) -> None:
                 color=0xE67E22,
             )
     save_state(state)
-    sync_positions_sheet(state)
+
+
+def run_eod_updates(state: dict) -> None:
+    """The ONLY place the two dashboard tabs get written and Entry Sheet rows
+    get cleared -- once per day, called right before the daily shutdown. No
+    per-event or periodic writes elsewhere; this trades away intraday sheet
+    visibility for far fewer Sheets API calls, per explicit instruction."""
+    sync_watch_list_sheet(state)
+    if state["positions"]:
+        sync_positions_sheet(state)
+
+    for item in state["pending_history_opens"]:
+        history_add_entry(
+            item["ticker"], item["entry_date"], item["chart_pattern"], item.get("gap_pct"),
+            item["adr14_pct"], item["entry_price"], item["shares"], item["r_risk"],
+        )
+    state["pending_history_opens"] = []
+
+    for item in state["pending_history_closes"]:
+        history_close_entry(
+            item["ticker"], item["entry_date"], item["exit_date"],
+            item["exit_reason"], item["realized_pl"], item["realized_r"],
+        )
+    state["pending_history_closes"] = []
+
+    clear_entry_sheet_rows(state["pending_entry_sheet_clear_rows"])
+    state["pending_entry_sheet_clear_rows"] = []
+
+    save_state(state)
 
 
 # =========================
@@ -1723,7 +1761,6 @@ def main() -> Optional[str]:
         buf = b""
         last_ping = time.time()
         last_sheet_read_date = state.get("last_sheet_read_date")
-        last_positions_sync_ts = 0.0
         last_close_check_date = state.get("last_close_check_date")
         last_reconcile_retry_ts = 0.0
         last_heartbeat_hour = -1
@@ -1735,11 +1772,9 @@ def main() -> Optional[str]:
             weekday_ok = now.weekday() < 5
 
             if weekday_ok and hhmmss >= SESSION_SHUTDOWN_TIME:
-                # Guaranteed final snapshot -- don't rely on the 5-minute periodic
-                # timer's luck to have caught the last few minutes before exit.
-                sync_watch_list_sheet(state)
-                if state["positions"]:
-                    sync_positions_sheet(state)
+                # The ONE daily sheet-write pass: Watch List, Positions, History,
+                # and clearing today's processed Entry Sheet rows.
+                run_eod_updates(state)
                 notify(
                     "Session shutdown time reached -- disconnecting for the day; Task Scheduler will relaunch tomorrow morning.",
                     title="EP Long Daily -- Daily Shutdown",
@@ -1781,13 +1816,6 @@ def main() -> Optional[str]:
                 last_close_check_date = today_key
                 state["last_close_check_date"] = today_key
                 save_state(state)
-
-            # Periodic refresh (independent of fill events) so Current Position Size /
-            # Unrealized % on the sheet track live price throughout the day, not just
-            # at the moment of the last fill.
-            if weekday_ok and state["positions"] and (time.time() - last_positions_sync_ts) > 300:
-                sync_positions_sheet(state)
-                last_positions_sync_ts = time.time()
 
             if now.minute == 0 and now.second < 2 and last_heartbeat_hour != now.hour:
                 notify(

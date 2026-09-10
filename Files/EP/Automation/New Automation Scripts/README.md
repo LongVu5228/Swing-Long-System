@@ -48,47 +48,62 @@ shorting, no locates, no 4 AM premarket stop coverage.
 ## How it works
 
 The Google Sheet has 4 tabs. You only ever touch the first one; the other
-three are fully bot-managed live views, rebuilt from the engine's own state
-on every change -- see "Google Sheet tabs" below for the full column layout
-of each.
+three are fully bot-managed views of the engine's own internal state.
+
+**Sheet-write timing differs between the two scripts.** `ep_long_engine.py`
+(the unused backup) writes Watch List/Positions on every relevant event plus
+a 5-minute timer. **`ep_long_daily.py` (the one you run) batches ALL sheet
+writes into a single pass at end of day** (`run_eod_updates`, called right
+before the ~16:15 ET shutdown): Watch List and Positions get (re)synced once,
+every History row opened or closed that session gets written, and every
+Entry Sheet row processed that morning gets cleared -- all in one pass, not
+as each event happens. This trades away intraday sheet visibility (the
+sheet reflects yesterday's end-of-day state until tonight's pass) for far
+fewer Sheets API calls, per explicit request. Nothing is lost in between --
+entries/exits/ladder fills are tracked in `ep_long_daily.py`'s own state
+file the whole time; the sheet is just a once-a-day snapshot of it, not the
+source of truth.
 
 1. The morning of an EP, you add a row to the **Entry Sheet** tab (ticker,
-   gap %, ADR14 %, chart pattern, enabled) -- no date column needed, a row
-   present here is always "today's" candidate. The engine picks it up,
-   subscribes to time & sales, and tracks the high of the first 60 minutes
-   (9:30-10:30 ET). Every row it processes -- armed, skipped, or rejected --
-   gets cleared from Entry Sheet immediately, so nothing lingers to be
-   wrongly re-armed tomorrow.
+   gap %, ADR14 %, chart pattern, enabled, Yday Close) -- no date column
+   needed, a row present here is always "today's" candidate. The engine
+   reads it, subscribes to time & sales, confirms gap % live at 09:30:00,
+   and tracks the high of the first 60 minutes (9:30-10:30 ET). Every row
+   read that morning -- armed, skipped, or rejected -- is queued for
+   clearing at EOD (see above), so nothing lingers to be wrongly re-armed
+   tomorrow.
 2. At 10:30:00 ET it computes the breakout trigger (OR high + $0.01), sizes
    the position off your account equity and the ADR-based stop distance, and
    places a **buy-stop** order good for up to 8 trading sessions (D0..D0+7).
-   While that order rests unfilled, it shows up on the **Current Watch List**
-   tab. If it never fills, the order is canceled, the candidate drops off
-   Watch List, and you get a Discord alert.
-3. On fill: places a protective stop-market order (`entry_fill * (1 - ADR14 * 0.50)`)
-   and 5 resting limit sell orders (the "ladder") at +20/27.5/35/42.5/50% off
-   entry, each for 10% of the original share count. The remaining 50% ("core")
-   never gets a ladder order. The ticker moves from Watch List onto the
-   **Current Positions** tab, and a row is added to **History** (Entry Date
-   through R Risk Amount filled in, Exit columns still blank).
+   That order shows up on **Current Watch List** at tonight's EOD sync while
+   it's still resting; if it never fills, it's canceled and you get a
+   Discord alert immediately (that part isn't batched -- notifications are
+   real-time regardless of when the sheet itself gets written).
+3. On fill: `ep_long_daily.py` first reconciles size to the fixed,
+   trigger-anchored stop (see "Which script to run" above), then places the
+   stop-market order and 5 sell-STOP ladder orders at +20/27.5/35/42.5/50%
+   off the reconciled average fill, each for 10% of the final share count.
+   The remaining 50% ("core") never gets a ladder order. The position (and
+   its History row) become visible on the sheet at the next EOD sync.
 4. The moment the first ladder rung fills, the stop is replaced to breakeven
-   (`entry_fill`) for whatever shares remain, permanently. Current Positions
-   updates live (which rungs are filled, current stop status, live P&L) --
-   on every fill immediately, plus a background refresh every 5 minutes so
-   Current Position Size / Unrealized % track live price even between fills.
+   for whatever shares remain, permanently -- tracked immediately in state,
+   reflected on the sheet at the next EOD sync.
 5. Every trading day, a few minutes before the close, the engine checks
    whether today's close is below the 20-day SMA of closes. If so, it cancels
    the stop and any un-filled ladder rungs and sells everything remaining via
    an `AtClose` order. This is the only way the "core" 50% ever exits, absent
-   a stop-out first. Either way the position disappears from Current
-   Positions and its **History** row gets its Exit Date/Reason/P&L/R filled
-   in -- nothing is ever deleted from History, it's the permanent YTD record.
-6. All of this is persisted to `state/ep_long_state.json` after every change,
-   and reconciled against DAS's own `GET POSITIONS`/`GET ORDERS` on every
-   startup -- so a crash, a manual restart, or the weekend maintenance reboot
+   a stop-out first. Either way, its **History** row gets its Exit
+   Date/Reason/P&L/R filled in at EOD -- nothing is ever deleted from
+   History, it's the permanent YTD record.
+6. All of this is persisted to disk after every change (`ep_long_daily.py`
+   uses `state/ep_long_daily_state.json`; the backup uses a separate
+   `state/ep_long_state.json` so the two can never collide), and reconciled
+   against DAS's own `GET POSITIONS`/`GET ORDERS` on every startup -- so a
+   crash, a manual restart, or the weekend maintenance reboot
    (`WeekendWindowsMaintenance.ps1`) doesn't lose track of anything. If a
    restart finds a live position with no resting protective stop, the engine
-   re-arms one immediately and sends a loud Discord alert.
+   re-arms one immediately and sends a loud Discord alert (again: real-time,
+   not batched -- only the routine sheet snapshot waits for EOD).
 
 ## Setup
 
