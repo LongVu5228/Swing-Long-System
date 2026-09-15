@@ -11,7 +11,7 @@ indicator(title = 'Enhanced Volume', shorttitle = 'EVol+', overlay = false, form
 //// INPUTS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ev_ma_len = input.int(
-     defval = 50,
+     defval = 30,
      minval = 1,
      title  = 'Volume MA Length',
      group  = 'Volume Coloring'
