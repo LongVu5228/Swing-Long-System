@@ -43,61 +43,10 @@ ev_scale_headroom_pct = input.float(
      tooltip = 'Reserves empty space above the tallest bar so TradingView\'s floating pane buttons (move/eye/remove/settings) do not sit on top of the volume bars'
  )
 
-ev_show_labels = input.bool(
-     defval = true,
-     title  = 'Show High-Volume Labels',
-     group  = 'Volume Labels'
- )
-
-ev_label_min_rvol = input.float(
-     defval  = 1.4,
-     minval  = 1.0,
-     step    = 0.1,
-     title   = 'Min Rel. Volume to Trigger Label',
-     group   = 'Volume Labels',
-     tooltip = 'Show a shares-traded + %-above-average label when relative volume reaches this multiple'
- )
-
-ev_label_color = input.color(color.new(color.lime, 0), 'Label Text Color', group = 'Volume Labels')
-
-ev_show_hv = input.bool(
-     defval = true,
-     title  = 'Show HV1 / HVE / HVIPO Markers',
-     group  = 'Historical Volume Markers'
- )
-
-ev_hve_lookback = input.int(
-     defval  = 2520,
-     minval  = 50,
-     title   = 'HVE Lookback (bars, ~10y daily)',
-     group   = 'Historical Volume Markers',
-     tooltip = 'Highest volume in this many bars back (default approximates 10 years on a daily chart)'
- )
-
-ev_hv1_lookback = input.int(
-     defval  = 252,
-     minval  = 20,
-     title   = 'HV1 Lookback (bars, ~1y daily)',
-     group   = 'Historical Volume Markers',
-     tooltip = 'Highest volume in this many bars back (default approximates 1 year on a daily chart)'
- )
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//// FUNCTIONS
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-f_format_vol(v) =>
-    string txt = v >= 1000000000 ? str.tostring(v / 1000000000, '#.##') + 'B' :
-                 v >= 1000000    ? str.tostring(v / 1000000, '#.##') + 'M' :
-                 v >= 1000       ? str.tostring(v / 1000, '#.##') + 'K' :
-                 str.tostring(v, '#')
-    txt
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// VOLUME COLORING
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-float vol_ma  = ta.sma(volume, ev_ma_len)
-float rel_vol = vol_ma != 0 ? volume / vol_ma : na
-float pct_vs_avg = vol_ma != 0 ? (volume - vol_ma) / vol_ma * 100 : na
+float vol_ma = ta.sma(volume, ev_ma_len)
 
 bool is_green_day = close >= open
 color bar_color = is_green_day ? ev_up_day_color : ev_down_day_color
@@ -107,73 +56,6 @@ plot(vol_ma, title = 'Volume MA', color = ev_ma_color, linewidth = 2)
 
 float scale_ceiling = volume * (1 + ev_scale_headroom_pct / 100)
 plot(scale_ceiling, title = 'Scale Headroom (invisible)', color = color.new(color.white, 100), display = display.pane)
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//// HIGH-VOLUME LABELS
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if ev_show_labels and not na(rel_vol) and rel_vol >= ev_label_min_rvol
-    string vol_txt = f_format_vol(volume)
-    string pct_txt = '+' + str.tostring(pct_vs_avg, '#.#') + '%'
-    label.new(
-         x          = bar_index,
-         y          = volume,
-         text       = vol_txt + '\n' + pct_txt,
-         style      = label.style_label_down,
-         color      = color.new(color.black, 100),
-         textcolor  = ev_label_color,
-         size       = size.small
-     )
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//// HISTORICAL VOLUME MARKERS (HVIPO / HVE / HV1)
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int lookback_hve = math.min(ev_hve_lookback, bar_index + 1)
-int lookback_hv1 = math.min(ev_hv1_lookback, bar_index + 1)
-
-float highest_hve = ta.highest(volume, lookback_hve)
-float highest_hv1 = ta.highest(volume, lookback_hv1)
-
-var float all_time_max_vol = na
-bool is_hvipo = na(all_time_max_vol) or volume > all_time_max_vol
-all_time_max_vol := is_hvipo ? volume : all_time_max_vol
-
-bool is_hve = volume >= highest_hve
-bool is_hv1 = volume >= highest_hv1
-
-string hv_tag = is_hvipo ? 'HVIPO' : is_hve ? 'HVE' : is_hv1 ? 'HV1' : na
-
-plotshape(
-     ev_show_hv and hv_tag == 'HVIPO',
-     title    = 'HVIPO Marker',
-     location = location.top,
-     style    = shape.labelup,
-     text     = 'HVIPO',
-     color    = color.new(color.purple, 0),
-     textcolor = color.white,
-     size     = size.tiny
- )
-
-plotshape(
-     ev_show_hv and hv_tag == 'HVE',
-     title    = 'HVE Marker',
-     location = location.top,
-     style    = shape.labelup,
-     text     = 'HVE',
-     color    = color.new(color.red, 0),
-     textcolor = color.white,
-     size     = size.tiny
- )
-
-plotshape(
-     ev_show_hv and hv_tag == 'HV1',
-     title    = 'HV1 Marker',
-     location = location.top,
-     style    = shape.labelup,
-     text     = 'HV1',
-     color    = color.new(color.orange, 0),
-     textcolor = color.white,
-     size     = size.tiny
- )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// END
