@@ -33,6 +33,16 @@ ev_down_day_color = input.color(
 
 ev_ma_color = input.color(color.new(#9598A1, 20), 'Volume MA Color', group = 'Volume Coloring')
 
+ev_scale_headroom_pct = input.float(
+     defval  = 20,
+     minval  = 0,
+     maxval  = 100,
+     step    = 5,
+     title   = 'Scale Headroom Above Bars (%)',
+     group   = 'Volume Coloring',
+     tooltip = 'Reserves empty space above the tallest bar so TradingView\'s floating pane buttons (move/eye/remove/settings) do not sit on top of the volume bars'
+ )
+
 ev_show_labels = input.bool(
      defval = true,
      title  = 'Show High-Volume Labels',
@@ -94,6 +104,9 @@ color bar_color = is_green_day ? ev_up_day_color : ev_down_day_color
 
 plot(volume, title = 'Volume', style = plot.style_columns, color = bar_color)
 plot(vol_ma, title = 'Volume MA', color = ev_ma_color, linewidth = 2)
+
+float scale_ceiling = volume * (1 + ev_scale_headroom_pct / 100)
+plot(scale_ceiling, title = 'Scale Headroom (invisible)', color = color.new(color.white, 100), display = display.pane)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// HIGH-VOLUME LABELS
