@@ -17,40 +17,18 @@ ev_ma_len = input.int(
      group  = 'Volume Coloring'
  )
 
-ev_high_rvol = input.float(
-     defval  = 1.4,
-     minval  = 1.0,
-     step    = 0.1,
-     title   = 'High Rel. Volume Threshold (x MA)',
-     group   = 'Volume Coloring',
-     tooltip = 'Volume at or above this multiple of its moving average is colored as high volume'
- )
-
-ev_low_rvol = input.float(
-     defval  = 0.6,
-     minval  = 0.0,
-     maxval  = 1.0,
-     step    = 0.1,
-     title   = 'Low Rel. Volume Threshold (x MA)',
-     group   = 'Volume Coloring',
-     tooltip = 'Volume at or below this multiple of its moving average is colored as low volume'
- )
-
-ev_high_color = input.color(color.lime, 'High Volume Color', group = 'Volume Coloring')
-ev_low_color  = input.color(color.orange, 'Low Volume Color', group = 'Volume Coloring')
-
 ev_up_day_color = input.color(
-     color.new(color.green, 85),
+     #787B86,
      'Up Day Volume Color',
      group   = 'Volume Coloring',
-     tooltip = 'Used on green (close >= open) days when volume is not extreme. Kept mostly transparent so it reads as a hollow/border-only bar'
+     tooltip = 'Used on green (close >= open) days. Neutral gray so it does not compete for attention'
  )
 
 ev_down_day_color = input.color(
      #8B0000,
      'Down Day Volume Color',
      group   = 'Volume Coloring',
-     tooltip = 'Used on red (close < open) days when volume is not extreme. Dark red rather than a bright red'
+     tooltip = 'Used on red (close < open) days. Dark red rather than a bright red'
  )
 
 ev_ma_color = input.color(color.new(#9598A1, 20), 'Volume MA Color', group = 'Volume Coloring')
@@ -112,12 +90,7 @@ float rel_vol = vol_ma != 0 ? volume / vol_ma : na
 float pct_vs_avg = vol_ma != 0 ? (volume - vol_ma) / vol_ma * 100 : na
 
 bool is_green_day = close >= open
-color day_color = is_green_day ? ev_up_day_color : ev_down_day_color
-
-color bar_color = na(rel_vol) ? day_color :
-     rel_vol >= ev_high_rvol ? ev_high_color :
-     rel_vol <= ev_low_rvol  ? ev_low_color  :
-     day_color
+color bar_color = is_green_day ? ev_up_day_color : ev_down_day_color
 
 plot(volume, title = 'Volume', style = plot.style_columns, color = bar_color)
 plot(vol_ma, title = 'Volume MA', color = ev_ma_color, linewidth = 2)
