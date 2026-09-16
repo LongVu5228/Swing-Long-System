@@ -32,7 +32,9 @@ srlinestyle = input.string(line.style_dotted, title = "Line Style/Width", option
 
 srlinewidth = input.int(1, title = "", minval = 1, maxval = 5, inline = "style", group = gr_hhhl)
 
-srTransparency = input.int(65, title = "Support/Resistance Transparency", minval = 0, maxval = 100, group = gr_hhhl, tooltip = "0 = solid, 100 = invisible")
+supTransparency = input.int(0, title = "Support Transparency", minval = 0, maxval = 100, group = gr_hhhl, tooltip = "0 = solid, 100 = invisible")
+
+resTransparency = input.int(70, title = "Resistance Transparency", minval = 0, maxval = 100, group = gr_hhhl, tooltip = "0 = solid, 100 = invisible")
 
 changebarcol = input.bool(true, title = "Change Bar Color", inline = "bcol", group = gr_hhhl)
 
@@ -313,6 +315,14 @@ suchange = not na(sup) and sup != sup[1]
 var line resline = na
 var line supline = na
 
+// Self-managed line budget: TradingView caps total line objects at max_lines_count (500).
+// Every S/R change and every earnings line is kept forever (old ones just get capped, never
+// deleted), so without this the script eventually exceeds 500, TradingView auto-deletes the
+// oldest lines out from under resline/supline, and the next line.set_x2 on a deleted line
+// throws a runtime error that halts the whole script for the rest of the chart's history.
+var line[] srLineHistory = array.new_line()
+int srLineHistoryMax = 440
+
 if showsupres
     if rechange
         if not na(resline)
@@ -324,11 +334,15 @@ if showsupres
              y1 = res,
              x2 = bar_index,
              y2 = res,
-             color = color.new(rescol, srTransparency),
+             color = color.new(rescol, resTransparency),
              extend = extend.right,
              style = srlinestyle,
              width = srlinewidth
          )
+
+        array.push(srLineHistory, resline)
+        if array.size(srLineHistory) > srLineHistoryMax
+            line.delete(array.shift(srLineHistory))
 
     if suchange
         if not na(supline)
@@ -340,11 +354,15 @@ if showsupres
              y1 = sup,
              x2 = bar_index,
              y2 = sup,
-             color = color.new(supcol, srTransparency),
+             color = color.new(supcol, supTransparency),
              extend = extend.right,
              style = srlinestyle,
              width = srlinewidth
          )
+
+        array.push(srLineHistory, supline)
+        if array.size(srLineHistory) > srLineHistoryMax
+            line.delete(array.shift(srLineHistory))
 
 
 
@@ -352,9 +370,12 @@ if showsupres
 
 ///////// Earnings - Plot ///////////////
 
+var line[] earningsLineHistory = array.new_line()
+int earningsLineHistoryMax = 50
+
 // Vertical earnings breaks
 if showEarningsLines and isEarningsEvent
-    line.new(
+    earningsLine = line.new(
          x1 = bar_index,
          y1 = low,
          x2 = bar_index,
@@ -365,6 +386,10 @@ if showEarningsLines and isEarningsEvent
          style = earningsLineStyle,
          width = earningsLineWidth
      )
+
+    array.push(earningsLineHistory, earningsLine)
+    if array.size(earningsLineHistory) > earningsLineHistoryMax
+        line.delete(array.shift(earningsLineHistory))
 
 // EPS detail text for the optional always-on label
 string earningsDetailText = na
@@ -414,7 +439,7 @@ if showEarningsLabels and isEarningsEvent
 ///////// Moving Averages - Plot /////////////
 
 plot(smaA, title = "MA A", color = color.purple)
-plot(smaB, title = "MA B", color = color.yellow)
+plot(smaB, title = "MA B", color = color.orange)
 plot(smaD, title = "MA D", color = color.blue)
 
 
