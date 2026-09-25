@@ -34,7 +34,6 @@ MASTER = os.path.join(HERE, "htf_annotations_master.csv")
 EXPORT_RE = re.compile(r"^(?P<exch>[A-Z]+)_(?P<ticker>[A-Z0-9.\-]+), (?P<tf>\w+)(?: \((?P<dup>\d+)\))?\.csv$")
 
 TYPE = {1: "HL_FLAG", 2: "LL_NO_RECLAIM", 3: "LL_RECLAIM"}
-REVIEW = {0: "NOT_REVIEWED", 1: "REVIEWED_FLAGS_FOUND", 2: "REVIEWED_NO_FLAG"}
 
 
 def find_exports(src: str) -> dict:
@@ -65,8 +64,10 @@ def parse_export(path: str, ticker: str, timeframe: str) -> tuple:
     df["d"] = pd.to_datetime(df["time"], unit="s").dt.strftime("%Y%m%d").astype(int)
     highs = dict(zip(df["d"], df["high"]))
 
+    # Schema 3 dropped key 2 (review status): an export existing at all means flags were
+    # found, and a ticker never exported means none were. Schema 2 files still carry key 2;
+    # it is simply ignored, so old and new exports parse the same way.
     schema = int(rec.get(1, 1))
-    review = REVIEW.get(int(rec.get(2, 0)), "NOT_REVIEWED")
 
     def g(k):
         v = rec.get(k)
@@ -117,16 +118,10 @@ def parse_export(path: str, ticker: str, timeframe: str) -> tuple:
             "r2_effective": r2_eff,
             "r2_source_bar": r2_bar,
             "r2_price": round(r2_px, 4) if r2_px is not None else None,
-            "review_status": review,
             "schema": schema,
             "source_file": os.path.basename(path),
         })
 
-    if not rows and review == "REVIEWED_NO_FLAG":
-        rows.append({
-            "ticker": ticker, "timeframe": timeframe, "flag_no": 0, "setup_type": None,
-            "review_status": review, "schema": schema, "source_file": os.path.basename(path),
-        })
     return (rows, warns)
 
 
@@ -154,7 +149,9 @@ def main():
             continue
         rows, warns = result
         flags = len([r for r in rows if r.get("flag_no")])
-        note = f"{flags} flag(s), {rows[0]['review_status']}"
+        # An export with no flags is now a contradiction -- you only download a chart once
+        # you've found something on it -- so say so rather than recording an empty row.
+        note = f"{flags} flag(s)" if flags else "NO FLAGS -- nothing to record, re-check the chart"
         print(f"  {ticker:8s} {note}")
         for w in warns:
             print(f"           ! {w}")

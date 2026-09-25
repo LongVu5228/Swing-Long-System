@@ -10,17 +10,16 @@
 // it after your last real flag leaves the remaining slots empty. If it instead cancels
 // the whole add, spam-click one candle through the leftover prompts; same result.
 
-indicator("HTF Manual Flag Recorder (20)", overlay = true, max_boxes_count = 50, max_lines_count = 150, max_labels_count = 20)
+indicator("HTF Manual Flag Recorder (20)", overlay = true, max_boxes_count = 50, max_lines_count = 150, max_labels_count = 50)
 
-SCHEMA_VERSION = 2
+// Schema 3 drops the review-status field (key 2) that schema 2 carried. Reviewed-ness
+// is now implied by the export existing at all: a downloaded chart means flags were
+// found, and a ticker never exported means none were.
+SCHEMA_VERSION = 3
 N_SLOTS = 20
 
-G_REVIEW = "Review status"
 G_DISP   = "Display"
 
-// REVIEWED_NO_FLAG is what lets the export replace the manual is_valid_flag column:
-// without it, no annotation is ambiguous between not-yet-reviewed and reviewed-and-rejected.
-reviewStatus = input.string("NOT_REVIEWED", "Chart review status", options = ["NOT_REVIEWED", "REVIEWED_FLAGS_FOUND", "REVIEWED_NO_FLAG"], group = G_REVIEW)
 showTable    = input.bool(true, "Show summary table", group = G_DISP)
 boxPad       = input.float(1.0, "Box padding %", minval = 0.0, maxval = 10.0, group = G_DISP)
 // Spanning fewer than this many calendar days means the slot was skipped, not drawn.
@@ -253,7 +252,6 @@ f20_r1_alt  = input.time(timestamp("2000-01-03"), "R1 effective (override)", gro
 f20_r2_bar  = input.time(timestamp("1900-01-02"), "R2 candle (its high = level)", group = "Flag 20")
 f20_r2_date = input.time(timestamp("2000-01-03"), "R2 effective", group = "Flag 20")
 
-reviewCode(r) => r == "REVIEWED_FLAGS_FOUND" ? 1 : r == "REVIEWED_NO_FLAG" ? 2 : 0
 tlabel(code) => code == 1 ? "HL" : code == 2 ? "LL fail" : "LL reclaim"
 ymd(t) => na(t) ? float(na) : float(year(t) * 10000 + month(t) * 100 + dayofmonth(t))
 md(t) => str.tostring(month(t)) + "/" + str.tostring(dayofmonth(t))
@@ -374,6 +372,11 @@ if barstate.islast
             col = array.get(dCode, i) == 1 ? color.green : color.red
             box.new(left = t0, top = hi + pad, right = t1, bottom = lo - pad, xloc = xloc.bar_time, border_color = color.new(col, 50), border_width = 1, bgcolor = color.new(col, 90), force_overlay = true)
             line.new(x1 = tc, y1 = lo - pad, x2 = tc, y2 = hi + pad, xloc = xloc.bar_time, color = color.new(col, 50), width = 1, style = line.style_dashed, force_overlay = true)
+            // Slot number at the box's top edge, so a box on the chart maps back to its
+            // "Flag N" settings group -- otherwise there's no way to tell which group to
+            // edit when revisiting a chart with many flags. Midpoint is in time, not bar
+            // count, so weekend gaps shift it slightly off visual center; close enough.
+            label.new(x = int((t0 + t1) / 2), y = hi + pad, text = str.tostring(i + 1), xloc = xloc.bar_time, yloc = yloc.price, style = label.style_label_down, color = color.new(col, 30), textcolor = color.white, size = size.small, force_overlay = true)
             wanted = t1 + (t1 - t0)
             extEnd = wanted > time ? time : wanted
             isLL = array.get(dCode, i) != 1
@@ -401,7 +404,6 @@ push(int k, float v) =>
 // inside that window wouldn't have been scanned yet when its slot is written.
 if barstate.isfirst
     push(1, float(SCHEMA_VERSION))
-    push(2, float(reviewCode(reviewStatus)))
     for i = 0 to N_SLOTS - 1
         b = (i + 1) * 100
         u = array.get(dUsed, i)
@@ -430,7 +432,7 @@ plot(annoKey, "ANNO_KEY", display = display.data_window)
 plot(annoVal, "ANNO_VAL", display = display.data_window)
 
 if showTable and barstate.islast
-    var table t = table.new(position.top_right, 2, 3, border_width = 1)
+    var table t = table.new(position.top_right, 2, 2, border_width = 1)
     flagsTxt = ""
     nSkipped = 0
     for i = 0 to N_SLOTS - 1
@@ -443,9 +445,7 @@ if showTable and barstate.islast
         if array.get(dUsed, i)
             row = str.tostring(i + 1) + ": " + tlabel(array.get(dCode, i)) + "  " + mdy(t0) + "-" + mdy(t1) + "  (conf " + mdy(array.get(sConf, i)) + ")"
             flagsTxt := flagsTxt == "" ? row : flagsTxt + "\n" + row
-    table.cell(t, 0, 0, "status", text_color = color.gray, text_size = size.small)
-    table.cell(t, 1, 0, reviewStatus, text_color = color.black, text_size = size.small)
-    table.cell(t, 0, 1, "flags", text_color = color.gray, text_size = size.small)
-    table.cell(t, 1, 1, flagsTxt == "" ? "-" : flagsTxt, text_color = color.black, text_size = size.small, text_halign = text.align_left)
-    table.cell(t, 0, 2, "skipped", text_color = color.gray, text_size = size.small)
-    table.cell(t, 1, 2, nSkipped == 0 ? "-" : str.tostring(nSkipped) + " (stray clicks, under min span)", text_color = nSkipped == 0 ? color.gray : color.red, text_size = size.small)
+    table.cell(t, 0, 0, "flags", text_color = color.gray, text_size = size.small)
+    table.cell(t, 1, 0, flagsTxt == "" ? "-" : flagsTxt, text_color = color.black, text_size = size.small, text_halign = text.align_left)
+    table.cell(t, 0, 1, "skipped", text_color = color.gray, text_size = size.small)
+    table.cell(t, 1, 1, nSkipped == 0 ? "-" : str.tostring(nSkipped) + " (stray clicks, under min span)", text_color = nSkipped == 0 ? color.gray : color.red, text_size = size.small)

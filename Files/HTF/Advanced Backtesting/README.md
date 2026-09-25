@@ -33,13 +33,13 @@ It does **not** detect flags. Human judgment defines the setup; this only record
 
 1. TradingView → Pine Editor → paste `htf_manual_flag_recorder_v1.pine` → Save → Add to chart.
 2. On add, TradingView walks you through click-prompts for each interactive input.
-3. Set "Chart review status" and enable the flag slots you need in the settings dialog.
+3. Enable the flag slots you need in the settings dialog.
 
 ## Per-ticker workflow
 
 1. Type the symbol → Enter
 2. `/` → `HTF` → Enter. 4 clicks per flag, then spam one candle through the rest.
-4. Double-click the indicator name → set review status, flip any red slots to `LOWER_LOW`
+4. Double-click the indicator name → flip any red slots to `LOWER_LOW`
 5. Right-click chart → Export chart data → pick the recorder
 6. **Remove the indicator before switching tickers.** Inputs persist across symbol
    switches; if you forget, the next chart's export carries this ticker's flags under the
@@ -63,8 +63,7 @@ Global:
 
 | Key | Meaning | Encoding |
 |---:|---|---|
-| 1 | Schema version | integer, currently `1` |
-| 2 | Chart review status | `0` NOT_REVIEWED · `1` REVIEWED_FLAGS_FOUND · `2` REVIEWED_NO_FLAG |
+| 1 | Schema version | integer, currently `3` |
 
 Per flag — key is `flag_number * 100 + field`:
 
@@ -105,13 +104,21 @@ bar as click 2 — you never label that distinction by hand. The corner table sh
 Dates are `YYYYMMDD` integers rather than Unix milliseconds — 13-digit epoch values can come
 back from TradingView's CSV formatter in scientific notation, silently losing the day.
 
-### Why `REVIEWED_NO_FLAG` matters
+### Reviewed-ness is implied by the export, not recorded in it
 
-Key `2` is what lets this export replace the manual `is_valid_flag` column in
-`../htf_1m_flag_review_v2_flagpole_bucketed_v2.csv` entirely. Without an explicit
-reviewed-and-rejected state, an absent annotation is ambiguous between "haven't looked yet"
-and "looked, nothing there" — and the scanner's precision can never be computed, because
-there are no recorded negatives.
+Schema version 3 (2026-09-24) removed the chart-review-status field that used to occupy key
+`2`. The convention replacing it: **a chart you exported had flags; a ticker you never
+exported had none.** For any chart carrying annotations the old field was redundant anyway —
+the flags themselves prove you looked — and it was easy to leave on its `NOT_REVIEWED`
+default, which made reviewed charts look untouched.
+
+Schema 2 exports still carry key `2`; the parser ignores it, so old and new files ingest
+identically.
+
+The cost of the convention: a ticker with no export is ambiguous between *reviewed and
+rejected* and *not yet reviewed*, so the scanner's precision can't be computed from the
+annotation set alone — there are no recorded negatives. Measuring that needs a separate
+record of which tickers were worked through.
 
 ## Known gaps
 
