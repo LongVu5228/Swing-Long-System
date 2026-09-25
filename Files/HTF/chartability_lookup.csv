@@ -1,0 +1,2143 @@
+ticker,revised_ticker,name,primary_exchange,type,active,chartability
+RMBS,RMBS,Rambus Inc,XNAS,CS,True,likely_chartable
+FSLR,FSLR,"First Solar, Inc.",XNAS,CS,True,likely_chartable
+VNDA,VNDA,Vanda Pharmaceuticals Inc.,XNAS,CS,True,likely_chartable
+SIGA,SIGA,SIGA Technologies Inc.,XNAS,CS,True,likely_chartable
+TSL.1^17,TSL,GraniteShares 1.25x Long TSLA  Daily ETF,XNAS,ETF,True,low_confidence
+ONT.1^10,ONT,"Onterris, Inc.",XNYS,CS,True,likely_chartable
+ACAD,ACAD,Acadia Pharmaceuticals Inc.,XNAS,CS,True,likely_chartable
+SA,SA,"Seabridge Gold, Inc.",XNYS,CS,True,likely_chartable
+TNH^18,TNH,Terra Nitrogen,XNYS,CS,False,likely_chartable
+IOC^17,IOC,Interoil Corporation,XNYS,CS,False,likely_chartable
+AGIXQ^09,AGIXQ,,,,,unknown_not_in_polygon
+CROX,CROX,"Crocs, Inc.",XNAS,CS,True,likely_chartable
+DJ^07,DJ,DOW JONES COMPANY INC,XNYS,CS,False,likely_chartable
+ISRG,ISRG,Intuitive Surgical Inc.,XNAS,CS,True,likely_chartable
+CHTRQ^09,CHTRQ,,,,,unknown_not_in_polygon
+CRNT,CRNT,Ceragon Networks Ltd,XNAS,CS,True,likely_chartable
+AVNR^15,AVNR,"AVANIR PHARMACEUTICALS, INC CL A",XNAS,,False,likely_chartable
+NRPH^07,NRPH,NEW RIVER PHARMACEUTICALS INC,,,False,low_confidence
+ONXX^13,ONXX,ONYX PHARMACEUTICALS INC,XNAS,,False,likely_chartable
+MSA,MSA,Mine Safety Incorporated,XNYS,CS,True,likely_chartable
+NVT.1^08,NVT,nVent Electric plc Ordinary Shares,XNYS,CS,True,likely_chartable
+DRYS^19,DRYS,DryShips Inc. Common Stock,XNAS,CS,False,likely_chartable
+JEF,JEF,Jefferies Financial Group Inc.,XNYS,CS,True,likely_chartable
+ELON.1^18,ELON,BattleShares TSLA vs F ETF,ARCX,ETS,False,low_confidence
+GRMN,GRMN,Garmin Ltd,XNYS,CS,True,likely_chartable
+GMCR^16,GMCR,KEURIG GREEN MTN INC,XNAS,,False,likely_chartable
+FCN,FCN,"FTI Consulting, Inc.",XNYS,CS,True,likely_chartable
+LVS,LVS,Las Vegas Sands Corp.,XNYS,CS,True,likely_chartable
+MORN,MORN,"Morningstar, Inc.",XNAS,CS,True,likely_chartable
+EMKR^25,EMKR,Emcore Corp,XNAS,CS,False,likely_chartable
+ALKS,ALKS,Alkermes Inc. plc,XNAS,CS,True,likely_chartable
+ADVS^15,ADVS,ADVENT SOFTWARE INC,XNAS,,False,likely_chartable
+SIGM^20,SIGM,Sigma Designs Inc,XNAS,CS,False,likely_chartable
+VSEA^11,VSEA,VARIAM SEMICONDUCTOR EQUIP INC,XNAS,,False,likely_chartable
+BLKB,BLKB,"Blackbaud, Inc.",XNAS,CS,True,likely_chartable
+ALXN^21,ALXN,Alexion Pharmaceuticals Inc,XNAS,CS,False,likely_chartable
+ARNA^22,ARNA,Arena Pharmaceuticals Inc,XNAS,CS,False,likely_chartable
+WYNN,WYNN,Wynn Resorts Ltd,XNAS,CS,True,likely_chartable
+AGP^12,AGP,AMERIGROUP CORPORATION,XNYS,CS,False,likely_chartable
+CNQR^14,CNQR,CONCUR TECHNOLOGIES INC,XNAS,,False,likely_chartable
+ARJ^11,ARJ,ARCH CHEMICALS INC.,XNYS,CS,False,likely_chartable
+ANAD^16,ANAD,ANADIGICS INC,XNAS,,False,likely_chartable
+PFS,PFS,"Provident Financial Services, Inc.",XNYS,CS,True,likely_chartable
+FOSL,FOSL,"Fossil Group, Inc.",XNAS,CS,True,likely_chartable
+ZUMZ,ZUMZ,Zumiez Inc.,XNAS,CS,True,likely_chartable
+FARO^25,FARO,Faro Technologies Inc,XNAS,CS,False,likely_chartable
+LDSH^11,LDSH,LADISH CO,,,False,low_confidence
+ANSS^25,ANSS,Ansys Inc,XNAS,CS,False,likely_chartable
+ANST^08,ANST,ANSOFT CORP,,,False,low_confidence
+DWSN,DWSN,Dawson Geophysical Company New Common Stock,XNAS,CS,True,likely_chartable
+PVTB^17,PVTB,PrivateBancorp Inc,XNAS,CS,False,likely_chartable
+KOP,KOP,"Koppers Holdings, Inc.",XNYS,CS,True,likely_chartable
+VRTX,VRTX,Vertex Pharmaceuticals Inc,XNAS,CS,True,likely_chartable
+LULU,LULU,lululemon athletica inc.,XNAS,CS,True,likely_chartable
+CPHD^16,CPHD,Cepheid Inc,XNAS,CS,False,likely_chartable
+OMTR^09,OMTR,"OMNITURE, INC",,,False,low_confidence
+PWRD.1^15,PWRD,TCW Transform Systems ETF,XNAS,ETF,True,low_confidence
+AUXL^15,AUXL,AUXILIUM PHARAMCEUTICALS INC,XNAS,,False,likely_chartable
+TEO,TEO,Telecom Argentina S.A.,XNYS,ADRC,True,likely_chartable
+BCSI^12,BCSI,BLUE COAT SYS INC NEW,XNAS,,False,likely_chartable
+FTK,FTK,"Flotek Industries, Inc.",XNYS,CS,True,likely_chartable
+DAKT,DAKT,Daktronics Inc,XNAS,CS,True,likely_chartable
+CUB.1^21,CUB,Lionheart Holdings Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+RWT,RWT,"Redwood Trust, Inc.",XNYS,CS,True,likely_chartable
+LEND.1^07,LEND,SEI High Yield Bond & Alternative Credit ETF,XNAS,ETF,True,low_confidence
+DSX,DSX,"Diana Shipping, Inc.",XNYS,CS,True,likely_chartable
+HBI^25,HBI,"Hanesbrands, Inc.",XNYS,CS,False,likely_chartable
+CHNR,CHNR,"China Natural Resources, Inc.",XNAS,CS,True,likely_chartable
+GSOL.1^17,GSOL,Grayscale Solana Staking ETF Shares,ARCX,ETV,True,low_confidence
+ALTI.1^16,ALTI,"AlTi Global, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+NTES,NTES,"NetEase, inc.",XNAS,ADRC,True,likely_chartable
+ASTI,ASTI,"Ascent Solar Technologies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CF,CF,"CF Industries Holding, Inc.",XNYS,CS,True,likely_chartable
+YTEC^12,YTEC,YUCHENG TECHNOLOGIES LIMITED COMMON STOCK,,,False,low_confidence
+OMRI^08,OMRI,OMRIX BIOPHARMACEUTICALS INC COM STK,,,False,low_confidence
+PBR,PBR,PETROLEO BRASILEIRO S.A.-PETROBRAS ADS (REP 1 COMMON SHARE),XNYS,ADRC,True,likely_chartable
+MSTR,MSTR,Strategy Inc Common Stock Class A,XNAS,CS,True,likely_chartable
+MTL^22,MTL,"Mechel PAO American Depository Shares, each representing two ordinary shares (ADSs)",XNYS,ADRC,False,likely_chartable
+WINN.1^12,WINN,Harbor Long-Term Growers ETF,XNYS,ETF,True,low_confidence
+EJ^16,EJ,E HOUSE (CHINA) HOLDINGS LIMITED,XNYS,CS,False,likely_chartable
+CSIQ,CSIQ,Canadian Solar Inc. Common Shares (ON),XNAS,CS,True,likely_chartable
+MELI,MELI,"Mercado Libre, Inc",XNAS,CS,True,likely_chartable
+JASO^18,JASO,"JA Solar Holdings, Co., Ltd",XNAS,ADRC,False,likely_chartable
+THC,THC,Tenet Healthcare Corporation New,XNYS,CS,True,likely_chartable
+VCI^14,VCI,VALASSIS COMMUNICATIONS INC,XNYS,CS,False,likely_chartable
+UTHR,UTHR,United Therapeutics Corp,XNAS,CS,True,likely_chartable
+ABAX^18,ABAX,Abaxis Inc,XNAS,CS,False,likely_chartable
+TGIC,TGIC,TRIAD GUARANTY INC,OTC Link,CS,True,low_confidence
+MBT^22,MBT,Mobile TeleSystems Public Joint Stock Company American Depositary Shares (Each representing 2 Shares,XNYS,ADRC,False,likely_chartable
+HL,HL,Hecla Mining Company,XNYS,CS,True,likely_chartable
+MA,MA,Mastercard Incorporated,XNYS,CS,True,likely_chartable
+DIVX.1^10,DIVX,"DIVX, INC. COM",,,False,low_confidence
+MTG,MTG,MGIC Investment Corp.,XNYS,CS,True,likely_chartable
+CYBS^10,CYBS,CYBERSOURCE CORPORATION,XNAS,,False,likely_chartable
+AGO,AGO,"Assured Guaranty, LTD",XNYS,CS,True,likely_chartable
+CQB^15,CQB,CHIQUITA BRANDS INTL (NEW),XNYS,CS,False,likely_chartable
+SEED,SEED,Origin Agritech Limited,XNAS,CS,True,likely_chartable
+RIGL,RIGL,Rigel Pharmaceuticals Inc. (New),XNAS,CS,True,likely_chartable
+MOS,MOS,The Mosaic Company,XNYS,CS,True,likely_chartable
+MATR.1^08,MATR,Harbor Multi-Asset Total Return ETF,ARCX,ETF,True,low_confidence
+KGC,KGC,Kinross Gold Corporation,XNYS,CS,True,likely_chartable
+NG,NG,NovaGold Resources Inc.,XASE,CS,True,likely_chartable
+GSS^22,GSS,Golden Star Resources Ltd.,XASE,CS,False,likely_chartable
+B,B,Barrick Mining Corporation,XNYS,CS,True,likely_chartable
+JCG^11,JCG,"J. CREW GROUP, INC.",XNYS,CS,False,likely_chartable
+WCG^20,WCG,"Wellcare Health Plans, Inc.",XNYS,CS,False,likely_chartable
+ITMN^14,ITMN,INTERMUNE INC,XNAS,,False,likely_chartable
+GOLD.3^19,GOLD,"Gold.com, Inc.",XNYS,CS,True,likely_chartable
+CZZ^21,CZZ,Cosan Limited,XNYS,CS,False,likely_chartable
+HMY,HMY,Harmony Gold Mining Company Limited,XNYS,ADRC,True,likely_chartable
+TRA^10,TRA,TERRA INDUSTRIES INC,XNYS,CS,False,likely_chartable
+ASVI^08,ASVI,A S V INC,,,False,low_confidence
+BVN,BVN,Compania de Minas Buenaventura S.A.,XNYS,ADRC,True,likely_chartable
+DHI,DHI,D.R. Horton Inc.,XNYS,CS,True,likely_chartable
+ADPI^12,ADPI,AMERICAN DENTAL PARTNERS INC,,,False,low_confidence
+PHM,PHM,"Pultegroup, Inc.",XNYS,CS,True,likely_chartable
+AUY^23,AUY,"Yamana Gold, Inc.",XNYS,CS,False,likely_chartable
+LEAP.5^14,LEAP,"Ribbit LEAP, Ltd.",XNYS,CS,False,likely_chartable
+BPOP,BPOP,Popular Inc,XNAS,CS,True,likely_chartable
+HOV,HOV,"Hovnanian Enterprises, Inc. Class A",XNYS,CS,True,likely_chartable
+FNF,FNF,"Fidelity National Financial, Inc.",XNYS,CS,True,likely_chartable
+GG^19,GG,Goldcorp Inc,XNYS,CS,False,likely_chartable
+FMD^16,FMD,FIRST MARBLEHEAD CORP COM STK NEW (DE),XNYS,CS,False,likely_chartable
+ECHO,ECHO,EchoStar Corporation,XNAS,CS,True,likely_chartable
+KBH,KBH,KB Home,XNYS,CS,True,likely_chartable
+BKE,BKE,"The Buckle, Inc.",XNYS,CS,True,likely_chartable
+SNV^26,SNV,Synovus Financial Corp.,XNYS,CS,False,likely_chartable
+PFCB^12,PFCB,P.F. CHANGS CHINA BISTRO INC,XNAS,,False,likely_chartable
+TWB^09,TWB,"TWEEN BRANDS, INC. COM",XNYS,CS,False,likely_chartable
+ODFL,ODFL,Old Dominion Freight Line,XNAS,CS,True,likely_chartable
+NWA^08,NWA,NORTHWEST AIRLINES CORP COM STK,XNYS,CS,False,likely_chartable
+PPS^16,PPS,Post Properties,XNYS,CS,False,likely_chartable
+CAL.1^10,CAL,Caleres Inc,XNYS,CS,True,likely_chartable
+JBLU,JBLU,JetBlue Airways Corp,XNAS,CS,True,likely_chartable
+BZH,BZH,"Beazer Homes USA, Inc. New",XNYS,CS,True,likely_chartable
+DAL,DAL,"Delta Air Lines, Inc.",XNYS,CS,True,likely_chartable
+ETFC^20,ETFC,E*Trade Financial Corporation,XNAS,CS,False,likely_chartable
+FOR,FOR,Forestar Group Inc.,XNYS,CS,True,likely_chartable
+AMKR,AMKR,Amkor Technology Inc,XNAS,CS,True,likely_chartable
+GBX,GBX,"The Greenbrier Companies, Inc.",XNYS,CS,True,likely_chartable
+GYMB^10,GYMB,GYMBOREE CORP (THE),XNAS,,False,likely_chartable
+MTH,MTH,Meritage Homes Corporation,XNYS,CS,True,likely_chartable
+NCI.3^19,NCI,Neo-Concept International Group Holdings Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+CAA^18,CAA,"CalAtlantic Group, Inc.",XNYS,CS,False,likely_chartable
+BRKR,BRKR,Bruker Corporation,XNAS,CS,True,likely_chartable
+TGB,TGB,Trekor Metals Limited,XASE,CS,True,likely_chartable
+EGO,EGO,Eldorado Gold Corporation,XNYS,CS,True,likely_chartable
+SWC^17,SWC,Stillwater Mining Co,XNYS,CS,False,likely_chartable
+NFLX,NFLX,NetFlix Inc,XNAS,CS,True,likely_chartable
+LNN,LNN,Lindsay Corporation,XNYS,CS,True,likely_chartable
+CALM,CALM,Cal-Maine Foods Inc,XNAS,CS,True,likely_chartable
+AMSC,AMSC,American Superconductor Corp,XNAS,CS,True,likely_chartable
+ATN^09,ATN,ATLAS ENERGY RESOURCES LLC COM UTS REP CL B LTD LLC INTS,XNYS,CS,False,likely_chartable
+GTLS^26,GTLS,"Chart Industries, Inc.",XNYS,CS,False,likely_chartable
+ESE,ESE,"ESCO Technologies, Inc.",XNYS,CS,True,likely_chartable
+DDS,DDS,Dillards Inc.,XNYS,CS,True,likely_chartable
+CLR^22,CLR,CONTINENTAL RESOURCES INC.,XNYS,CS,False,likely_chartable
+ZLC^14,ZLC,ZALE CORPORATION,XNYS,CS,False,likely_chartable
+XIDEQ^15,XIDEQ,,,,,unknown_not_in_polygon
+RYL^15,RYL,RYLAND GROUP INC,XNYS,CS,False,likely_chartable
+HW^17,HW,Headwaters Inc,XNYS,CS,False,likely_chartable
+OVTI^16,OVTI,OMNIVISION TECHNOLOGIES INC,XNAS,,False,likely_chartable
+SNCR^26,SNCR,Synchronoss Technologies Inc Common Stock,XNAS,CS,False,likely_chartable
+GU^12,GU,GUSHAN ENVIRONMENTAL ENGY LTD NEW SPN ADR REP TEN (10) ORD,XNYS,CS,False,likely_chartable
+COCOQ^15,COCOQ,,,,,unknown_not_in_polygon
+SOL^25,SOL,"Emeren Group Ltd American Depositary Shares, each representing 10 shares",XNYS,ADRC,False,likely_chartable
+FEEDQ^14,FEEDQ,,,,,unknown_not_in_polygon
+TLB^12,TLB,TALBOTS INC (THE),XNYS,CS,False,likely_chartable
+SQM,SQM,Sociedad Quimica y Minera de Chile SA,XNYS,ADRC,True,likely_chartable
+MMR^13,MMR,MCMORAN EXPLORATION CO,XNYS,CS,False,likely_chartable
+MEE^11,MEE,MASSEY ENERGY COMPANY,XNYS,CS,False,likely_chartable
+PGNX^20,PGNX,Progenics Pharmaceuticals Inc,XNAS,CS,False,likely_chartable
+GTE,GTE,Gran Tierra Energy Inc.,XASE,CS,True,likely_chartable
+CSE^14,CSE,CAPITALSOURCE INC,XNYS,CS,False,likely_chartable
+VMW^23,VMW,"VMware, Inc",XNYS,CS,False,likely_chartable
+AZZ,AZZ,AZZ Inc.,XNYS,CS,True,likely_chartable
+GCO,GCO,Genesco Inc.,XNYS,CS,True,likely_chartable
+LVLT^17,LVLT,Level 3 Communications Inc,XNYS,CS,False,likely_chartable
+BEXP^11,BEXP,BRIGHAM EXPL CO,XNAS,,False,likely_chartable
+SQNM^16,SQNM,SEQUENOM INC NEW,XNAS,,False,likely_chartable
+WNR^17,WNR,Western Refining Inc,XNYS,CS,False,likely_chartable
+GHM,GHM,Graham Corporation,XNYS,CS,True,likely_chartable
+HK.1^11,HK,Halcon Resources Corporation,XNYS,CS,False,likely_chartable
+EZPW,EZPW,Ezcorp Inc,XNAS,CS,True,likely_chartable
+CATY,CATY,Cathay General Bancorp,XNAS,CS,True,likely_chartable
+HBAN,HBAN,Huntington Bancshares Inc,XNAS,CS,True,likely_chartable
+NCOC^10,NCOC,NATIONAL COAL CORP COM STK (FL),XNAS,,False,likely_chartable
+WX.1^15,WX,Corgi All World 2x Daily ETF,BATS,ETF,True,low_confidence
+FINL^18,FINL,Finish Line,XNAS,CS,False,likely_chartable
+FITB,FITB,Fifth Third Bancorp,XNYS,CS,True,likely_chartable
+RBN^13,RBN,"ROBBINS & MEYERS,INC",XNYS,CS,False,likely_chartable
+KNX,KNX,Knight-Swift Transportation Holdings Inc. Class A Common Stock,XNYS,CS,True,likely_chartable
+APWR^13,APWR,A-POWER ENERGY GENERATION SYSTEM LTD COM,XNAS,,False,likely_chartable
+EWBC,EWBC,East-West Bancorp Inc,XNAS,CS,True,likely_chartable
+PPO^15,PPO,"POLYPORE INTERNATIONAL, INC",XNYS,CS,False,likely_chartable
+CSH.1^16,CSH,Morgan Creek - Exos Active SPAC Arbitrage ETF,ARCX,ETF,False,low_confidence
+MEDX.1^09,MEDX,Horizon Kinetics Medical ETF,XNAS,ETF,True,low_confidence
+FSYS^16,FSYS,FUEL SYSTEMS SOLUTIONS INC COM STK,XNAS,,False,likely_chartable
+SANM,SANM,Sanmina  Corp,XNAS,CS,True,likely_chartable
+VISN.1^17,VISN,"Vistance Networks, Inc. Common Stock",XNAS,CS,True,likely_chartable
+REGN,REGN,Regeneron Pharmaceuticals Inc,XNAS,CS,True,likely_chartable
+MBI,MBI,MBIA Inc.,XNYS,CS,True,likely_chartable
+STSA.1^14,STSA,"Satsuma Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SMG,SMG,The Scotts Miracle-Gro Company,XNYS,CS,True,likely_chartable
+AXYS^09,AXYS,AXSYS TECHNOLOGIES INC,,,False,low_confidence
+AYR^20,AYR,Aircastle Limited,XNYS,CS,False,likely_chartable
+LCC^13,LCC,US AIRWAYS GROUP INC.,XNYS,CS,False,likely_chartable
+AAI^11,AAI,AIRTRAN HOLDINGS INC,XNYS,CS,False,likely_chartable
+ALK,ALK,"Alaska Air Group, Inc.",XNYS,CS,True,likely_chartable
+RDN,RDN,Radian Group Inc.,XNYS,CS,True,likely_chartable
+UB^08,UB,UNIONBANCAL CORP (DELAWARE),XNYS,CS,False,likely_chartable
+TIN^12,TIN,TEMPLE INLAND INC,XNYS,CS,False,likely_chartable
+CSGS^26,CSGS,CSG Systems International,XNAS,CS,False,likely_chartable
+LYV,LYV,Live Nation Entertainment Inc.,XNYS,CS,True,likely_chartable
+FHN,FHN,First Horizon Corporation,XNYS,CS,True,likely_chartable
+PTRY^15,PTRY,PANTRY INC (THE),XNAS,,False,likely_chartable
+BPFH^21,BPFH,"Boston Private Financial Holdings, Inc.",XNAS,CS,False,likely_chartable
+BKD,BKD,"Brookdale Senior Living, Inc.",XNYS,CS,True,likely_chartable
+MDVN^16,MDVN,"MEDIVATION, INC.",XNAS,,False,likely_chartable
+UNFI,UNFI,United Natural Foods Inc,XNYS,CS,True,likely_chartable
+TSFG^10,TSFG,THE SOUTH FINANCIAL GROUP INC,XNAS,,False,likely_chartable
+ZION,ZION,Zions Bancorporation N.A.,XNAS,CS,True,likely_chartable
+RF,RF,Regions Financial Corp.,XNYS,CS,True,likely_chartable
+MI.1^11,MI,NFT Limited,XASE,CS,True,likely_chartable
+PALM^10,PALM,"PALM, INC.",,,False,low_confidence
+FNB,FNB,F.N.B. Corp,XNYS,CS,True,likely_chartable
+IPHS^20,IPHS,"Innophos Holdings, Inc.",XNAS,CS,False,likely_chartable
+AFAM^18,AFAM,Almost Family Inc,XNAS,CS,False,likely_chartable
+ACF^10,ACF,AMERICREDIT CORP,XNYS,CS,False,likely_chartable
+CHS^24,CHS,"Chicos FAS, Inc.",XNYS,CS,False,likely_chartable
+ORI,ORI,Old Republic International Corporation,XNYS,CS,True,likely_chartable
+LEN,LEN,Lennar Corporation Class A,XNYS,CS,True,likely_chartable
+ASB,ASB,Associated Banc-Corp,XNYS,CS,True,likely_chartable
+TRMK,TRMK,Trustmark Corp,XNAS,CS,True,likely_chartable
+WTFC,WTFC,Wintrust Financial Corp,XNAS,CS,True,likely_chartable
+PSS^12,PSS,"COLLECTIVE BRANDS, INC COM (HLDG CO)",XNYS,CS,False,likely_chartable
+TFC,TFC,Truist Financial Corporation,XNYS,CS,True,likely_chartable
+NDN^12,NDN,$.99 ONLY STORES,XNYS,CS,False,likely_chartable
+SNDK.1^16,SNDK,Sandisk Corporation Common Stock,XNAS,CS,True,likely_chartable
+CVBF,CVBF,CVB Financial Corp,XNAS,CS,True,likely_chartable
+PCBC.3^12,PCBC,PACIFIC CAPITAL BANCORP COM,,,False,low_confidence
+FR,FR,"First Industrial Realty Trust, Inc.",XNYS,CS,True,likely_chartable
+SUSQ^15,SUSQ,SUSQUEHANNA BANCSHARES INC,XNAS,,False,likely_chartable
+UBSI,UBSI,United Bankshares Inc,XNAS,CS,True,likely_chartable
+SF,SF,Stifel Financial Corp.,XNYS,CS,True,likely_chartable
+WFC,WFC,Wells Fargo & Co.,XNYS,CS,True,likely_chartable
+COLB,COLB,Columbia Banking Systems Inc,XNAS,CS,True,likely_chartable
+MTB,MTB,M&T Bank Corp.,XNYS,CS,True,likely_chartable
+FBP,FBP,First BanCorp.,XNYS,CS,True,likely_chartable
+JPM,JPM,JPMorgan Chase & Co.,XNYS,CS,True,likely_chartable
+WL^11,WL,WILMINGTON TRUST CORP,XNYS,CS,False,likely_chartable
+SBNY,SBNY,SIGNATURE BANK (NY),OTC Link,CS,True,low_confidence
+CMA^26,CMA,Comerica Incorporated,XNYS,CS,False,likely_chartable
+MNST,MNST,Monster Beverage Corporation,XNAS,CS,True,likely_chartable
+GBCI,GBCI,Glacier Bancorp Inc,XNYS,CS,True,likely_chartable
+RATE.2^09,RATE,Global X Interest Rate Hedge ETF,ARCX,ETF,False,low_confidence
+JOSB^14,JOSB,JOS A BANK CLOTHIERS INC,XNAS,,False,likely_chartable
+STI.1^19,STI,"Solidion Technology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ARTC.1^14,ARTC,Art Technology Acquisition Corp. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+BRK.A,BRK.A,Berkshire Hathaway Inc.,XNYS,CS,True,likely_chartable
+CADE^26,CADE,Cadence Bank,XNYS,CS,False,likely_chartable
+FLO,FLO,"Flowers Foods, Inc.",XNYS,CS,True,likely_chartable
+CME,CME,CME Group Inc.,XNAS,CS,True,likely_chartable
+NWN,NWN,Northwest Natural Holding Company,XNYS,CS,True,likely_chartable
+AEM,AEM,Agnico Eagle Mines Ltd.,XNYS,CS,True,likely_chartable
+RGLD,RGLD,Royal Gold Inc,XNAS,CS,True,likely_chartable
+SR,SR,Spire Inc.,XNYS,CS,True,likely_chartable
+MCY,MCY,Mercury General Corp.,XNYS,CS,True,likely_chartable
+GFI,GFI,Gold Fields Ltd ADR,XNYS,ADRC,True,likely_chartable
+LAZ,LAZ,"Lazard, Inc.",XNYS,CS,True,likely_chartable
+CMTL,CMTL,Comtech Telecommunications,XNAS,CS,True,likely_chartable
+BIIB,BIIB,Biogen Inc. Common Stock,XNAS,CS,True,likely_chartable
+FMBI^22,FMBI,First Midwest Bancorp Inc/IL,XNAS,CS,False,likely_chartable
+HUN,HUN,Huntsman Corporation,XNYS,CS,True,likely_chartable
+AJG,AJG,Arthur J. Gallagher & Co.,XNYS,CS,True,likely_chartable
+DLR,DLR,"Digital Realty Trust, Inc.",XNYS,CS,True,likely_chartable
+KBW^13,KBW,"KBW, INC. COM",XNYS,CS,False,likely_chartable
+IAG,IAG,IAMGold Corporation,XNYS,CS,True,likely_chartable
+PNY^16,PNY,PIEDMONT NATURAL GAS CO INC(NC,XNYS,CS,False,likely_chartable
+ATML^16,ATML,ATMEL CORP,XNAS,,False,likely_chartable
+CCC.1^18,CCC,CCC Intelligent Solutions Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+GHL^23,GHL,"Greenhill & Co., Inc.",XNYS,CS,False,likely_chartable
+JEF.3^13,JEF,Jefferies Financial Group Inc.,XNYS,CS,True,likely_chartable
+UMC,UMC,United Microelectronic Corp.,XNYS,ADRC,True,likely_chartable
+C,C,Citigroup Inc.,XNYS,CS,True,likely_chartable
+CAVM^18,CAVM,"Cavium, Inc.",XNAS,CS,False,likely_chartable
+AIG,AIG,"American International Group, Inc.",XNYS,CS,True,likely_chartable
+PRGO,PRGO,PERRIGO COMPANY PLC,XNYS,CS,True,likely_chartable
+FCF,FCF,First Commonwealth Financial Corporation,XNYS,CS,True,likely_chartable
+TKC,TKC,TURKCELL ILETISIM HIZMETLERI A.S. ADS,XNYS,ADRC,True,likely_chartable
+TLK,TLK,PT Telekomunikasi Indonesia,XNYS,ADRC,True,likely_chartable
+NAL^11,NAL,NEWALLIANCE BANCSHARES INC,XNYS,CS,False,likely_chartable
+TFSL,TFSL,TFS Financial Corporation,XNAS,CS,True,likely_chartable
+CHL^21,CHL,China Mobile Limited,XNYS,ADRC,False,likely_chartable
+ICE,ICE,Intercontinental Exchange  Inc.,XNYS,CS,True,likely_chartable
+AMED^25,AMED,Amedisys Inc,XNAS,CS,False,likely_chartable
+CHU^21,CHU,China Unicom (HONG KONG) Limited,XNYS,ADRC,False,likely_chartable
+GS,GS,Goldman Sachs Group Inc.,XNYS,CS,True,likely_chartable
+IBKR,IBKR,"Interactive Brokers Group, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+MER^09,MER,"MERRILL, LYNCH & CO INC",XNYS,CS,False,likely_chartable
+CEG.1^12,CEG,Constellation Energy Corporation Common Stock,XNAS,CS,True,likely_chartable
+NDAQ,NDAQ,"Nasdaq, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ALGT,ALGT,Allegiant Travel Company,XNAS,CS,True,likely_chartable
+ABT,ABT,Abbott Laboratories,XNYS,CS,True,likely_chartable
+EPD,EPD,Enterprise Products Partners L.P.,XNYS,CS,True,likely_chartable
+NPBC^16,NPBC,NATL PENN BANCSHARES INC,XNAS,,False,likely_chartable
+THS^26,THS,"Treehouse Foods, Inc.",XNYS,CS,False,likely_chartable
+SKM,SKM,"SK Telecom Co., Ltd.  American Depositary Shares (Each representing 5/9th of a Ordinary Share of SK Telecom Co., LTD.)",XNYS,ADRC,True,likely_chartable
+BWP^18,BWP,Boardwalk Pipeline Partners,XNYS,CS,False,likely_chartable
+ETR,ETR,Entergy Corporation,XNYS,CS,True,likely_chartable
+PAA,PAA,"Plains All American Pipeline, L.P. Common Units representing Limited Partner Interests",XNAS,CS,True,likely_chartable
+FDRY^08,FDRY,FOUNDRY NETWORKS INC,,,False,low_confidence
+SVR.1^11,SVR,"SYNIVERSE HOLDINGS, INC.",XNYS,CS,False,likely_chartable
+PBT,PBT,Permian Basin Royalty Trust,XNYS,CS,True,likely_chartable
+DWA^16,DWA,DREAMWORKS ANIMATION SKG INC CL-A,XNAS,CS,False,likely_chartable
+APOL^17,APOL,Apollo Education Group Inc Class A,XNAS,CS,False,likely_chartable
+THOR.1^15,THOR,Thornburg Premium Income Builder ETF,ARCX,ETF,True,low_confidence
+ETP^18,ETP,"Energy Transfer Partners, L.P.",XNYS,CS,False,likely_chartable
+VRSN,VRSN,VeriSign Inc,XNAS,CS,True,likely_chartable
+KR,KR,The Kroger Co.,XNYS,CS,True,likely_chartable
+AWK,AWK,"American Water Works Company, Inc",XNYS,CS,True,likely_chartable
+KMP^14,KMP,KINDER MORGAN ENER PNTRS L.P.,XNYS,CS,False,likely_chartable
+GILD,GILD,Gilead Sciences Inc,XNAS,CS,True,likely_chartable
+KMR^14,KMR,KINDER MORGAN MANAGEMENT LLC,XNYS,CS,False,likely_chartable
+MU,MU,"Micron Technology, Inc.",XNAS,CS,True,likely_chartable
+SYNA,SYNA,Synaptics Inc,XNAS,CS,True,likely_chartable
+MYGN,MYGN,Myriad Genetics Inc,XNAS,CS,True,likely_chartable
+TECH,TECH,Bio-Techne Corp.,XNAS,CS,True,likely_chartable
+AMGN,AMGN,Amgen Inc,XNAS,CS,True,likely_chartable
+TLAB^13,TLAB,TELLABS INC,XNAS,,False,likely_chartable
+SWN^24,SWN,Southwestern Energy Company,XNYS,CS,False,likely_chartable
+VRX.1^10,VRX,Valeant Pharmaceuticals Intl,XNYS,CS,False,likely_chartable
+DLTR,DLTR,Dollar Tree Inc.,XNAS,CS,True,likely_chartable
+RAH^13,RAH,RALCORP HOLDINGS INC. (NEW),XNYS,CS,False,likely_chartable
+MO,MO,"Altria Group, Inc.",XNYS,CS,True,likely_chartable
+CBST^15,CBST,CUBIST PHARMACEUTICALS INC,XNAS,,False,likely_chartable
+SO,SO,The Southern Company,XNYS,CS,True,likely_chartable
+LINEQ^17,LINEQ,,,,,unknown_not_in_polygon
+WCN,WCN,"Waste Connections, Inc.",XNYS,CS,True,likely_chartable
+PDLI^20,PDLI,"PDL BioPharma, Inc.",XNAS,CS,False,likely_chartable
+MMP^23,MMP,"Magellan Midstream Partners, L.P.",XNYS,CS,False,likely_chartable
+FFIV,FFIV,"F5, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CB.1^16,CB,Chubb Limited,XNYS,CS,True,likely_chartable
+TRV,TRV,"The Travelers Companies, Inc.",XNYS,CS,True,likely_chartable
+TPP.1^09,TPP,TEPPCO PARTNERS LP UNIT L P I,XNYS,CS,False,likely_chartable
+PTV^10,PTV,PACTIV CORPORATION,XNYS,CS,False,likely_chartable
+NS^24,NS,NuStar Energy L.P.,XNYS,CS,False,likely_chartable
+PCG,PCG,PG&E Corporation,XNYS,CS,True,likely_chartable
+BMY,BMY,Bristol-Myers Squibb Co.,XNYS,CS,True,likely_chartable
+CBSH,CBSH,Commerce Bancshares Inc,XNAS,CS,True,likely_chartable
+PRA^26,PRA,ProAssurance Corporation,XNYS,CS,False,likely_chartable
+RAI^17,RAI,Reynolds American Inc,XNYS,CS,False,likely_chartable
+WRB,WRB,W.R. Berkley Corporation,XNYS,CS,True,likely_chartable
+WB.3^09,WB,Weibo Corporation,XNAS,ADRC,True,likely_chartable
+VZ,VZ,Verizon Communications,XNYS,CS,True,likely_chartable
+KEY,KEY,KeyCorp,XNYS,CS,True,likely_chartable
+CMP,CMP,"Compass Minerals International, Inc.",XNYS,CS,True,likely_chartable
+FDO^15,FDO,FAMILY DOLLAR STORES,XNYS,CS,False,likely_chartable
+FNFG^16,FNFG,FIRST NIAGARA FINANCIAL GROUP INC,XNAS,,False,likely_chartable
+NAVI,NAVI,Navient Corporation,XNAS,CS,True,likely_chartable
+STRA,STRA,"Strategic Education, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CHH,CHH,Choice Hotels Intnl.,XNYS,CS,True,likely_chartable
+RVBD^15,RVBD,"RIVERBED TECHNOLOGY, INC COM",XNAS,,False,likely_chartable
+ADM,ADM,Archer Daniels Midland Company,XNYS,CS,True,likely_chartable
+RRC,RRC,Range Resources Corp,XNYS,CS,True,likely_chartable
+CRI,CRI,Carter's Inc.,XNYS,CS,True,likely_chartable
+NUE,NUE,Nucor Corporation,XNYS,CS,True,likely_chartable
+BNY,BNY,Bank of New York Mellon Corporation,XNYS,CS,True,likely_chartable
+RYAAY,RYAAY,Ryanair Holdings plc American Depositary Shares,XNAS,ADRC,True,likely_chartable
+CTXS^22,CTXS,Citrix Systems Inc,XNAS,CS,False,likely_chartable
+EQT,EQT,EQT CORP,XNYS,CS,True,likely_chartable
+NCC^09,NCC,NATIONAL CITY CORP,XNYS,CS,False,likely_chartable
+GVA,GVA,Granite Construction Inc.,XNYS,CS,True,likely_chartable
+NRG,NRG,"NRG Energy, Inc.",XNYS,CS,True,likely_chartable
+MCF^21,MCF,Contango Oil & Gas Co.,XASE,CS,False,likely_chartable
+EBS,EBS,"Emergent Biosolutions, Inc.",XNYS,CS,True,likely_chartable
+PFG,PFG,"Principal Financial Group, Inc.",XNAS,CS,True,likely_chartable
+SUN.1^12,SUN,SUNOCO L.P.,XNYS,CS,True,likely_chartable
+MS,MS,Morgan Stanley,XNYS,CS,True,likely_chartable
+CXG^10,CXG,CNX GAS CORP,XNYS,CS,False,likely_chartable
+CYCL.1^09,CYCL,CYCCLONE INC,OTC Link,CS,True,low_confidence
+OKS^17,OKS,Oneok Partners LP,XNYS,CS,False,likely_chartable
+FTO^11,FTO,FRONTIER OIL CORP,XNYS,CS,False,likely_chartable
+CHRW,CHRW,"C.H. Robinson Worldwide, Inc.",XNAS,CS,True,likely_chartable
+CNP,CNP,"CenterPoint Energy, Inc.",XNYS,CS,True,likely_chartable
+OMG^15,OMG,OM GROUP INC.,XNYS,CS,False,likely_chartable
+DMC,DMC,Del Monte Corporation,XNYS,CS,True,likely_chartable
+PETS,PETS,"PetMed Express, Inc.",XNAS,CS,True,likely_chartable
+LHCG^23,LHCG,LHC Group LLC,XNAS,CS,False,likely_chartable
+XL.1^18,XL,XL Fleet Corp.,XNYS,CS,False,likely_chartable
+PRE.1^16,PRE,Prenetics Global Limited Class A Ordinary Share,XNAS,CS,True,likely_chartable
+EOG,EOG,"EOG Resources, Inc.",XNYS,CS,True,likely_chartable
+EXP,EXP,"Eagle Materials, Inc.",XNYS,CS,True,likely_chartable
+NAT,NAT,Nordic American Tanker,XNYS,CS,True,likely_chartable
+SLH^16,SLH,"SOLERA HOLDINGS, INC. COM",XNYS,CS,False,likely_chartable
+CPLA^18,CPLA,Capella Education Company,XNAS,CS,False,likely_chartable
+TDS,TDS,Telephone and Data Systems Inc.,XNYS,CS,True,likely_chartable
+QCOR^14,QCOR,QUESTCOR PHARMA INC,XNAS,,False,likely_chartable
+NBL^20,NBL,"Noble Energy, Inc.",XNAS,CS,False,likely_chartable
+HCC.1^15,HCC,"Warrior Met Coal, Inc.",XNYS,CS,True,likely_chartable
+CHE,CHE,Chemed Corporation,XNYS,CS,True,likely_chartable
+STR.3^16,STR,Sitio Royalties Corp.,XNYS,CS,False,likely_chartable
+CINF,CINF,Cincinnati Financial Corp,XNAS,CS,True,likely_chartable
+EAC.1^10,EAC,Edify Acquisition Corp. Class A Common Stock,XNAS,CS,False,likely_chartable
+TAP,TAP,Molson Coors Beverage Company Class B,XNYS,CS,True,likely_chartable
+HTE^09,HTE,HARVEST ENERGY TR-TR UNITS (CDA),XNYS,CS,False,likely_chartable
+IPCR^09,IPCR,IPC HOLDING LIMITED,,,False,low_confidence
+WGL^18,WGL,Wgl Holdings,XNYS,CS,False,likely_chartable
+IDA,IDA,"IDACORP, Inc.",XNYS,CS,True,likely_chartable
+ACM,ACM,Aecom,XNYS,CS,True,likely_chartable
+NJR,NJR,New Jersey Resources Corp,XNYS,CS,True,likely_chartable
+NVE^13,NVE,"NV ENERGY, INC",XNYS,CS,False,likely_chartable
+ADCT.1^10,ADCT,ADC Therapeutics SA,XNYS,CS,True,likely_chartable
+RNR,RNR,RenaissanceRe Holdings Ltd.,XNYS,CS,True,likely_chartable
+AU.1^23,AU,AngloGold Ashanti plc,XNYS,CS,True,likely_chartable
+CWT,CWT,California Water Service,XNYS,CS,True,likely_chartable
+CKH^21,CKH,Seacor Holdings Inc.,XNYS,CS,False,likely_chartable
+VVC^19,VVC,Vectren Corporation,XNYS,CS,False,likely_chartable
+PTP^15,PTP,PLATINUM UNDERWRITERS HLDGS LTD,XNYS,CS,False,likely_chartable
+RHI,RHI,Robert Half Inc.,XNYS,CS,True,likely_chartable
+AN,AN,"AutoNation, Inc.",XNYS,CS,True,likely_chartable
+IDCC,IDCC,"InterDigital, Inc.",XNAS,CS,True,likely_chartable
+PENN,PENN,"PENN Entertainment, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TXT,TXT,"Textron, Inc.",XNYS,CS,True,likely_chartable
+NEM,NEM,Newmont Corporation,XNYS,CS,True,likely_chartable
+ORH^09,ORH,ODYSSEY RE HOLDINGS CORP,XNYS,CS,False,likely_chartable
+Q.2^11,Q,"Qnity Electronics, Inc.",XNYS,CS,True,likely_chartable
+F,F,Ford Motor Company,XNYS,CS,True,likely_chartable
+COGT.1^10,COGT,"Cogent Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VMC,VMC,Vulcan Materials Company(Holding Company),XNYS,CS,True,likely_chartable
+PHI,PHI,PLDT Inc.,XNYS,ADRC,True,likely_chartable
+OMX^13,OMX,OFFICEMAX INCORPORATED,XNYS,CS,False,likely_chartable
+URS^14,URS,URS CORP,XNYS,CS,False,likely_chartable
+ASTE,ASTE,Astec Industries Inc,XNAS,CS,True,likely_chartable
+NXY^13,NXY,NEXEN INC,XNYS,CS,False,likely_chartable
+DRH,DRH,Diamondrock Hospitality Company Common Stock,XNAS,CS,True,likely_chartable
+FSP,FSP,Franklin Street Properties Corp,XASE,CS,True,likely_chartable
+TWTC^14,TWTC,TW TELECOM INC CL A COM,XNAS,,False,likely_chartable
+VR.3^18,VR,Global X Metaverse ETF,XNAS,ETF,False,low_confidence
+FLR,FLR,Fluor Corporation,XNYS,CS,True,likely_chartable
+BID.1^19,BID,Tribeca Strategic Acquisition Corp. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+ASEI^16,ASEI,AMER SCIENCE & ENGR INC.,XNAS,,False,likely_chartable
+CX,CX,Cemex S.A.B. de C.V.,XNYS,ADRC,True,likely_chartable
+AMAG^20,AMAG,"AMAG Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+EME,EME,"EMCOR Group, Inc.",XNYS,CS,True,likely_chartable
+HTS^16,HTS,HATTERAS FINANCIAL CORP,XNYS,CS,False,likely_chartable
+NSR.3^17,NSR,Nomad Royalty Company Ltd.,XNYS,CS,False,likely_chartable
+GNW,GNW,"Genworth Financial, Inc.",XNYS,CS,True,likely_chartable
+PLD,PLD,"PROLOGIS, INC.",XNYS,CS,True,likely_chartable
+OSK,OSK,Oshkosh Corp.,XNYS,CS,True,likely_chartable
+SFD.4^13,SFD,"Smithfield Foods, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PAAS,PAAS,Pan American Silver Corp.,XNYS,CS,True,likely_chartable
+HIG,HIG,"The Hartford Insurance Group, Inc.",XNYS,CS,True,likely_chartable
+CBI^18,CBI,Chicago Bridge & Iron Nv,XNYS,CS,False,likely_chartable
+MET,MET,"MetLife, Inc.",XNYS,CS,True,likely_chartable
+STLD,STLD,Steel Dynamics Inc,XNAS,CS,True,likely_chartable
+BGC.1^18,BGC,"BGC Group, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+TSN,TSN,"Tyson Foods, Inc.",XNYS,CS,True,likely_chartable
+DRI,DRI,"Darden Restaurants, Inc.",XNYS,CS,True,likely_chartable
+EAT,EAT,"Brinker International, Inc.",XNYS,CS,True,likely_chartable
+EQY^17,EQY,Equity One,XNYS,CS,False,likely_chartable
+M,M,Macy's Inc.,XNYS,CS,True,likely_chartable
+SAFM^22,SAFM,Sanderson Farms Inc,XNAS,CS,False,likely_chartable
+LNC,LNC,Lincoln National Corp.,XNYS,CS,True,likely_chartable
+AMLN^12,AMLN,AMYLIN PHARMACEUTICALS INC,XNAS,,False,likely_chartable
+AIZ,AIZ,"Assurant, Inc.",XNYS,CS,True,likely_chartable
+MAC,MAC,The Macerich Company,XNYS,CS,True,likely_chartable
+SLG,SLG,SL Green Realty Corp.,XNYS,CS,True,likely_chartable
+TNL,TNL,Travel + Leisure Co.,XNYS,CS,True,likely_chartable
+AMG,AMG,Affiliated Managers Group,XNYS,CS,True,likely_chartable
+BDN,BDN,Brandywine Realty Trust,XNYS,CS,True,likely_chartable
+CENX,CENX,Century Aluminum Co,XNAS,CS,True,likely_chartable
+ARE,ARE,"Alexandria Real Estate Equities, Inc.",XNYS,CS,True,likely_chartable
+COO,COO,"The Cooper Companies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FLEX,FLEX,Flex Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+DRE^22,DRE,Duke Realty Corp.,XNYS,CS,False,likely_chartable
+LBTYA,LBTYA,Liberty Global Ltd. Class A Common Shares,XNAS,CS,True,likely_chartable
+ILMN,ILMN,Illumina Inc,XNAS,CS,True,likely_chartable
+ODP^25,ODP,The ODP Corporation Common Stock,XNAS,CS,False,likely_chartable
+WRI^21,WRI,Weingarten Realty Investors,XNYS,CS,False,likely_chartable
+CYH,CYH,"Community Health Systems, Inc.",XNYS,CS,True,likely_chartable
+WEN,WEN,The Wendy's Company,XNAS,CS,True,likely_chartable
+CETV^20,CETV,Central European Media Enterprises Ltd,XNAS,CS,False,likely_chartable
+AIPC^10,AIPC,AMERICAN ITALIAN PASTA CL-A,,,False,low_confidence
+BMR.1^16,BMR,Beamr Imaging Ltd. Ordinary Share,XNAS,CS,True,likely_chartable
+LMDIA^09,LMDIA,LIBERTY MEDIA CORP SERS A LIBERTY ENTERTAINMENT,,,False,low_confidence
+ALD.1^10,ALD,WisdomTree Asia Local Debt Fund,ARCX,ETF,False,low_confidence
+S.3^13,S,"SentinelOne, Inc.",XNYS,CS,True,likely_chartable
+ACAS^17,ACAS,American Capital Ltd,XNAS,CS,False,likely_chartable
+SVU^18,SVU,SUPERVALU Inc.,XNYS,CS,False,likely_chartable
+GERN,GERN,Geron Corp,XNAS,CS,True,likely_chartable
+WDC,WDC,Western Digital Corp.,XNAS,CS,True,likely_chartable
+SWKS,SWKS,Skyworks Solutions Inc,XNAS,CS,True,likely_chartable
+CI,CI,The Cigna Group,XNYS,CS,True,likely_chartable
+SPR^25,SPR,"Spirit Aerosystems Holdings, Inc.",XNYS,CS,False,likely_chartable
+HNT^16,HNT,HEALTH NET INC,XNYS,CS,False,likely_chartable
+ELN^13,ELN,ELAN CORP ADS(RP1 ORD4IRISH PN,XNYS,CS,False,likely_chartable
+RIO,RIO,Rio Tinto plc,XNYS,ADRC,True,likely_chartable
+BEAV^17,BEAV,B/E Aerospace Inc,XNAS,CS,False,likely_chartable
+NAV^21,NAV,Navistar International,XNYS,CS,False,likely_chartable
+KCI^11,KCI,KINETIC CONCEPTS INC,XNYS,CS,False,likely_chartable
+AKAM,AKAM,Akamai Technologies Inc,XNAS,CS,True,likely_chartable
+BRCD^17,BRCD,"Brocade Communications Systems, Inc. NEW",XNAS,CS,False,likely_chartable
+CVTX^09,CVTX,CV THERAPEUTICS INC,,,False,low_confidence
+SEPR^09,SEPR,SEPRACOR INC,,,False,low_confidence
+MR.1^16,MR,Montage Resources Corporation Common Stock,XNYS,CS,False,likely_chartable
+HUM,HUM,Humana Inc.,XNYS,CS,True,likely_chartable
+BCS,BCS,Barclays PLC,XNYS,ADRC,True,likely_chartable
+NTRS,NTRS,Northern Trust Corp,XNAS,CS,True,likely_chartable
+RS,RS,"Reliance, Inc.",XNYS,CS,True,likely_chartable
+WRC^13,WRC,WARNACO GROUP INC CL A NEW (THE),XNYS,CS,False,likely_chartable
+HOLX^26,HOLX,Hologic Inc,XNAS,CS,False,likely_chartable
+STT,STT,State Street Corporation,XNYS,CS,True,likely_chartable
+MDRX,MDRX,VERADIGM INC,OTC Link,CS,True,low_confidence
+JAVA.1^10,JAVA,JPMorgan Active Value ETF,ARCX,ETF,True,low_confidence
+STX,STX,Seagate Technology Holdings PLC Ordinary Shares (Ireland),XNAS,CS,True,likely_chartable
+KMX,KMX,CarMax Inc.,XNYS,CS,True,likely_chartable
+BIDU,BIDU,"Baidu, Inc.",XNAS,ADRC,True,likely_chartable
+CBRL,CBRL,"Cracker Barrel Old Country Store, Inc,.",XNAS,CS,True,likely_chartable
+BR,BR,Broadridge Financial Solutions Inc,XNYS,CS,True,likely_chartable
+CVH^13,CVH,COVENTRY HEALTH CARE INC,XNYS,CS,False,likely_chartable
+CDNS,CDNS,Cadence Design Systems,XNAS,CS,True,likely_chartable
+BX,BX,Blackstone Inc.,XNYS,CS,True,likely_chartable
+FCX,FCX,Freeport-McMoran Inc.,XNYS,CS,True,likely_chartable
+PLCE,PLCE,"Children's Place, Inc.",XNAS,CS,True,likely_chartable
+SU,SU,"Suncor Energy, Inc.",XNYS,CS,True,likely_chartable
+RGC.1^18,RGC,Regencell Bioscience Holdings Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+ARBA^12,ARBA,ARIBA INC,XNAS,,False,likely_chartable
+NCX^09,NCX,NOVA CHEMICALS CORP,XNYS,CS,False,likely_chartable
+PRXL^17,PRXL,Parexel International Corp,XNAS,CS,False,likely_chartable
+STAR.2^09,STAR,ISTAR INC,XNYS,CS,False,likely_chartable
+MSCC^18,MSCC,Microsemi Corp,XNAS,CS,False,likely_chartable
+CHT,CHT,"CHUNGHWA TELECOM CO., LTD",XNYS,ADRC,True,likely_chartable
+BWLD^18,BWLD,"Buffalo Wild Wings, Inc.",XNAS,CS,False,likely_chartable
+DB,DB,Deutsche Bank Aktiengesellschaft,XNYS,CS,True,likely_chartable
+IPG^25,IPG,"The Interpublic Group of Companies, Inc.",XNYS,CS,False,likely_chartable
+VMI,VMI,"Valmont Industries, Inc.",XNYS,CS,True,likely_chartable
+CAKE,CAKE,Cheesecake Factory (The),XNAS,CS,True,likely_chartable
+CY^20,CY,Cypress Semiconductor,XNAS,CS,False,likely_chartable
+BAC,BAC,Bank of America Corporation,XNYS,CS,True,likely_chartable
+COF,COF,Capital One Financial,XNYS,CS,True,likely_chartable
+AMD,AMD,Advanced Micro Devices,XNAS,CS,True,likely_chartable
+CE,CE,Celanese Corporation Common Stock,XNYS,CS,True,likely_chartable
+LAMR,LAMR,Lamar Advertising Co,XNAS,CS,True,likely_chartable
+MGM,MGM,MGM RESORTS INTERNATIONAL,XNYS,CS,True,likely_chartable
+ASH,ASH,Ashland Inc.,XNYS,CS,True,likely_chartable
+FL^25,FL,"Foot Locker, Inc.",XNYS,CS,False,likely_chartable
+ING,ING,ING Groep N.V. American Depositary Shares,XNYS,ADRC,True,likely_chartable
+BYD,BYD,Boyd Gaming Corporation,XNYS,CS,True,likely_chartable
+DIN,DIN,"Dine Brands Global, Inc.",XNYS,CS,True,likely_chartable
+FIG.2^17,FIG,"Figma, Inc.",XNYS,CS,True,likely_chartable
+NVAX,NVAX,Novavax Inc,XNAS,CS,True,likely_chartable
+CNO,CNO,"CNO Financial Group, Inc.",XNYS,CS,True,likely_chartable
+JNS^17,JNS,Janus Capital Group Inc,XNYS,CS,False,likely_chartable
+TXI^14,TXI,TEXAS INDUSTRIES INC,XNYS,CS,False,likely_chartable
+ANN^15,ANN,ANN INC,XNYS,CS,False,likely_chartable
+LHO^18,LHO,LaSalle Hotel Properties,XNYS,CS,False,likely_chartable
+SKS^13,SKS,SAKS INCORPORATED,XNYS,CS,False,likely_chartable
+AIM,AIM,AIM ImmunoTech Inc.,XASE,CS,True,likely_chartable
+TX,TX,Ternium S.A. American Depositary Shares,XNYS,ADRC,True,likely_chartable
+BRY.1^13,BRY,Berry Corporation (bry) Common Stock,XNAS,CS,False,likely_chartable
+CTV.2^11,CTV,Innovid Corp.,XNYS,CS,False,likely_chartable
+HEROQ.1^15,HEROQ,,,,,unknown_not_in_polygon
+CAR,CAR,"Avis Budget Group, Inc.",XNAS,CS,True,likely_chartable
+CTIC^23,CTIC,CTI BioPharma Corp. (DE) Common Stock,XNAS,CS,False,likely_chartable
+AGEN,AGEN,Agenus Inc.,XNAS,CS,True,likely_chartable
+FCL.2^09,FCL,FOCUSSHARES TR MORNINGSTAR CONSUMER CYCLICAL,ARCX,INDEX,False,low_confidence
+TEN.2^22,TEN,Tsakos Energy Navigation Ltd.,XNYS,CS,True,likely_chartable
+JAZZ,JAZZ,"Jazz Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+STEC.1^13,STEC,Santech Holdings Limited American Depositary Shares,XNAS,ADRC,False,likely_chartable
+BC,BC,Brunswick Corporation,XNYS,CS,True,likely_chartable
+VG.3^22,VG,"Venture Global, Inc.",XNYS,CS,True,likely_chartable
+SVA,SVA,"Sinovac Biotech, Ltd",XNAS,CS,True,likely_chartable
+CVM,CVM,Cel-Sci Corporation,XASE,CS,True,likely_chartable
+BCRX,BCRX,BioCryst Pharmaceuticals Inc,XNAS,CS,True,likely_chartable
+CRZO^19,CRZO,Carrizo Oil & Gas Inc,XNAS,CS,False,likely_chartable
+MAPP.2^13,MAPP,Harbor Multi Asset Explorers ETF,ARCX,ETF,False,low_confidence
+RINO,RINO,RINO INTL CORP,OTC Link,CS,True,low_confidence
+FUQI^13,FUQI,FUQI INTERNATIONAL INC COM,XNAS,,False,likely_chartable
+TIVO.1^16,TIVO,Tivo Inc,XNAS,CS,False,likely_chartable
+NYT,NYT,New York Times Co.,XNYS,CS,True,likely_chartable
+MPG.3^13,MPG,Leverage Shares 2X Long MP Daily ETF,XNAS,ETF,True,low_confidence
+HGSI^12,HGSI,HUMAN GENOME SCIENCES INC,XNAS,,False,likely_chartable
+TRW^15,TRW,TRW AUTOMOTIVE HOLDINGS CORP,XNYS,CS,False,likely_chartable
+ASIA.1^14,ASIA,Matthews Pacific Tiger Active ETF,ARCX,ETF,True,low_confidence
+KFN^14,KFN,KKR FINANCIAL HOLDINGS LLC COM,XNYS,CS,False,likely_chartable
+INCY,INCY,Incyte Genomics Inc,XNAS,CS,True,likely_chartable
+NLST,NLST,NETLIST INC,OTC Link,CS,True,low_confidence
+CGEN,CGEN,Compugen Ltd,XNAS,CS,True,likely_chartable
+SRZ^13,SRZ,"SUNRISE SENIOR LIVING, INC. COMMON",XNYS,CS,False,likely_chartable
+CNXT.1^11,CNXT,VanEck ChiNext Innovators ETF,ARCX,ETF,True,low_confidence
+SIRI,SIRI,"Sirius XM Holdings,  Inc",XNAS,CS,True,likely_chartable
+MNKD,MNKD,Mannkind Corporation,XNAS,CS,True,likely_chartable
+SKX^25,SKX,"Skechers U.S.A., Inc.",XNYS,CS,False,likely_chartable
+BUCY^11,BUCY,BUCYRUS INTERNATIONAL INC,XNAS,,False,likely_chartable
+FMCN^13,FMCN,FOCUS MEDIA HOLDING LTD SPON ADR (CAYMAN ISLANDS),XNAS,,False,likely_chartable
+UFS^21,UFS,DOMTAR CORPORATION (New),XNYS,CS,False,likely_chartable
+NTRI^19,NTRI,"NutriSystem, Inc.",XNAS,CS,False,likely_chartable
+DCTH,DCTH,Delcath Systems Inc,XNAS,CS,True,likely_chartable
+PWER.1^13,PWER,Nomura Energy Transition ETF,ARCX,ETF,True,low_confidence
+LSCC,LSCC,Lattice Semiconductor Corp,XNAS,CS,True,likely_chartable
+AFFX^16,AFFX,AFFYMETRIX INC,XNAS,,False,likely_chartable
+URI,URI,"United Rentals, Inc.",XNYS,CS,True,likely_chartable
+ICXT^10,ICXT,ICX TECHNOLOGIES INC COM STK (DE),,,False,low_confidence
+CAGC^12,CAGC,CHINA AGRITECH INC NEW COM STK (DE),XNAS,,False,likely_chartable
+CRUS,CRUS,Cirrus Logic Inc,XNAS,CS,True,likely_chartable
+GNVC^17,GNVC,"GenVec, Inc.",XNAS,CS,False,likely_chartable
+SOMX^13,SOMX,SOMAXON PHARMACEUTICALS INC COM,XNAS,,False,likely_chartable
+KERX^18,KERX,Keryx Biopharmaceuticals Inc,XNAS,CS,False,likely_chartable
+IDT,IDT,IDT Corporation Class B,XNYS,CS,True,likely_chartable
+APKT^13,APKT,"ACME PACKET, INC.",XNAS,,False,likely_chartable
+RBCN,RBCN,RUBICON TECH INC,OTC Link,CS,True,low_confidence
+GLG.1^10,GLG,"TD Holdings, Inc. Common Stock",XNAS,CS,False,likely_chartable
+EVVV^10,EVVV,EV3 INC.,,,False,low_confidence
+SGEN^23,SGEN,Seagen Inc. Common Stock,XNAS,CS,False,likely_chartable
+GTI.1^15,GTI,Graphjet Technology Class A Ordinary Shares,XNAS,CS,False,likely_chartable
+NGD^26,NGD,New Gold Inc.,XASE,CS,False,likely_chartable
+ARUN^15,ARUN,"ARUBA NETWORKS, INC.",XNAS,,False,likely_chartable
+VLTR^13,VLTR,VOLTERRA SEMCONDUCTOR CORP,XNAS,,False,likely_chartable
+TIE^13,TIE,TITANIUM METALS CORP(NEW),XNYS,CS,False,likely_chartable
+VQ^12,VQ,VENOCO INC COM,XNYS,CS,False,likely_chartable
+JKS,JKS,JINKOSOLAR HOLDINGS CO,XNYS,ADRC,True,likely_chartable
+VHC,VHC,VirnetX Holding Corp Common Stock,XNAS,CS,True,likely_chartable
+MDCO^20,MDCO,Medicines Co,XNAS,CS,False,likely_chartable
+MNTA^20,MNTA,"Momenta Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+APL^15,APL,ATLAS PIPELINE PARTNERS LP UTS,XNYS,CS,False,likely_chartable
+TSLA,TSLA,"Tesla, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BKS^19,BKS,Barnes & Noble,XNYS,CS,False,likely_chartable
+GGAL,GGAL,Grupo Financiero Galicia SA,XNAS,ADRC,True,likely_chartable
+AMRN,AMRN,Amarin Corp Plc,XNAS,ADRC,True,likely_chartable
+SPRD^13,SPRD,SPREADTRUM COMMUNICATIONS INC ADS (CAYMAN ISLANDS),XNAS,,False,likely_chartable
+EXEL,EXEL,Exelixis Inc,XNAS,CS,True,likely_chartable
+ARST.1^10,ARST,"ARCSIGHT, INC COM",XNAS,,False,likely_chartable
+NVDA,NVDA,Nvidia Corp,XNAS,CS,True,likely_chartable
+LNG,LNG,Cheniere Energy Inc,XNYS,CS,True,likely_chartable
+NZ.1^10,NZ,NETEZZA CORPORATION COM,XNYS,CS,False,likely_chartable
+CCME^12,CCME,CHINA MEDIAEXPRESS HOLDINGS INC COM STK (DE),XNAS,CS,False,likely_chartable
+ZAGG^21,ZAGG,ZAGG Inc Common Stock (Delaware),XNAS,CS,False,likely_chartable
+TZOO,TZOO,Travelzoo Common Stock,XNAS,CS,True,likely_chartable
+SIFY,SIFY,Sify Technologies Limited,XNAS,ADRC,True,likely_chartable
+IPGP,IPGP,IPG Photonics Corporation,XNAS,CS,True,likely_chartable
+SQNS,SQNS,Sequans Communications S.A. American Depositary Shares (each representing one hundred (100) Ordinary Shares),XNYS,ADRC,True,likely_chartable
+ACOM.3^12,ACOM,Harbor Active Commodity ETF,ARCX,ETF,True,low_confidence
+XOMA^26,XOMA,XOMA Royalty Corporation Common Stock,XNAS,CS,False,likely_chartable
+CLDA^11,CLDA,CLINICAL DATA INC,,,False,low_confidence
+URZ^15,URZ,URANERZ ENERGY CORP,XASE,CS,False,likely_chartable
+YOKU^16,YOKU,YOUKU TUDOU INC.(CAYMAN ISLS),XNYS,CS,False,likely_chartable
+JVA,JVA,"Coffee Holding Co., Inc.",XNAS,CS,True,likely_chartable
+TA^23,TA,TravelCenters of America LLC,XNAS,CS,False,likely_chartable
+EXK,EXK,Endeavour Silver Corp.,XNYS,CS,True,likely_chartable
+AG,AG,FIRST MAJESTIC SILVER CORP,XNYS,CS,True,likely_chartable
+KKD^16,KKD,KRISPY KREME DOUGHNUTS INC,XNYS,CS,False,likely_chartable
+ZIP.1^13,ZIP,"ZipRecruiter, Inc.",XNYS,CS,True,likely_chartable
+ARCO,ARCO,ARCOS DORADOS HOLDINGS INC.,XNYS,CS,True,likely_chartable
+SODA^18,SODA,SodaStream International Ltd,XNAS,CS,False,likely_chartable
+GLBC^11,GLBC,GLOBAL CROSSING LTD NEW (BERMUDA),,,False,low_confidence
+GLUU^21,GLUU,Glu Mobile Inc.,XNAS,CS,False,likely_chartable
+CASC^18,CASC,"Cascadian Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+AXAS^23,AXAS,Abraxas Petroleum Corporation,XNAS,CS,False,likely_chartable
+LNKD^16,LNKD,LinkedIn Corporation,XNYS,CS,False,likely_chartable
+MMI.3^12,MMI,MARCUS & MILLICHAP,XNYS,CS,True,likely_chartable
+HRBN^11,HRBN,HARBIN ELEC INC,XNAS,,False,likely_chartable
+MAKO.2^13,MAKO,Mako Mining Corp Common Stock,XNAS,CS,True,likely_chartable
+NOK,NOK,Nokia Corporation,XNYS,ADRC,True,likely_chartable
+ATHN.2^19,ATHN,Athena Technology Acquisition Corp.,XNYS,CS,False,likely_chartable
+EM.3^11,EM,Smart Share Global Limited American Depositary Shares,XNAS,ADRC,False,likely_chartable
+FCFS,FCFS,"FirstCash Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DPZ,DPZ,Domino's Pizza Inc.,XNAS,CS,True,likely_chartable
+LXK^16,LXK,Lexmark Intl Inc,XNYS,CS,False,likely_chartable
+PAET^11,PAET,PAETEC HLDG CORP,XNAS,,False,likely_chartable
+MFN^12,MFN,MINEFINDERS LTD (F),XASE,CS,False,likely_chartable
+TRLG^13,TRLG,TRUE RELIGION APPAREL INC,XNAS,,False,likely_chartable
+INFN^25,INFN,Infinera Corporation Common Stock,XNAS,CS,False,likely_chartable
+RGR,RGR,"Sturm, Ruger & Company, Inc.",XNYS,CS,True,likely_chartable
+LOGI,LOGI,Logitech International SA,XNAS,CS,True,likely_chartable
+PPDI^11,PPDI,PHARMACEUTICAL PRODUCT DEV INC,XNAS,,False,likely_chartable
+QIHU^16,QIHU,QIHOO 360 TECHNOLOGY CO LTD ADS RPSTG 3 CL A SHS,XNYS,CS,False,likely_chartable
+GLBL.1^11,GLBL,Pacer MSCI World Industry Advantage ETF,BATS,ETF,True,low_confidence
+CLWR^13,CLWR,CLEARWIRE CORP NEW CL A COM STK (DE),XNAS,,False,likely_chartable
+LQDT,LQDT,"Liquidity Services, Inc.",XNAS,CS,True,likely_chartable
+SWI.3^16,SWI,SolarWinds Corporation Common Stock,XNYS,CS,False,likely_chartable
+WPRT,WPRT,Westport Fuel Systems Inc Common Shares,XNAS,CS,True,likely_chartable
+LSI.1^14,LSI,"Life Storage, Inc.",XNYS,CS,False,likely_chartable
+VRA,VRA,"Vera Bradley, Inc.",XNAS,CS,True,likely_chartable
+DNKN^20,DNKN,"Dunkin' Brands Group, Inc.",XNAS,CS,False,likely_chartable
+CTCT^16,CTCT,"CONSTANT CONTACT, INC COM",XNAS,,False,likely_chartable
+THO,THO,"Thor Industries, Inc.",XNYS,CS,True,likely_chartable
+AZPN^25,AZPN,Aspen Technology Inc,XNAS,CS,False,likely_chartable
+ULTA,ULTA,"Ulta Beauty, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CVLT,CVLT,"Commault Systems, Inc.",XNAS,CS,True,likely_chartable
+FNSR^19,FNSR,Finisar Corp,XNAS,CS,False,likely_chartable
+VRUS.1^12,VRUS,VERUS INTL INC,OTC Link,CS,True,low_confidence
+OPTR^13,OPTR,"OPTIMER PHARMACEUTICALS, INC. COM STK",,,False,low_confidence
+BSFT.1^18,BSFT,"BroadSoft, Inc.",XNAS,CS,False,likely_chartable
+RRR.2^12,RRR,"Red Rock Resorts, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+MLNX^20,MLNX,"Mellanox Technologies, Ltd.",XNAS,CS,False,likely_chartable
+P.4^19,P,"Everpure, Inc.",XNYS,CS,True,likely_chartable
+SVM,SVM,Silvercorp Metals Inc. Common Shares,XASE,CS,True,likely_chartable
+LOGM^20,LOGM,"LogMein, Inc.",XNAS,CS,False,likely_chartable
+DISH^24,DISH,DISH Network Corp.,XNAS,CS,False,likely_chartable
+NXTM^19,NXTM,NxStage Medical Inc.,XNAS,CS,False,likely_chartable
+SFSF^12,SFSF,SUCCESSFACTORS INC COM STK (DE),XNYS,CS,False,likely_chartable
+MTW,MTW,"The Manitowoc Company, Inc.",XNYS,CS,True,likely_chartable
+STMP^21,STMP,"Stamps.com, Inc.",XNAS,CS,False,likely_chartable
+MTOR^22,MTOR,"MERITOR, Inc.",XNYS,CS,False,likely_chartable
+TEX,TEX,Terex Corporation,XNYS,CS,True,likely_chartable
+SIMO,SIMO,Silicon Motion Technology Corporation,XNAS,ADRC,True,likely_chartable
+FIO^14,FIO,FUSION-IO INC COM,XNYS,CS,False,likely_chartable
+TIBX^14,TIBX,TIBCO SOFTWARE INC,XNAS,,False,likely_chartable
+AFFY,AFFY,AFFYMAX INC,OTC Link,CS,True,low_confidence
+TQNT^15,TQNT,TRIQUINT SEMICONDUCTOR INC,XNAS,,False,likely_chartable
+CTB^21,CTB,Cooper Tire & Rubber Co.,XNYS,CS,False,likely_chartable
+CHRS.1^12,CHRS,"Coherus Oncology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+GNOM.2^13,GNOM,Global X Genomics & Biotechnology ETF,XNAS,ETF,True,low_confidence
+CPX^12,CPX,"COMPLETE PRODUCTION SERVICES, INC",XNYS,CS,False,likely_chartable
+SWFT^17,SWFT,Swift Transportation Company,XNYS,CS,False,likely_chartable
+SSYS,SSYS,Stratasys Inc (ISRAEL),XNAS,CS,True,likely_chartable
+INHX^12,INHX,INHIBITEX INC,XNAS,,False,likely_chartable
+KOG^14,KOG,KODIAK OIL & GAS CORP,XNYS,CS,False,likely_chartable
+OPEN.4^14,OPEN,Opendoor Technologies Inc Common Stock,XNAS,CS,True,likely_chartable
+SGI,SGI,Somnigroup International Inc.,XNYS,CS,True,likely_chartable
+TUDO^12,TUDO,TUDOU HLDGS LTD SPON ADR (CYM),,,False,low_confidence
+BVSN^20,BVSN,Broadvision Inc Com,XNAS,CS,False,likely_chartable
+IDIX^14,IDIX,IDENIX PHARMACEUTICALS INC,XNAS,,False,likely_chartable
+ALNY,ALNY,"Alnylam Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+DOLE.1^13,DOLE,Dole plc,XNYS,CS,True,likely_chartable
+ZOLL^12,ZOLL,ZOLL MEDICAL CORP,,,False,low_confidence
+ECYT^18,ECYT,"Endocyte, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SYNC^21,SYNC,"Synacor, Inc.",XNAS,CS,False,likely_chartable
+SRPT,SRPT,"Sarepta Therapeutics,, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NSM^18,NSM,Nationstar Mortgage Holdings,XNYS,CS,False,likely_chartable
+YELP,YELP,YELP INC.,XNYS,CS,True,likely_chartable
+HZNP^23,HZNP,Horizon Therapeutics Public Limited Company Ordinary Shares,XNAS,CS,False,likely_chartable
+PBYI,PBYI,PUMA BIOTECHNOLOGY INC,XNAS,CS,True,likely_chartable
+HIMX,HIMX,"Himax Technologies, Inc.",XNAS,ADRC,True,likely_chartable
+RPRX.1^18,RPRX,Royalty Pharma plc Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+SPPI^23,SPPI,Spectrum Pharmaceuticals Inc,XNAS,CS,False,likely_chartable
+ATRS^22,ATRS,"Antares Pharma, Inc.",XNAS,CS,False,likely_chartable
+KNDI,KNDI,"Kandi Technologies Group, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+CYTK,CYTK,Cytokinetics Inc.,XNAS,CS,True,likely_chartable
+PCYC^15,PCYC,PHARMACYCLICS INC,XNAS,,False,likely_chartable
+INO,INO,"Inovio Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+ASTX.1^13,ASTX,Tradr 2X Long ASTS Daily ETF,BATS,ETF,True,low_confidence
+RMTI,RMTI,"Rockwell Medical, Inc. (DE) Common Stock",XNAS,CS,True,likely_chartable
+VIPS,VIPS,Vipshop Holdings Limited,XNYS,ADRC,True,likely_chartable
+GOGO,GOGO,Gogo Inc.,XNAS,CS,True,likely_chartable
+AEGR^16,AEGR,"Aegerion Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+BITA.1^20,BITA,The iShares Bitcoin Premium Income ETF Shares of Fractional Undivided Beneficial Interest,XNAS,ETF,True,low_confidence
+OMER,OMER,Omeros Corporation,XNAS,CS,True,likely_chartable
+MM^15,MM,MILLENNIAL MEDIA INC COM STK (DE),XNYS,CS,False,likely_chartable
+PRKR,PRKR,PARKERVISION INC,OTC Link,CS,True,low_confidence
+ARIA.1^17,ARIA,Aria Opportunities ETF,ARCX,ETF,True,low_confidence
+SCTY.1^16,SCTY,SolarCity Corporation,XNAS,CS,False,likely_chartable
+CAMT,CAMT,Camtek Ltd,XNAS,CS,True,likely_chartable
+OSIR^19,OSIR,"Osiris Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+AFOP^16,AFOP,ALLIANCE FIBER OPTIC PROD INC  COM STK,XNAS,,False,likely_chartable
+NBIX,NBIX,Neurocrine Biosciences Inc,XNAS,CS,True,likely_chartable
+ORMP,ORMP,Oramed Pharmaceuticals Inc.,XNAS,CS,True,likely_chartable
+PLUG,PLUG,Plug Power Inc.,XNAS,CS,True,likely_chartable
+GALT,GALT,Galectin Therapeutics Inc.,XNAS,CS,True,likely_chartable
+ARWR,ARWR,Arrowhead Research Corporation,XNAS,CS,True,likely_chartable
+KYTH^15,KYTH,"KYTHERA BIOPHARMACEUTICALS, INC COM",XNAS,,False,likely_chartable
+ZLTQ^17,ZLTQ,"ZELTIQ Aesthetics, Inc.",XNAS,CS,False,likely_chartable
+LIVE,LIVE,Live Ventures Inc,XNAS,CS,True,likely_chartable
+BLDP,BLDP,Ballard Power Systems Inc.,XNAS,CS,True,likely_chartable
+FCEL,FCEL,FuelCell Energy Inc  NEW (DE),XNAS,CS,True,likely_chartable
+MOBI.2^16,MOBI,"Mobia Medical, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AGIO,AGIO,"Agios Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+ICPT^23,ICPT,"Intercept Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+GTN,GTN,"Gray Media, Inc.",XNYS,CS,True,likely_chartable
+OMED.2^19,OMED,"OncoMed Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+FURX^14,FURX,FURIEX PHARMACEUTICALS INC COM STK (DE),XNAS,,False,likely_chartable
+CHTP^14,CHTP,CHELSEA THERAPEUTICS INT'L LTD,XNAS,,False,likely_chartable
+RGEN,RGEN,Repligen Corp,XNAS,CS,True,likely_chartable
+IRWD,IRWD,"Ironwood Pharmaceuticals, Inc. - Class A",XNAS,CS,True,likely_chartable
+PTCT,PTCT,"PTC Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+GWPH^21,GWPH,GW Pharmaceuticals Plc American Depositary Shares,XNAS,ADRC,False,likely_chartable
+MXWL^19,MXWL,Maxwell Technologies Inc,XNAS,CS,False,likely_chartable
+TOUR,TOUR,Tuniu Corporation,XNAS,ADRC,True,likely_chartable
+KPTI,KPTI,Karyopharm Therapeutics Inc.,XNAS,CS,True,likely_chartable
+CMCM,CMCM,"Cheetah Mobile Inc. American Depositary Shares, each representing fifty (50) Class A Ordinary Shares",XNYS,ADRC,True,likely_chartable
+ARTX^19,ARTX,Arotech Corporation,XNAS,CS,False,likely_chartable
+BMA,BMA,Banco Macro S.A.,XNYS,ADRC,True,likely_chartable
+EMESQ^19,EMESQ,,,,,unknown_not_in_polygon
+ATHM,ATHM,"Autohome Inc. American Depositary Shares, each representing four Class A Ordinary Shares",XNYS,ADRC,True,likely_chartable
+GPRO,GPRO,"GoPro, Inc.",XNAS,CS,True,likely_chartable
+MACK^24,MACK,"Merrimack Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+QIWI^24,QIWI,QIWI PLC,XNAS,ADRC,False,likely_chartable
+ACHN.1^20,ACHN,"Achillion Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+LAKE,LAKE,Lakeland Industries Inc,XNAS,CS,True,likely_chartable
+APT,APT,"Alpha Pro Tech, Ltd.",XASE,CS,True,likely_chartable
+AERI^22,AERI,"Aerie Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+BLUE^25,BLUE,"bluebird bio, Inc. Common Stock",XNAS,CS,False,likely_chartable
+TRLA.2^15,TRLA,"Telaria, Inc.",XNYS,CS,False,likely_chartable
+IBIO,IBIO,"iBio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TTPH^20,TTPH,"Tetraphase Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+RENT.1^16,RENT,"Rent the Runway, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+CMGE^15,CMGE,CHINA MOBILE GAMES & ENTMT GRP LTD SPON ADR (CYM),XNAS,,False,likely_chartable
+VIMC^15,VIMC,VIMICRO INTERNATIONAL CORP ADR (KY),XNAS,,False,likely_chartable
+CLF,CLF,Cleveland-Cliffs Inc.,XNYS,CS,True,likely_chartable
+KITE^17,KITE,"Kite Pharma, Inc.",XNAS,CS,False,likely_chartable
+CZR.3^20,CZR,"Caesars Entertainment, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ANIP,ANIP,"ANI Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+EXAS^26,EXAS,Exact Sciences Corp,XNAS,CS,False,likely_chartable
+CMRX^25,CMRX,"Chimerix, Inc.",XNAS,CS,False,likely_chartable
+MGNX,MGNX,"MacroGenics, Inc.",XNAS,CS,True,likely_chartable
+RGLS^25,RGLS,Regulus Therapeutics Inc.,XNAS,CS,False,likely_chartable
+IMPV^19,IMPV,"Imperva, Inc.",XNAS,CS,False,likely_chartable
+ESPR^26,ESPR,"Esperion Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+FOLD^26,FOLD,"Amicus Therapeutics, Inc",XNAS,CS,False,likely_chartable
+PLNR^15,PLNR,PLANAR SYSTEMS INC,XNAS,,False,likely_chartable
+KING^16,KING,KING DIGITAL ENTMT PLC ORD SHS (IRL),XNYS,CS,False,likely_chartable
+CYBR^26,CYBR,CyberArk Software Ltd.,XNAS,CS,False,likely_chartable
+TRUE^26,TRUE,"TrueCar, Inc.",XNAS,CS,False,likely_chartable
+NVRO^25,NVRO,NEVRO CORP.,XNYS,CS,False,likely_chartable
+TLM^15,TLM,TALISMAN ENERGY INC,XNYS,CS,False,likely_chartable
+RLYP^16,RLYP,RELYPSA INC COM,XNAS,,False,likely_chartable
+XLRN^21,XLRN,Acceleron Pharma Inc.,XNAS,CS,False,likely_chartable
+ARRY.1^19,ARRY,"Array Technologies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+HALO,HALO,"Halozyme Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+RDUS.1^22,RDUS,"Radius Recycling, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+NOG,NOG,"Northern Oil and Gas, Inc.",XNYS,CS,True,likely_chartable
+CLDX,CLDX,"Celldex Therapeutics, Inc",XNAS,CS,True,likely_chartable
+NDRM^17,NDRM,NeuroDerm Ltd. Ordinary Shares,XNAS,CS,False,likely_chartable
+PRTA,PRTA,Prothena Corporation plc Ordinary Shares,XNAS,CS,True,likely_chartable
+EGRX,EGRX,EAGLE PHARMS INC,OTC Link,CS,True,low_confidence
+CRMD,CRMD,CorMedix Inc.,XNAS,CS,True,likely_chartable
+ASPX^15,ASPX,AUSPEX PHARMACEUTICALS INC COM STK (DE),XNAS,,False,likely_chartable
+ASPS,ASPS,Altisource Portfolio Solutions S.A.,XNAS,CS,True,likely_chartable
+PDCE^23,PDCE,"PDC Energy, Inc.",XNAS,CS,False,likely_chartable
+BLDR,BLDR,"Builders FirstSource, Inc.",XNYS,CS,True,likely_chartable
+CVEO,CVEO,Civeo Corporation,XNYS,CS,True,likely_chartable
+CLNE,CLNE,Clean Energy Fuels Corp.,XNAS,CS,True,likely_chartable
+SHAK,SHAK,Shake Shack Inc.,XNYS,CS,True,likely_chartable
+BNFT^23,BNFT,"Benefitfocus, Inc.",XNAS,CS,False,likely_chartable
+VSLR^20,VSLR,"VIVINT SOLAR, INC.",XNYS,CS,False,likely_chartable
+HPTX^15,HPTX,HYPERION THERAPEUTICS INC COM STK (DE),XNAS,,False,likely_chartable
+HRTX,HRTX,"Heron Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+SEDG,SEDG,"SolarEdge Technologies, Inc.",XNAS,CS,True,likely_chartable
+QUNR^17,QUNR,Qunar Cayman Islands Limited,XNAS,ADRC,False,likely_chartable
+NHTC,NHTC,Natural Health Trends Corp.,XNAS,CS,True,likely_chartable
+ANTH,ANTH,ANTHERA PHARMS INC NEW,OTC Link,CS,True,low_confidence
+WUBA^20,WUBA,58.COM INC,XNYS,ADRC,False,likely_chartable
+ATRA,ATRA,"Atara Biotherapeutics, Inc",XNAS,CS,True,likely_chartable
+JMEI^20,JMEI,"Jumei International Holding Limited American depositary shares, each representing ten Class A ordina",XNYS,ADRC,False,likely_chartable
+BAS.1^16,BAS,"Basis Energy Services, Inc.",XNYS,CS,False,likely_chartable
+SRNE,SRNE,SORRENTO THERAPEUTICS INC,OTC Link,CS,True,low_confidence
+CHRS,CHRS,"Coherus Oncology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TREE,TREE,"LendingTree, Inc.",XNAS,CS,True,likely_chartable
+ETSY,ETSY,"Etsy, Inc.",XNYS,CS,True,likely_chartable
+LXRX,LXRX,"Lexicon Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+S.4^20,S,"SentinelOne, Inc.",XNYS,CS,True,likely_chartable
+W,W,Wayfair Inc.,XNYS,CS,True,likely_chartable
+TRVN,TRVN,TREVENA INC,OTC Link,CS,True,low_confidence
+EFOI,EFOI,"Energy Focus, Inc.",XNAS,CS,True,likely_chartable
+AKBA,AKBA,"Akebia Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+ZGNX^22,ZGNX,"Zogenix, Inc.",XNAS,CS,False,likely_chartable
+FIT.2^21,FIT,"Fitbit, Inc. Class A common stock",XNYS,CS,False,likely_chartable
+CHMA^21,CHMA,"Chiasma, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ANAC.1^16,ANAC,Arctos NorthStar Acquisition Corp.,XNYS,CS,False,likely_chartable
+SHOP,SHOP,Shopify Inc. Class A subordinate voting shares,XNAS,CS,True,likely_chartable
+ABMD^22,ABMD,Abiomed Inc,XNAS,CS,False,likely_chartable
+SCMP^18,SCMP,"Sucampo Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+CPE^24,CPE,Callon Petroleum Company,XNYS,CS,False,likely_chartable
+ZSPH^15,ZSPH,ZS PHARMA INC COMS TK (DE),XNAS,,False,likely_chartable
+LJPC^22,LJPC,La Jolla Pharmaceutical Company,XNAS,CS,False,likely_chartable
+CWEI^17,CWEI,"Clayton Williams Energy, Inc.",XNYS,CS,False,likely_chartable
+PACB,PACB,"Pacific Biosciences of California, Inc.",XNAS,CS,True,likely_chartable
+ITCI^25,ITCI,Intra-Cellular Therapies Inc.,XNAS,CS,False,likely_chartable
+AVXL,AVXL,Anavex Life Sciences,XNAS,CS,True,likely_chartable
+ERII,ERII,"Energy Recovery, Inc.",XNAS,CS,True,likely_chartable
+MRTX^24,MRTX,"Mirati Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+RJETQ^17,RJETQ,,,,,unknown_not_in_polygon
+NVCR,NVCR,NovoCure Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+CSTM,CSTM,Constellium SE Class A Ordinary shares,XNYS,CS,True,likely_chartable
+JUNO^18,JUNO,"Juno Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+CLLS,CLLS,Cellectis S.A. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+OLED,OLED,Universal Display Corp,XNAS,CS,True,likely_chartable
+TXMD,TXMD,"TherapeuticsMD, Inc.",XNAS,CS,True,likely_chartable
+PCRX,PCRX,"Pacira BioSciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FPRX^21,FPRX,"Five Prime Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+DYAX^16,DYAX,DYAX CORPORATION,XNAS,,False,likely_chartable
+CACC,CACC,Credit Acceptance Corp,XNAS,CS,True,likely_chartable
+XNPT^16,XNPT,"XENOPORT, INC.",XNAS,,False,likely_chartable
+ARII^18,ARII,"American Railcar Industries, Inc.",XNAS,CS,False,likely_chartable
+RUN,RUN,Sunrun Inc,XNAS,CS,True,likely_chartable
+SMCI,SMCI,"Super Micro Computer, Inc. Common Stock",XNAS,CS,True,likely_chartable
+RVNC^25,RVNC,"Revance Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+AR,AR,ANTERO RESOURCES CORPORATION,XNYS,CS,True,likely_chartable
+AVP^20,AVP,"Avon Products, Inc.",XNYS,CS,False,likely_chartable
+CIVI^26,CIVI,"Civitas Resources, Inc.",XNYS,CS,False,likely_chartable
+NGL,NGL,NGL ENERGY PARTNERS LP,XNYS,CS,True,likely_chartable
+SUNEQ^17,SUNEQ,,,,,unknown_not_in_polygon
+STRP^18,STRP,Straight Path Communications Inc.,XASE,CS,False,likely_chartable
+GLNG,GLNG,Golar LNG Ltd,XNAS,CS,True,likely_chartable
+OKE,OKE,"Oneok, Inc.",XNYS,CS,True,likely_chartable
+ADMS^21,ADMS,"Adamas Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+TERP^20,TERP,"TerraForm Power, Inc",XNAS,CS,False,likely_chartable
+GPORQ^21,GPORQ,,,,,unknown_not_in_polygon
+SEP^18,SEP,Spectra Engy Parters Lp,XNYS,CS,False,likely_chartable
+TIVO^20,TIVO,Tivo Inc,XNAS,CS,False,likely_chartable
+GRPN,GRPN,"Groupon, Inc.Common Stock",XNAS,CS,True,likely_chartable
+ICON.1^21,ICON,Icon Energy Corp. Common stock,XNAS,CS,True,likely_chartable
+CC,CC,The Chemours Company,XNYS,CS,True,likely_chartable
+CNX,CNX,CNX Resources Corporation,XNYS,CS,True,likely_chartable
+ATI,ATI,ATI Inc.,XNYS,CS,True,likely_chartable
+CDE,CDE,"Coeur Mining, Inc.",XNYS,CS,True,likely_chartable
+GMLP^21,GMLP,Golar LNG Partners LP,XNAS,CS,False,likely_chartable
+EDIT,EDIT,"Editas Medicine, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SDRL.1^18,SDRL,Seadrill Limited,XNYS,CS,True,likely_chartable
+AXLL^16,AXLL,AXIALL CORP COM STK (DE),XNYS,CS,False,likely_chartable
+ELLI^19,ELLI,Ellie Mae Inc,XNYS,CS,False,likely_chartable
+SM,SM,SM Energy Company,XNYS,CS,True,likely_chartable
+VCEL,VCEL,Vericel Corporation,XNAS,CS,True,likely_chartable
+CRAY^19,CRAY,"Cray, Inc.",XNAS,CS,False,likely_chartable
+OCLR^18,OCLR,Oclaro Inc.,XNAS,CS,False,likely_chartable
+NERV,NERV,"Minerva Neurosciences, Inc",XNAS,CS,True,likely_chartable
+X^25,X,United States Steel Corporation,XNYS,CS,False,likely_chartable
+CCXI.2^22,CCXI,Churchill Capital Corp XI Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+AKS^20,AKS,AK Steel Holding Corp.,XNYS,CS,False,likely_chartable
+MUX,MUX,McEwen Inc.,XNYS,CS,True,likely_chartable
+WLL.2^20,WLL,Whiting Petroleum Corporation,XNYS,CS,False,likely_chartable
+CPXX^16,CPXX,CELATOR PHARMACEUTICALS INC. COMMON STOCK,XNAS,,False,likely_chartable
+CEQP^23,CEQP,Crestwood Equity Partners LP,XNYS,CS,False,likely_chartable
+VTAE^16,VTAE,"Vitae Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+TWLO,TWLO,Twilio Inc.,XNYS,CS,True,likely_chartable
+MKTO^16,MKTO,MARKETO INC COM STK (DE),XNAS,,False,likely_chartable
+YRD,YRD,Yiren Digital Ltd.,XNYS,ADRC,True,likely_chartable
+ATW^17,ATW,Atwood Oceanics,XNYS,CS,False,likely_chartable
+ONCE^19,ONCE,"Spark Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+PI,PI,"Impinj, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ALDR^19,ALDR,"Alder Biopharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+MMYT,MMYT,MakeMyTrip Limited,XNAS,CS,True,likely_chartable
+AUPH,AUPH,Aurinia Pharmaceuticals Inc,XNAS,CS,True,likely_chartable
+CRBP,CRBP,"Corbus Pharmaceuticals Holdings, Inc.",XNAS,CS,True,likely_chartable
+TSRO^19,TSRO,"TESARO, Inc.",XNAS,CS,False,likely_chartable
+ACIA^21,ACIA,"Acacia Communications, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SAGE^25,SAGE,"Sage Therapeutics, Inc",XNAS,CS,False,likely_chartable
+BTG,BTG,B2Gold Corp.,XASE,CS,True,likely_chartable
+SPHS^22,SPHS,"Sophiris Bio, Inc.",XNAS,CS,False,likely_chartable
+SXC,SXC,SUNCOKE ENERGY INC,XNYS,CS,True,likely_chartable
+IONS,IONS,"Ionis Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+REN^19,REN,Resolute Energy Corporaton,XNYS,CS,False,likely_chartable
+TPC,TPC,Tutor Perini Corporation,XNYS,CS,True,likely_chartable
+CLCD^17,CLCD,"CoLucid Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+NAK,NAK,"Northern Dynasty Minerals, Ltd.",XASE,CS,True,likely_chartable
+GSAT,GSAT,"Globalstar, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NKTR,NKTR,Nektar Therapeutics,XNAS,CS,True,likely_chartable
+AKTX,AKTX,Akari Therapeutics plc ADR (0.01 USD),XNAS,ADRC,True,likely_chartable
+TGTX,TGTX,"TG Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+CBIO,CBIO,"Crescent Biopharma, Inc. Common Stock",XNAS,CS,True,likely_chartable
+MDXG,MDXG,"MiMedx Group, Inc",XNAS,CS,True,likely_chartable
+DDD,DDD,3D Systems Corporation,XNYS,CS,True,likely_chartable
+CVNA,CVNA,Carvana Co.,XNYS,CS,True,likely_chartable
+GBT^22,GBT,"Global Blood Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+TRVG,TRVG,trivago N.V. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+AAOI,AAOI,"Applied Optoelectronics, Inc.",XNAS,CS,True,likely_chartable
+NVCN^23,NVCN,Neovasc Inc.,XNAS,CS,False,likely_chartable
+CNCE^23,CNCE,"Concert Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+ABEO,ABEO,Abeona Therapeutics Inc. Common Stock,XNAS,CS,True,likely_chartable
+INSM,INSM,"Insmed, Inc.",XNAS,CS,True,likely_chartable
+KURA,KURA,"Kura Oncology, Inc.",XNAS,CS,True,likely_chartable
+MZOR^18,MZOR,Mazor Robotics Ltd.,XNAS,ADRC,False,likely_chartable
+VERI,VERI,"Veritone, Inc. Common Stock",XNAS,CS,True,likely_chartable
+XNET,XNET,Xunlei Limited,XNAS,ADRC,True,likely_chartable
+ANAB,ANAB,"AnaptysBio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SORL^20,SORL,"SORL Auto Parts, Inc.",XNAS,CS,False,likely_chartable
+HMNY,HMNY,HELIOS&MATHESON ANALYTICS,OTC Link,CS,True,low_confidence
+LOXO^19,LOXO,"Loxo Oncology, Inc",XNAS,CS,False,likely_chartable
+RIOT,RIOT,"Riot Platforms, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AVEO^23,AVEO,"AVEO Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+DVAX^26,DVAX,Dynavax Technologies Corporation,XNAS,CS,False,likely_chartable
+ROKU,ROKU,"Roku, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+MDGL,MDGL,"Madrigal Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+WATT,WATT,Energous Corporation,XNAS,CS,True,likely_chartable
+MARK,MARK,REMARK HOLDINGS INC,OTC Link,CS,True,low_confidence
+MYOK^20,MYOK,"MyoKardia, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ARGX,ARGX,argenx SE American Depositary Shares,XNAS,ADRC,True,likely_chartable
+SIEB,SIEB,Siebert Financial Corp,XNAS,CS,True,likely_chartable
+IOVA,IOVA,"Iovance Biotherapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+KODK,KODK,EASTMAN KODAK COMPANY,XNYS,CS,True,likely_chartable
+CRSP,CRSP,CRISPR Therapeutics AG,XNAS,CS,True,likely_chartable
+IMMR,IMMR,Immersion Corp,XNAS,CS,True,likely_chartable
+VIRT,VIRT,"Virtu Financial, Inc. Class A",XNYS,CS,True,likely_chartable
+VKTX,VKTX,"Viking Therapeutics, Inc",XNAS,CS,True,likely_chartable
+ESIO^19,ESIO,Electro Scientific Industries,XNAS,CS,False,likely_chartable
+VYGR,VYGR,"Voyager Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BXC,BXC,BlueLinx Holdings Inc.,XNYS,CS,True,likely_chartable
+TEUM^22,TEUM,Pareteum Corporation,XNAS,CS,False,likely_chartable
+TNDM,TNDM,"Tandem Diabetes Care, Inc.",XNAS,CS,True,likely_chartable
+BHVN.1^22,BHVN,Biohaven Ltd.,XNYS,CS,True,likely_chartable
+WTI,WTI,"W&T Offshore, Inc.",XNYS,CS,True,likely_chartable
+BLNK,BLNK,Blink Charging Co. Common Stock,XNAS,CS,True,likely_chartable
+IMGN^24,IMGN,Immunogen Inc,XNAS,CS,False,likely_chartable
+ADVM^25,ADVM,"Adverum Biotechnologies, Inc. Common Stock",XNAS,CS,False,likely_chartable
+TWTR^22,TWTR,"Twitter, Inc.",XNYS,CS,False,likely_chartable
+STAA,STAA,Staar Surgical Co,XNAS,CS,True,likely_chartable
+ARMO^18,ARMO,"ARMO BioSciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+CBAY^24,CBAY,Cymabay Therapeutics,XNAS,CS,False,likely_chartable
+CLPS,CLPS,CLPS Incorporation Common Stock,XNAS,CS,True,likely_chartable
+SLDB,SLDB,Solid Biosciences Inc. Common Stock,XNAS,CS,True,likely_chartable
+SFIX,SFIX,"Stitch Fix, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+EOLS,EOLS,"Evolus, Inc. Common Stock",XNAS,CS,True,likely_chartable
+GTHX^24,GTHX,"G1 Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+AKCA^20,AKCA,"Akcea Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+NTRA,NTRA,"Natera, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FNKO,FNKO,"Funko, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+TELL^24,TELL,Tellurian Inc.,XASE,CS,False,likely_chartable
+CGC,CGC,Canopy Growth Corporation Common Shares,XNAS,CS,True,likely_chartable
+CRON,CRON,Cronos Group Inc. Common Share,XNAS,CS,True,likely_chartable
+IGC,IGC,"IGC Pharma, Inc.",XASE,CS,True,likely_chartable
+PRQR,PRQR,ProQR Therapeutics N.V. Ordinary Shares,XNAS,CS,True,likely_chartable
+GLMD,GLMD,Galmed Pharmaceuticals Ltd.,XNAS,CS,False,likely_chartable
+VTVT,VTVT,vTv Therapeutics Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+ALDX,ALDX,"Aldeyra Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+ACHC,ACHC,"Acadia Healthcare Company, Inc.",XNAS,CS,True,likely_chartable
+IIN^22,IIN,IntriCon Corporation,XNAS,CS,False,likely_chartable
+ALLK^25,ALLK,Allakos Inc.,XNAS,CS,False,likely_chartable
+RETA^23,RETA,"Reata Pharmaceuticals, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+KLXE,KLXE,"KLX Energy Services Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+QNST,QNST,"QuinStreet, Inc.",XNAS,CS,True,likely_chartable
+PETQ^24,PETQ,"PetIQ, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+NIHD^20,NIHD,"NII Holdings, Inc. Common Stock",XNAS,CS,False,likely_chartable
+YGYI^23,YGYI,"Youngevity International, Inc Common Stock",XNAS,CS,False,likely_chartable
+GH,GH,"Guardant Health, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ALLO,ALLO,"Allogene Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CDNA,CDNA,"CareDx, Inc.",XNAS,CS,True,likely_chartable
+BEAT.2^21,BEAT,"Heartbeam, Inc. Common Stock",XNAS,CS,True,likely_chartable
+EXTR,EXTR,Extreme Networks,XNAS,CS,True,likely_chartable
+REGI^22,REGI,"Renewable Energy Group, Inc.",XNAS,CS,False,likely_chartable
+YECO,YECO,YULONG ECO MATERIALS LTD,OTC Link,CS,True,low_confidence
+DPLO^20,DPLO,"DIPLOMAT PHARMACY, INC.",XNYS,CS,False,likely_chartable
+FND,FND,"Floor & Decor Holdings, Inc.",XNYS,CS,True,likely_chartable
+GOOS,GOOS,Canada Goose Holdings Inc.,XNYS,CS,True,likely_chartable
+GHDX^19,GHDX,"Genomic Health, Inc.",XNAS,CS,False,likely_chartable
+IMMU^20,IMMU,Immunomedics Inc,XNAS,CS,False,likely_chartable
+AIMT^20,AIMT,"Aimmune Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+FOXF,FOXF,Fox Factory Holding Corp. Common Stock,XNAS,CS,True,likely_chartable
+PDD,PDD,PDD Holdings Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+SEND^19,SEND,"SendGrid, Inc.",XNYS,CS,False,likely_chartable
+SOHU,SOHU,Sohu.com Limited American Depositary Shares,XNAS,CS,True,likely_chartable
+IIPR,IIPR,"Innovative Industrial Properties, Inc. Common stock",XNYS,CS,True,likely_chartable
+KEM.2^20,KEM,KraneShares Dynamic Emerging Markets Strategy ETF,ARCX,ETF,False,low_confidence
+FATE,FATE,"Fate Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+CORT,CORT,Corcept Therapeutics Inc.,XNAS,CS,True,likely_chartable
+MTSI,MTSI,"MACOM Technology Solutions Holdings, Inc",XNAS,CS,True,likely_chartable
+AYX^24,AYX,"Alteryx, Inc.",XNYS,CS,False,likely_chartable
+TTD,TTD,"The Trade Desk, Inc.",XNAS,CS,True,likely_chartable
+UXIN,UXIN,Uxin Limited ADS,XNAS,ADRC,True,likely_chartable
+Z,Z,"Zillow Group, Inc. Class C Capital Stock",XNAS,CS,True,likely_chartable
+AMBA,AMBA,"Ambarella, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+MDB,MDB,"MongoDB, Inc. Class A",XNAS,CS,True,likely_chartable
+WDAY,WDAY,"Workday, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ANF,ANF,Abercrombie & Fitch Co.,XNYS,CS,True,likely_chartable
+OKTA,OKTA,"Okta, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+MTCH.5^20,MTCH,"Match Group, Inc",XNAS,CS,True,likely_chartable
+TEAM,TEAM,Atlassian Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+BECN^25,BECN,"Beacon Roofing Supply, Inc.",XNAS,CS,False,likely_chartable
+ZS,ZS,"Zscaler, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FTDR,FTDR,"Frontdoor, Inc. Common Stock",XNAS,CS,True,likely_chartable
+UPWK,UPWK,Upwork Inc. Common Stock,XNAS,CS,True,likely_chartable
+AGI,AGI,Alamos Gold Inc. Class A Common Shares,XNYS,CS,True,likely_chartable
+HUYA,HUYA,HUYA Inc.,XNYS,ADRC,True,likely_chartable
+TROX,TROX,TRONOX LIMITED CL A ORDINARY SHARES,XNYS,CS,True,likely_chartable
+GE,GE,GE Aerospace,XNYS,CS,True,likely_chartable
+EVBG^24,EVBG,"Everbridge, Inc. Common Stock",XNAS,CS,False,likely_chartable
+YETI,YETI,"YETI Holdings, Inc. Common Stock",XNYS,CS,True,likely_chartable
+AQUA^23,AQUA,Evoqua Water Technologies Corp. Common Stock,XNYS,CS,False,likely_chartable
+AXSM,AXSM,"Axsome Therapeutics, Inc",XNAS,CS,True,likely_chartable
+QURE,QURE,uniQure N.V.,XNAS,CS,True,likely_chartable
+APHA^21,APHA,Aphria Inc. Common Shares,XNAS,CS,False,likely_chartable
+DERM.2^20,DERM,Journey Medical Corporation Common Stock,XNAS,CS,True,likely_chartable
+PLAN^22,PLAN,"Anaplan, Inc.",XNYS,CS,False,likely_chartable
+ADNT,ADNT,Adient plc Ordinary Shares,XNYS,CS,True,likely_chartable
+STNE,STNE,StoneCo Ltd. Class A Common Shares,XNAS,CS,True,likely_chartable
+YRIV,YRIV,YANGTZE RVR PORT&LOGISTIC,OTC Link,CS,True,low_confidence
+DMRC,DMRC,Digimarc Corporation Common Stock,XNAS,CS,True,likely_chartable
+WKHS,WKHS,"Workhorse Group, Inc",XNAS,CS,True,likely_chartable
+RARX^20,RARX,"Ra Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+BYND,BYND,"Beyond Meat, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SOLO^24,SOLO,Electrameccanica Vehicles Corp. Ltd.,XNAS,CS,False,likely_chartable
+CPRX^26,CPRX,Catalyst Pharmaceutical  Inc.,XNAS,CS,False,likely_chartable
+KRYS,KRYS,"Krystal Biotech, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FSM,FSM,Fortuna Mining Corp.,XNYS,CS,True,likely_chartable
+PAYS,PAYS,"Paysign, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NIO,NIO,"NIO Inc. American depositary shares, each representing one Class A ordinary share",XNYS,ADRC,True,likely_chartable
+SWAV^24,SWAV,"Shockwave Medical, Inc. Common Stock",XNAS,CS,False,likely_chartable
+MAXR^23,MAXR,Maxar Technologies Inc. Common Stock,XNYS,CS,False,likely_chartable
+ENPH,ENPH,"Enphase Energy, Inc.",XNAS,CS,True,likely_chartable
+ZYNE^23,ZYNE,"Zynerba Pharmaceuticals, Inc",XNAS,CS,False,likely_chartable
+VFF,VFF,"Village Farms International, Inc. Common Shares",XNAS,CS,True,likely_chartable
+CRWD,CRWD,"CrowdStrike Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+MGI^23,MGI,"MoneyGram International, Inc. New",XNAS,CS,False,likely_chartable
+PRVB^23,PRVB,"Provention Bio, Inc. Common Stock",XNAS,CS,False,likely_chartable
+APPN,APPN,Appian Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+SOLY^21,SOLY,"Soliton, Inc.",XNAS,CS,False,likely_chartable
+APPS,APPS,"Digital Turbine, Inc.",XNAS,CS,True,likely_chartable
+ARQL^20,ARQL,Arqule Inc,XNAS,CS,False,likely_chartable
+INMD,INMD,InMode Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+ADPT,ADPT,Adaptive Biotechnologies Corporation Common Stock,XNAS,CS,True,likely_chartable
+FSLY,FSLY,"Fastly, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+APRN^23,APRN,"Blue Apron Holdings, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+DCPH^24,DCPH,"Deciphera Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SIG,SIG,Signet Jewelers Limited,XNYS,CS,True,likely_chartable
+ARDX,ARDX,"Ardelyx, Inc.",XNAS,CS,True,likely_chartable
+GME,GME,GameStop Corp. Class A,XNYS,CS,True,likely_chartable
+REAL,REAL,"The RealReal, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ACH,ACH,"Accendra Health, Inc.",XNYS,CS,True,likely_chartable
+NXTC,NXTC,"NextCure, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BE,BE,Bloom Energy Corporation,XNYS,CS,True,likely_chartable
+ASMB,ASMB,"Assembly Biosciences, Inc",XNAS,CS,True,likely_chartable
+SRCI^20,SRCI,SRC Energy Inc,XASE,CS,False,likely_chartable
+KOD,KOD,Kodiak Sciences Inc Common Stock,XNAS,CS,True,likely_chartable
+HOME^21,HOME,At Home Group Inc.,XNYS,CS,False,likely_chartable
+MIRM,MIRM,"Mirum Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+MIK^21,MIK,"Michaels Stores, Inc",XNAS,CS,False,likely_chartable
+SVRA,SVRA,Savara Inc.,XNAS,CS,True,likely_chartable
+LMPX,LMPX,LMP AUTOMOTIVE HLDGS INC,OTC Link,CS,True,low_confidence
+ACMR,ACMR,"ACM Research, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+NNVC,NNVC,NanoViricides Inc.,XASE,CS,True,likely_chartable
+AGRX^24,AGRX,"Agile Therapeutics, Inc",XNAS,CS,False,likely_chartable
+CNST^21,CNST,"Constellation Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+KRTX^24,KRTX,"Karuna Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SPCE,SPCE,"Virgin Galactic Holdings, Inc.",XNYS,CS,True,likely_chartable
+ALEC,ALEC,"Alector, Inc. Common Stock",XNAS,CS,True,likely_chartable
+MYOV^23,MYOV,Myovant Sciences Ltd.,XNYS,CS,False,likely_chartable
+GNPX,GNPX,"Genprex, Inc. Common Stock",XNAS,CS,True,likely_chartable
+UNIT,UNIT,Uniti Group Inc. Common Stock,XNAS,CS,True,likely_chartable
+FTSV^20,FTSV,"Forty Seven, Inc. Common Stock",XNAS,CS,False,likely_chartable
+APLT^26,APLT,"Applied Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+VIR,VIR,"Vir Biotechnology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TRIL.1^21,TRIL,Defiance Trillion Dollar Club Index ETF,XNAS,ETF,False,low_confidence
+CODX,CODX,"Co-Diagnostics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AGTC^22,AGTC,Applied Genetic Technologies Corporation,XNAS,CS,False,likely_chartable
+ZM,ZM,"Zoom Communications, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+UIS,UIS,Unisys Corporation,XNYS,CS,True,likely_chartable
+TDOC,TDOC,"Teladoc Health, Inc.",XNYS,CS,True,likely_chartable
+VXRT,VXRT,VAXART INC,OTC Link,CS,True,low_confidence
+OPK,OPK,Opko Health Inc.,XNAS,CS,True,likely_chartable
+VNET,VNET,"VNET Group, Inc. American Depositary Shares",XNAS,ADRC,True,likely_chartable
+SDGR,SDGR,"Schrodinger, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FRO,FRO,Frontline Plc,XNYS,CS,True,likely_chartable
+TWST,TWST,Twist Bioscience Corporation Common Stock,XNAS,CS,True,likely_chartable
+BTAI,BTAI,"BioXcel Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+TNK,TNK,Teekay Tankers Ltd.,XNYS,CS,True,likely_chartable
+SAFE,SAFE,Safehold Inc.,XNYS,CS,True,likely_chartable
+BJ,BJ,"BJs Wholesale Club Holdings, Inc. Common Stock",XNYS,CS,True,likely_chartable
+DHT,DHT,"DHT HOLDINGS, INC.",XNYS,CS,True,likely_chartable
+QDEL,QDEL,QuidelOrtho Corporation Common Stock,XNAS,CS,True,likely_chartable
+CCOI,CCOI,"Cogent Communications Holdings, Inc.",XNAS,CS,True,likely_chartable
+EHTH,EHTH,"eHealth, Inc.",XNAS,CS,True,likely_chartable
+INSW,INSW,"International Seaways, Inc. Common Stock",XNYS,CS,True,likely_chartable
+LRN,LRN,"Stride, Inc.",XNYS,CS,True,likely_chartable
+MOH,MOH,"Molina Healthcare, Inc.",XNYS,CS,True,likely_chartable
+MRNA,MRNA,"Moderna, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NET,NET,"Cloudflare, Inc. Class A common stock, par value $0.001 per share",XNYS,CS,True,likely_chartable
+BGS,BGS,"B&G Foods, Inc.",XNYS,CS,True,likely_chartable
+PINC.1^25,PINC,PGIM Securitized Income ETF,BATS,ETF,True,low_confidence
+CLX,CLX,Clorox Company,XNYS,CS,True,likely_chartable
+SFM,SFM,"Sprouts Farmers Market, Inc.",XNAS,CS,True,likely_chartable
+CPB,CPB,The Campbell's Company Common Stock,XNAS,CS,True,likely_chartable
+MASI^26,MASI,Masimo Corporation,XNAS,CS,False,likely_chartable
+BNTX,BNTX,BioNTech SE American Depositary Share,XNAS,ADRC,True,likely_chartable
+ZTO,ZTO,"ZTO Express (Cayman) Inc. American Depositary Shares, each representing one Class A ordinary share",XNYS,ADRC,True,likely_chartable
+CHWY,CHWY,"Chewy, Inc.",XNYS,CS,True,likely_chartable
+CTRA^26,CTRA,Coterra Energy Inc.,XNYS,CS,False,likely_chartable
+HE,HE,"Hawaiian Electric Industries, Inc.",XNYS,CS,True,likely_chartable
+KALA,KALA,"KALA BIO, Inc. Common Stock",XNAS,CS,True,likely_chartable
+GIS,GIS,"General Mills, Inc.",XNYS,CS,True,likely_chartable
+SJM,SJM,The J.M. Smucker Company,XNYS,CS,True,likely_chartable
+WDFC,WDFC,Wd-40 Co,XNAS,CS,True,likely_chartable
+LMNX.1^21,LMNX,Defiance Daily Target 2x Long LMND ETF,XNAS,ETF,False,low_confidence
+GNMK^21,GNMK,"GenMark Diagnostics, Inc",XNAS,CS,False,likely_chartable
+INGN,INGN,Inogen Inc,XNAS,CS,True,likely_chartable
+ERIE,ERIE,Erie Indemnity Co,XNAS,CS,True,likely_chartable
+AYTU,AYTU,"AYTU BioPharma, Inc. Common Stock",XNAS,CS,True,likely_chartable
+GO,GO,Grocery Outlet Holding Corp. Common Stock,XNAS,CS,True,likely_chartable
+VCYT,VCYT,"Veracyte, Inc.",XNAS,CS,True,likely_chartable
+JD,JD,"JD.com, Inc.",XNAS,ADRC,True,likely_chartable
+CABO,CABO,"Cable One, Inc.",XNYS,CS,True,likely_chartable
+MRVL,MRVL,"Marvell Technology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+QLYS,QLYS,"Qualys, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IOTS^20,IOTS,Adesto Technologies Corporation Common Stock,XNAS,CS,False,likely_chartable
+COLD,COLD,"Americold Realty Trust, Inc.",XNYS,CS,True,likely_chartable
+AVAV,AVAV,"AeroVironment, Inc.",XNAS,CS,True,likely_chartable
+PLMR,PLMR,"Palomar Holdings, Inc. Common stock",XNAS,CS,True,likely_chartable
+HAIN,HAIN,Hain Celestial Group Inc,XNAS,CS,True,likely_chartable
+CBB^21,CBB,Cincinnati Bell Inc.,XNYS,CS,False,likely_chartable
+VEEV,VEEV,Veeva Systems Inc.,XNYS,CS,True,likely_chartable
+HRL,HRL,Hormel Foods Corporation,XNYS,CS,True,likely_chartable
+LLY,LLY,Eli Lilly & Co.,XNYS,CS,True,likely_chartable
+CORE^21,CORE,"Core Mark Holding Co., Inc.",XNAS,CS,False,likely_chartable
+CAG,CAG,"Conagra Brands, Inc.",XNYS,CS,True,likely_chartable
+SHEN,SHEN,Shenandoah Telecom Co,XNAS,CS,True,likely_chartable
+WORK^21,WORK,"Slack Technologies, Inc.",XNYS,CS,False,likely_chartable
+BAND,BAND,Bandwidth Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+AUDC,AUDC,AudioCodes Ltd,XNAS,CS,True,likely_chartable
+HLI,HLI,"Houlihan Lokey, Inc.",XNYS,CS,True,likely_chartable
+INSG,INSG,Inseego Corp. Common Stock,XNAS,CS,True,likely_chartable
+MEET^20,MEET,"The Meet Group, Inc. Common Stock",XNAS,CS,False,likely_chartable
+LVGO^20,LVGO,"Livongo Health, Inc. Common Stock",XNAS,CS,False,likely_chartable
+IFRX,IFRX,InflaRx N.V. Common Stock,XNAS,CS,True,likely_chartable
+DY,DY,"Dycom Industries, Inc.",XNYS,CS,True,likely_chartable
+WING,WING,Wingstop Inc,XNAS,CS,True,likely_chartable
+SMTC,SMTC,Semtech Corp,XNAS,CS,True,likely_chartable
+DK,DK,"Delek US Holdings, Inc.",XNYS,CS,True,likely_chartable
+FANG,FANG,"Diamondback Energy, Inc.",XNAS,CS,True,likely_chartable
+FTNT,FTNT,"Fortinet, Inc.",XNAS,CS,True,likely_chartable
+EGOV^21,EGOV,NIC Inc,XNAS,CS,False,likely_chartable
+OLN,OLN,Olin Corp.,XNYS,CS,True,likely_chartable
+CCJ,CCJ,Cameco Corporation,XNYS,CS,True,likely_chartable
+MTDR,MTDR,MATADOR RESOURCES COMPANY,XNYS,CS,True,likely_chartable
+BPMC^25,BPMC,Blueprint Medicines Corporation,XNAS,CS,False,likely_chartable
+CTLT^24,CTLT,"CATALENT, INC.",XNYS,CS,False,likely_chartable
+OVV,OVV,Ovintiv Inc.,XNYS,CS,True,likely_chartable
+CXO^21,CXO,CONCHO RESOURCES INC.,XNYS,CS,False,likely_chartable
+PTON,PTON,"Peloton Interactive, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+WPM,WPM,Wheaton Precious Metals Corp. Common Stock,XNYS,CS,True,likely_chartable
+SSL,SSL,Sasol Limited,XNYS,ADRC,True,likely_chartable
+HRC^21,HRC,"HILL-ROM HOLDINGS, INC.",XNYS,CS,False,likely_chartable
+XEC^21,XEC,CIMAREX ENERGY CO,XNYS,CS,False,likely_chartable
+EGHT,EGHT,"8x8, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ATSG^25,ATSG,"Air Transport Services Group, Inc.",XNAS,CS,False,likely_chartable
+GLIBA.1^20,GLIBA,Liberty Capital Corporation Series A GCI Group Common Stock,XNAS,CS,True,likely_chartable
+PEGA,PEGA,Pegasystems Inc,XNAS,CS,True,likely_chartable
+JACK,JACK,Jack in the Box Inc.,XNAS,CS,True,likely_chartable
+SBSW,SBSW,"Sibanye-Stillwater American Depositary Shares, each representing four ordinary shares",XNYS,ADRC,True,likely_chartable
+KL^22,KL,Kirkland Lake Gold Ltd Ordinary,XNYS,CS,False,likely_chartable
+PZZA,PZZA,Papa John's International Inc,XNAS,CS,True,likely_chartable
+SAND^25,SAND,Sandstorm Gold Ltd,XNYS,CS,False,likely_chartable
+AAWW^23,AAWW,"Atlas Air Worldwide Holdings, Inc.",XNAS,CS,False,likely_chartable
+OSUR,OSUR,OraSure Technologies Inc,XNAS,CS,True,likely_chartable
+APA,APA,APA Corporation Common Stock,XNAS,CS,True,likely_chartable
+WIFI^21,WIFI,"Boingo Wireless, Inc.",XNAS,CS,False,likely_chartable
+EQM^20,EQM,"EQM Midstream Partners, LP",XNYS,CS,False,likely_chartable
+PLNT,PLNT,"Planet Fitness, Inc.",XNYS,CS,True,likely_chartable
+CNK,CNK,"Cinemark Holdings, Inc.",XNYS,CS,True,likely_chartable
+PFGC,PFGC,Performance Food Group Company,XNYS,CS,True,likely_chartable
+RRGB,RRGB,Red Robin Gourmet Burgers Inc,XNAS,CS,True,likely_chartable
+PING^22,PING,Ping Identity Holding Corp.,XNYS,CS,False,likely_chartable
+RCUS,RCUS,"Arcus Biosciences, Inc.",XNYS,CS,True,likely_chartable
+BJRI,BJRI,"BJ's Restaurants, Inc.",XNAS,CS,True,likely_chartable
+CZR,CZR,"Caesars Entertainment, Inc. Common Stock",XNAS,CS,True,likely_chartable
+RRR,RRR,"Red Rock Resorts, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+TVTY^22,TVTY,"Tivity Health, Inc. Common Stock",XNAS,CS,False,likely_chartable
+PVG^22,PVG,PRETIUM RESOURCES INC.,XNYS,CS,False,likely_chartable
+AM,AM,Antero Midstream Corporation Common Stock,XNYS,CS,True,likely_chartable
+APLS^26,APLS,"Apellis Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+CHEF,CHEF,The Chef's Warehouse Inc,XNAS,CS,True,likely_chartable
+MESO,MESO,Mesoblast Limited American Depositary Shares,XNAS,ADRC,True,likely_chartable
+EFC,EFC,Ellington Financial Inc. Common Stock,XNYS,CS,True,likely_chartable
+DOMO,DOMO,"Domo, Inc. Class B Common Stock",XNAS,CS,True,likely_chartable
+MFA,MFA,"MFA Financial, Inc",XNYS,CS,True,likely_chartable
+ARCT,ARCT,Arcturus Therapeutics Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+CEMI^23,CEMI,"Chembio diagnostics, Inc.",XNAS,CS,False,likely_chartable
+EVRI^25,EVRI,Everi Holdings Inc,XNYS,CS,False,likely_chartable
+SNDX,SNDX,"Syndax Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+WES,WES,"Western Midstream Partners, LP",XNYS,CS,True,likely_chartable
+TRTX,TRTX,"TPG RE Finance Trust, Inc. Common Stock",XNYS,CS,True,likely_chartable
+CNXM^20,CNXM,CNX Midstream Partners LP,XNYS,CS,False,likely_chartable
+PTGX,PTGX,"Protagonist Therapeutics, Inc",XNAS,CS,True,likely_chartable
+CWH,CWH,"Camping World Holdings, Inc.",XNYS,CS,True,likely_chartable
+VIVO.1^23,VIVO,VivoPower PLC Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+RUTH^23,RUTH,"Ruth's Hospitality Group, Inc.",XNAS,CS,False,likely_chartable
+AMC,AMC,"AMC ENTERTAINMENT HOLDINGS, INC.",XNYS,CS,True,likely_chartable
+KOS,KOS,Kosmos Energy Ltd.,XNYS,CS,True,likely_chartable
+BILL,BILL,"BILL Holdings, Inc.",XNYS,CS,True,likely_chartable
+ACB,ACB,Aurora Cannabis Inc. Common Shares,XNAS,CS,True,likely_chartable
+PTEN,PTEN,Patterson-UTI Energy Inc,XNAS,CS,True,likely_chartable
+DCP^23,DCP,"DCP Midstream, LP",XNYS,CS,False,likely_chartable
+NBR,NBR,Nabors Industries Ltd.,XNYS,CS,True,likely_chartable
+NNDM,NNDM,Nano Dimension Ltd. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+DKNG,DKNG,DraftKings Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+ALT,ALT,"Altimmune, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FVRR,FVRR,Fiverr International Ltd.,XNYS,CS,True,likely_chartable
+TRGP,TRGP,Targa Resources Corp.,XNYS,CS,True,likely_chartable
+IVR,IVR,Invesco Mortgage Capital Inc.,XNYS,CS,True,likely_chartable
+BORR,BORR,Borr Drilling Limited,XNYS,CS,True,likely_chartable
+TTOO,TTOO,T2 BIOSYSTEMS INC,OTC Link,CS,True,low_confidence
+MITT,MITT,"TPG Mortgage Investment Trust, Inc.",XNYS,CS,True,likely_chartable
+UONEK,UONEK,"Urban One, Inc. Class D Common Stock",XNAS,CS,True,likely_chartable
+PGEN,PGEN,"Precigen, Inc. Common Stock",XNAS,CS,True,likely_chartable
+JFIN,JFIN,Jiayin Group Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+REZI,REZI,"Resideo Technologies, Inc. Common Stock",XNYS,CS,True,likely_chartable
+NIU,NIU,Niu Technologies American Depositary Shares,XNAS,ADRC,True,likely_chartable
+MVIS,MVIS,Microvision Inc,XNAS,CS,True,likely_chartable
+BOXL,BOXL,Boxlight Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+MRSN^26,MRSN,"Mersana Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+EQ,EQ,"Equillium, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ABUS,ABUS,Arbutus Biopharma Corporation Common Stock,XNAS,CS,True,likely_chartable
+UAVS,UAVS,"AgEagle Aerial Systems, Inc.",XASE,CS,True,likely_chartable
+JMIA,JMIA,Jumia Technologies AG,XNYS,ADRC,True,likely_chartable
+MIST,MIST,Milestone Pharmaceuticals Inc. Common Shares,XNAS,CS,True,likely_chartable
+CLSK,CLSK,CLEANSPARK INC,XNAS,CS,True,likely_chartable
+QEP^21,QEP,"QEP RESOURCES, INC.",XNYS,CS,False,likely_chartable
+PBI,PBI,Pitney Bowes Inc.,XNYS,CS,True,likely_chartable
+MARA,MARA,"MARA Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TGI^25,TGI,"Triumph Group, Inc.",XNYS,CS,False,likely_chartable
+MCRB,MCRB,"Seres Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+ALPN^24,ALPN,"Alpine Immune Sciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+GRWG,GRWG,GROW GENERATION CORP,XNAS,CS,True,likely_chartable
+FLGT,FLGT,"Fulgent Genetics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VIVO,VIVO,VivoPower PLC Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+CYRX,CYRX,"CryoPort, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BEKE,BEKE,KE Holdings Inc. American Depositary Shares (each representing three Class A Ordinary Shares),XNYS,ADRC,True,likely_chartable
+WVE,WVE,Wave Life Sciences Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+EBON,EBON,Ebang International Holdings Inc. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+CRDF,CRDF,"Cardiff Oncology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CBAT,CBAT,CBAK Energy Technology Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+NFE,NFE,New Fortress Energy Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+BGFV^25,BGFV,Big 5 Sporting Goods Corp,XNAS,CS,False,likely_chartable
+ENLV,ENLV,Enlivex Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+KXIN,KXIN,Kaixin Holdings Ordinary Shares,XNAS,CS,True,likely_chartable
+XPEV,XPEV,"XPeng Inc. American depositary shares, each representing two Class A ordinary shares",XNYS,ADRC,True,likely_chartable
+SRRK,SRRK,Scholar Rock Holding Corporation Common Stock,XNAS,CS,True,likely_chartable
+REPL,REPL,"Replimune Group, Inc.",XNAS,CS,True,likely_chartable
+JNCE^23,JNCE,"Jounce Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ALBO^23,ALBO,"Albireo Pharma, Inc. Common Stock",XNAS,CS,False,likely_chartable
+LI,LI,Li Auto Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+APVO,APVO,Aptevo Therapeutics Inc,XNAS,CS,True,likely_chartable
+PLTR,PLTR,Palantir Technologies Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+FTEK,FTEK,"Fuel Tech, Inc.",XNAS,CS,True,likely_chartable
+CAAS,CAAS,"China Automotive Systems, Inc. Ordinary Share",XNAS,CS,True,likely_chartable
+GP,GP,GreenPower Motor Company Inc. Common Shares,XNAS,CS,True,likely_chartable
+CAN,CAN,Canaan Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+MRNS^25,MRNS,"Marinus Pharmaceuticals, Inc",XNAS,CS,False,likely_chartable
+RIG,RIG,Transocean LTD.,XNYS,CS,True,likely_chartable
+IGMS^25,IGMS,"IGM Biosciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+CRIS,CRIS,Curis Inc,XNAS,CS,True,likely_chartable
+VERU,VERU,Veru Inc.,XNAS,CS,True,likely_chartable
+PLG,PLG,Platinum Group Metals LTD.,XASE,CS,True,likely_chartable
+ARVN,ARVN,"Arvinas, Inc",XNAS,CS,True,likely_chartable
+GLSI,GLSI,"Greenwich LifeSciences, Inc.",XNAS,CS,True,likely_chartable
+FUBO,FUBO,FuboTV Inc.,XNYS,CS,True,likely_chartable
+ONCT^24,ONCT,"Oncternal Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+AQMS,AQMS,"Aqua Metals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+GEVO,GEVO,"Gevo, Inc.",XNAS,CS,True,likely_chartable
+AQB,AQB,"AquaBounty Technologies, Inc.",XNAS,CS,True,likely_chartable
+AMPE,AMPE,AMPIO PHARMS INC,OTC Link,CS,True,low_confidence
+VUZI,VUZI,Vuzix Corporation,XNAS,CS,True,likely_chartable
+OCGN,OCGN,"Ocugen, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ELYS,ELYS,ELYS BMG GROUP INC,OTC Link,CS,True,low_confidence
+QS,QS,QuantumScape Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+BTBT,BTBT,"Bit Digital, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+FRSX,FRSX,Foresight Autonomous Holdings Ltd. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+BNGO,BNGO,"Bionano Genomics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+JAGX,JAGX,"Jaguar Health, Inc.",XNAS,CS,True,likely_chartable
+NCTY,NCTY,The9 Limited American Depository Shares representing three class A ordinary shares,XNAS,ADRC,True,likely_chartable
+INUV,INUV,"Inuvo, Inc.",XASE,CS,True,likely_chartable
+SENS,SENS,"Senseonics Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IZEA,IZEA,"IZEA Worldwide, Inc. Common Stock",XNAS,CS,True,likely_chartable
+POLA,POLA,"Polar Power, Inc. Common Stock",XNAS,CS,True,likely_chartable
+XONE.1^21,XONE,BondBloxx Bloomberg One Year Target Duration US Treasury ETF,ARCX,ETF,True,low_confidence
+ACRS,ACRS,"Aclaris Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+CPSH,CPSH,CPS Technologies Corp. Common Stock,XNAS,CS,True,likely_chartable
+EH,EH,EHang Holdings Limited ADS,XNAS,ADRC,True,likely_chartable
+BB,BB,BlackBerry Limited,XNYS,CS,True,likely_chartable
+KOSS,KOSS,Koss Corp,XNAS,CS,True,likely_chartable
+ATOS,ATOS,"Atossa Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AACG,AACG,ATA Creativity Global American Depositary Shares,XNAS,ADRC,True,likely_chartable
+TPGY^22,TPGY,TPG Pace Beneficial Finance Corp.,XNYS,CS,False,likely_chartable
+SNDL,SNDL,Sundial Growers Inc. Common Shares,XNAS,CS,True,likely_chartable
+AVGR^25,AVGR,"Avinger, Inc. Common Stock",XNAS,CS,False,likely_chartable
+YI,YI,"111, Inc. American Depositary Shares",XNAS,ADRC,True,likely_chartable
+CTRM,CTRM,Castor Maritime Inc. Common Stock,XNAS,CS,True,likely_chartable
+KOPN,KOPN,Kopin Corp,XNAS,CS,True,likely_chartable
+LODE,LODE,Comstock Inc.,XASE,CS,True,likely_chartable
+REI,REI,Ring Energy Inc.,XASE,CS,True,likely_chartable
+IMNM,IMNM,"Immunome, Inc.",XNAS,CS,True,likely_chartable
+UAMY,UAMY,United States Antimony Corporation,XNYS,CS,True,likely_chartable
+ZKIN,ZKIN,"ZK International Group Co., Ltd Ordinary Share",XNAS,CS,True,likely_chartable
+GMBL,GMBL,ESPORTS ENTMNT GRP INC,OTC Link,CS,True,low_confidence
+AMTX,AMTX,"Aemetis, Inc. (DE) Common Stock",XNAS,CS,True,likely_chartable
+XTNT,XTNT,"Xtant Medical Holdings, Inc.",XASE,CS,True,likely_chartable
+PBF,PBF,PBF ENERGY INC.,XNYS,CS,True,likely_chartable
+PAVM,PAVM,PAVmed Inc. Common Stock,XNAS,CS,True,likely_chartable
+OII,OII,Oceaneering International Inc.,XNYS,CS,True,likely_chartable
+PUMP,PUMP,ProPetro Holding Corp.,XNYS,CS,True,likely_chartable
+VET,VET,VERMILION ENERGY INC.,XNYS,CS,True,likely_chartable
+BSQR^23,BSQR,BSQUARE Corporation,XNAS,CS,False,likely_chartable
+USWS^22,USWS,"U.S. Well Services, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+GTEC,GTEC,Greenland Technologies Holding Corporation Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+FINV,FINV,"FinVolution Group American depositary shares, each representing five Class A ordinary shares",XNYS,ADRC,True,likely_chartable
+KALV^26,KALV,"KalVista Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ENTX,ENTX,Entera Bio Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+MORF^24,MORF,"Morphic Holding, Inc. Common Stock",XNAS,CS,False,likely_chartable
+MRO^24,MRO,Marathon Oil Corporation,XNYS,CS,False,likely_chartable
+VRTV^23,VRTV,VERITIV CORPORATION,XNYS,CS,False,likely_chartable
+EPIX^25,EPIX,ESSA Pharma Inc. Common Stock,XNAS,CS,False,likely_chartable
+TRIP,TRIP,"TripAdvisor, Inc.",XNAS,CS,True,likely_chartable
+OCG,OCG,Oriental Culture Holding LTD Ordinary Shares,XNAS,CS,True,likely_chartable
+ANVS,ANVS,"Annovis Bio, Inc.",XNYS,CS,True,likely_chartable
+TAOP,TAOP,Taoping Inc. BVI Ordinary Shares (0 par),XNAS,CS,True,likely_chartable
+ORGO,ORGO,Organogenesis Holdings Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+WKEY,WKEY,WISeKey International Holding AG American Depositary Shares,XNAS,ADRC,True,likely_chartable
+UPST,UPST,"Upstart Holdings, Inc. Common stock",XNAS,CS,True,likely_chartable
+FLY.1^21,FLY,Firefly Aerospace Inc. Common Stock,XNAS,CS,True,likely_chartable
+RUBY^24,RUBY,"Rubius Therapeutics, Inc",XNAS,CS,False,likely_chartable
+UEC,UEC,Uranium Energy Corp.,XASE,CS,True,likely_chartable
+PLBY,PLBY,"Playboy, Inc. Common Stock",XNAS,CS,True,likely_chartable
+RAIL,RAIL,"FreightCar America, Inc.",XNAS,CS,True,likely_chartable
+RNWK^22,RNWK,RealNetworks Inc,XNAS,CS,False,likely_chartable
+REKR,REKR,"Rekor Systems, Inc. Common Stock",XNAS,CS,True,likely_chartable
+RRD^22,RRD,RR Donnelley & Sons Co.,XNYS,CS,False,likely_chartable
+RCON,RCON,"Recon Technology, Ltd. Class A Ordinary Shares",XNAS,CS,True,likely_chartable
+HOFV^26,HOFV,Hall of Fame Resort & Entertainment Company Common Stock,XNAS,CS,False,likely_chartable
+FUTU,FUTU,Futu Holdings Limited American Depositary Shares,XNAS,ADRC,True,likely_chartable
+CELC,CELC,Celcuity Inc. Common Stock,XNAS,CS,True,likely_chartable
+ZIM,ZIM,ZIM Integrated Shipping Services Ltd.,XNYS,CS,True,likely_chartable
+XXII,XXII,22nd Century Group Inc.,XNAS,CS,True,likely_chartable
+BLRX,BLRX,BioLineRX Ltd,XNAS,ADRC,True,likely_chartable
+SBLK,SBLK,Star Bulk Carriers Corp.,XNAS,CS,True,likely_chartable
+MUDS^22,MUDS,Mudrick Capital Acquisition Corporation II Class A Common Stock,XNAS,CS,False,likely_chartable
+BTU,BTU,Peabody Energy Corporation,XNYS,CS,True,likely_chartable
+KYMR,KYMR,"Kymera Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NMRD,NMRD,NEMAURA MEDICAL INC,OTC Link,CS,True,low_confidence
+GNK,GNK,GENCO SHIPPING & TRADING LTD,XNYS,CS,True,likely_chartable
+FBRX^26,FBRX,"Forte Biosciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+HAYW,HAYW,"Hayward Holdings, Inc.",XNYS,CS,True,likely_chartable
+RFP^23,RFP,Resolute Forest Products Inc.,XNYS,CS,False,likely_chartable
+AHT,AHT,"Ashford Hospitality Trust, Inc.",XNYS,CS,True,likely_chartable
+LEAF^21,LEAF,Leaf Group Ltd.,XNYS,CS,False,likely_chartable
+LFMD,LFMD,"LifeMD, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BBW,BBW,"Build-A-Bear Workshop, Inc.",XNYS,CS,True,likely_chartable
+NEXT,NEXT,NextDecade Corporation Common Stock,XNAS,CS,True,likely_chartable
+PDSB,PDSB,PDS Biotechnology Corporation Common Stock,XNAS,CS,True,likely_chartable
+CLOV,CLOV,"Clover Health Investments, Corp",XNAS,CS,True,likely_chartable
+SEMR^26,SEMR,"SEMrush Holdings, Inc.",XNYS,CS,False,likely_chartable
+BBIG,BBIG,VINCO VENTURES INC,OTC Link,CS,True,low_confidence
+GLBE,GLBE,Global-E Online Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+NEGG,NEGG,"Newegg Commerce, Inc. Common Shares",XNAS,CS,True,likely_chartable
+NTLA,NTLA,"Intellia Therapeutics, Inc",XNAS,CS,True,likely_chartable
+ASAN,ASAN,"Asana, Inc. Class A Common Stock",XNYS,CS,True,likely_chartable
+XELA,XELA,EXELA TECHNOLOGIES INC,OTC Link,CS,True,low_confidence
+AGTI^24,AGTI,"Agiliti, Inc.",XNYS,CS,False,likely_chartable
+NRXP,NRXP,"NRX Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AEHR,AEHR,Aehr Test Systems,XNAS,CS,True,likely_chartable
+SKYT^26,SKYT,"SkyWater Technology, Inc. Common Stock",XNAS,CS,False,likely_chartable
+YOU,YOU,"Clear Secure, Inc.",XNYS,CS,True,likely_chartable
+KIN^21,KIN,"Kindred Biosciences, Inc.",XNAS,CS,False,likely_chartable
+ASXC^24,ASXC,"Asensus Surgical, Inc.",XASE,CS,False,likely_chartable
+ASPN,ASPN,"Aspen Aerogels, Inc.",XNYS,CS,True,likely_chartable
+CERE^24,CERE,"Cerevel Therapeutics Holdings, Inc. Common Stock",XNAS,CS,False,likely_chartable
+BYSI,BYSI,BeyondSpring Inc. Ordinary Shares,XNAS,CS,True,likely_chartable
+FULC,FULC,"Fulcrum Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SITM,SITM,SiTime Corporation Common Stock,XNAS,CS,True,likely_chartable
+MNDY,MNDY,monday.com Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+RAPT^26,RAPT,"RAPT Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+VERV^25,VERV,"Verve Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+TASK,TASK,"TaskUs, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ANY,ANY,Sphere 3D Corp. Common Shares,XNAS,CS,True,likely_chartable
+ISEE^23,ISEE,"IVERIC bio, Inc. Common Stock",XNAS,CS,False,likely_chartable
+RGC,RGC,Regencell Bioscience Holdings Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+DYAI,DYAI,"Dyadic International, Inc.",XNAS,CS,True,likely_chartable
+NURO^25,NURO,"NeuroMetrix, Inc. Common Stock",XNAS,CS,False,likely_chartable
+PXLW,PXLW,Pixelworks Inc,XNAS,CS,True,likely_chartable
+AFRM,AFRM,"Affirm Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+VVOS,VVOS,"Vivos Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ATER,ATER,"Aterian, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IPHA,IPHA,Innate Pharma S.A. ADS,XNAS,ADRC,True,likely_chartable
+FCUV,FCUV,Focus Universal Inc. Common Stock,XNAS,CS,True,likely_chartable
+CRVS,CRVS,"Corvus Pharmaceuticals, Inc.",XNAS,CS,True,likely_chartable
+XENE,XENE,Xenon Pharmaceuticals Inc,XNAS,CS,True,likely_chartable
+SLI,SLI,Standard Lithium Ltd.,XASE,CS,True,likely_chartable
+SCR^21,SCR,Score Media and Gaming Inc. Class A Subordinate Voting Shares,XNAS,,False,likely_chartable
+ARQQ,ARQQ,Arqit Quantum Inc. Ordinary Shares,XNAS,CS,True,likely_chartable
+KPLT,KPLT,"Katapult Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CRK,CRK,"Comstock Resources, Inc.",XNYS,CS,True,likely_chartable
+PED,PED,PEDEVCO Corp.,XASE,CS,True,likely_chartable
+PHUN,PHUN,"Phunware, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IONQ,IONQ,"IonQ, Inc.",XNYS,CS,True,likely_chartable
+HUDI,HUDI,"Huadi International Group Co., Ltd. Ordinary Shares",XNAS,CS,True,likely_chartable
+LCID,LCID,"Lucid Group, Inc. Common Stock",XNAS,CS,True,likely_chartable
+MRAM,MRAM,"Everspin Technologies, Inc",XNAS,CS,True,likely_chartable
+PETZ,PETZ,"TDH Holdings, Inc. Common Shares",XNAS,CS,True,likely_chartable
+LGVN,LGVN,Longeveron Inc. Common Stock,XNAS,CS,True,likely_chartable
+ISPC,ISPC,iSpecimen Inc. Common Stock,XNAS,CS,True,likely_chartable
+RBLX,RBLX,Roblox Corporation,XNYS,CS,True,likely_chartable
+EVGO,EVGO,EVgo Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+BLU^23,BLU,BELLUS Health Inc.,XNAS,CS,False,likely_chartable
+IRTC,IRTC,"iRhythm Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SWIM,SWIM,"Latham Group, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BEST^25,BEST,"BEST Inc. American Depositary Shares, each representing twenty (20) Class A Ordinary Shares",XNYS,ADRC,False,likely_chartable
+AOSL,AOSL,Alpha and Omega Semiconductor Limited,XNAS,CS,True,likely_chartable
+GDYN,GDYN,"Grid Dynamics Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ACET,ACET,"Adicet Bio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PUBM,PUBM,"PubMatic, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+INVZ,INVZ,Innoviz Technologies Ltd. Ordinary shares,XNAS,CS,True,likely_chartable
+LWLG,LWLG,"Lightwave Logic, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TAL,TAL,TAL Education Group,XNYS,ADRC,True,likely_chartable
+CARS,CARS,Cars.com Inc. Common Stock,XNYS,CS,True,likely_chartable
+TRUP,TRUP,"Trupanion, Inc.",XNAS,CS,True,likely_chartable
+ENSC,ENSC,"Ensysce Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FHTX,FHTX,Foghorn Therapeutics Inc. Common Stock,XNAS,CS,True,likely_chartable
+KZR^26,KZR,"Kezar Life Sciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+MTTR^25,MTTR,"Matterport, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+ALZN,ALZN,"Alzamend Neuro, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AUR,AUR,"Aurora Innovation, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ACHR,ACHR,Archer Aviation Inc.,XNYS,CS,True,likely_chartable
+JXN,JXN,Jackson Financial Inc.,XNYS,CS,True,likely_chartable
+ROIV,ROIV,Roivant Sciences Ltd. Common Shares,XNAS,CS,True,likely_chartable
+ARLO,ARLO,"Arlo Technologies, Inc.",XNYS,CS,True,likely_chartable
+AMR,AMR,"Alpha Metallurgical Resources, Inc.",XNYS,CS,True,likely_chartable
+DARE,DARE,"Dare Bioscience, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SPRB,SPRB,"Spruce Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+QUOT^23,QUOT,Quotient Technology Inc,XNYS,CS,False,likely_chartable
+TBPH,TBPH,"Theravance Biopharma, Inc.",XNAS,CS,True,likely_chartable
+JWEL,JWEL,Jowell Global Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+BFRI,BFRI,Biofrontera Inc. Common Stock,XNAS,CS,True,likely_chartable
+CPOP,CPOP,"Pop Culture Group Co., Ltd Class A Ordinary Shares",XNAS,CS,True,likely_chartable
+DNUT,DNUT,"Krispy Kreme, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ITOS^25,ITOS,"iTeos Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+TGLS,TGLS,Tecnoglass Holdings Inc.,XNYS,CS,True,likely_chartable
+XPRO,XPRO,Expro Ltd,XNYS,CS,True,likely_chartable
+MUR,MUR,Murphy Oil Corp.,XNYS,CS,True,likely_chartable
+LBRT,LBRT,Liberty Energy Inc.,XNYS,CS,True,likely_chartable
+IMTE,IMTE,Integrated Media Technology Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+XMTR,XMTR,"Xometry, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+MLCO,MLCO,Melco Resorts & Entertainment Limited American Depositary Shares,XNAS,ADRC,True,likely_chartable
+GKOS,GKOS,Glaukos Corporation,XNYS,CS,True,likely_chartable
+TRHC^23,TRHC,"Tabula Rasa HealthCare, Inc. Common Stock",XNAS,CS,False,likely_chartable
+DVN,DVN,Devon Energy Corporation,XNYS,CS,True,likely_chartable
+RXDX^23,RXDX,"Prometheus Biosciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+WHD,WHD,"Cactus, Inc.",XNYS,CS,True,likely_chartable
+CVI,CVI,"CVR ENERGY, INC.",XNYS,CS,True,likely_chartable
+OXY,OXY,Occidental Petroleum Corporation,XNYS,CS,True,likely_chartable
+EAR^24,EAR,"Eargo, Inc. Common Stock",XNAS,CS,False,likely_chartable
+BLND,BLND,"Blend Labs, Inc.",XNYS,CS,True,likely_chartable
+NEX^23,NEX,NexTier Oilfield Solutions Inc.,XNYS,CS,False,likely_chartable
+GOTU,GOTU,"Gaotu Techedu Inc. American Depositary Shares, three of which representing two Class A Ordinary Shares",XNYS,ADRC,True,likely_chartable
+TBBK,TBBK,The Bancorp Inc.,XNAS,CS,True,likely_chartable
+HP,HP,"Helmerich & Payne, Inc.",XNYS,CS,True,likely_chartable
+ROCC^23,ROCC,Ranger Oil Corporation Class A Common Stock,XNAS,CS,False,likely_chartable
+DOGZ,DOGZ,Dogness (International) Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+CNR,CNR,"Core Natural Resources, Inc.",XNYS,CS,True,likely_chartable
+LKNCY,LKNCY,LUCKIN COFFEE INC SP/ADR,OTC Link,ADRC,True,low_confidence
+DOCS,DOCS,"Doximity, Inc.",XNYS,CS,True,likely_chartable
+ABSI,ABSI,Absci Corporation Common Stock,XNAS,CS,True,likely_chartable
+LAW,LAW,"CS Disco, Inc.",XNYS,CS,True,likely_chartable
+NU,NU,Nu Holdings Ltd.,XNYS,CS,True,likely_chartable
+WLL^22,WLL,Whiting Petroleum Corporation,XNYS,CS,False,likely_chartable
+BKKT,BKKT,"Bakkt, Inc.",XNYS,CS,True,likely_chartable
+LU,LU,"Lufax Holding Ltd. American Depositary Shares, each representing two (2) Ordinary Shares",XNYS,ADRC,True,likely_chartable
+SRRA^22,SRRA,"Sierra Oncology, Inc. Common Stock",XNAS,CS,False,likely_chartable
+AA,AA,Alcoa Corporation,XNYS,CS,True,likely_chartable
+EXTN^22,EXTN,Exterran Corporation,XNYS,CS,False,likely_chartable
+GRIN.2^24,GRIN,VictoryShares International Free Cash Flow Growth ETF,XNAS,ETF,True,low_confidence
+CELH,CELH,"Celsius Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SKIN,SKIN,SkinHealth Systems Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+TALO,TALO,"Talos Energy, Inc. Common Stock",XNYS,CS,True,likely_chartable
+CARG,CARG,"CarGurus, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+LNTH,LNTH,"Lantheus Holdings, Inc",XNAS,CS,True,likely_chartable
+ANGH,ANGH,Anghami Inc. Ordinary Shares,XNAS,CS,True,likely_chartable
+GSM,GSM,Ferroglobe PLC Ordinary Shares,XNAS,CS,True,likely_chartable
+IPI,IPI,"Intrepid Potash, Inc",XNYS,CS,True,likely_chartable
+INDO,INDO,Indonesia Energy Corporation Limited,XASE,CS,True,likely_chartable
+RES,RES,"RPC, Inc.",XNYS,CS,True,likely_chartable
+AMRC,AMRC,"Ameresco, Inc.",XNYS,CS,True,likely_chartable
+ASTS,ASTS,"AST SpaceMobile, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+HOOK^26,HOOK,HOOKIPA Pharma Inc. Common Stock,XNAS,CS,False,likely_chartable
+LXU,LXU,LSB INDUSTRIES INC,XNYS,CS,True,likely_chartable
+BRCC,BRCC,BRC Inc.,XNYS,CS,True,likely_chartable
+HYMC,HYMC,Hycroft Mining Holding Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+NVCT,NVCT,"Nuvectis Pharma, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ARCH^25,ARCH,"Arch Resources, Inc.",XNYS,CS,False,likely_chartable
+TMC,TMC,TMC the metals company Inc. Common Stock,XNAS,CS,True,likely_chartable
+AGRO,AGRO,ADECOAGRO S.A.,XNYS,CS,True,likely_chartable
+MNDT^22,MNDT,"Mandiant, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SKYH,SKYH,Sky Harbour Group Corporation,XNYS,CS,True,likely_chartable
+BCEL^24,BCEL,"Atreca, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+CENN,CENN,Cenntro Inc. Common Stock,XNAS,CS,True,likely_chartable
+SHLS,SHLS,"Shoals Technologies Group, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+SLCA^24,SLCA,"U.S. SILICA HOLDINGS, INC.",XNYS,CS,False,likely_chartable
+DAVE,DAVE,Dave Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+FIGS,FIGS,"FIGS, Inc.",XNYS,CS,True,likely_chartable
+SGLY,SGLY,Singularity Future Technology Ltd. Common Stock,XNAS,CS,True,likely_chartable
+SST,SST,"System1, Inc.",XNYS,CS,True,likely_chartable
+EPAM,EPAM,"EPAM SYSTEMS, INC.",XNYS,CS,True,likely_chartable
+MNTS,MNTS,Momentus Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+IQ,IQ,"iQIYI, Inc. American Depositary Shares",XNAS,ADRC,True,likely_chartable
+TIGR,TIGR,UP Fintech Holding Ltd American Depositary Share representing fifteen Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+GDS,GDS,GDS Holdings Limited ADS,XNAS,ADRC,True,likely_chartable
+HPK,HPK,"HighPeak Energy, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DDL,DDL,Dingdong (Cayman) Limited American Depositary Shares (each two representing three Ordinary Shares),XNYS,ADRC,True,likely_chartable
+PLL^25,PLL,Piedmont Lithium Inc. Common Stock,XNAS,CS,False,likely_chartable
+BBAI,BBAI,"BigBear.ai Holdings, Inc.",XNYS,CS,True,likely_chartable
+CXW,CXW,"CoreCivic, Inc.",XNYS,CS,True,likely_chartable
+NKTX,NKTX,"Nkarta, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CYN,CYN,Cyngn Inc. Common Stock,XNAS,CS,True,likely_chartable
+ATNM,ATNM,"Actinium Pharmaceuticals, Inc",XASE,CS,True,likely_chartable
+SLVM,SLVM,Sylvamo Corporation,XNYS,CS,True,likely_chartable
+VAXX,VAXX,VAXXINITY INC A,OTC Link,CS,True,low_confidence
+OSH^23,OSH,"Oak Street Health, Inc.",XNYS,CS,False,likely_chartable
+HCP^25,HCP,"HashiCorp, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+ARLP,ARLP,Alliance Resource Partners LP,XNAS,CS,True,likely_chartable
+BCC,BCC,Boise Cascade Company,XNYS,CS,True,likely_chartable
+STNG,STNG,Scorpio Tankers Inc.,XNYS,CS,True,likely_chartable
+HZO,HZO,"MarineMax, Inc.",XNYS,CS,True,likely_chartable
+CVE,CVE,Cenovus Energy Inc.,XNYS,CS,True,likely_chartable
+ABG,ABG,"Asbury Automotive Group, Inc.",XNYS,CS,True,likely_chartable
+LPX,LPX,Louisiana-Pacific Corp.,XNYS,CS,True,likely_chartable
+ATKR,ATKR,Atkore Inc.,XNYS,CS,True,likely_chartable
+HDSN,HDSN,Hudson Technologies Inc,XNAS,CS,True,likely_chartable
+RDBX^22,RDBX,Redbox Entertainment Inc. Class A Common Stock,XNAS,CS,False,likely_chartable
+GOGL.1^25,GOGL,Corgi GOOGL 2x Daily ETF,BATS,ETF,True,low_confidence
+ATEN,ATEN,A10 NETWORKS INC,XNYS,CS,True,likely_chartable
+GRBK,GRBK,"Green Brick Partners, Inc",XNYS,CS,True,likely_chartable
+CD.1^23,CD,Chaince Digital Holdings Inc. Ordinary Shares,XNAS,CS,True,likely_chartable
+GFF,GFF,Griffon Corp,XNYS,CS,True,likely_chartable
+ARRY,ARRY,"Array Technologies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+WIRE^24,WIRE,Encore Wire Corp,XNAS,CS,False,likely_chartable
+SD,SD,"SandRidge Energy, Inc.",XNYS,CS,True,likely_chartable
+BKSY,BKSY,BlackSky Technology Inc.,XNYS,CS,True,likely_chartable
+ALB,ALB,Albemarle Corporation,XNYS,CS,True,likely_chartable
+CRMT,CRMT,America's Car Mart Inc,XNAS,CS,True,likely_chartable
+ZYME,ZYME,Zymeworks Inc.,XNAS,CS,True,likely_chartable
+CLVR,CLVR,CLEVER LEAVES HLDGS INC,OTC Link,CS,True,low_confidence
+BLD^26,BLD,TopBuild Corp. Common Stock,XNYS,CS,False,likely_chartable
+TPTX^22,TPTX,"Turning Point Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ENVX,ENVX,Enovix Corporation Common Stock,XNAS,CS,True,likely_chartable
+AMLX,AMLX,"Amylyx Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+KC,KC,Kingsoft Cloud Holdings Limited American Depositary Shares,XNAS,ADRC,True,likely_chartable
+RADI^23,RADI,"Radius Global Infrastructure, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+COGT,COGT,"Cogent Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+EDU,EDU,"New Oriental Education and Technology Group, Inc. American Depositary Shares (each representing ten (10) Common Shares)",XNYS,ADRC,True,likely_chartable
+BMBL,BMBL,Bumble Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+CVET^22,CVET,"Covetrus, Inc. Common Stock",XNAS,CS,False,likely_chartable
+SIDU,SIDU,"Sidus Space, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+AMWL,AMWL,American Well Corporation,XNYS,CS,True,likely_chartable
+MREO,MREO,Mereo BioPharma Group plc American Depositary Shares,XNAS,ADRC,True,likely_chartable
+DIDIY,DIDIY,DIDI GLOBAL INC S/ADR,OTC Link,ADRC,True,low_confidence
+SYM,SYM,Symbotic Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+ESTE^23,ESTE,Earthstone Energy Inc. Class A Common Stock,XNYS,CS,False,likely_chartable
+YSG,YSG,"Yatsen Holding Limited American Depositary Shares, each representing twenty (20) Class A Ordinary Shares",XNYS,ADRC,True,likely_chartable
+BZ,BZ,KANZHUN LIMITED American Depository Shares,XNAS,ADRC,True,likely_chartable
+UDMY^26,UDMY,"Udemy, Inc. Common Stock",XNAS,CS,False,likely_chartable
+YMM,YMM,Full Truck Alliance Co. Ltd. American Depositary Shares (each representing 20 Class A Ordinary Shares),XNYS,ADRC,True,likely_chartable
+SANA,SANA,"Sana Biotechnology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+EVFM,EVFM,EVOFEM BIOSCIENCE INC,OTC Link,CS,True,low_confidence
+PLRX,PLRX,"Pliant Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DAWN^26,DAWN,"Day One Biopharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+RYTM,RYTM,"Rhythm Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SRG,SRG,"Seritage Growth Properties Class A common shares of beneficial interest, par value $0.01",XNYS,CS,True,likely_chartable
+BEAM,BEAM,Beam Therapeutics Inc. Common Stock,XNAS,CS,True,likely_chartable
+RPTX^26,RPTX,Repare Therapeutics Inc. Common Shares,XNAS,CS,False,likely_chartable
+APLD,APLD,Applied Digital Corporation Common Stock,XNAS,CS,True,likely_chartable
+AMTD,AMTD,"AMTD IDEA Group American Depositary Shares, each representing six (6) Class A Ordinary Shares",XNYS,ADRC,True,likely_chartable
+TH,TH,Target Hospitality Corp. Common Stock,XNAS,CS,True,likely_chartable
+SWTX^25,SWTX,"SpringWorks Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+EVTL,EVTL,Vertical Aerospace Ltd.,XNYS,CS,True,likely_chartable
+ACCD^25,ACCD,"Accolade, Inc. Common Stock",XNAS,CS,False,likely_chartable
+HUT,HUT,Hut 8 Corp. Common Stock,XNAS,CS,True,likely_chartable
+BCAB,BCAB,BIOATLA INC,OTC Link,CS,True,low_confidence
+BFLY,BFLY,"Butterfly Network, Inc.",XNYS,CS,True,likely_chartable
+HKD,HKD,AMTD Digital Inc. American Depositary Shares (every five of which represent two Class A Ordinary Shares),XNYS,ADRC,True,likely_chartable
+FLNC,FLNC,"Fluence Energy, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+RLAY,RLAY,"Relay Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VRDN,VRDN,"Viridian Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+YPF,YPF,YPF Sociedad Anonima American Depositary Shares (Each representing ten (10) Class D shares of Capital Stock),XNYS,ADRC,True,likely_chartable
+SDIG^25,SDIG,"Stronghold Digital Mining, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+FAZE^24,FAZE,FaZe Holdings Inc. Common Stock,XNAS,CS,False,likely_chartable
+WFRD,WFRD,Weatherford International plc Ordinary Shares,XNAS,CS,True,likely_chartable
+TCRT,TCRT,"Alaunos Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SGML,SGML,Sigma Lithium Corporation Common Shares,XNAS,CS,True,likely_chartable
+VRNA^25,VRNA,Verona Pharma plc,XNAS,ADRC,False,likely_chartable
+GSUN,GSUN,Golden Sun Technology Group Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+IBRX,IBRX,"ImmunityBio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PRPL,PRPL,"Purple Innovation, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BHC,BHC,Bausch Health Companies Inc,XNYS,CS,True,likely_chartable
+VCSA^25,VCSA,"Vacasa, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+ABOS,ABOS,"Acumen Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AKRO^25,AKRO,"Akero Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+FNGR,FNGR,"FingerMotion, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VTYX^26,VTYX,"Ventyx Biosciences, Inc. Common Stock",XNAS,CS,False,likely_chartable
+RLMD,RLMD,"Relmada Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FRPT,FRPT,"Freshpet, Inc.",XNAS,CS,True,likely_chartable
+ETNB^25,ETNB,"89bio, Inc. Common Stock",XNAS,CS,False,likely_chartable
+GTII,GTII,GLOBAL TECH INDUSTRIES,OTC Link,CS,True,low_confidence
+IMVT,IMVT,"Immunovant, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SNTI,SNTI,"Senti Biosciences Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DICE^23,DICE,Tema Trading & Prediction Markets ETF,BATS,ETF,True,low_confidence
+INBX.1^24,INBX,"Inhibrx Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IMUX,IMUX,"Immunic, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ILAG,ILAG,Intelligent Living Application Group Inc. Ordinary Shares,XNAS,ADRC,True,likely_chartable
+POSH^23,POSH,"Poshmark, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+AMPS^25,AMPS,"Altus Power, Inc.",XNYS,CS,False,likely_chartable
+PCVX,PCVX,"Vaxcyte, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BHVN,BHVN,Biohaven Ltd.,XNYS,CS,True,likely_chartable
+MGNI,MGNI,"Magnite, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SVC,SVC,Service Properties Trust Common Stock,XNAS,CS,True,likely_chartable
+RLX,RLX,"RLX Technology Inc. American Depositary Shares, each representing the right to receive one (1) Class A ordinary share",XNYS,ADRC,True,likely_chartable
+TDW,TDW,"Tidewater, Inc.",XNYS,CS,True,likely_chartable
+FDMT,FDMT,"4D Molecular Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TSHA,TSHA,"Taysha Gene Therapies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TME,TME,"Tencent Music Entertainment Group American Depositary Shares, each representing two Class A Ordinary Shares",XNYS,ADRC,True,likely_chartable
+PSNY,PSNY,Polestar Automotive Holding UK PLC Class A ADS,XNAS,CS,True,likely_chartable
+MANU,MANU,MANCHESTER UNITED PLC,XNYS,CS,True,likely_chartable
+BILI,BILI,Bilibili Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+OM,OM,"Outset Medical, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PHVS,PHVS,Pharvaris N.V. Ordinary Shares,XNAS,CS,True,likely_chartable
+COSM,COSM,Cosmos Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+RENT,RENT,"Rent the Runway, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+OTLY,OTLY,Oatly Group AB American Depositary Shares,XNAS,ADRC,True,likely_chartable
+SMMT,SMMT,Summit Therapeutics Inc. Common Stock,XNAS,CS,True,likely_chartable
+BWEN,BWEN,"Broadwind, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BIVI,BIVI,"BioVie, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NUVL^26,NUVL,"Nuvalent, Inc. Class A Common Stock",XNAS,CS,False,likely_chartable
+GNS,GNS,Genius Group Limited,XASE,CS,True,likely_chartable
+SATX^25,SATX,SatixFy Communications Ltd.,XASE,CS,False,likely_chartable
+SHC,SHC,Sotera Health Company Common Stock,XNAS,CS,True,likely_chartable
+JSPR,JSPR,"Jasper Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+OPEN,OPEN,Opendoor Technologies Inc Common Stock,XNAS,CS,True,likely_chartable
+BZFD,BZFD,"BuzzFeed, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ARBE,ARBE,Arbe Robotics Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+AI,AI,"C3.ai, Inc.",XNYS,CS,True,likely_chartable
+SOUN,SOUN,"SoundHound AI, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+OCUL,OCUL,"Ocular Therapeutix, Inc.",XNAS,CS,True,likely_chartable
+NEO,NEO,"NeoGenomics, Inc.",XNAS,CS,True,likely_chartable
+BBIO,BBIO,"BridgeBio Pharma, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NRDS,NRDS,"NerdWallet, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+DUOL,DUOL,"Duolingo, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ICVX^24,ICVX,"Icosavax, Inc. Common Stock",XNAS,CS,False,likely_chartable
+LUNR,LUNR,"Intuitive Machines, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+IOT,IOT,Samsara Inc.,XNYS,CS,True,likely_chartable
+YEXT,YEXT,"Yext, Inc.",XNYS,CS,True,likely_chartable
+DADA^25,DADA,Dada Nexus Limited American Depositary Shares,XNAS,ADRC,False,likely_chartable
+OCEA,OCEA,OCEAN BIOMEDICAL INC,OTC Link,CS,True,low_confidence
+NVTS,NVTS,Navitas Semiconductor Corporation Common Stock,XNAS,CS,True,likely_chartable
+ONON,ONON,On Holding AG,XNYS,CS,True,likely_chartable
+SE,SE,"Sea Limited American Depositary Shares, each representing one Class A Ordinary Share",XNYS,ADRC,True,likely_chartable
+LLAP^24,LLAP,Terran Orbital Corporation,XNYS,CS,False,likely_chartable
+BUR,BUR,Burford Capital Limited,XNYS,CS,True,likely_chartable
+BMEA,BMEA,"Biomea Fusion, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PYXS,PYXS,"Pyxis Oncology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+WAL,WAL,Western Alliance Bancorporation,XNYS,CS,True,likely_chartable
+CDLX,CDLX,"Cardlytics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CXAI,CXAI,CXApp Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+SCYX,SCYX,"SCYNEXIS, Inc.",XNAS,CS,True,likely_chartable
+ASRT^26,ASRT,"Assertio Holdings, Inc. Common Stock",XNAS,CS,False,likely_chartable
+TOP,TOP,TOP Financial Group Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+EYPT,EYPT,"EyePoint, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DM^25,DM,"Desktop Metal, Inc.",XNYS,CS,False,likely_chartable
+QBTS,QBTS,D-Wave Quantum Inc. Common Stock,XNAS,CS,True,likely_chartable
+NNOX,NNOX,NANO-X IMAGING LTD Ordinary Shares,XNAS,CS,True,likely_chartable
+GSIT,GSIT,GSI Technology,XNAS,CS,True,likely_chartable
+UCAR,UCAR,U Power Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+CRDO,CRDO,Credo Technology Group Holding Ltd Ordinary Shares,XNAS,CS,True,likely_chartable
+SOFI,SOFI,"SoFi Technologies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PRST,PRST,PRESTO AUTOMATION INC,OTC Link,CS,True,low_confidence
+SDA,SDA,SunCar Technology Group Inc. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+VERA,VERA,"Vera Therapeutics, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ZURA,ZURA,Zura Bio Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+VCIG,VCIG,VCI Global Limited Ordinary Share,XNAS,CS,True,likely_chartable
+BLPH^24,BLPH,"Bellerophon Therapeutics, Inc.",XNAS,CS,False,likely_chartable
+BDTX,BDTX,"Black Diamond Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+EOSE,EOSE,"Eos Energy Enterprises, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+KSCP,KSCP,"Knightscope, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+WULF,WULF,TeraWulf Inc. Common Stock,XNAS,CS,True,likely_chartable
+MLTX,MLTX,MoonLake Immunotherapeutics Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+GRRR,GRRR,Gorilla Technology Group Inc. Ordinary shares,XNAS,CS,True,likely_chartable
+RGTI,RGTI,"Rigetti Computing, Inc. Common Stock",XNAS,CS,True,likely_chartable
+URGN,URGN,UroGen Pharma Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+TSAT,TSAT,Telesat Corporation Class A Common Shares and Class B Variable Voting Shares,XNAS,CS,True,likely_chartable
+HKIT,HKIT,Hitek Global Inc. Class A Ordinary Share,XNAS,CS,True,likely_chartable
+MLGO,MLGO,"MicroAlgo, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+DLO,DLO,DLocal Limited Class A Common Shares,XNAS,CS,True,likely_chartable
+RCKT,RCKT,"Rocket Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TNGX,TNGX,"Tango Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+GPCR,GPCR,Structure Therapeutics Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+ALXO,ALXO,ALX Oncology Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+LMND,LMND,"Lemonade, Inc.",XNYS,CS,True,likely_chartable
+METC,METC,"Ramaco Resources, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+STTK,STTK,"Shattuck Labs, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DRCT,DRCT,"Direct Digital Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+CCCC,CCCC,"C4 Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+SERA,SERA,"Sera Prognostics, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+LQDA,LQDA,Liquidia Corporation Common Stock,XNAS,CS,True,likely_chartable
+EWTX,EWTX,"Edgewise Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IVVD,IVVD,"Invivyd, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CRNX^26,CRNX,"Crinetics Pharmaceuticals, Inc.",XNAS,CS,False,likely_chartable
+ARQT,ARQT,"Arcutis Biotherapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SGMT,SGMT,Sagimet Biosciences Inc. Series A Common Stock,XNAS,CS,True,likely_chartable
+FYBR^26,FYBR,"Frontier Communications Parent, Inc. Common Stock",XNAS,CS,False,likely_chartable
+HOLO,HOLO,MicroCloud Hologram Inc. Ordinary Shares,XNAS,CS,True,likely_chartable
+BMR,BMR,Beamr Imaging Ltd. Ordinary Share,XNAS,CS,True,likely_chartable
+SLNO^26,SLNO,"Soleno Therapeutics, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ROOT,ROOT,"Root, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+JANX,JANX,"Janux Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AISP,AISP,"Airship AI Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+SMR,SMR,NuScale Power Corporation,XNYS,CS,True,likely_chartable
+STI,STI,"Solidion Technology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+LBPH^24,LBPH,"Longboard Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+CADL,CADL,"Candel Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+MDIA,MDIA,Mediaco Holding Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+ACRV,ACRV,"Acrivon Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+IZM,IZM,ICZOOM Group Inc. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+ELEV^25,ELEV,"Elevation Oncology, Inc. Common stock",XNAS,CS,False,likely_chartable
+STOK,STOK,"Stoke Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+OUST,OUST,"Ouster, Inc.",XNAS,CS,True,likely_chartable
+CTMX,CTMX,"CytomX Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+RILY,RILY,"BRC Group Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CTNT,CTNT,Cheetah Net Supply Chain Service Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+IREN,IREN,IREN Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+BNAI,BNAI,Brand Engagement Network Inc. Common Stock,XNAS,CS,True,likely_chartable
+INOD,INOD,Innodata Inc.,XNAS,CS,True,likely_chartable
+WGS,WGS,GeneDx Holdings Corp. Class A Common Stock,XNAS,CS,True,likely_chartable
+LUMN,LUMN,"Lumen Technologies, Inc.",XNYS,CS,True,likely_chartable
+WOOF,WOOF,"Petco Health and Wellness Company, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+CORZ,CORZ,"Core Scientific, Inc. Common Stock",XNAS,CS,True,likely_chartable
+XPOF,XPOF,"Xponential Fitness, Inc.",XNYS,CS,True,likely_chartable
+NNE,NNE,Nano Nuclear Energy Inc. Common Stock,XNAS,CS,True,likely_chartable
+SERV,SERV,Serve Robotics Inc. Common Stock,XNAS,CS,True,likely_chartable
+HUMA,HUMA,"Humacyte, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BTDR,BTDR,Bitdeer Technologies Group Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+OMCL,OMCL,Omnicell Inc,XNAS,CS,True,likely_chartable
+VSAT,VSAT,Viasat Inc,XNAS,CS,True,likely_chartable
+GSHD,GSHD,"Goosehead Insurance, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+INSP,INSP,"Inspire Medical Systems, Inc.",XNYS,CS,True,likely_chartable
+CSTL,CSTL,"Castle Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+HROW,HROW,"Harrow, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SEZL,SEZL,Sezzle Inc. Common Stock,XNAS,CS,True,likely_chartable
+RYDE,RYDE,Ryde Group Ltd.,XASE,CS,True,likely_chartable
+TIL,TIL,"Instil Bio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+LASE,LASE,Laser Photonics Corporation Common Stock,XNAS,CS,True,likely_chartable
+CAPR,CAPR,Capricor Therapeutics Inc,XNAS,CS,True,likely_chartable
+TWG,TWG,Top Wealth Group Holding Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+TVGN,TVGN,Tevogen Inc. Common Stock,XNAS,CS,True,likely_chartable
+API,API,"Agora, Inc. American Depositary Shares",XNAS,ADRC,True,likely_chartable
+DRUG,DRUG,Bright Minds Biosciences Inc. Common Stock,XNAS,CS,True,likely_chartable
+DJT,DJT,Trump Media & Technology Group Corp. Common Stock,XNAS,CS,True,likely_chartable
+CDMO^25,CDMO,"Avid Bioservices, Inc. Common Stock",XNAS,CS,False,likely_chartable
+LTBR,LTBR,Lightbridge Corp.,XNAS,CS,True,likely_chartable
+FMCC,FMCC,FREDDIE MAC,OTC Link,CS,True,low_confidence
+CHSN,CHSN,Chanson International Holding Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+OKLO,OKLO,Oklo Inc.,XNYS,CS,True,likely_chartable
+ASPI,ASPI,ASP Isotopes Inc. Common Stock,XNAS,CS,True,likely_chartable
+RDFN^25,RDFN,Redfin Corporation Common Stock,XNAS,CS,False,likely_chartable
+QUBT,QUBT,Quantum Computing Inc. Common,XNAS,CS,True,likely_chartable
+VOXX^25,VOXX,VOXX International Corporation Class A,XNAS,CS,False,likely_chartable
+FNMA,FNMA,FANNIE MAE,OTC Link,CS,True,low_confidence
+KULR,KULR,"KULR Technology Group, Inc.",XASE,CS,True,likely_chartable
+PDYN,PDYN,Palladyne AI Corp. Common Stock,XNAS,CS,True,likely_chartable
+APP,APP,Applovin Corporation Class A Common Stock,XNAS,CS,True,likely_chartable
+RCAT,RCAT,"Red Cat Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ZJK,ZJK,"ZJK Industrial Co., Ltd. Class A Ordinary Shares",XNAS,CS,True,likely_chartable
+UMAC,UMAC,"Unusual Machines, Inc.",XASE,CS,True,likely_chartable
+ALGS,ALGS,"Aligos Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+MVST,MVST,"Microvast Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ZENA,ZENA,"ZenaTech, Inc. Common Stock",XNAS,CS,True,likely_chartable
+LAES,LAES,SEALSQ Corp Ordinary Shares,XNAS,CS,True,likely_chartable
+QMCO,QMCO,Quantum Corporation,XNAS,CS,True,likely_chartable
+HSAI,HSAI,"Hesai Group American Depositary Share, each ADS represents one Class B ordinary share",XNAS,CS,True,likely_chartable
+NVNI,NVNI,Nvni Group Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+OPTX,OPTX,"Syntec Optics Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+SES,SES,SES AI Corporation,XNYS,CS,True,likely_chartable
+CTM,CTM,"Castellum, Inc.",XASE,CS,True,likely_chartable
+BDMD,BDMD,Baird Medical Investment Holdings Ltd Ordinary Share,XNAS,CS,True,likely_chartable
+SMLR^26,SMLR,"Semler Scientific, Inc.",XNAS,CS,False,likely_chartable
+OPTT,OPTT,"Ocean Power Technologies, Inc.",XASE,CS,True,likely_chartable
+RR,RR,Richtech Robotics Inc. Class B Common Stock,XNAS,CS,True,likely_chartable
+AMPX,AMPX,"Amprius Technologies, Inc.",XNYS,CS,True,likely_chartable
+ONDS,ONDS,Ondas Inc. Common Stock,XNAS,CS,True,likely_chartable
+VATE,VATE,INNOVATE Corp.,XNYS,CS,True,likely_chartable
+AGL,AGL,"agilon health, inc.",XNYS,CS,True,likely_chartable
+GRAL,GRAL,"GRAIL, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ABAT,ABAT,American Battery Technology Company Common Stock,XNAS,CS,True,likely_chartable
+TEM,TEM,"Tempus AI, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+OPFI,OPFI,OppFi Inc.,XNYS,CS,True,likely_chartable
+WRD,WRD,WeRide Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+HIMS,HIMS,"Hims & Hers Health, Inc.",XNYS,CS,True,likely_chartable
+DOMH,DOMH,Dominari Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+PRCH,PRCH,"Porch Group, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DGNX,DGNX,Diginex Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+TUYA,TUYA,"Tuya Inc. American Depositary Shares, each representing one Class A Ordinary Share",XNYS,ADRC,True,likely_chartable
+PCLA,PCLA,PicoCELA Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+HLF,HLF,Herbalife Ltd.,XNYS,CS,True,likely_chartable
+CYD,CYD,China Yuchai International Ltd.,XNYS,CS,True,likely_chartable
+WCT,WCT,Wellchange Holdings Company Limited Class A Ordinary shares,XNAS,CS,True,likely_chartable
+MLYS,MLYS,"Mineralys Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+HIT,HIT,"Health In Tech, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+PEPG,PEPG,PepGen Inc. Common Stock,XNAS,CS,True,likely_chartable
+ZLAB,ZLAB,Zai Lab Limited American Depositary Shares,XNAS,ADRC,True,likely_chartable
+XERS,XERS,"Xeris Biopharma Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ESTA,ESTA,Establishment Labs Holdings Inc.,XNAS,CS,True,likely_chartable
+TRVI,TRVI,"Trevi Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SNDK,SNDK,Sandisk Corporation Common Stock,XNAS,CS,True,likely_chartable
+MASS,MASS,908 Devices Inc. Common Stock,XNAS,CS,True,likely_chartable
+CRVO,CRVO,CervoMed Inc. Common Stock,XNAS,CS,True,likely_chartable
+JYD,JYD,Jayud Global Logistics Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+AGX,AGX,"Argan, Inc",XNYS,CS,True,likely_chartable
+TNXP,TNXP,Tonix Pharmaceuticals Holding Corp.,XNAS,CS,True,likely_chartable
+IBTA,IBTA,"Ibotta, Inc.",XNYS,CS,True,likely_chartable
+LOAR,LOAR,Loar Holdings Inc.,XNYS,CS,True,likely_chartable
+ALHC,ALHC,"Alignment Healthcare, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PPTA,PPTA,Perpetua Resources Corp. Common Shares,XNAS,CS,True,likely_chartable
+SPRY,SPRY,"ARS Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CERT,CERT,"Certara, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TMDX,TMDX,"TransMedics Group, Inc. Common Stock",XNAS,CS,True,likely_chartable
+LOVE,LOVE,The Lovesac Company Common Stock,XNAS,CS,True,likely_chartable
+NN,NN,NextNav Inc. Common Stock,XNAS,CS,True,likely_chartable
+MRX,MRX,Marex Group Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+DNA,DNA,"Ginkgo Bioworks Holdings, Inc.",XNYS,CS,True,likely_chartable
+HNRG,HNRG,Hallador Energy Company,XNAS,CS,True,likely_chartable
+TTAN,TTAN,"ServiceTitan, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+KROS,KROS,"Keros Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+HTZ,HTZ,"Hertz Global Holdings, Inc Common Stock",XNAS,CS,True,likely_chartable
+SRAD,SRAD,Sportradar Group AG Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+STRL,STRL,"Sterling Infrastructure, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SLP,SLP,"Simulations Plus, Inc.",XNAS,CS,True,likely_chartable
+FWRG,FWRG,"First Watch Restaurant Group, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NUTX,NUTX,Nutex Health Inc. Common Stock,XNAS,CS,True,likely_chartable
+ORLA^26,ORLA,Orla Mining Ltd.,XASE,CS,False,likely_chartable
+PONY,PONY,Pony AI Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+BYRN,BYRN,"Byrna Technologies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+OST,OST,"Ostin Technology Group Co., Ltd. Class A Ordinary Shares",XNAS,CS,True,likely_chartable
+UPXI,UPXI,"Upexi, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NTCL,NTCL,NETCLASS TECHNOLOGY INC Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+TDUP,TDUP,ThredUp Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+ASST,ASST,"Strive, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+KIDZ,KIDZ,KIDZ AI Inc. Class B Common Stock,XNAS,CS,True,likely_chartable
+NXTT,NXTT,Next Technology Holding Inc. Ordinary Shares,XNAS,CS,True,likely_chartable
+SBET,SBET,"Sharplink, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CRWV,CRWV,"CoreWeave, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+SPRO,SPRO,"Spero Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PHAT,PHAT,"Phathom Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+THTX^25,THTX,Theratechnologies Inc. Common,XNAS,CS,False,likely_chartable
+CRCL,CRCL,"Circle Internet Group, Inc.",XNYS,CS,True,likely_chartable
+NEON,NEON,Neonode Inc. Common Stock,XNAS,CS,True,likely_chartable
+PROK,PROK,ProKidney Corp. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+BMNR,BMNR,"BitMine Immersion Technologies, Inc.",XNYS,CS,True,likely_chartable
+VOR,VOR,Vor Biopharma Inc. Common Stock,XNAS,CS,True,likely_chartable
+LVWR,LVWR,"LiveWire Group, Inc.",XNYS,CS,True,likely_chartable
+INKT,INKT,"MiNK Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BTCS,BTCS,BTCS Inc. Common Stock,XNAS,CS,True,likely_chartable
+SRFM,SRFM,Surf Air Mobility Inc.,XNYS,CS,True,likely_chartable
+SY,SY,So-Young International Inc. American Depository Shares,XNAS,ADRC,True,likely_chartable
+STEM,STEM,"Stem, Inc.",XNYS,CS,True,likely_chartable
+INZY^25,INZY,"Inozyme Pharma, Inc. Common Stock",XNAS,CS,False,likely_chartable
+JOBY,JOBY,"Joby Aviation, Inc.",XNYS,CS,True,likely_chartable
+ABVX,ABVX,Abivax SA American Depositary Shares,XNAS,ADRC,True,likely_chartable
+MP,MP,MP Materials Corp.,XNYS,CS,True,likely_chartable
+ALAB,ALAB,"Astera Labs, Inc. Common Stock",XNAS,CS,True,likely_chartable
+LIDR,LIDR,"AEye, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+NB,NB,NioCorp Developments Ltd. Common Stock,XNAS,CS,True,likely_chartable
+SLDP,SLDP,"Solid Power, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ZEPP,ZEPP,"Zepp Health Corporation American depositary shares, each representing sixteen Class A ordinary shares",XNYS,ADRC,True,likely_chartable
+CGTX,CGTX,"Cognition Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VWAV,VWAV,"VisionWave Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TLRY,TLRY,"Tilray Brands, Inc. Common Stock",XNAS,CS,True,likely_chartable
+OPAD,OPAD,Offerpad Solutions Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+SUPX,SUPX,SuperX AI Technology Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+HOUR,HOUR,"Hour Loop, Inc. Common Stock",XNAS,CS,True,likely_chartable
+EPSM,EPSM,Epsium Enterprise Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+SOGP,SOGP,Sound Group Inc. American Depositary Shares,XNAS,ADRC,True,likely_chartable
+SDM^26,SDM,Smart Digital Group Limited Ordinary Shares,XNAS,CS,False,likely_chartable
+INHD,INHD,Inno Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+AIRE,AIRE,reAlpha Tech Corp. Common Stock,XNAS,CS,True,likely_chartable
+BETR,BETR,Better Home & Finance Holding Company Class A Common Stock,XNAS,CS,True,likely_chartable
+DVLT,DVLT,Datavault AI Inc. Common Stock,XNAS,CS,True,likely_chartable
+LAC,LAC,Lithium Americas Corp.,XNYS,CS,True,likely_chartable
+SLNH,SLNH,"Soluna Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CRML,CRML,Critical Metals Corp. Ordinary Shares,XNAS,CS,True,likely_chartable
+TMQ,TMQ,Trilogy Metals Inc,XASE,CS,True,likely_chartable
+DFLI,DFLI,Dragonfly Energy Holdings Corp. Common Stock (NV),XNAS,CS,True,likely_chartable
+PALI,PALI,"Palisade Bio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+QMMM^26,QMMM,QMMM Holdings Limited Class A Ordinary Shares,XNAS,CS,False,likely_chartable
+WWR,WWR,"Westwater Resources, Inc.",XASE,CS,True,likely_chartable
+NUAI,NUAI,"New Era Energy & Digital, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PRAX,PRAX,"Praxis Precision Medicines, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NVA.1^26,NVA,Nova Minerals Corp,XASE,CS,True,likely_chartable
+RANI,RANI,"Rani Therapeutics Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ONMD,ONMD,OneMedNet Corp Class A Common Stock,XNAS,CS,True,likely_chartable
+SUPV,SUPV,Grupo Supervielle S.A.,XNYS,CS,True,likely_chartable
+DGXX,DGXX,Digi Power X Inc. Subordinate Voting Shares,XNAS,CS,True,likely_chartable
+INBX,INBX,"Inhibrx Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AXTI,AXTI,AXT Inc,XNAS,CS,True,likely_chartable
+ANRO,ANRO,Alto Neuroscience Inc.,XNYS,CS,True,likely_chartable
+MBX,MBX,"MBX Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BW,BW,"Babcock & Wilcox Enterprises, Inc.",XNYS,CS,True,likely_chartable
+BBAR,BBAR,Banco BBVA Argentina S.A.,XNYS,ADRC,True,likely_chartable
+NUVB,NUVB,Nuvation Bio Inc.,XNYS,CS,True,likely_chartable
+OLMA,OLMA,"Olema Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PACS,PACS,"PACS Group, Inc.",XNYS,CS,True,likely_chartable
+LITE,LITE,Lumentum Holdings Inc. Common Stock,XNAS,CS,True,likely_chartable
+RHLD,RHLD,"Resolute Holdings Management, Inc.",XNYS,CS,True,likely_chartable
+CGEM,CGEM,"Cullinan Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+AHMA,AHMA,Ambitions Enterprise Management Co. L.L.C Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+MAGN,MAGN,Magnera Corporation,XNYS,CS,True,likely_chartable
+TCMD,TCMD,"Tactile Systems Technology, Inc.",XNAS,CS,True,likely_chartable
+SMX,SMX,SMX (Security Matters) Public Limited Company Ordinary Shares,XNAS,CS,True,likely_chartable
+AFJK,AFJK,"Aimei Health Technology Co., Ltd Ordinary Share",XNAS,CS,True,likely_chartable
+TERN^26,TERN,"Terns Pharmaceuticals, Inc. Common Stock",XNAS,CS,False,likely_chartable
+ANNX,ANNX,"Annexon, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TE,TE,T1 Energy Inc.,XNYS,CS,True,likely_chartable
+ALMS,ALMS,Alumis Inc. Common Stock,XNAS,CS,True,likely_chartable
+FEIM,FEIM,"Frequency Electronics, Inc.",XNAS,CS,True,likely_chartable
+SOC,SOC,Sable Offshore Corp.,XNYS,CS,True,likely_chartable
+SLS,SLS,"SELLAS Life Sciences Group, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VELO,VELO,"Velo3D, Inc. Common stock",XNAS,CS,True,likely_chartable
+ROLR,ROLR,"High Roller Technologies, Inc.",XASE,CS,True,likely_chartable
+ERAS,ERAS,"Erasca, Inc. Common Stock",XNAS,CS,True,likely_chartable
+SATL,SATL,Satellogic Inc. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+ANPA,ANPA,Rich Sparkle Holdings Limited Ordinary Shares,XNAS,CS,True,likely_chartable
+NAMM,NAMM,Namib Minerals Ordinary Shares,XNAS,CS,True,likely_chartable
+BEAT,BEAT,"Heartbeam, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CATX,CATX,"Perspective Therapeutics, Inc.",XASE,CS,True,likely_chartable
+BIOA,BIOA,"BioAge Labs, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ELVN,ELVN,"Enliven Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+RZLT,RZLT,"Rezolute, Inc. Common Stock (NV)",XNAS,CS,True,likely_chartable
+POWL,POWL,Powell Industries Inc,XNAS,CS,True,likely_chartable
+TRX,TRX,TRX Gold Corporation,XASE,CS,True,likely_chartable
+ASM,ASM,Avino Silver & Gold Mines Ltd. (Canada),XASE,CS,True,likely_chartable
+ICHR,ICHR,Ichor Holdings,XNAS,CS,True,likely_chartable
+UCTT,UCTT,"Ultra Clean Holdings, Inc.",XNAS,CS,True,likely_chartable
+GOLD,GOLD,"Gold.com, Inc.",XNYS,CS,True,likely_chartable
+MOD,MOD,Modine Manufacturing Co,XNYS,CS,True,likely_chartable
+GLW,GLW,Corning Incorporated,XNYS,CS,True,likely_chartable
+ALM,ALM,Almonty Industries Inc. Common Shares,XNAS,CS,True,likely_chartable
+EVMN,EVMN,"Evommune, Inc.",XNYS,CS,True,likely_chartable
+ATOM,ATOM,Atomera Incorporated Common Stock,XNAS,CS,True,likely_chartable
+VAL,VAL,Valaris Limited,XNYS,CS,True,likely_chartable
+CABA,CABA,"Cabaletta Bio, Inc. Common Stock",XNAS,CS,True,likely_chartable
+RNG,RNG,"RINGCENTRAL, INC.",XNYS,CS,True,likely_chartable
+CIEN,CIEN,Ciena Corporation,XNYS,CS,True,likely_chartable
+ATEX,ATEX,Anterix Inc. Common Stock,XNAS,CS,True,likely_chartable
+RXT,RXT,"Rackspace Technology, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VIAV,VIAV,Viavi Solutions Inc. Common Stock,XNAS,CS,True,likely_chartable
+PVLA,PVLA,"Palvella Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+OIS,OIS,"OIL STATES INTERNATIONAL, INC.",XNYS,CS,True,likely_chartable
+LRMR,LRMR,"Larimar Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TPL,TPL,Texas Pacific Land Corporation,XNYS,CS,True,likely_chartable
+NPT,NPT,Texxon Holding Limited Ordinary shares,XNAS,CS,True,likely_chartable
+TECX,TECX,"Tectonic Therapeutic, Inc. Common Stock",XNAS,CS,True,likely_chartable
+HGRAF,HGRAF,HYDROGRAPH CLEAN PWR INC,OTC Link,OS,True,low_confidence
+MOBX,MOBX,"Mobix Labs, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+BATL,BATL,Battalion Oil Corporation,XASE,CS,True,likely_chartable
+PLYX,PLYX,"Polaryx Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FJET,FJET,"Starfighters Space, Inc.",XASE,CS,True,likely_chartable
+ANTX,ANTX,"AN2 Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VG,VG,"Venture Global, Inc.",XNYS,CS,True,likely_chartable
+DNTH,DNTH,"Dianthus Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ANNA,ANNA,"AleAnna, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+AIRS,AIRS,"AirSculpt Technologies, Inc. Common Stock",XNAS,CS,True,likely_chartable
+PRAA,PRAA,"PRA Group, Inc.",XNAS,CS,True,likely_chartable
+PARR,PARR,"Par Pacific Holdings, Inc. Common Stock",XNYS,CS,True,likely_chartable
+SABR,SABR,Sabre Corporation,XNAS,CS,True,likely_chartable
+ORKA,ORKA,"Oruka Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TSSI,TSSI,"TSS, Inc. Common Stock",XNAS,CS,True,likely_chartable
+FLY,FLY,Firefly Aerospace Inc. Common Stock,XNAS,CS,True,likely_chartable
+DOCN,DOCN,"DigitalOcean Holdings, Inc.",XNYS,CS,True,likely_chartable
+SPIR,SPIR,"Spire Global, Inc.",XNYS,CS,True,likely_chartable
+TSEM,TSEM,Tower Semiconductor Ltd,XNAS,CS,True,likely_chartable
+MRLN,MRLN,"Merlin, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BZAI,BZAI,"Blaize Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+YSS,YSS,York Space Systems Inc.,XNYS,CS,True,likely_chartable
+ZNTL,ZNTL,"Zentalis Pharmaceuticals, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CDNL,CDNL,Cardinal Infrastructure Group Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+XNDU,XNDU,Xanadu Quantum Technologies Limited Class B Subordinate Voting Shares,XNAS,CS,True,likely_chartable
+CODI,CODI,Compass Diversified,XNYS,CS,True,likely_chartable
+MXL,MXL,"MaxLinear, Inc. Common Stock",XNAS,CS,True,likely_chartable
+POET,POET,POET Technologies Inc. Common Shares,XNAS,CS,True,likely_chartable
+OGN,OGN,Organon & Co.,XNYS,CS,True,likely_chartable
+JBIO,JBIO,"Jade Biosciences, Inc. Common Stock",XNAS,CS,True,likely_chartable
+WOLF,WOLF,"Wolfspeed, Inc.",XNYS,CS,True,likely_chartable
+EVC,EVC,Entravision Communication,XNYS,CS,True,likely_chartable
+ALMU,ALMU,"Aeluma, Inc. Common Stock",XNAS,CS,True,likely_chartable
+TRT,TRT,Trio-Tech International,XASE,CS,True,likely_chartable
+SHAZ,SHAZ,"SharonAI Holdings, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+XRX,XRX,Xerox Holdings Corporation Common Stock,XNAS,CS,True,likely_chartable
+AMBQ,AMBQ,"Ambiq Micro, Inc.",XNYS,CS,True,likely_chartable
+INTC,INTC,Intel Corp,XNAS,CS,True,likely_chartable
+VPG,VPG,"Vishay Precision Group, Inc.",XNYS,CS,True,likely_chartable
+CUE,CUE,"Cue Biopharma, Inc.",XNAS,CS,True,likely_chartable
+BLZE,BLZE,"Backblaze, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+EDSA,EDSA,"Edesa Biotech, Inc. Common Shares",XNAS,CS,True,likely_chartable
+GCTS,GCTS,"GCT Semiconductor Holding, Inc.",XNYS,CS,True,likely_chartable
+HYLN,HYLN,Hyliion Holdings Corp.,XASE,CS,True,likely_chartable
+RDW,RDW,Redwire Corporation,XNYS,CS,True,likely_chartable
+AMPG,AMPG,AMPLITECH GROUP INC. COM,XNAS,CS,True,likely_chartable
+PENG,PENG,"Penguin Solutions, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+OCC,OCC,Optical Cable Corp.,XNAS,CS,True,likely_chartable
+QTTB,QTTB,Q32 Bio Inc. Common Stock,XNAS,CS,True,likely_chartable
+QTEX,QTEX,QTREX Quantum Ltd. Ordinary Shares,XNAS,CS,True,likely_chartable
+ARM,ARM,Arm Holdings plc American Depositary Shares,XNAS,ADRC,True,likely_chartable
+PCT,PCT,"PureCycle Technologies, Inc. Common stock",XNAS,CS,True,likely_chartable
+SWMR,SWMR,"Swarmer, Inc Common Stock",XNAS,CS,True,likely_chartable
+MX,MX,Magnachip Semiconductor Corp.,XNYS,CS,True,likely_chartable
+PSNL,PSNL,"Personalis, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VSXY,VSXY,Victorias Secret & Co.,XNYS,CS,True,likely_chartable
+OTLK,OTLK,"Outlook Therapeutics, Inc. Common Stock",XNAS,CS,True,likely_chartable
+DELL,DELL,Dell Technologies Inc.,XNYS,CS,True,likely_chartable
+HQ,HQ,Horizon Quantum Holdings Ltd. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+ALOY,ALOY,REalloys Inc. Common Stock,XNAS,CS,True,likely_chartable
+CAST,CAST,"FreeCast, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+OPTU,OPTU,"Optimum Communications, Inc.",XNYS,CS,True,likely_chartable
+WYFI,WYFI,"WhiteFiber, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+RGNX,RGNX,REGENXBIO Inc.,XNAS,CS,True,likely_chartable
+AZI,AZI,Autozi Internet Technology (Global) Ltd. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+NWL,NWL,Newell Brands Inc.,XNAS,CS,True,likely_chartable
+DFTX,DFTX,"Definium Therapeutics, Inc. Common Shares",XNAS,CS,True,likely_chartable
+ODD,ODD,ODDITY Tech Ltd. Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+TENX,TENX,"Tenax Therapeutics, Inc.",XNAS,CS,True,likely_chartable
+MNPR,MNPR,Monopar Therapeutics Inc. Common Stock,XNAS,CS,True,likely_chartable
+MEI,MEI,Methode Electronics,XNYS,CS,True,likely_chartable
+NRIX,NRIX,"Nurix Therapeutics, Inc. Common stock",XNAS,CS,True,likely_chartable
+TRAX,TRAX,"First Tracks Biotherapeutics, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+CCXI,CCXI,Churchill Capital Corp XI Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+RPD,RPD,"Rapid7, Inc. Common Stock",XNAS,CS,True,likely_chartable
+NTSK,NTSK,"Netskope, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+ALIT,ALIT,"Alight, Inc.",XNYS,CS,True,likely_chartable
+ZBIO,ZBIO,"Zenas BioPharma, Inc. Common Stock",XNAS,CS,True,likely_chartable
+WNC,WNC,Wabash National Corp.,XNYS,CS,True,likely_chartable
+AIIO,AIIO,Robo.ai Inc. Class B Ordinary Shares,XNAS,CS,True,likely_chartable
+XNCR,XNCR,"Xencor, Inc.",XNAS,CS,True,likely_chartable
+PTRN,PTRN,Pattern Group Inc. Series A Common Stock,XNAS,CS,True,likely_chartable
+DMRA,DMRA,"Damora Therapeutics, Inc. Ordinary Shares",XNAS,CS,True,likely_chartable
+COAG,COAG,"Hemab Therapeutics Holdings, Inc. Common Stock",XNAS,CS,True,likely_chartable
+VSTM,VSTM,"Verastem, Inc.",XNAS,CS,True,likely_chartable
+MAN,MAN,ManpowerGroup,XNYS,CS,True,likely_chartable
+HURN,HURN,Huron Consulting Group Inc.,XNAS,CS,True,likely_chartable
+TXG,TXG,"10x Genomics, Inc. Class A Common Stock",XNAS,CS,True,likely_chartable
+COTY,COTY,COTY INC,XNYS,CS,True,likely_chartable
+EFOR,EFOR,"Everforth, Inc.",XNYS,CS,True,likely_chartable
+CMCO,CMCO,Columbus McKinnon Corp/NY,XNAS,CS,True,likely_chartable
+PN,PN,PN Smart Energy Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+LIFE,LIFE,Ethos Technologies Inc. Class A Common Stock,XNAS,CS,True,likely_chartable
+FET,FET,"Forum Energy Technologies, Inc.",XNYS,CS,True,likely_chartable
+FWRD,FWRD,Forward Air Corp,XNAS,CS,True,likely_chartable
+JLHL,JLHL,Julong Holding Limited Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+GCT,GCT,GigaCloud Technology Inc Class A Ordinary Shares,XNAS,CS,True,likely_chartable
+PLSE,PLSE,"Pulse Biosciences, Inc Common Stock (DE)",XNAS,CS,True,likely_chartable
+CRSR,CRSR,"Corsair Gaming, Inc. Common Stock",XNAS,CS,True,likely_chartable
+BSP,BSP,Bending Spoons S.p.A. Ordinary Shares,XNAS,CS,True,likely_chartable
+ABCL,ABCL,AbCellera Biologics Inc. Common Shares,XNAS,CS,True,likely_chartable
+VOYG,VOYG,"Voyager Technologies, Inc.",XNYS,CS,True,likely_chartable
+SLN,SLN,Silence Therapeutics Plc American Depository Share,XNAS,ADRC,True,likely_chartable
+EROC,EROC,"ERock, Inc.",XNYS,CS,True,likely_chartable
+P,P,"Everpure, Inc.",XNYS,CS,True,likely_chartable
+PURR,PURR,Hyperliquid Strategies Inc Common Stock,XNAS,CS,True,likely_chartable
+HTFL,HTFL,"Heartflow, Inc. Common Stock",XNAS,CS,True,likely_chartable
+ETON,ETON,"Eton Pharmaceutcials, Inc. Common Stock",XNAS,CS,True,likely_chartable
+CYPH,CYPH,Cypherpunk Technologies Inc. Common Stock,XNAS,CS,True,likely_chartable

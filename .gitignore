@@ -5,7 +5,26 @@ __pycache__/
 Files/EP/Backtesting/data_cache/
 Files/EP/Backtesting/outputs/
 
-# EP long-side automation: secrets and runtime state, never committed
-Files/EP/Automation/New Automation Scripts/credentials.json
-Files/EP/Automation/New Automation Scripts/state/
-Files/EP/Automation/New Automation Scripts/logs/
+# EP long-side automation: secrets and runtime state, never committed.
+# Patterns are unanchored so they hold wherever a deploy copy of the package lands --
+# the old path-anchored rules missed "VPS Deploy Package/credentials.json" entirely.
+credentials.json
+state/
+logs/
+
+# A zip bundles .env and credentials.json INSIDE it, where the rules above cannot see them.
+*.zip
+
+# Cached/derived market data: regenerable, and hundreds of MB per directory.
+data_cache/
+raw_data_htf_v2/
+Files/Buyable Gap Up/
+Files/EP/Data Pulls/
+Files/EP/Old Sheets/
+Files/EP/V3/
+Files/EP/Automation/Old Swing Short Scripts/
+
+# Large binaries: reference PDFs and multi-MB workbooks
+*.pdf
+*.xlsx
+!Files/HTF/HTF_Scanner_Days_Master.xlsx

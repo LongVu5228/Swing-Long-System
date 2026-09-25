@@ -1,0 +1,111 @@
+ticker,revised_ticker,name,primary_exchange,type,active,chartability
+ACOM.3^12,ACOM,Harbor Active Commodity ETF,ARCX,ETF,True,low_confidence
+ADPI^12,ADPI,AMERICAN DENTAL PARTNERS INC,,,False,low_confidence
+AFFY,AFFY,AFFYMAX INC,OTC Link,CS,True,low_confidence
+AIPC^10,AIPC,AMERICAN ITALIAN PASTA CL-A,,,False,low_confidence
+ALD.1^10,ALD,WisdomTree Asia Local Debt Fund,ARCX,ETF,False,low_confidence
+AMPE,AMPE,AMPIO PHARMS INC,OTC Link,CS,True,low_confidence
+ANST^08,ANST,ANSOFT CORP,,,False,low_confidence
+ANTH,ANTH,ANTHERA PHARMS INC NEW,OTC Link,CS,True,low_confidence
+ARIA.1^17,ARIA,Aria Opportunities ETF,ARCX,ETF,True,low_confidence
+ASIA.1^14,ASIA,Matthews Pacific Tiger Active ETF,ARCX,ETF,True,low_confidence
+ASTX.1^13,ASTX,Tradr 2X Long ASTS Daily ETF,BATS,ETF,True,low_confidence
+ASVI^08,ASVI,A S V INC,,,False,low_confidence
+AXYS^09,AXYS,AXSYS TECHNOLOGIES INC,,,False,low_confidence
+BBIG,BBIG,VINCO VENTURES INC,OTC Link,CS,True,low_confidence
+BCAB,BCAB,BIOATLA INC,OTC Link,CS,True,low_confidence
+BITA.1^20,BITA,The iShares Bitcoin Premium Income ETF Shares of Fractional Undivided Beneficial Interest,XNAS,ETF,True,low_confidence
+CLDA^11,CLDA,CLINICAL DATA INC,,,False,low_confidence
+CLVR,CLVR,CLEVER LEAVES HLDGS INC,OTC Link,CS,True,low_confidence
+CNXT.1^11,CNXT,VanEck ChiNext Innovators ETF,ARCX,ETF,True,low_confidence
+CSH.1^16,CSH,Morgan Creek - Exos Active SPAC Arbitrage ETF,ARCX,ETF,False,low_confidence
+CVTX^09,CVTX,CV THERAPEUTICS INC,,,False,low_confidence
+CYCL.1^09,CYCL,CYCCLONE INC,OTC Link,CS,True,low_confidence
+DICE^23,DICE,Tema Trading & Prediction Markets ETF,BATS,ETF,True,low_confidence
+DIDIY,DIDIY,DIDI GLOBAL INC S/ADR,OTC Link,ADRC,True,low_confidence
+DIVX.1^10,DIVX,"DIVX, INC. COM",,,False,low_confidence
+EGRX,EGRX,EAGLE PHARMS INC,OTC Link,CS,True,low_confidence
+ELON.1^18,ELON,BattleShares TSLA vs F ETF,ARCX,ETS,False,low_confidence
+ELYS,ELYS,ELYS BMG GROUP INC,OTC Link,CS,True,low_confidence
+EVFM,EVFM,EVOFEM BIOSCIENCE INC,OTC Link,CS,True,low_confidence
+EVVV^10,EVVV,EV3 INC.,,,False,low_confidence
+FCL.2^09,FCL,FOCUSSHARES TR MORNINGSTAR CONSUMER CYCLICAL,ARCX,INDEX,False,low_confidence
+FDRY^08,FDRY,FOUNDRY NETWORKS INC,,,False,low_confidence
+FMCC,FMCC,FREDDIE MAC,OTC Link,CS,True,low_confidence
+FNMA,FNMA,FANNIE MAE,OTC Link,CS,True,low_confidence
+GLBC^11,GLBC,GLOBAL CROSSING LTD NEW (BERMUDA),,,False,low_confidence
+GLBL.1^11,GLBL,Pacer MSCI World Industry Advantage ETF,BATS,ETF,True,low_confidence
+GMBL,GMBL,ESPORTS ENTMNT GRP INC,OTC Link,CS,True,low_confidence
+GNOM.2^13,GNOM,Global X Genomics & Biotechnology ETF,XNAS,ETF,True,low_confidence
+GOGL.1^25,GOGL,Corgi GOOGL 2x Daily ETF,BATS,ETF,True,low_confidence
+GRIN.2^24,GRIN,VictoryShares International Free Cash Flow Growth ETF,XNAS,ETF,True,low_confidence
+GSOL.1^17,GSOL,Grayscale Solana Staking ETF Shares,ARCX,ETV,True,low_confidence
+GTII,GTII,GLOBAL TECH INDUSTRIES,OTC Link,CS,True,low_confidence
+HGRAF,HGRAF,HYDROGRAPH CLEAN PWR INC,OTC Link,OS,True,low_confidence
+HMNY,HMNY,HELIOS&MATHESON ANALYTICS,OTC Link,CS,True,low_confidence
+ICXT^10,ICXT,ICX TECHNOLOGIES INC COM STK (DE),,,False,low_confidence
+IPCR^09,IPCR,IPC HOLDING LIMITED,,,False,low_confidence
+JAVA.1^10,JAVA,JPMorgan Active Value ETF,ARCX,ETF,True,low_confidence
+KEM.2^20,KEM,KraneShares Dynamic Emerging Markets Strategy ETF,ARCX,ETF,False,low_confidence
+LDSH^11,LDSH,LADISH CO,,,False,low_confidence
+LEND.1^07,LEND,SEI High Yield Bond & Alternative Credit ETF,XNAS,ETF,True,low_confidence
+LKNCY,LKNCY,LUCKIN COFFEE INC SP/ADR,OTC Link,ADRC,True,low_confidence
+LMDIA^09,LMDIA,LIBERTY MEDIA CORP SERS A LIBERTY ENTERTAINMENT,,,False,low_confidence
+LMNX.1^21,LMNX,Defiance Daily Target 2x Long LMND ETF,XNAS,ETF,False,low_confidence
+LMPX,LMPX,LMP AUTOMOTIVE HLDGS INC,OTC Link,CS,True,low_confidence
+MAPP.2^13,MAPP,Harbor Multi Asset Explorers ETF,ARCX,ETF,False,low_confidence
+MARK,MARK,REMARK HOLDINGS INC,OTC Link,CS,True,low_confidence
+MATR.1^08,MATR,Harbor Multi-Asset Total Return ETF,ARCX,ETF,True,low_confidence
+MDRX,MDRX,VERADIGM INC,OTC Link,CS,True,low_confidence
+MEDX.1^09,MEDX,Horizon Kinetics Medical ETF,XNAS,ETF,True,low_confidence
+MPG.3^13,MPG,Leverage Shares 2X Long MP Daily ETF,XNAS,ETF,True,low_confidence
+NLST,NLST,NETLIST INC,OTC Link,CS,True,low_confidence
+NMRD,NMRD,NEMAURA MEDICAL INC,OTC Link,CS,True,low_confidence
+NRPH^07,NRPH,NEW RIVER PHARMACEUTICALS INC,,,False,low_confidence
+OCEA,OCEA,OCEAN BIOMEDICAL INC,OTC Link,CS,True,low_confidence
+OMRI^08,OMRI,OMRIX BIOPHARMACEUTICALS INC COM STK,,,False,low_confidence
+OMTR^09,OMTR,"OMNITURE, INC",,,False,low_confidence
+OPTR^13,OPTR,"OPTIMER PHARMACEUTICALS, INC. COM STK",,,False,low_confidence
+PALM^10,PALM,"PALM, INC.",,,False,low_confidence
+PCBC.3^12,PCBC,PACIFIC CAPITAL BANCORP COM,,,False,low_confidence
+PINC.1^25,PINC,PGIM Securitized Income ETF,BATS,ETF,True,low_confidence
+PRKR,PRKR,PARKERVISION INC,OTC Link,CS,True,low_confidence
+PRST,PRST,PRESTO AUTOMATION INC,OTC Link,CS,True,low_confidence
+PWER.1^13,PWER,Nomura Energy Transition ETF,ARCX,ETF,True,low_confidence
+PWRD.1^15,PWRD,TCW Transform Systems ETF,XNAS,ETF,True,low_confidence
+RATE.2^09,RATE,Global X Interest Rate Hedge ETF,ARCX,ETF,False,low_confidence
+RBCN,RBCN,RUBICON TECH INC,OTC Link,CS,True,low_confidence
+RINO,RINO,RINO INTL CORP,OTC Link,CS,True,low_confidence
+SBNY,SBNY,SIGNATURE BANK (NY),OTC Link,CS,True,low_confidence
+SEPR^09,SEPR,SEPRACOR INC,,,False,low_confidence
+SRNE,SRNE,SORRENTO THERAPEUTICS INC,OTC Link,CS,True,low_confidence
+TGIC,TGIC,TRIAD GUARANTY INC,OTC Link,CS,True,low_confidence
+THOR.1^15,THOR,Thornburg Premium Income Builder ETF,ARCX,ETF,True,low_confidence
+TRIL.1^21,TRIL,Defiance Trillion Dollar Club Index ETF,XNAS,ETF,False,low_confidence
+TRVN,TRVN,TREVENA INC,OTC Link,CS,True,low_confidence
+TSL.1^17,TSL,GraniteShares 1.25x Long TSLA  Daily ETF,XNAS,ETF,True,low_confidence
+TTOO,TTOO,T2 BIOSYSTEMS INC,OTC Link,CS,True,low_confidence
+TUDO^12,TUDO,TUDOU HLDGS LTD SPON ADR (CYM),,,False,low_confidence
+VAXX,VAXX,VAXXINITY INC A,OTC Link,CS,True,low_confidence
+VR.3^18,VR,Global X Metaverse ETF,XNAS,ETF,False,low_confidence
+VRUS.1^12,VRUS,VERUS INTL INC,OTC Link,CS,True,low_confidence
+VXRT,VXRT,VAXART INC,OTC Link,CS,True,low_confidence
+WINN.1^12,WINN,Harbor Long-Term Growers ETF,XNYS,ETF,True,low_confidence
+WX.1^15,WX,Corgi All World 2x Daily ETF,BATS,ETF,True,low_confidence
+XELA,XELA,EXELA TECHNOLOGIES INC,OTC Link,CS,True,low_confidence
+XONE.1^21,XONE,BondBloxx Bloomberg One Year Target Duration US Treasury ETF,ARCX,ETF,True,low_confidence
+YECO,YECO,YULONG ECO MATERIALS LTD,OTC Link,CS,True,low_confidence
+YRIV,YRIV,YANGTZE RVR PORT&LOGISTIC,OTC Link,CS,True,low_confidence
+YTEC^12,YTEC,YUCHENG TECHNOLOGIES LIMITED COMMON STOCK,,,False,low_confidence
+ZOLL^12,ZOLL,ZOLL MEDICAL CORP,,,False,low_confidence
+AGIXQ^09,AGIXQ,,,,,unknown_not_in_polygon
+CHTRQ^09,CHTRQ,,,,,unknown_not_in_polygon
+COCOQ^15,COCOQ,,,,,unknown_not_in_polygon
+EMESQ^19,EMESQ,,,,,unknown_not_in_polygon
+FEEDQ^14,FEEDQ,,,,,unknown_not_in_polygon
+GPORQ^21,GPORQ,,,,,unknown_not_in_polygon
+HEROQ.1^15,HEROQ,,,,,unknown_not_in_polygon
+LINEQ^17,LINEQ,,,,,unknown_not_in_polygon
+RJETQ^17,RJETQ,,,,,unknown_not_in_polygon
+SUNEQ^17,SUNEQ,,,,,unknown_not_in_polygon
+XIDEQ^15,XIDEQ,,,,,unknown_not_in_polygon

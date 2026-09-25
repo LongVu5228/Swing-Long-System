@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equity Curve Simulator</title>
+<style>
+  :root {
+    --bg:          #0b0e14;
+    --panel:       #12161f;
+    --panel-2:     #171c27;
+    --border:      #232937;
+    --ink-1:       #eef1f6;
+    --ink-2:       #9aa4b8;
+    --ink-muted:   #647089;
+    --blue:        #3d8bff;
+    --blue-soft:   rgba(61,139,255,0.12);
+    --green:       #2fbf71;
+    --red:         #ef5757;
+    --amber:       #e8a83d;
+    --grid:        #1c212d;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-1);
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "IBM Plex Mono", Consolas, monospace;
+  }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .mono { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+  .app { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; }
+
+  /* ---------- Sidebar ---------- */
+  aside {
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    padding: 22px 20px 28px;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .brand {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+    color: var(--ink-1); margin-bottom: 2px;
+  }
+  .brand-sub {
+    font-size: 11.5px; color: var(--ink-muted); margin-bottom: 22px;
+  }
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 6px;
+  }
+  .field input {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 7px; color: var(--ink-1); padding: 9px 10px; font-size: 14px;
+    font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums;
+    outline: none;
+  }
+  .field input:focus { border-color: var(--blue); }
+  .field .hint { font-size: 10.5px; color: var(--ink-muted); margin-top: 4px; }
+
+  .preset-row { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+  .preset-btn {
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--ink-2);
+    font-size: 11px; padding: 6px 9px; border-radius: 6px; cursor: pointer;
+  }
+  .preset-btn:hover { border-color: var(--blue); color: var(--ink-1); }
+
+  button.calc {
+    width: 100%; background: var(--blue); color: #fff; border: none;
+    padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    cursor: pointer; margin-top: 6px;
+  }
+  button.calc:hover { background: #5c9dff; }
+  button.calc:active { transform: translateY(1px); }
+
+  .sim-note { font-size: 11px; color: var(--ink-muted); margin-top: 14px; line-height: 1.5; }
+
+  /* ---------- Main ---------- */
+  main { padding: 26px 30px 60px; max-width: 1180px; }
+  h1 { font-size: 19px; margin: 0 0 4px; font-weight: 600; }
+  .subhead { font-size: 13px; color: var(--ink-muted); margin: 0 0 22px; }
+
+  .chart-panel {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 18px 10px; margin-bottom: 22px;
+  }
+  .chart-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .chart-sub { font-size: 11.5px; color: var(--ink-muted); margin-bottom: 10px; }
+  .chart-canvas-wrap { position: relative; }
+  canvas#chart, canvas#chartOverlay { width: 100%; height: 380px; display: block; }
+  canvas#chartOverlay { position: absolute; top: 0; left: 0; cursor: crosshair; }
+  .chart-tooltip {
+    position: absolute; pointer-events: none; opacity: 0;
+    background: rgba(10,13,20,0.96); border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-size: 12px; line-height: 1.65; color: var(--ink-1);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4); white-space: nowrap; transform: translate(-50%, -100%);
+    margin-top: -12px; z-index: 4;
+  }
+  .chart-tooltip .tt-trade { color: var(--ink-muted); font-size: 11px; margin-bottom: 5px; }
+  .chart-tooltip .tt-row { display: flex; align-items: center; gap: 7px; }
+  .chart-tooltip .tt-row .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .chart-tooltip .tt-row .tt-v { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; margin-left: auto; font-weight: 600; }
+  .legend { display: flex; gap: 18px; padding: 10px 4px 4px; font-size: 12px; color: var(--ink-2); flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 13px; height: 3px; border-radius: 2px; display: inline-block; }
+  .sw.dash { background: none; border-top: 2px dashed var(--ink-muted); }
+
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .stat-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .stat-card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-muted); margin: 0 0 12px; font-weight: 600;
+  }
+  .stat-row {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    padding: 6px 0; border-bottom: 1px solid var(--border); row-gap: 3px;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .k { font-size: 12.5px; color: var(--ink-2); }
+  .stat-row .v { font-size: 14px; font-weight: 600; text-align: right; margin-left: auto; }
+  .v.good { color: var(--green); }
+  .v.bad { color: var(--red); }
+  .v.warn { color: var(--amber); }
+  .v.info { color: var(--blue); }
+
+  .k-wrap { display: inline-flex; align-items: center; gap: 5px; }
+  .info-btn {
+    width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ink-muted);
+    color: var(--ink-muted); background: none; font-size: 9.5px; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; padding: 0; flex: none; font-family: system-ui, sans-serif; font-style: italic;
+  }
+  .info-btn:hover, .info-btn.active { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+
+  .info-popover {
+    position: fixed; z-index: 50; width: 280px; max-width: calc(100vw - 24px);
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    opacity: 0; transform: translateY(4px); pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+  }
+  .info-popover.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .info-popover .ip-head {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 7px;
+  }
+  .info-popover .ip-title { font-size: 13px; font-weight: 600; color: var(--ink-1); }
+  .info-popover .ip-close {
+    background: none; border: none; color: var(--ink-muted); font-size: 15px; cursor: pointer;
+    line-height: 1; padding: 0 0 0 8px; flex: none;
+  }
+  .info-popover .ip-close:hover { color: var(--ink-1); }
+  .info-popover .ip-body { font-size: 12.5px; line-height: 1.55; color: var(--ink-2); }
+  .info-popover .ip-formula {
+    display: block; margin-top: 8px; font-family: ui-monospace, monospace; font-size: 11.5px;
+    color: var(--amber); background: rgba(232,168,61,0.08); border-radius: 6px; padding: 6px 8px;
+  }
+
+  .empty-state {
+    color: var(--ink-muted); font-size: 13px; padding: 40px 0; text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; }
+    aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">Equity Curve Simulator</div>
+    <div class="brand-sub">Monte Carlo · self-contained, offline</div>
+
+    <div class="preset-row">
+      <button class="preset-btn" id="preset-4th">4th chosen one</button>
+      <button class="preset-btn" id="preset-coin">50/50 coin flip</button>
+    </div>
+
+    <div class="field">
+      <label for="winRate">Win Rate (%)</label>
+      <input type="number" id="winRate" value="24.8" step="0.1" min="0" max="100">
+    </div>
+    <div class="field">
+      <label for="rr">Risk:Reward Ratio (1:X)</label>
+      <input type="number" id="rr" value="5.44" step="0.01" min="0.01">
+      <div class="hint">avg winner ÷ avg loser, in R</div>
+    </div>
+    <div class="field">
+      <label for="riskPct">Risk per Trade (%)</label>
+      <input type="number" id="riskPct" value="1" step="0.05" min="0.01">
+    </div>
+    <div class="field">
+      <label for="costR">Cost per Trade (R)</label>
+      <input type="number" id="costR" value="0.02" step="0.01" min="0">
+      <div class="hint">commissions + slippage, as a fraction of R — drags every trade, win or lose</div>
+    </div>
+    <div class="field">
+      <label for="numTrades">Number of Trades</label>
+      <input type="number" id="numTrades" value="100" step="1" min="1">
+    </div>
+    <div class="field">
+      <label for="initialCapital">Initial Capital ($)</label>
+      <input type="number" id="initialCapital" value="50000" step="1000" min="1">
+    </div>
+    <div class="field">
+      <label for="numSims">Number of Simulations</label>
+      <input type="number" id="numSims" value="300" step="50" min="10" max="2000">
+    </div>
+    <div class="field">
+      <label for="ruinPct">Ruin Threshold (% of initial capital)</label>
+      <input type="number" id="ruinPct" value="50" step="5" min="1" max="99">
+      <div class="hint">"probability of ruin" = % of runs that ever fall below this</div>
+    </div>
+
+    <button class="calc" id="calcBtn">Calculate</button>
+    <div class="sim-note">
+      Position size is a fixed % of <em>current</em> equity each trade (compounding) —
+      wins grow the risk amount, losses shrink it, same as real position sizing.
+    </div>
+  </aside>
+
+  <main>
+    <h1>Trading Equity Curve Simulation</h1>
+    <p class="subhead">Randomized win/loss sequences at your stats — same edge, different luck, run hundreds of times.</p>
+
+    <div class="chart-panel">
+      <div class="chart-title">Simulated Equity Paths</div>
+      <div class="chart-sub" id="chartSub">Enter your stats and press Calculate.</div>
+      <div class="chart-canvas-wrap">
+        <canvas id="chart" width="1120" height="380"></canvas>
+        <canvas id="chartOverlay" width="1120" height="380"></canvas>
+        <div class="chart-tooltip" id="chartTooltip"></div>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--red)"></i>Worst case</span>
+        <span><i class="sw" style="background:var(--blue)"></i>Average case (mean of all runs)</span>
+        <span><i class="sw" style="background:var(--green)"></i>Best case</span>
+        <span><i class="sw" style="background:var(--ink-muted);opacity:.6"></i>Individual runs</span>
+        <span><i class="sw dash"></i>Initial capital</span>
+      </div>
+    </div>
+
+    <div id="statsWrap">
+      <div class="empty-state">Stats will appear here after you run a simulation.</div>
+    </div>
+  </main>
+</div>
+
+<div class="info-popover" id="infoPopover">
+  <div class="ip-head">
+    <span class="ip-title" id="infoTitle"></span>
+    <button class="ip-close" id="infoClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="ip-body" id="infoBody"></div>
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+
+  const PRESETS = {
+    "4th": { winRate: 24.8, rr: 5.44, riskPct: 1, costR: 0.02, numTrades: 100, initialCapital: 50000, numSims: 300, ruinPct: 50 },
+    "coin": { winRate: 50, rr: 1.5, riskPct: 1, costR: 0.02, numTrades: 100, initialCapital: 1000, numSims: 300, ruinPct: 50 },
+  };
+  function applyPreset(p) {
+    $("winRate").value = p.winRate; $("rr").value = p.rr; $("riskPct").value = p.riskPct;
+    $("costR").value = p.costR;
+    $("numTrades").value = p.numTrades; $("initialCapital").value = p.initialCapital;
+    $("numSims").value = p.numSims; $("ruinPct").value = p.ruinPct;
+  }
+  $("preset-4th").addEventListener("click", () => applyPreset(PRESETS["4th"]));
+  $("preset-coin").addEventListener("click", () => applyPreset(PRESETS["coin"]));
+
+  function fmtMoney(v) {
+    const sign = v < 0 ? "-" : "";
+    v = Math.abs(v);
+    if (v >= 1e6) return sign + "$" + (v / 1e6).toFixed(2) + "M";
+    return sign + "$" + v.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  }
+  function fmtPct(v, digits) { return (v >= 0 ? "+" : "") + v.toFixed(digits === undefined ? 1 : digits) + "%"; }
+  function fmtGain(v) { return (v >= 0 ? "+" : "-") + fmtMoney(Math.abs(v)); }
+  function percentile(arr, p) {
+    const s = [...arr].sort((a, b) => a - b);
+    const idx = (s.length - 1) * p;
+    const lo = Math.floor(idx), hi = Math.ceil(idx);
+    if (lo === hi) return s[lo];
+    return s[lo] + (s[hi] - s[lo]) * (idx - lo);
+  }
+
+  function simulate(winRatePct, rr, riskPct, costR, numTrades, initialCapital, numSims, ruinFrac) {
+    const winP = winRatePct / 100;
+    const riskFrac = riskPct / 100;
+    const paths = [];
+    const maxDDs = [];
+    const streaks = [];
+    const ddDurations = [];
+    const finals = [];
+    let ruinCount = 0;
+    let profitFactorWinSum = 0, profitFactorLossSum = 0;
+
+    for (let s = 0; s < numSims; s++) {
+      let equity = initialCapital;
+      let peak = equity;
+      let maxDD = 0;
+      let curStreak = 0, worstStreak = 0;
+      let underwaterStreak = 0, worstUnderwaterStreak = 0;
+      let everRuined = false;
+      const curve = new Float64Array(numTrades + 1);
+      curve[0] = equity;
+
+      for (let t = 1; t <= numTrades; t++) {
+        const win = Math.random() < winP;
+        const riskAmt = equity * riskFrac;
+        if (win) {
+          equity += riskAmt * (rr - costR);
+          curStreak = 0;
+          profitFactorWinSum += riskAmt * Math.max(rr - costR, 0);
+        } else {
+          equity -= riskAmt * (1 + costR);
+          curStreak++;
+          if (curStreak > worstStreak) worstStreak = curStreak;
+          profitFactorLossSum += riskAmt * (1 + costR);
+        }
+        if (equity < 0.01) equity = 0.01;
+        if (equity >= peak) {
+          peak = equity;
+          underwaterStreak = 0;
+        } else {
+          underwaterStreak++;
+          if (underwaterStreak > worstUnderwaterStreak) worstUnderwaterStreak = underwaterStreak;
+        }
+        const dd = (equity - peak) / peak;
+        if (dd < maxDD) maxDD = dd;
+        if (!everRuined && equity <= initialCapital * ruinFrac) everRuined = true;
+        curve[t] = equity;
+      }
+      paths.push(curve);
+      maxDDs.push(maxDD);
+      streaks.push(worstStreak);
+      ddDurations.push(worstUnderwaterStreak);
+      finals.push(equity);
+      if (everRuined) ruinCount++;
+    }
+
+    // index-wise mean curve ("average case")
+    const meanCurve = new Float64Array(numTrades + 1);
+    for (let t = 0; t <= numTrades; t++) {
+      let sum = 0;
+      for (let s = 0; s < numSims; s++) sum += paths[s][t];
+      meanCurve[t] = sum / numSims;
+    }
+
+    let bestIdx = 0, worstIdx = 0;
+    for (let s = 1; s < numSims; s++) {
+      if (finals[s] > finals[bestIdx]) bestIdx = s;
+      if (finals[s] < finals[worstIdx]) worstIdx = s;
+    }
+
+    return {
+      paths, maxDDs, streaks, ddDurations, finals, ruinCount, meanCurve,
+      bestPath: paths[bestIdx], worstPath: paths[worstIdx],
+      theoreticalPF: profitFactorLossSum > 0 ? profitFactorWinSum / profitFactorLossSum : Infinity,
+    };
+  }
+
+  function drawChart(result, initialCapital, numTrades, numSims) {
+    const canvas = $("chart");
+    const dpr = window.devicePixelRatio || 1;
+    const cssW = canvas.clientWidth || 1120, cssH = 380;
+    canvas.width = cssW * dpr; canvas.height = cssH * dpr;
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cssW, cssH);
+
+    const M = { l: 60, r: 16, t: 14, b: 26 };
+    const plotW = cssW - M.l - M.r, plotH = cssH - M.t - M.b;
+
+    let yMin = Infinity, yMax = -Infinity;
+    const sampleCount = Math.min(numSims, 40);
+    const step = Math.max(1, Math.floor(numSims / sampleCount));
+    for (let s = 0; s < numSims; s += step) {
+      for (let t = 0; t <= numTrades; t++) {
+        const v = result.paths[s][t];
+        if (v < yMin) yMin = v; if (v > yMax) yMax = v;
+      }
+    }
+    for (let t = 0; t <= numTrades; t++) {
+      if (result.bestPath[t] > yMax) yMax = result.bestPath[t];
+      if (result.worstPath[t] < yMin) yMin = result.worstPath[t];
+    }
+    yMin = Math.min(yMin, initialCapital) * 0.95;
+    yMax = yMax * 1.05;
+    if (yMax === yMin) yMax = yMin + 1;
+
+    const x = t => M.l + (t / numTrades) * plotW;
+    const y = v => M.t + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
+
+    // gridlines + y labels
+    ctx.strokeStyle = "#1c212d"; ctx.lineWidth = 1;
+    ctx.fillStyle = "#647089"; ctx.font = "11px ui-monospace, monospace"; ctx.textBaseline = "middle";
+    const gridSteps = 5;
+    for (let i = 0; i <= gridSteps; i++) {
+      const v = yMin + (yMax - yMin) * (i / gridSteps);
+      const yy = y(v);
+      ctx.beginPath(); ctx.moveTo(M.l, yy); ctx.lineTo(cssW - M.r, yy); ctx.stroke();
+      ctx.textAlign = "right";
+      ctx.fillText(fmtMoney(v), M.l - 8, yy);
+    }
+    // x labels
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    const xSteps = 6;
+    for (let i = 0; i <= xSteps; i++) {
+      const t = Math.round((numTrades / xSteps) * i);
+      ctx.fillText(String(t), x(t), cssH - M.b + 8);
+    }
+
+    // initial capital dashed line
+    ctx.strokeStyle = "#647089"; ctx.setLineDash([3, 4]); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(M.l, y(initialCapital)); ctx.lineTo(cssW - M.r, y(initialCapital)); ctx.stroke();
+    ctx.setLineDash([]);
+
+    function drawPath(curve, color, width, alpha) {
+      ctx.strokeStyle = color; ctx.lineWidth = width; ctx.globalAlpha = alpha === undefined ? 1 : alpha;
+      ctx.beginPath();
+      for (let t = 0; t <= numTrades; t++) {
+        const px = x(t), py = y(curve[t]);
+        if (t === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    // sample grey paths
+    for (let s = 0; s < numSims; s += step) {
+      drawPath(result.paths[s], "#9aa4b8", 1, 0.10);
+    }
+    drawPath(result.worstPath, "#ef5757", 2, 0.95);
+    drawPath(result.bestPath, "#2fbf71", 2, 0.95);
+    drawPath(result.meanCurve, "#3d8bff", 2.5, 1);
+
+    chartState = { result, initialCapital, numTrades, M, plotW, plotH, cssW, cssH, yMin, yMax, x, y };
+    const overlay = $("chartOverlay");
+    overlay.width = cssW * dpr; overlay.height = cssH * dpr;
+    overlay.getContext("2d").setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  let chartState = null;
+
+  function clearOverlay() {
+    const overlay = $("chartOverlay");
+    const ctx = overlay.getContext("2d");
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, overlay.width, overlay.height); ctx.restore();
+  }
+
+  function onChartHover(evt) {
+    if (!chartState) return;
+    const { result, numTrades, M, plotW, cssW, cssH, x, y } = chartState;
+    const overlay = $("chartOverlay");
+    const rect = overlay.getBoundingClientRect();
+    const scaleX = cssW / rect.width;
+    const mx = (evt.clientX - rect.left) * scaleX;
+    const tRaw = ((mx - M.l) / plotW) * numTrades;
+    const t = Math.max(0, Math.min(numTrades, Math.round(tRaw)));
+
+    clearOverlay();
+    const ctx = overlay.getContext("2d");
+    const px = x(t);
+
+    ctx.strokeStyle = "#3d4759"; ctx.setLineDash([2, 3]); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(px, M.t); ctx.lineTo(px, cssH - M.b); ctx.stroke();
+    ctx.setLineDash([]);
+
+    const points = [
+      { v: result.worstPath[t], color: "#ef5757" },
+      { v: result.meanCurve[t], color: "#3d8bff" },
+      { v: result.bestPath[t], color: "#2fbf71" },
+    ];
+    points.forEach(p => {
+      const py = y(p.v);
+      ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2);
+      ctx.fillStyle = p.color; ctx.fill();
+      ctx.strokeStyle = "#0b0e14"; ctx.lineWidth = 1.5; ctx.stroke();
+    });
+
+    const tooltip = $("chartTooltip");
+    tooltip.innerHTML = `
+      <div class="tt-trade">Trade ${t}</div>
+      <div class="tt-row"><i class="dot" style="background:#ef5757"></i>Worst Case<span class="tt-v">${fmtMoney(result.worstPath[t])}</span></div>
+      <div class="tt-row"><i class="dot" style="background:#3d8bff"></i>Average Case<span class="tt-v">${fmtMoney(result.meanCurve[t])}</span></div>
+      <div class="tt-row"><i class="dot" style="background:#2fbf71"></i>Best Case<span class="tt-v">${fmtMoney(result.bestPath[t])}</span></div>
+    `;
+    const rectWrap = overlay.parentElement.getBoundingClientRect();
+    const leftPx = (px / cssW) * rectWrap.width;
+    const topPx = (y(result.bestPath[t]) / cssH) * rectWrap.height;
+    tooltip.style.left = leftPx + "px";
+    tooltip.style.top = Math.max(10, topPx) + "px";
+    tooltip.style.opacity = 1;
+  }
+
+  function onChartLeave() {
+    clearOverlay();
+    $("chartTooltip").style.opacity = 0;
+  }
+
+  $("chartOverlay").addEventListener("mousemove", onChartHover);
+  $("chartOverlay").addEventListener("mouseleave", onChartLeave);
+
+  const INFO = {
+    "ev-r": {
+      title: "Expectancy (per trade)",
+      body: "The average result of one trade, expressed in R (multiples of what you risked on it), net of your Cost per Trade setting. Positive means the system has a real edge before any position sizing is applied.",
+      formula: "(win rate × (R:R − cost)) − (loss rate × (1 + cost))",
+    },
+    "ev-pct": {
+      title: "Expectancy (% equity/trade)",
+      body: "The R-multiple expectancy converted into the % of your account you'd expect to gain or lose per trade on average, given your Risk per Trade setting.",
+      formula: "Expectancy (R) × Risk per Trade %",
+    },
+    "pf": {
+      title: "Theoretical Profit Factor",
+      body: "Gross $ won ÷ gross $ lost, computed directly from your win rate, R:R, and cost inputs (not from the randomized simulation paths). Above 1.0 means winners outweigh losers in total dollars.",
+      formula: "(win rate × (R:R − cost)) ÷ (loss rate × (1 + cost))",
+    },
+    "kelly-full": {
+      title: "Full Kelly %",
+      body: "The mathematically 'optimal' fraction of your account to risk per trade to maximize long-run compounded growth — IF your win rate and R:R are exactly right, forever. In practice this is usually too aggressive: it assumes perfect knowledge of your edge and produces brutal drawdowns even when the edge is completely real.",
+      formula: "win rate − (loss rate ÷ net R:R), where net R:R accounts for your Cost per Trade",
+    },
+    "kelly-half": {
+      title: "Half Kelly %",
+      body: "Simply half of Full Kelly. A common, more conservative reference point — it cuts drawdown severity a lot while giving up relatively little long-run growth compared to full Kelly.",
+      formula: "Full Kelly % × 0.5",
+    },
+    "median-final": {
+      title: "Median final equity",
+      body: "The middle outcome across every simulated run — half the runs ended above this number, half ended below it. More representative of a 'typical' result than the average, since a handful of huge-winner runs can drag the mean upward.",
+      formula: "50th percentile of all simulated final-equity values",
+    },
+    "pctile-band": {
+      title: "5th–95th percentile",
+      body: "The range your final equity landed in for the middle 90% of all simulated runs (the most extreme 5% on each end are excluded). A wide band means the outcome is highly luck-dependent even with a fixed edge; a narrow band means the edge dominates variance.",
+      formula: "5th and 95th percentile of all simulated final-equity values",
+    },
+    "best-run": {
+      title: "Best simulated run",
+      body: "The single highest final equity out of every simulated run. A lucky draw — informative as an upper bound, not something to plan around.",
+    },
+    "worst-run": {
+      title: "Worst simulated run",
+      body: "The single lowest final equity out of every simulated run. An unlucky draw, but a real, possible outcome given your exact stats — not a tail event beyond what your own numbers predict.",
+    },
+    "avg-dd": {
+      title: "Average max drawdown",
+      body: "Every simulated run has its own worst peak-to-trough dip along the way. This is the average of those per-run worst-dips, across all runs — roughly the amount of pain you should expect to feel at some point, even in a 'normal' outcome.",
+      formula: "mean of (each run's own max drawdown %)",
+    },
+    "worst-dd": {
+      title: "Worst-case max drawdown",
+      body: "The single deepest peak-to-trough drawdown that showed up in any simulated run — the worst version of your own system's variance that came up in this batch of simulations.",
+    },
+    "bad-tail-dd": {
+      title: "5th pct (bad-tail) max DD",
+      body: "Excludes the single most extreme outlier run. This is the drawdown level that the worst 5% of runs dipped beyond — a more stable, repeatable read on 'how bad can it realistically get' than relying on just the one worst run.",
+      formula: "5th percentile of (each run's own max drawdown %)",
+    },
+    "avg-dd-duration": {
+      title: "Avg. drawdown duration",
+      body: "Depth isn't the whole story — this is how long you'd typically be stuck below a previous equity high before reaching a new one. A -20% drawdown that lasts 5 trades feels completely different than one that lasts 80, even though the depth stat alone can't tell them apart.",
+      formula: "average, across all runs, of each run's longest streak of trades spent below its running peak",
+    },
+    "worst-dd-duration": {
+      title: "Longest drawdown duration",
+      body: "The single longest stretch of consecutive trades spent below a prior equity peak, before a new high was finally made, across every simulated run. The real-world version of this is 'how many losing/flat trades in a row could I actually sit through before I'd quit the system.'",
+    },
+    "avg-streak": {
+      title: "Avg. worst losing streak",
+      body: "Each simulated run has its own longest run of consecutive losses. This is the average of those per-run worst-streaks, across all runs.",
+    },
+    "worst-streak": {
+      title: "Longest losing streak seen",
+      body: "The single longest consecutive-loss streak that appeared in any simulated run. Useful as a gut-check: could you actually keep following the system through this many losses in a row?",
+    },
+    "ruin": {
+      title: "Probability of ruin",
+      body: "The % of simulated runs where equity ever fell to or below your Ruin Threshold setting, at any point along the way — not just where the run ended up. Checks the whole path, not just the destination.",
+      formula: "(# runs that ever hit the ruin threshold) ÷ (total runs)",
+    },
+  };
+
+  const popover = $("infoPopover");
+  let activeInfoBtn = null;
+
+  function showInfo(key, btnEl) {
+    const info = INFO[key];
+    if (!info) return;
+    $("infoTitle").textContent = info.title;
+    $("infoBody").innerHTML = info.body + (info.formula ? `<code class="ip-formula">${info.formula}</code>` : "");
+
+    if (activeInfoBtn) activeInfoBtn.classList.remove("active");
+    activeInfoBtn = btnEl;
+    btnEl.classList.add("active");
+    popover.classList.add("open");
+
+    const r = btnEl.getBoundingClientRect();
+    popover.style.left = "0px"; popover.style.top = "0px"; // reset before measuring
+    const pw = popover.offsetWidth || 280, ph = popover.offsetHeight || 100;
+    let left = r.left + r.width / 2 - pw / 2;
+    left = Math.max(12, Math.min(left, window.innerWidth - pw - 12));
+    let top = r.top - ph - 10;
+    if (top < 8) top = r.bottom + 10;
+    popover.style.left = left + "px";
+    popover.style.top = top + "px";
+  }
+
+  function hideInfo() {
+    popover.classList.remove("open");
+    if (activeInfoBtn) { activeInfoBtn.classList.remove("active"); activeInfoBtn = null; }
+  }
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest && e.target.closest(".info-btn")) {
+      const btn = e.target.closest(".info-btn");
+      e.stopPropagation();
+      if (activeInfoBtn === btn && popover.classList.contains("open")) { hideInfo(); return; }
+      showInfo(btn.dataset.info, btn);
+      return;
+    }
+    if (!e.target.closest(".info-popover")) hideInfo();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") hideInfo(); });
+  $("infoClose").addEventListener("click", hideInfo);
+  window.addEventListener("resize", hideInfo);
+  window.addEventListener("scroll", hideInfo, true);
+
+  function statRow(k, v, cls, infoKey) {
+    const infoBtn = infoKey ? `<button class="info-btn" data-info="${infoKey}" type="button">i</button>` : "";
+    return `<div class="stat-row"><span class="k-wrap"><span class="k">${k}</span>${infoBtn}</span><span class="v ${cls || ""}">${v}</span></div>`;
+  }
+
+  function render() {
+    const winRate = parseFloat($("winRate").value) || 0;
+    const rr = parseFloat($("rr").value) || 0;
+    const riskPct = parseFloat($("riskPct").value) || 0;
+    const costR = Math.max(0, parseFloat($("costR").value) || 0);
+    const numTrades = Math.max(1, parseInt($("numTrades").value) || 1);
+    const initialCapital = parseFloat($("initialCapital").value) || 0;
+    const numSims = Math.max(10, Math.min(2000, parseInt($("numSims").value) || 300));
+    const ruinPct = parseFloat($("ruinPct").value) || 50;
+    const ruinFrac = ruinPct / 100;
+
+    const result = simulate(winRate, rr, riskPct, costR, numTrades, initialCapital, numSims, ruinFrac);
+    drawChart(result, initialCapital, numTrades, numSims);
+    $("chartSub").textContent = `${numSims} simulated runs of ${numTrades} trades each · win rate ${winRate}% · 1:${rr} R:R · ${riskPct}% risk/trade · ${costR}R cost/trade`;
+
+    // net-of-cost win/loss magnitudes: a win nets (rr - costR), a loss costs (1 + costR)
+    const netWin = rr - costR, netLoss = 1 + costR;
+    const evR = (winRate / 100) * netWin - (1 - winRate / 100) * netLoss;
+    const kelly = netLoss > 0 ? (winRate / 100) - (1 - winRate / 100) / (netWin / netLoss) : 0;
+    const evPctPerTrade = evR * riskPct;
+
+    const medianFinal = percentile(result.finals, 0.5);
+    const p5Final = percentile(result.finals, 0.05);
+    const p95Final = percentile(result.finals, 0.95);
+    const bestFinal = Math.max(...result.finals);
+    const worstFinal = Math.min(...result.finals);
+
+    const avgMaxDD = result.maxDDs.reduce((a, b) => a + b, 0) / result.maxDDs.length;
+    const worstMaxDD = Math.min(...result.maxDDs);
+    const p95MaxDD = percentile(result.maxDDs, 0.05); // 5th percentile of (negative) DD = the "bad tail"
+
+    const avgStreak = result.streaks.reduce((a, b) => a + b, 0) / result.streaks.length;
+    const worstStreakVal = Math.max(...result.streaks);
+
+    const avgDDDuration = result.ddDurations.reduce((a, b) => a + b, 0) / result.ddDurations.length;
+    const worstDDDuration = Math.max(...result.ddDurations);
+
+    const ruinProb = (result.ruinCount / numSims) * 100;
+
+    const medianReturn = ((medianFinal - initialCapital) / initialCapital) * 100;
+
+    $("statsWrap").innerHTML = `
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Edge</h3>
+          ${statRow("Expectancy (per trade)", (evR >= 0 ? "+" : "") + evR.toFixed(3) + "R", evR >= 0 ? "good" : "bad", "ev-r")}
+          ${statRow("Expectancy (% equity/trade)", fmtPct(evPctPerTrade, 2), evPctPerTrade >= 0 ? "good" : "bad", "ev-pct")}
+          ${statRow("Theoretical Profit Factor", isFinite(result.theoreticalPF) ? result.theoreticalPF.toFixed(2) : "&infin;", result.theoreticalPF >= 1 ? "good" : "bad", "pf")}
+          ${statRow("Full Kelly %", kelly > 0 ? fmtPct(kelly * 100, 2) : "negative edge", kelly > 0 ? "warn" : "bad", "kelly-full")}
+          ${statRow("Half Kelly %", kelly > 0 ? fmtPct(kelly * 50, 2) : "&mdash;", "warn", "kelly-half")}
+        </div>
+        <div class="stat-card">
+          <h3>Outcome after ${numTrades} trades</h3>
+          ${statRow("Median final equity", fmtMoney(medianFinal) + " (" + fmtGain(medianFinal - initialCapital) + " / " + fmtPct(medianReturn, 0) + ")", "info", "median-final")}
+          ${statRow("5th&ndash;95th percentile", fmtMoney(p5Final) + " &ndash; " + fmtMoney(p95Final), "", "pctile-band")}
+          ${statRow("Best simulated run", fmtMoney(bestFinal) + " (" + fmtGain(bestFinal - initialCapital) + ")", "good", "best-run")}
+          ${statRow("Worst simulated run", fmtMoney(worstFinal) + " (" + fmtGain(worstFinal - initialCapital) + ")", worstFinal < initialCapital ? "bad" : "", "worst-run")}
+        </div>
+        <div class="stat-card">
+          <h3>Risk</h3>
+          ${statRow("Average max drawdown", fmtPct(avgMaxDD * 100, 1), "bad", "avg-dd")}
+          ${statRow("Worst-case max drawdown", fmtPct(worstMaxDD * 100, 1), "bad", "worst-dd")}
+          ${statRow("5th pct (bad-tail) max DD", fmtPct(p95MaxDD * 100, 1), "warn", "bad-tail-dd")}
+          ${statRow("Avg. drawdown duration", avgDDDuration.toFixed(1) + " trades", "", "avg-dd-duration")}
+          ${statRow("Longest drawdown duration", worstDDDuration + " trades", "bad", "worst-dd-duration")}
+          ${statRow("Avg. worst losing streak", avgStreak.toFixed(1) + " trades", "", "avg-streak")}
+          ${statRow("Longest losing streak seen", worstStreakVal + " trades", "bad", "worst-streak")}
+          ${statRow(`Probability of ruin (&le;${ruinPct}% of capital)`, ruinProb.toFixed(1) + "%", ruinProb > 10 ? "bad" : (ruinProb > 2 ? "warn" : "good"), "ruin")}
+        </div>
+      </div>
+    `;
+  }
+
+  $("calcBtn").addEventListener("click", render);
+  window.addEventListener("resize", () => { if ($("statsWrap").querySelector(".stats-grid")) render(); });
+
+  // run once on load with the default (4th chosen one) stats
+  render();
+})();
+</script>
+</body>
+</html>

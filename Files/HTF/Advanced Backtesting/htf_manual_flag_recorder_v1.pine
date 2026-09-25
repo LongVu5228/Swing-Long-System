@@ -1,0 +1,197 @@
+//@version=6
+// HTF Manual Flag Recorder — V1 proof of concept (2 flag slots)
+//
+// Records discretionary high-tight-flag annotations inside TradingView and publishes them
+// as numeric series so "Export chart data" carries them into a CSV.
+//
+// Field values are emitted as a KEY/VALUE stream on the LAST bars of the chart rather than
+// one plot per field: Pine caps a script at 64 plots, and the full 10-slot design needs
+// ~110 fields. Two plots scale to any number of slots. See README.md for the field-ID map.
+//
+// Dates are encoded YYYYMMDD (20230906), not Unix ms — 13-digit epoch values risk being
+// mangled into scientific notation by TradingView's CSV formatter.
+//
+// IF THE EXPORT HAS NO ANNO_KEY/ANNO_VAL COLUMNS: the plots below use
+// display.data_window to avoid wrecking the price scale. If that display mode is excluded
+// from Chart Data Export, switch both plots to display.all and set overlay=false in the
+// indicator() call — the boxes still render on price because they pass force_overlay=true.
+
+indicator("HTF Manual Flag Recorder", overlay = true, max_boxes_count = 20, max_lines_count = 50, max_labels_count = 20)
+
+SCHEMA_VERSION = 1
+
+G_REVIEW = "Review status"
+G_F1     = "Flag 1"
+G_F2     = "Flag 2"
+G_DISP   = "Display"
+
+// REVIEWED_NO_FLAG is what lets the export replace the manual is_valid_flag spreadsheet
+// column: without it, "no annotation" is ambiguous between not-yet-reviewed and
+// reviewed-and-rejected, and the scanner's precision can never be measured.
+reviewStatus = input.string("NOT_REVIEWED", "Chart review status", options = ["NOT_REVIEWED", "REVIEWED_FLAGS_FOUND", "REVIEWED_NO_FLAG"], group = G_REVIEW)
+
+// Inputs survive symbol switches, so an annotation made on ARM keeps drawing (and would
+// EXPORT) on whatever ticker you open next. Binding to a ticker makes a stale annotation
+// render nothing and emit nothing, so a forgotten remove-before-switch can't corrupt the
+// dataset with another symbol's flags. Blank = unbound (draws on any chart).
+boundTicker = input.string("", "Bound to ticker (blank = any)", group = G_REVIEW)
+tickerOk = boundTicker == "" or str.upper(str.trim(boundTicker)) == str.upper(syminfo.ticker)
+
+// Only the four always-needed fields use confirm=true. Every confirm input forces a click
+// prompt on load whether or not you need it, and you can't enter 0 during a click prompt --
+// so optional fields (R1 effective override, all of R2) live in the settings dialog instead.
+//
+// The same four clicks serve both setup types; the "Setup type" dropdown (set afterward in
+// the settings dialog) decides how they're read:
+//   HL_FLAG    1 start  2 higher-low confirmed  3 final flag end   4 R1 price
+//   LOWER_LOW  1 start  2 lower-low confirmed   3 reclaim end      4 R1 price (reclaim only)
+// For LOWER_LOW, clicking 3 on the SAME bar as 2 means "no reclaim, it just failed" -- the
+// script derives LL_NO_RECLAIM vs LL_RECLAIM from that, so you never label it by hand.
+f1_on      = input.bool(true, "Enabled", group = G_F1)
+f1_type    = input.string("HL_FLAG", "Setup type", options = ["HL_FLAG", "LOWER_LOW"], group = G_F1)
+f1_start   = input.time(timestamp("2024-01-02"), "1. Start", group = G_F1, confirm = true)
+f1_conf    = input.time(timestamp("2024-01-09"), "2. Confirmed (HL or LL)", group = G_F1, confirm = true)
+f1_end     = input.time(timestamp("2024-01-16"), "3. End / reclaim end", group = G_F1, confirm = true)
+f1_r1_px   = input.price(0.0, "4. R1 price", group = G_F1, confirm = true)
+f1_r1_same = input.bool(true, "R1 effective = auto", tooltip = "HL_FLAG: the confirmed date. LOWER_LOW: the reclaim-end date.", group = G_F1)
+f1_r1_alt  = input.time(timestamp("2024-01-09"), "R1 effective (override)", group = G_F1)
+f1_r2_on   = input.bool(false, "R2 enabled", group = G_F1)
+f1_r2_date = input.time(timestamp("2024-01-16"), "R2 effective", group = G_F1)
+f1_r2_px   = input.price(0.0, "R2 price", group = G_F1)
+
+f2_on      = input.bool(true, "Enabled", group = G_F2)
+f2_type    = input.string("HL_FLAG", "Setup type", options = ["HL_FLAG", "LOWER_LOW"], group = G_F2)
+f2_start   = input.time(timestamp("2024-03-01"), "1. Start", group = G_F2, confirm = true)
+f2_conf    = input.time(timestamp("2024-03-08"), "2. Confirmed (HL or LL)", group = G_F2, confirm = true)
+f2_end     = input.time(timestamp("2024-03-15"), "3. End / reclaim end", group = G_F2, confirm = true)
+f2_r1_px   = input.price(0.0, "4. R1 price", group = G_F2, confirm = true)
+f2_r1_same = input.bool(true, "R1 effective = auto", tooltip = "HL_FLAG: the confirmed date. LOWER_LOW: the reclaim-end date.", group = G_F2)
+f2_r1_alt  = input.time(timestamp("2024-03-08"), "R1 effective (override)", group = G_F2)
+f2_r2_on   = input.bool(false, "R2 enabled", group = G_F2)
+f2_r2_date = input.time(timestamp("2024-03-15"), "R2 effective", group = G_F2)
+f2_r2_px   = input.price(0.0, "R2 price", group = G_F2)
+
+showTable = input.bool(true, "Show summary table", group = G_DISP)
+boxPad    = input.float(1.0, "Box padding %", minval = 0.0, maxval = 10.0, group = G_DISP)
+
+reviewCode(r) => r == "REVIEWED_FLAGS_FOUND" ? 1 : r == "REVIEWED_NO_FLAG" ? 2 : 0
+tlabel(code) => code == 1 ? "HL" : code == 2 ? "LL fail" : "LL reclaim"
+ymd(t) => na(t) ? float(na) : float(year(t) * 10000 + month(t) * 100 + dayofmonth(t))
+md(t) => str.tostring(month(t)) + "/" + str.tostring(dayofmonth(t))
+
+// Clicking end-before-start is easy to do and would otherwise silently yield no box.
+f1_t0 = f1_start < f1_end ? f1_start : f1_end
+f1_t1 = f1_start < f1_end ? f1_end : f1_start
+f2_t0 = f2_start < f2_end ? f2_start : f2_end
+f2_t1 = f2_start < f2_end ? f2_end : f2_start
+
+// A slot whose start and end land on the SAME bar is treated as unused. That makes
+// "spam-click the same candle" the gesture for skipping a slot you don't need, so burning
+// through leftover prompts can't accidentally create a junk flag.
+f1_used = tickerOk and f1_on and ymd(f1_t0) != ymd(f1_t1)
+f2_used = tickerOk and f2_on and ymd(f2_t0) != ymd(f2_t1)
+
+// Type codes: 1 HL_FLAG, 2 LL_NO_RECLAIM, 3 LL_RECLAIM. A lower-low slot whose click 3 sits
+// on the same bar as click 2 had no reclaim. R1 only applies to HL flags and LL reclaims --
+// a plain failure has no level worth watching, so its R1 click is discarded.
+f1_isLL    = f1_type == "LOWER_LOW"
+f1_reclaim = f1_isLL and ymd(f1_end) != ymd(f1_conf)
+f1_code    = f1_isLL ? (f1_reclaim ? 3 : 2) : 1
+f1_r1_date = f1_r1_same ? (f1_isLL ? f1_end : f1_conf) : f1_r1_alt
+f1_r1_show = f1_r1_px > 0 and (not f1_isLL or f1_reclaim)
+f1_r2_show = f1_r1_show and f1_r2_on and f1_r2_px > 0
+
+f2_isLL    = f2_type == "LOWER_LOW"
+f2_reclaim = f2_isLL and ymd(f2_end) != ymd(f2_conf)
+f2_code    = f2_isLL ? (f2_reclaim ? 3 : 2) : 1
+f2_r1_date = f2_r1_same ? (f2_isLL ? f2_end : f2_conf) : f2_r1_alt
+f2_r1_show = f2_r1_px > 0 and (not f2_isLL or f2_reclaim)
+f2_r2_show = f2_r1_show and f2_r2_on and f2_r2_px > 0
+
+var float f1_hi = na
+var float f1_lo = na
+var float f2_hi = na
+var float f2_lo = na
+
+// Compared as YYYYMMDD day numbers, not raw timestamps: a click lands at whatever intraday
+// moment the cursor was over, so `time >= f1_t0` would skip the very bar you clicked on.
+if f1_used and ymd(time) >= ymd(f1_t0) and ymd(time) <= ymd(f1_t1)
+    f1_hi := na(f1_hi) ? high : math.max(f1_hi, high)
+    f1_lo := na(f1_lo) ? low : math.min(f1_lo, low)
+
+if f2_used and ymd(time) >= ymd(f2_t0) and ymd(time) <= ymd(f2_t1)
+    f2_hi := na(f2_hi) ? high : math.max(f2_hi, high)
+    f2_lo := na(f2_lo) ? low : math.min(f2_lo, low)
+
+drawFlag(enabled, tcode, tStart, tConf, tEnd, hiV, loV, r1d, r1p, r1show, r2d, r2p, r2show, rightEdge) =>
+    if enabled and not na(hiV) and not na(loV)
+        pad = (hiV - loV) * boxPad / 100.0
+        col = tcode == 1 ? color.green : color.red
+        box.new(left = tStart, top = hiV + pad, right = tEnd, bottom = loV - pad, xloc = xloc.bar_time, border_color = color.new(col, 50), border_width = 1, bgcolor = color.new(col, 90), force_overlay = true)
+        line.new(x1 = tConf, y1 = loV - pad, x2 = tConf, y2 = hiV + pad, xloc = xloc.bar_time, color = color.new(col, 50), width = 1, style = line.style_dashed, force_overlay = true)
+        // Run one box-width past the flag, clamped to the last bar so recent flags don't
+        // trail off into empty space right of the chart.
+        wanted = tEnd + (tEnd - tStart)
+        extEnd = wanted > rightEdge ? rightEdge : wanted
+        if r1show
+            line.new(x1 = r1d, y1 = r1p, x2 = extEnd, y2 = r1p, xloc = xloc.bar_time, color = color.orange, width = 2, style = line.style_dotted, force_overlay = true)
+        if r2show
+            line.new(x1 = r2d, y1 = r2p, x2 = extEnd, y2 = r2p, xloc = xloc.bar_time, color = color.blue, width = 2, style = line.style_dotted, force_overlay = true)
+
+if barstate.islast
+    drawFlag(f1_used, f1_code, f1_t0, f1_conf, f1_t1, f1_hi, f1_lo, f1_r1_date, f1_r1_px, f1_r1_show, f1_r2_date, f1_r2_px, f1_r2_show, time)
+    drawFlag(f2_used, f2_code, f2_t0, f2_conf, f2_t1, f2_hi, f2_lo, f2_r1_date, f2_r1_px, f2_r1_show, f2_r2_date, f2_r2_px, f2_r2_show, time)
+
+var int[] kk = array.new_int()
+var float[] vv = array.new_float()
+
+push(int k, float v) =>
+    array.push(kk, k)
+    array.push(vv, v)
+
+if barstate.isfirst
+    push(1, float(SCHEMA_VERSION))
+    push(2, float(reviewCode(reviewStatus)))
+    push(101, f1_used ? 1.0 : 0.0)
+    push(102, f1_used ? float(f1_code) : float(na))
+    push(103, f1_used ? ymd(f1_t0) : float(na))
+    push(104, f1_used ? ymd(f1_conf) : float(na))
+    push(105, f1_used ? ymd(f1_t1) : float(na))
+    push(106, f1_used and f1_r1_show ? ymd(f1_r1_date) : float(na))
+    push(107, f1_used and f1_r1_show ? f1_r1_px : float(na))
+    push(108, f1_used and f1_r2_show ? ymd(f1_r2_date) : float(na))
+    push(109, f1_used and f1_r2_show ? f1_r2_px : float(na))
+    push(201, f2_used ? 1.0 : 0.0)
+    push(202, f2_used ? float(f2_code) : float(na))
+    push(203, f2_used ? ymd(f2_t0) : float(na))
+    push(204, f2_used ? ymd(f2_conf) : float(na))
+    push(205, f2_used ? ymd(f2_t1) : float(na))
+    push(206, f2_used and f2_r1_show ? ymd(f2_r1_date) : float(na))
+    push(207, f2_used and f2_r1_show ? f2_r1_px : float(na))
+    push(208, f2_used and f2_r2_show ? ymd(f2_r2_date) : float(na))
+    push(209, f2_used and f2_r2_show ? f2_r2_px : float(na))
+
+// Record lands on the final bars so the parser can find it at a predictable end of the CSV
+// regardless of how much history the chart loaded.
+offset = last_bar_index - bar_index
+inRange = tickerOk and offset >= 0 and offset < array.size(kk)
+annoKey = inRange ? array.get(kk, offset) : int(na)
+annoVal = inRange ? array.get(vv, offset) : float(na)
+
+plot(annoKey, "ANNO_KEY", display = display.data_window)
+plot(annoVal, "ANNO_VAL", display = display.data_window)
+
+if showTable and barstate.islast
+    var table t = table.new(position.top_right, 2, 4, border_width = 1)
+    f1txt = not f1_used ? "unused" : na(f1_hi) ? "no bars in range" : tlabel(f1_code) + "  " + md(f1_t0) + "-" + md(f1_t1) + "  (conf " + md(f1_conf) + ")"
+    f2txt = not f2_used ? "unused" : na(f2_hi) ? "no bars in range" : tlabel(f2_code) + "  " + md(f2_t0) + "-" + md(f2_t1) + "  (conf " + md(f2_conf) + ")"
+    flagDays = f1_used and f2_used ? md(f1_t0) + "-" + md(f1_t1) + ", " + md(f2_t0) + "-" + md(f2_t1) : f1_used ? md(f1_t0) + "-" + md(f1_t1) : f2_used ? md(f2_t0) + "-" + md(f2_t1) : "-"
+    statusTxt = tickerOk ? reviewStatus : "BOUND TO " + str.upper(str.trim(boundTicker)) + " -- not this chart, remove & re-add"
+    table.cell(t, 0, 0, "status", text_color = color.gray, text_size = size.small)
+    table.cell(t, 1, 0, statusTxt, text_color = tickerOk ? color.white : color.red, text_size = size.small)
+    table.cell(t, 0, 1, "flag 1", text_color = color.gray, text_size = size.small)
+    table.cell(t, 1, 1, f1txt, text_color = color.white, text_size = size.small)
+    table.cell(t, 0, 2, "flag 2", text_color = color.gray, text_size = size.small)
+    table.cell(t, 1, 2, f2txt, text_color = color.white, text_size = size.small)
+    table.cell(t, 0, 3, "Flag Days", text_color = color.gray, text_size = size.small)
+    table.cell(t, 1, 3, flagDays, text_color = color.yellow, text_size = size.small)

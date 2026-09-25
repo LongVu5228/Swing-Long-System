@@ -18,17 +18,24 @@ ev_ma_len = input.int(
  )
 
 ev_up_day_color = input.color(
-     #787B86,
+     color.white,
      'Up Day Volume Color',
      group   = 'Volume Coloring',
-     tooltip = 'Used on green (close >= open) days. Neutral gray so it does not compete for attention'
+     tooltip = 'Used on green (close >= open) days.'
  )
 
 ev_down_day_color = input.color(
-     #8B0000,
+     #ff0000,
      'Down Day Volume Color',
      group   = 'Volume Coloring',
      tooltip = 'Used on red (close < open) days. Dark red rather than a bright red'
+ )
+
+ev_border_color = input.color(
+     #4D4D4D,
+     'Bar Outline Color',
+     group   = 'Volume Coloring',
+     tooltip = 'Outline drawn around every volume bar'
  )
 
 ev_ma_color = input.color(color.new(#9598A1, 20), 'Volume MA Color', group = 'Volume Coloring')
@@ -51,8 +58,8 @@ float vol_ma = ta.sma(volume, ev_ma_len)
 bool is_green_day = close >= open
 color bar_color = is_green_day ? ev_up_day_color : ev_down_day_color
 
-plot(volume, title = 'Volume', style = plot.style_columns, color = bar_color)
-plot(vol_ma, title = 'Volume MA', color = ev_ma_color, linewidth = 2)
+plotcandle(0, volume, 0, volume, title = 'Volume', color = bar_color, wickcolor = ev_border_color, bordercolor = ev_border_color)
+plot(vol_ma, title = 'Volume MA', color = ev_ma_color, linewidth = 1)
 
 float scale_ceiling = volume * (1 + ev_scale_headroom_pct / 100)
 plot(scale_ceiling, title = 'Scale Headroom (invisible)', color = color.new(color.white, 100), display = display.pane)
