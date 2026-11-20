@@ -1,3 +1,28 @@
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe"
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    // Data folders (tens of thousands of parquet/csv files): keep Pylance and the file watcher out of them
+    "python.analysis.exclude": [
+        "**/backtest_data",
+        "**/backtest_outputs",
+        "**/chart_exports",
+        "**/raw_data_htf_v2",
+        "**/data_cache",
+        "**/data_cache_intraday",
+        "Files/EP/Backtesting/outputs",
+        "**/.venv"
+    ],
+    "files.watcherExclude": {
+        "**/backtest_data/**": true,
+        "**/backtest_outputs/**": true,
+        "**/chart_exports/**": true,
+        "**/raw_data_htf_v2/**": true,
+        "**/data_cache/**": true,
+        "**/data_cache_intraday/**": true
+    },
+    "search.exclude": {
+        "**/backtest_data": true,
+        "**/data_cache": true,
+        "**/data_cache_intraday": true,
+        "**/chart_exports": true
+    }
 }
