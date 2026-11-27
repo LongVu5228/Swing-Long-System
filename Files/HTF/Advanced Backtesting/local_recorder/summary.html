@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HTF Daily Summary</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
 <script src="/scr_common.js"></script>
 <style>
   :root { --bg:#ffffff; --fg:#131722; --muted:#787b86; --line:#e0e3eb; --soft:#f0f3fa; --chip:#f0f3fa;
@@ -38,7 +39,7 @@
   .col h2 .n { color:var(--muted); font-weight:400; }
   .col h2 .avg { margin-left:auto; font-size:11px; font-weight:700; }
   .col .sub { color:var(--muted); font-size:11px; padding:4px 10px 0; }
-  .col .rows { overflow:auto; padding:4px 6px 8px; }
+  .col .rows { overflow-y:auto; overflow-x:hidden; padding:4px 6px 8px; }
   .row { display:flex; align-items:center; gap:5px; padding:4px; border-radius:5px; white-space:nowrap; }
   .row:hover { background:var(--soft); }
   .row a.tk { font-weight:700; text-decoration:none; min-width:52px; }
@@ -50,6 +51,14 @@
   .up { color:var(--green); } .dn { color:var(--red); }
   .ru { color:var(--muted); font-size:11px; min-width:44px; text-align:right; }
   .empty { color:var(--muted); padding:10px; }
+  .row .dd { border:0; background:none; padding:0 2px; color:var(--muted); font-size:11px; width:16px; }
+  .row .dd:hover { color:var(--fg); background:none; }
+  .row.open { background:var(--soft); }
+  .sumchart { height:230px; margin:2px 0 8px; border:1px solid var(--line); border-radius:6px; position:relative; }
+  .search { display:flex; align-items:center; gap:4px; }
+  .search input { width:110px; padding:4px 8px; border:1px solid var(--line); border-radius:6px; text-transform:uppercase; }
+  .row.hit { background:#fff8e1; }
+  .hide { display:none !important; }
   @media (max-width: 1100px) { main { grid-template-columns:repeat(2, minmax(0, 1fr)); overflow:auto; } .col { max-height:420px; } }
 </style>
 </head>
@@ -65,6 +74,8 @@
   </div>
   <label class="muted">Armed list
     <select id="mode"><option value="live">Live</option><option value="replay">Practice</option></select></label>
+  <span class="search"><input id="q" placeholder="Find ticker" autocomplete="off" title="Type a ticker; Esc clears. Shortcut: /"><button id="qGo" title="Search">🔍</button><button id="qClr" title="Clear">✕</button></span>
+  <span class="muted" id="qMsg"></span>
   <span class="muted" id="thru"></span>
 </header>
 <div class="strip" id="strip"></div>
@@ -116,13 +127,56 @@ async function show(d) {
     return `<div class="col"><h2 title="${tip}">${lab} <span class="n">${rows.length}</span>` +
       `<span class="avg ${cls(avg)}" title="Average % since ${d}">${avg == null ? "" : "avg " + pct(avg)}</span></h2>` +
       `<div class="sub">${tip}</div><div class="rows">` +
-      (rows.length ? rows.map(r => `<div class="row" title="${r.last_seen ? "last on a list " + r.last_seen : ""}${r.why ? " · " + r.why : ""}">` +
-        `<a class="tk" href="${chartUrl(r.ticker)}" target="_blank" rel="noopener">${r.ticker}</a>${chips(r.lists)}` +
+      (rows.length ? rows.map(r => `<div class="row" data-t="${r.ticker}" title="${r.last_seen ? "last on a list " + r.last_seen : ""}${r.why ? " · " + r.why : ""}">` +
+        `<button class="dd" title="Show the chart">▸</button><a class="tk" href="${chartUrl(r.ticker)}" target="_blank" rel="noopener">${r.ticker}</a>${chips(r.lists)}` +
         (r.why === "moved by hand" ? `<span class="chip">by hand</span>` : "") +
         `<span class="f"><span class="pct ${cls(r.chg)}" title="Close ${d} → close ${r.through || ""}">${pct(r.chg)}</span>` +
         `<span class="ru" title="Best high since ${d}">${r.runup == null ? "" : "↑" + Math.max(0, r.runup * 100).toFixed(0) + "%"}</span></span></div>`).join("")
         : `<div class="empty">none</div>`) + `</div></div>`;
   }).join("");
+  S.upto = s.upto; S.charts.forEach(h => h.chart.remove()); S.charts = [];
+  applySearch();
+}
+
+// ---- chart dropdown: ▸ opens a 3M daily chart under the row (through the latest day), marking this summary's day
+S.charts = [];
+async function toggleChart(row) {
+  const nx = row.nextElementSibling;
+  if (nx && nx.classList.contains("sumchart")) {
+    const h = S.charts.find(x => x.box === nx); if (h) { h.chart.remove(); S.charts = S.charts.filter(x => x !== h); }
+    nx.remove(); row.classList.remove("open"); row.querySelector(".dd").textContent = "▸"; return;
+  }
+  const t = row.dataset.t, day = S.date;
+  const box = document.createElement("div"); box.className = "sumchart"; box.innerHTML = `<div class="empty">loading ${t} …</div>`;
+  row.after(box); row.classList.add("open"); row.querySelector(".dd").textContent = "▾";
+  try {
+    const p = await getJSON(`/api/scr/bars?t=${encodeURIComponent(t)}&asof=${S.upto}`);
+    await drawingsLoad([t]);
+    if (!box.isConnected || S.date !== day) return;
+    box.innerHTML = "";
+    const h = buildChart(box, p, "3M", {small: true});
+    h.box = box;
+    const mark = () => { if (h.bars.some(b => b[0] === day)) h.candles.setMarkers([{time: day, position: "belowBar", color: "#2962ff", shape: "arrowUp", text: day.slice(5)}]); };
+    h.after.push(mark); mark();
+    attachDrawings(h, t);
+    S.charts.push(h);
+  } catch (e) { box.innerHTML = `<div class="empty">no bars for ${t}</div>`; }
+}
+document.addEventListener("click", e => { const b = e.target.closest(".row .dd"); if (b) toggleChart(b.closest(".row")); });
+
+// ---- search: isolate matching tickers in every column (an exact match wins over prefix matches)
+function applySearch() {
+  const q = $("q").value.trim().toUpperCase();
+  const rows = [...document.querySelectorAll(".row[data-t]")];
+  const exact = q && rows.some(r => r.dataset.t === q);
+  let n = 0;
+  rows.forEach(r => {
+    const hit = !q || (exact ? r.dataset.t === q : r.dataset.t.startsWith(q));
+    r.classList.toggle("hide", !hit); r.classList.toggle("hit", !!q && hit); if (q && hit) n++;
+    const nx = r.nextElementSibling; if (nx && nx.classList.contains("sumchart")) nx.classList.toggle("hide", !hit);
+  });
+  $("q").style.borderColor = q && !n ? "#f23645" : "";
+  $("qMsg").textContent = !q ? "" : n ? `${n} match${n === 1 ? "" : "es"}` : `${q} didn't move on ${S.date}`;
 }
 
 async function init() {
@@ -137,8 +191,13 @@ async function init() {
   $("latest").onclick = () => show(D.latest);
   $("date").onchange = () => $("date").value && show(pick($("date").value));
   $("mode").onchange = () => { S.mode = $("mode").value; keep("mode", S.mode); show(S.date); };
+  $("q").addEventListener("input", applySearch);
+  $("q").addEventListener("keydown", e => { if (e.key === "Enter") applySearch(); if (e.key === "Escape") { $("q").value = ""; applySearch(); $("q").blur(); } });
+  $("qGo").onclick = applySearch;
+  $("qClr").onclick = () => { $("q").value = ""; applySearch(); };
   document.addEventListener("keydown", e => {
     if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+    if (e.key === "/") { e.preventDefault(); $("q").focus(); $("q").select(); return; }
     if (e.key === "ArrowLeft" && S.prev) show(S.prev);
     if (e.key === "ArrowRight" && S.next) show(S.next);
   });

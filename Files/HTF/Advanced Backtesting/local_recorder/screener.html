@@ -22,6 +22,10 @@
   button { font:inherit; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--fg); border-radius:6px; padding:5px 10px; }
   button:hover { background:var(--soft); }
   button.on { background:#131722; color:#fff; border-color:#131722; }
+  .search { display:flex; align-items:center; gap:4px; }
+  .search input { width:120px; padding:4px 8px; border:1px solid var(--line); border-radius:6px; font:inherit; text-transform:uppercase; }
+  .search input.act { border-color:var(--accent); background:#eef3ff; }
+  .found button { margin:0 4px 4px 0; }
   .spy { margin-left:auto; padding:6px 12px; border-radius:6px; font-weight:600; }
   .spy.ok { background:#e8f5e9; color:#1b5e20; } .spy.bad { background:#ffebee; color:#b71c1c; }
   .tabs { display:flex; gap:6px; padding:4px 16px; flex-wrap:wrap; }
@@ -152,6 +156,9 @@
     <button id="nextDay" title="Next session">▶</button>
     <button id="latest">Latest</button>
   </div>
+  <span class="search"><input id="q" placeholder="Find ticker" autocomplete="off"
+    title="Type a ticker: only matches stay on the current tab (the tab counts show where it is). Enter / 🔍 searches, Esc clears. Shortcut: /">
+    <button id="qGo" title="Search">🔍</button><button id="qClr" title="Clear the search">✕</button></span>
   <div id="spy" class="spy">SPY …</div>
 </header>
 <div class="tabs" id="tabs"></div>
@@ -269,6 +276,17 @@ async function init() {
     if (!e.target.closest("#armMenu")) closeArmMenu();
   }, true);
   document.addEventListener("keydown", e => { if (e.key === "Escape") { closeTagMenu(); closeArmMenu(); } });
+  S.q = "";
+  let qT = null;
+  $("q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => setQ($("q").value), 250); });
+  $("q").addEventListener("keydown", e => { if (e.key === "Enter") { clearTimeout(qT); setQ($("q").value); }
+                                             if (e.key === "Escape") { clearTimeout(qT); setQ(""); $("q").blur(); } });
+  $("qGo").onclick = () => setQ($("q").value);
+  $("qClr").onclick = () => setQ("");
+  document.addEventListener("keydown", e => {
+    const tg = (e.target.tagName || "").toLowerCase();
+    if (e.key === "/" && tg !== "input" && tg !== "select" && tg !== "textarea") { e.preventDefault(); $("q").focus(); $("q").select(); }
+  });
   $("grid").addEventListener("click", async e => {
     const b = e.target.closest(".mv"); if (!b) return;
     e.preventDefault(); e.stopPropagation();
@@ -453,7 +471,28 @@ function listFor(k) {
   if (S.view === "backlog") return S.backlog ? S.backlog.backlog[k] || [] : [];
   return S.data.lists[k] || [];
 }
-function items() { return itemsRaw().filter(r => passes(r.ticker)); }
+function qMatch(t) { return !S.q || t.startsWith(S.q); }
+function items() {
+  let r = itemsRaw().filter(x => passes(x.ticker));
+  if (S.q) { const ex = r.filter(x => x.ticker === S.q); r = ex.length ? ex : r.filter(x => x.ticker.startsWith(S.q)); }
+  return r;
+}
+function whereIs(t) {       // every view / tab the ticker is on for this date (for the "not here" message)
+  const out = [];
+  for (const [v, vl] of VIEWS) {
+    if (v === "backlog" && !S.backlog) continue;
+    for (const tb of TABS) {
+      if (tb.key === "all" || SPECIAL.has(tb.key)) continue;
+      const L = v === "today" ? S.data.lists[tb.key] : v === "grads" ? S.data.graduates[tb.key] : S.backlog.backlog[tb.key];
+      if ((L || []).some(r => r.ticker === t)) out.push([v, tb.key, `${vl.split(" ")[0]} · ${tb.label}`]);
+    }
+  }
+  return out;
+}
+function setQ(v) {
+  S.q = (v || "").trim().toUpperCase(); $("q").value = S.q; $("q").classList.toggle("act", !!S.q);
+  S.page = 0; renderTabs(); render();
+}
 function itemsRaw() {
   if (!S.data) return [];
   if (S.tab === "armed") return (S.armed ? S.armed.active : []).map(a => ({ticker: a.ticker, armed: a}));
@@ -462,7 +501,7 @@ function itemsRaw() {
 }
 function renderTabs() {
   const n = k => (k === "armed" ? (S.armed ? S.armed.active.map(a => a.ticker) : []) : k === "drawn" ? S.recent.map(r => r.ticker)
-                  : listFor(k).map(r => r.ticker)).filter(passes).length;
+                  : listFor(k).map(r => r.ticker)).filter(t => passes(t) && qMatch(t)).length;
   const tips = {today: "On the list today", grads: "On that list in the past ~3 months, on no list today",
                 backlog: "Last on that list more than ~3 months ago (delisted names dropped)"};
   const seg = `<span class="seg">${VIEWS.map(([v, lab]) =>
@@ -513,6 +552,19 @@ function render() {
   $("pgInfo").textContent = scroll ? `${all.length} ticker${all.length === 1 ? "" : "s"}`
     : all.length ? `${S.page * pp + 1}–${Math.min(all.length, S.page * pp + pp)} of ${all.length}` : "0";
   if (!scroll) all = all.slice(S.page * pp, S.page * pp + pp);
+  if (!all.length && S.q) {
+    const w = whereIs(S.q), tab = (TABS.find(t => t.key === S.tab) || {}).label, vl = VIEWS.find(v => v[0] === S.view)[1];
+    g.innerHTML = `<div class="empty found" style="padding:20px"><b>${S.q}</b> is not on ${tab} (${vl}) for ${S.date}` +
+      (S.filter.size ? " with the selected tags" : "") + ".<br><br>" +
+      (w.length ? "It is on: " + w.map(([v, k, lab]) => `<button data-gov="${v}" data-gok="${k}">${lab}</button>`).join("")
+                : `Not on any list${S.backlog ? "" : " in Today / Graduates (open Backlog once to search it too)"}.`) + "</div>";
+    g.querySelectorAll("[data-gov]").forEach(b => b.onclick = async () => {
+      S.view = b.dataset.gov; S.tab = b.dataset.gok; keep("view", S.view); keep("tab", S.tab);
+      if (S.view === "backlog") await loadBacklog();
+      S.page = 0; renderTabs(); render();
+    });
+    return;
+  }
   if (!all.length) {
     g.innerHTML = `<div class="empty" style="padding:20px">${S.filter.size ? "No tickers here with the selected tags." : S.tab === "drawn" ? "No drawings in the last 30 days." : "Nothing on this list for " + S.date + "."}</div>`;
     return;
