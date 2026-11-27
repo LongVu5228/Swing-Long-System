@@ -43,8 +43,9 @@ P123 pull, then the bars update.
 
 - **Views.** Today, Graduates (on that list within the last 63 sessions) and Backlog (older; delisted names dropped). A
   ticker never leaves the screener. A "→ Backlog" button sends a graduate away until it hits a scan again.
-- **Tabs.** All (unique across the 9 lists), then 1M/3M/6M × Small/Mid/Large, All armed, and Recently drawn (any drawing
-  made or edited in the last 30 days).
+- **Tabs.** All (unique across the 9 lists), then a "Lists ▸" toggle that folds the 9 1M/3M/6M × Small/Mid/Large tabs.
+  Folded, it names the list you're on; the state is remembered (localStorage `listsOpen`). The "All armed" and "Recently
+  drawn" tabs were removed on 2026-11-27; the right panel and the Armed tag filter cover them.
 - **Grid.** 4×2 that can be switched. Today, All armed and Recently drawn scroll; All, Graduates and Backlog page with
   arrows. Charts show SMA10/20 and volume on 3M / 6M / 1Y / 5Y daily / 5Y weekly, with yyyy-mm-dd dates. Each chart
   zooms on its own; "Reset zoom (all)" resets them together.

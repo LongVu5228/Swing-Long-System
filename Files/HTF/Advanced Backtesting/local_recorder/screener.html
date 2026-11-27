@@ -32,6 +32,8 @@
   .tabs button { border-radius:16px; padding:5px 12px; }
   .tabs button .n { color:var(--muted); margin-left:4px; font-size:11px; }
   .tabs button.on .n { color:#b2b5be; }
+  .tabs button.lt { border-style:dashed; }
+  .tabs button.lt.cur { background:#131722; color:#fff; border-color:#131722; border-style:solid; }
   .tabs .sep { width:1px; background:var(--line); margin:0 4px; }
   .tabs .seg { display:inline-flex; }
   .tabs .seg button { border-radius:0; }
@@ -197,7 +199,7 @@
 const TABS = [{key: "all", label: "All"}];   // "All" = unique tickers across the 9 lists of the current view
 for (const w of ["1M", "3M", "6M"]) for (const [b, lab] of [["small", "Small"], ["mid", "Mid"], ["large", "Large"]])
   TABS.push({key: w.toLowerCase() + "_" + b, label: `${w} ${lab}`});
-TABS.push({key: "armed", label: "All armed"}, {key: "drawn", label: "Recently drawn"});
+// (the "All armed" / "Recently drawn" tabs were removed 2026-11-27: the right panel + the Armed tag filter cover them)
 const SPECIAL = new Set(["armed", "drawn"]);     // not tied to Today / Graduates / Backlog
 
 // view: today = on the list today | grads = on that list in the past ~3 months, not today | backlog = last on it more
@@ -223,6 +225,7 @@ async function init() {
   const URLP = new URLSearchParams(location.search);
   S.tf = load("tf", "6M"); S.grid = load("grid", "4x2"); S.tab = URLP.get("tab") || load("tab", "1m_small");
   if (!TABS.some(t => t.key === S.tab)) S.tab = "1m_small";
+  S.listsOpen = load("listsOpen", "0") === "1";
   S.view = URLP.get("view") || (URLP.get("grads") === "1" ? "grads" : load("view", "today"));
   if (!VIEWS.some(v => v[0] === S.view)) S.view = "today";
   $("gridSel").value = S.grid;
@@ -560,12 +563,17 @@ function renderTabs() {
       `<button data-v="${v}" class="${S.view === v ? "on" : ""}" title="${tips[v]}">${lab}</button>`).join("")}` +
     `<button data-go="summary" title="Per-day summary: who came onto Today, who graduated, who aged into the backlog, trade events">Summary</button></span>` +
     '<span class="sep"></span>';
-  $("tabs").innerHTML = seg + TABS.map((t, i) => (i === 1 || i === 10 ? '<span class="sep"></span>' : "") +
-    `<button data-k="${t.key}" class="${t.key === S.tab ? "on" : ""}">${t.label}` +
-    `<span class="n">${S.data && (S.view !== "backlog" || S.backlog || SPECIAL.has(t.key)) ? n(t.key) : ""}</span></button>`).join("");
+  const tabBtn = t => `<button data-k="${t.key}" class="${t.key === S.tab ? "on" : ""}">${t.label}` +
+    `<span class="n">${S.data && (S.view !== "backlog" || S.backlog || SPECIAL.has(t.key)) ? n(t.key) : ""}</span></button>`;
+  const lists = TABS.filter(t => t.key !== "all"), cur = lists.find(t => t.key === S.tab);
+  // the 9 list tabs fold behind one toggle (remembered); folded, the toggle names the list you're on
+  const tog = `<button class="lt${cur && !S.listsOpen ? " cur" : ""}" data-lt="1" title="${S.listsOpen ? "Hide" : "Show"} the 1M / 3M / 6M lists">` +
+    (S.listsOpen ? "◂ Lists" : `Lists ▸${cur ? " " + cur.label + `<span class="n">${S.data && (S.view !== "backlog" || S.backlog) ? n(cur.key) : ""}</span>` : ""}`) + `</button>`;
+  $("tabs").innerHTML = seg + tabBtn(TABS[0]) + '<span class="sep"></span>' + tog + (S.listsOpen ? lists.map(tabBtn).join("") : "");
   $("tabs").onclick = async e => {
     const b = e.target.closest("button"); if (!b) return;
     if (b.dataset.go) { location.href = `/summary?date=${S.date}`; return; }
+    if (b.dataset.lt) { S.listsOpen = !S.listsOpen; keep("listsOpen", S.listsOpen ? "1" : "0"); renderTabs(); return; }
     if (b.dataset.v) {
       S.view = b.dataset.v; keep("view", S.view); if (SPECIAL.has(S.tab)) S.tab = "1m_small";
       if (S.view === "backlog") await loadBacklog();
