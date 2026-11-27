@@ -59,6 +59,22 @@
   .search input { width:110px; padding:4px 8px; border:1px solid var(--line); border-radius:6px; text-transform:uppercase; }
   .row.hit { background:#fff8e1; }
   .hide { display:none !important; }
+  .tag { font-size:10px; font-weight:700; padding:1px 5px; border-radius:3px; background:#eef0f3; color:#434651; }
+  .tag.BG, .tag.SG { background:#e6f4f1; color:#087f6b; }
+  .tag.PF, .tag.BPF { background:#efe8fb; color:#5e35b1; }
+  .tag.DT { background:#fdecee; color:#c62828; }
+  .tag.UT { background:#fff1e0; color:#b35c00; }
+  .tag.NA { background:#f0f1f3; color:#9598a1; text-decoration:line-through; }
+  .row .tgs { display:inline-flex; gap:3px; }
+  .row .tagbtn { border:0; background:none; padding:0 2px; font-size:11px; opacity:.35; }
+  .row:hover .tagbtn, .row .tagbtn.has { opacity:1; }
+  .tagmenu { position:fixed; z-index:50; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px;
+             box-shadow:0 4px 14px rgba(0,0,0,.12); display:flex; flex-wrap:wrap; gap:4px; width:220px; }
+  .tagmenu .hdr { width:100%; font-size:11px; color:var(--muted); margin-bottom:2px; }
+  .tagmenu button { padding:2px 8px; font-size:12px; border-radius:12px; }
+  .tagmenu button.on { background:#131722; color:#fff; border-color:#131722; }
+  .tagmenu input { width:100%; margin-top:4px; font-size:12px; padding:3px 6px; border:1px solid var(--line); border-radius:5px; }
+  .col h2 .ex { font-size:11px; padding:1px 7px; border-radius:4px; font-weight:400; }
   @media (max-width: 1100px) { main { grid-template-columns:repeat(2, minmax(0, 1fr)); overflow:auto; } .col { max-height:420px; } }
 </style>
 </head>
@@ -92,7 +108,9 @@ const COLS = [
   ["out_grad", "Today → Graduates", "On Today yesterday, on no list today"],
   ["aged", "Graduates → Backlog", "Last list day fell out of the 63-session window (or you moved it)"],
 ];
-const S = {dates: [], date: null, mode: load("mode", "live")};
+const S = {dates: [], date: null, mode: load("mode", "live"), tags: {vocab: [], tickers: {}}};
+const tagsOf = t => S.tags.tickers[t] || [];
+const tagChips = t => tagsOf(t).map(x => `<span class="tag ${x.replace("/", "")}">${x}</span>`).join("");
 const pct = v => v == null ? "–" : (v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%";
 const cls = v => v == null ? "" : v >= 0 ? "up" : "dn";
 const chips = ls => (ls || []).map(l => { const [w, b] = l.split(" "); return `<span class="chip w${w}">${w} ${b.slice(0, 2)}</span>`; }).join("");
@@ -125,12 +143,13 @@ async function show(d) {
     const vals = rows.map(r => r.chg).filter(v => v != null);
     const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
     return `<div class="col"><h2 title="${tip}">${lab} <span class="n">${rows.length}</span>` +
-      `<span class="avg ${cls(avg)}" title="Average % since ${d}">${avg == null ? "" : "avg " + pct(avg)}</span></h2>` +
+      `<span class="avg ${cls(avg)}" title="Average % since ${d}">${avg == null ? "" : "avg " + pct(avg)}</span>` +
+      (rows.length ? `<button class="ex" data-ex="1" title="Open / close every chart in this column">Charts ▸</button>` : "") + `</h2>` +
       `<div class="sub">${tip}</div><div class="rows">` +
       (rows.length ? rows.map(r => `<div class="row" data-t="${r.ticker}" title="${r.last_seen ? "last on a list " + r.last_seen : ""}${r.why ? " · " + r.why : ""}">` +
-        `<button class="dd" title="Show the chart">▸</button><a class="tk" href="${chartUrl(r.ticker)}" target="_blank" rel="noopener">${r.ticker}</a>${chips(r.lists)}` +
+        `<button class="dd" title="Show the chart">▸</button><a class="tk" href="${chartUrl(r.ticker)}" target="_blank" rel="noopener">${r.ticker}</a>${chips(r.lists)}<span class="tgs">${tagChips(r.ticker)}</span>` +
         (r.why === "moved by hand" ? `<span class="chip">by hand</span>` : "") +
-        `<span class="f"><span class="pct ${cls(r.chg)}" title="Close ${d} → close ${r.through || ""}">${pct(r.chg)}</span>` +
+        `<span class="f"><button class="tagbtn ${tagsOf(r.ticker).length ? "has" : ""}" title="Tags">🏷</button><span class="pct ${cls(r.chg)}" title="Close ${d} → close ${r.through || ""}">${pct(r.chg)}</span>` +
         `<span class="ru" title="Best high since ${d}">${r.runup == null ? "" : "↑" + Math.max(0, r.runup * 100).toFixed(0) + "%"}</span></span></div>`).join("")
         : `<div class="empty">none</div>`) + `</div></div>`;
   }).join("");
@@ -138,11 +157,28 @@ async function show(d) {
   applySearch();
 }
 
+// bars requests go 3 at a time, top rows first, so "Charts ▸" on a long column fills in from the top quickly
+const BQ = {run: 0, q: [], cache: new Map()};
+function barsQueued(t, asof) {
+  const k = t + "|" + asof;
+  if (BQ.cache.has(k)) return BQ.cache.get(k);
+  const pr = new Promise((res, rej) => { BQ.q.push({t, asof, res, rej}); pump(); });
+  BQ.cache.set(k, pr); pr.catch(() => BQ.cache.delete(k));
+  return pr;
+}
+function pump() {
+  while (BQ.run < 3 && BQ.q.length) {
+    const j = BQ.q.shift(); BQ.run++;
+    getJSON(`/api/scr/bars?t=${encodeURIComponent(j.t)}&asof=${j.asof}`).then(j.res, j.rej).finally(() => { BQ.run--; pump(); });
+  }
+}
 // ---- chart dropdown: ▸ opens a 3M daily chart under the row (through the latest day), marking this summary's day
 S.charts = [];
-async function toggleChart(row) {
+async function toggleChart(row, want) {
   const nx = row.nextElementSibling;
-  if (nx && nx.classList.contains("sumchart")) {
+  const isOpen = !!(nx && nx.classList.contains("sumchart"));
+  if (want !== undefined && want === isOpen) return;
+  if (isOpen) {
     const h = S.charts.find(x => x.box === nx); if (h) { h.chart.remove(); S.charts = S.charts.filter(x => x !== h); }
     nx.remove(); row.classList.remove("open"); row.querySelector(".dd").textContent = "▸"; return;
   }
@@ -150,7 +186,7 @@ async function toggleChart(row) {
   const box = document.createElement("div"); box.className = "sumchart"; box.innerHTML = `<div class="empty">loading ${t} …</div>`;
   row.after(box); row.classList.add("open"); row.querySelector(".dd").textContent = "▾";
   try {
-    const p = await getJSON(`/api/scr/bars?t=${encodeURIComponent(t)}&asof=${S.upto}`);
+    const p = await barsQueued(t, S.upto);
     await drawingsLoad([t]);
     if (!box.isConnected || S.date !== day) return;
     box.innerHTML = "";
@@ -162,7 +198,64 @@ async function toggleChart(row) {
     S.charts.push(h);
   } catch (e) { box.innerHTML = `<div class="empty">no bars for ${t}</div>`; }
 }
-document.addEventListener("click", e => { const b = e.target.closest(".row .dd"); if (b) toggleChart(b.closest(".row")); });
+document.addEventListener("click", e => {
+  const b = e.target.closest(".row .dd"); if (b) return toggleChart(b.closest(".row"));
+  const ex = e.target.closest("[data-ex]");
+  if (ex) {                                  // per column: open every (visible) chart, or close them all
+    const rows = [...ex.closest(".col").querySelectorAll(".row[data-t]:not(.hide)")];
+    const open = !rows.every(r => r.classList.contains("open"));
+    rows.forEach(r => toggleChart(r, open));
+    ex.textContent = open ? "Charts ▾" : "Charts ▸";
+    return;
+  }
+  const tb = e.target.closest(".row .tagbtn");
+  if (tb) { const m = $("tagMenu"); const t = tb.closest(".row").dataset.t;
+            if (m && m.dataset.for === t) closeTagMenu(); else openTagMenu(tb, t); return; }
+  if (!e.target.closest("#tagMenu")) closeTagMenu();
+});
+
+// ---- tags: same tags.json as the screener; the rows update when the menu closes
+async function loadTags() { try { S.tags = await getJSON("/api/scr/tags"); } catch (e) {} }
+function openTagMenu(btn, t) {
+  closeTagMenu();
+  const have = new Set(tagsOf(t));
+  const m = document.createElement("div"); m.className = "tagmenu"; m.id = "tagMenu"; m.dataset.for = t;
+  m.innerHTML = `<div class="hdr">Tags for <b>${t}</b> (click to toggle)</div>` +
+    S.tags.vocab.map(x => `<button data-tg="${x}" class="${have.has(x) ? "on" : ""}">${x}</button>`).join("") +
+    `<input placeholder="new tag + Enter" maxlength="12">`;
+  document.body.appendChild(m);
+  const r = btn.getBoundingClientRect();
+  m.style.top = Math.min(window.innerHeight - m.offsetHeight - 8, r.bottom + 4) + "px";
+  m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.right - m.offsetWidth)) + "px";
+  m.onclick = async e => {
+    const b = e.target.closest("button[data-tg]"); if (!b) return;
+    b.classList.toggle("on");
+    await saveTags(t, [...m.querySelectorAll("button.on")].map(x => x.dataset.tg));
+  };
+  m.querySelector("input").onkeydown = async e => {
+    if (e.key === "Escape") return closeTagMenu();
+    if (e.key !== "Enter") return;
+    const nt = e.target.value.trim().replace(/[^A-Za-z0-9_\/-]/g, "").slice(0, 12);
+    if (!nt) return;
+    await saveTags(t, [...new Set([...tagsOf(t), nt])]);
+    openTagMenu(btn, t);
+  };
+}
+async function saveTags(t, list) {
+  S.tags = await postJSON("/api/scr/tags", {ticker: t, tags: list});
+  S.tagsDirty = true;
+  if (typeof CHAN !== "undefined" && CHAN) CHAN.postMessage("changed");
+}
+function closeTagMenu() {
+  const m = $("tagMenu"); if (m) m.remove();
+  if (!S.tagsDirty) return;
+  S.tagsDirty = false;
+  document.querySelectorAll(".row[data-t]").forEach(r => {
+    const t = r.dataset.t;
+    r.querySelector(".tgs").innerHTML = tagChips(t);
+    r.querySelector(".tagbtn").classList.toggle("has", tagsOf(t).length > 0);
+  });
+}
 
 // ---- search: isolate matching tickers in every column (an exact match wins over prefix matches)
 function applySearch() {
@@ -196,11 +289,14 @@ async function init() {
   $("qGo").onclick = applySearch;
   $("qClr").onclick = () => { $("q").value = ""; applySearch(); };
   document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeTagMenu();
     if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
     if (e.key === "/") { e.preventDefault(); $("q").focus(); $("q").select(); return; }
     if (e.key === "ArrowLeft" && S.prev) show(S.prev);
     if (e.key === "ArrowRight" && S.next) show(S.next);
   });
+  await loadTags();
+  window.addEventListener("focus", async () => { if (!$("tagMenu")) { await loadTags(); S.tagsDirty = true; closeTagMenu(); } });
   await show(pick(want));
 }
 init().catch(e => { $("cols").innerHTML = `<div class="empty">Error: ${e.message}</div>`; });
