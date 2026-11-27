@@ -339,12 +339,15 @@ class H(BaseHTTPRequestHandler):
 
     def _send(self, code, body, ctype="application/json"):
         data = body if isinstance(body, bytes) else json.dumps(clean(body), default=str, allow_nan=False).encode()
-        self.send_response(code)
-        self.send_header("Content-Type", ctype)
-        self.send_header("Content-Length", str(len(data)))
-        self.end_headers()
-        self.wfile.write(data)
-        return True     # "handled": the screener router sends its own 404 only when a handler returned None
+        try:
+            self.send_response(code)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+            self.close_connection = True    # the browser left (refresh / closed tab) before the reply finished: harmless
+        return True    # "handled": the screener router sends its own 404 only when a handler returned None
 
     def _screener_get(self, u, q):
         """Live / replay screener (screener.html, chart.html; data in screener_data.py)."""
