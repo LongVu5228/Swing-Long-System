@@ -1,0 +1,295 @@
+{
+ "vocab": [
+  "UT",
+  "DT",
+  "PF",
+  "BG",
+  "SG",
+  "BPF",
+  "N/A"
+ ],
+ "tickers": {
+  "FUN": [
+   "PF"
+  ],
+  "ULCC": [
+   "UT"
+  ],
+  "INO": [
+   "BG"
+  ],
+  "PEPG": [
+   "DT"
+  ],
+  "BRBR": [
+   "UT"
+  ],
+  "ONT": [
+   "DT"
+  ],
+  "PTLO": [
+   "DT"
+  ],
+  "IRWD": [
+   "UT"
+  ],
+  "JBLU": [
+   "DT"
+  ],
+  "CRCT": [
+   "DT"
+  ],
+  "DCTH": [
+   "DT"
+  ],
+  "TREE": [
+   "DT"
+  ],
+  "ETON": [
+   "DT"
+  ],
+  "HAWK": [
+   "DT"
+  ],
+  "ANRO": [
+   "DT"
+  ],
+  "REPL": [
+   "DT"
+  ],
+  "EVC": [
+   "DT"
+  ],
+  "LFTO": [
+   "DT"
+  ],
+  "LQDA": [
+   "UT"
+  ],
+  "CGON": [
+   "BG"
+  ],
+  "ALGT": [
+   "SG"
+  ],
+  "PRAX": [
+   "DT"
+  ],
+  "RIOT": [
+   "DT"
+  ],
+  "KOD": [
+   "UT"
+  ],
+  "DNTH": [
+   "UT"
+  ],
+  "RYTM": [
+   "UT"
+  ],
+  "SRRK": [
+   "UT"
+  ],
+  "ORKA": [
+   "DT"
+  ],
+  "APP": [
+   "DT"
+  ],
+  "KYMR": [
+   "UT"
+  ],
+  "TMDX": [
+   "DT"
+  ],
+  "CHTR": [
+   "DT"
+  ],
+  "ARDT": [
+   "N/A"
+  ],
+  "GPGI": [
+   "N/A"
+  ],
+  "TGTX": [
+   "UT"
+  ],
+  "U": [
+   "DT"
+  ],
+  "TTWO": [
+   "N/A"
+  ],
+  "UI": [
+   "N/A"
+  ],
+  "FROG": [
+   "DT"
+  ],
+  "NTSK": [
+   "UT"
+  ],
+  "ARXS": [
+   "N/A"
+  ],
+  "RSKD": [
+   "BG"
+  ],
+  "SG": [
+   "PF"
+  ],
+  "ARHS": [
+   "DT"
+  ],
+  "MOH": [
+   "N/A"
+  ],
+  "SAIL": [
+   "UT"
+  ],
+  "MAZE": [
+   "DT"
+  ],
+  "AZTA": [
+   "PF"
+  ],
+  "VYX": [
+   "DT"
+  ],
+  "FIGS": [
+   "DT"
+  ],
+  "CNXC": [
+   "N/A"
+  ],
+  "CYRX": [
+   "DT"
+  ],
+  "KVYO": [
+   "UT"
+  ],
+  "VIA": [
+   "UT"
+  ],
+  "APPN": [
+   "UT"
+  ],
+  "ATEN": [
+   "PF"
+  ],
+  "KD": [
+   "DT"
+  ],
+  "AMPL": [
+   "BG"
+  ],
+  "XNCR": [
+   "DT"
+  ],
+  "PRCH": [
+   "UT"
+  ],
+  "STGW": [
+   "DT"
+  ],
+  "PUBM": [
+   "UT"
+  ],
+  "TRUP": [
+   "SG"
+  ],
+  "QNST": [
+   "DT"
+  ],
+  "PAR": [
+   "UT"
+  ],
+  "BOBS": [
+   "PF"
+  ],
+  "ACHC": [
+   "DT"
+  ],
+  "ADPT": [
+   "BG"
+  ],
+  "MBX": [
+   "N/A"
+  ],
+  "LFST": [
+   "UT"
+  ],
+  "LILAK": [
+   "DT"
+  ],
+  "PBLS": [
+   "UT"
+  ],
+  "CAR": [
+   "UT"
+  ],
+  "CRTO": [
+   "DT"
+  ],
+  "VKTX": [
+   "N/A"
+  ],
+  "FOSL": [
+   "DT"
+  ],
+  "YOU": [
+   "DT"
+  ],
+  "EWTX": [
+   "N/A"
+  ],
+  "DUOL": [
+   "DT"
+  ],
+  "GCT": [
+   "UT"
+  ],
+  "XMTR": [
+   "DT"
+  ],
+  "COTY": [
+   "SG"
+  ],
+  "EVGO": [
+   "DT"
+  ],
+  "MAX": [
+   "DT"
+  ],
+  "IBTA": [
+   "DT"
+  ],
+  "VRDN": [
+   "UT"
+  ],
+  "AXGN": [
+   "UT"
+  ],
+  "PTRN": [
+   "DT"
+  ],
+  "VSEC": [
+   "DT"
+  ],
+  "WING": [
+   "DT"
+  ],
+  "WWW": [
+   "UT"
+  ],
+  "ZETA": [
+   "DT"
+  ],
+  "CVNA": [
+   "DT"
+  ],
+  "MDLN": [
+   "DT"
+  ]
+ }
+}

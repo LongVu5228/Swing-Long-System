@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTF Chart</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script src="/scr_common.js"></script>
+<style>
+  :root { --fg:#131722; --muted:#787b86; --line:#e0e3eb; --soft:#f0f3fa; --accent:#2962ff; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:#fff; color:var(--fg);
+               font:13px -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu, sans-serif; }
+  body { display:flex; flex-direction:column; overflow:hidden; }
+  header { display:flex; align-items:center; gap:12px; padding:10px 16px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  h1 { margin:0; font-size:22px; }
+  .mode { font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px; background:#fff3e0; color:#e65100; }
+  .mode.live { background:#e8f5e9; color:#1b5e20; }
+  .info { color:var(--muted); }
+  button, select { font:inherit; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--fg); border-radius:6px; padding:5px 10px; }
+  button:hover { background:var(--soft); }
+  button.on { background:#131722; color:#fff; border-color:#131722; }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+  button.primary:disabled { background:#b2c3f5; border-color:#b2c3f5; cursor:default; }
+  .legend { display:flex; gap:10px; color:var(--muted); font-size:12px; }
+  .legend i { display:inline-block; width:14px; height:2px; vertical-align:middle; margin-right:4px; }
+  main { flex:1; display:flex; min-height:0; }
+  #chart { flex:1; min-width:0; position:relative; }
+  aside { width:330px; border-left:1px solid var(--line); padding:12px 14px; overflow:auto; }
+  aside h2 { font-size:14px; margin:4px 0 10px; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin-bottom:12px; }
+  .kv span:nth-child(odd) { color:var(--muted); }
+  .hint { background:#f0f3fa; border-radius:6px; padding:8px 10px; color:#434651; margin-bottom:12px; font-size:12px; }
+  .row { display:flex; gap:8px; margin-bottom:10px; align-items:center; }
+  .msg { min-height:18px; font-size:12px; margin-top:6px; }
+  .err { color:#b71c1c; } .ok { color:#1b5e20; }
+  .warn { color:#e65100; font-weight:600; }
+  .flags { font-size:12px; color:#434651; }
+  .flags div { padding:2px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="tk"></h1>
+  <span id="mode" class="mode"></span>
+  <span class="info" id="info"></span>
+  <span id="tfs"></span>
+  <button id="reset">Reset zoom</button>
+  <span class="legend"><span><i style="background:#2962ff"></i>SMA 10</span><span><i style="background:#ff9800"></i>SMA 20</span>
+    <span><i style="background:#7e57c2"></i>past flag R1</span><span style="color:#9c27b0">● E = earnings</span></span>
+  <span class="info" style="font-size:11px">Alt+T trendline · Alt+H horizontal · Del removes · Esc cancels</span>
+</header>
+<main>
+  <div id="chart"></div>
+  <aside>
+    <h2 id="formTitle">Arm a flag</h2>
+    <div class="hint">Click the R1 candle on the daily chart: its high becomes R1. It stays armed until you
+      disarm it.</div>
+    <div class="kv">
+      <span>R1 candle</span><span id="r1d">–</span>
+      <span>R1 (high)</span><span id="r1p">–</span>
+      <span>Last close</span><span id="last">–</span>
+      <span>Buy-stop</span><span id="trig">–</span>
+      <span>Stop</span><span id="stop">–</span>
+      <span>Earnings</span><span id="earn">–</span>
+    </div>
+    <div class="row">
+      <select id="pat"><option value="">Flag type…</option></select>
+    </div>
+    <div class="row">
+      <button id="arm" class="primary" disabled>Arm</button>
+      <button id="disarm" style="display:none">Disarm</button>
+    </div>
+    <div id="msg" class="msg"></div>
+    <h2 style="margin-top:18px">Past flags on this ticker</h2>
+    <div id="flags" class="flags"></div>
+  </aside>
+</main>
+<script>
+const P = new URLSearchParams(location.search);
+const T = P.get("t"), ASOF = P.get("asof"), MODE = P.get("mode") || "replay";
+const $ = id => document.getElementById(id);
+const S = {payload: null, h: null, r1: null, r1_date: null, existing: null, settings: null, red: [], line: null};
+
+async function init() {
+  document.title = T + " · HTF";
+  $("tk").textContent = T;
+  $("mode").textContent = (MODE === "live" ? "LIVE " : "REPLAY ") + ASOF;
+  $("mode").classList.toggle("live", MODE === "live");
+  const meta = await getJSON("/api/scr/dates");
+  S.red = meta.red;
+  $("pat").innerHTML += meta.patterns.map(p => `<option value="${p}">${p}${S.red.includes(p) ? " (watch only)" : ""}</option>`).join("");
+  S.payload = await getJSON(`/api/scr/bars?t=${encodeURIComponent(T)}&asof=${ASOF}`);
+  const tf = (() => { try { return localStorage.getItem("chart.tf") || "1Y"; } catch (e) { return "1Y"; } })();
+  $("tfs").innerHTML = Object.keys(TF).filter(t => !TF[t].panelOnly).map(t => `<button data-tf="${t}">${t}</button>`).join(" ");
+  S.h = buildChart($("chart"), S.payload, tf, {overlays: true});
+  await drawingsLoad([T]);
+  attachDrawings(S.h, T);
+  markTF();
+  $("tfs").onclick = e => { const t = e.target.dataset.tf; if (!t) return; S.h.setTF(t); markTF(); drawLines();
+                            try { localStorage.setItem("chart.tf", t); } catch (e) {} };
+  $("reset").onclick = () => S.h.reset();
+  S.h.chart.subscribeClick(onClick);
+  const b = S.payload.bars, lastBar = b[b.length - 1];
+  $("info").textContent = `last ${lastBar[0]} close ${fmt.px(lastBar[4])} · ADR ${S.payload.adr ? (S.payload.adr * 100).toFixed(1) + "%" : "–"}` +
+                          ` · next earnings ${S.payload.earnings_next || "none known"}`;
+  $("last").textContent = fmt.px(lastBar[4]);
+  $("flags").innerHTML = S.payload.flags.length ? S.payload.flags.map(f =>
+    `<div>${f.conf} · ${f.pattern || "no pattern"} · R1 ${fmt.px(f.r1)} (${f.src})</div>`).join("") : "none recorded";
+  await loadExisting();
+  $("pat").onchange = update;
+  $("arm").onclick = doArm;
+  $("disarm").onclick = doDisarm;
+}
+function markTF() { document.querySelectorAll("#tfs button").forEach(x => x.classList.toggle("on", x.dataset.tf === S.h.tf)); }
+
+async function loadExisting() {
+  const A = await getJSON(`/api/scr/armed?mode=${MODE}&asof=${ASOF}`);
+  S.settings = A.settings;
+  S.existing = A.active.concat(A.watch).find(a => a.ticker === T) || null;
+  if (S.existing) {
+    S.r1 = S.existing.r1; S.r1_date = S.existing.r1_date; $("pat").value = S.existing.pattern;
+    $("formTitle").textContent = S.existing.status === "watch" ? "On watch (edit)" : `Armed on ${S.existing.armed_on} (edit)`;
+    $("disarm").style.display = "";
+  } else {
+    $("formTitle").textContent = "Arm a flag"; $("disarm").style.display = "none";
+  }
+  update();
+}
+function onClick(param) {
+  if (!param.time || drawingBusy()) return;           // a click that placed a drawing is not an R1 pick
+  if (TF[S.h.tf].weekly) { msg("Switch to a daily timeframe to pick the R1 candle.", "err"); return; }
+  const bar = S.payload.bars.find(x => x[0] === param.time);
+  if (!bar) return;
+  S.r1 = bar[2]; S.r1_date = bar[0];
+  msg("");
+  update();
+}
+function drawLines() {
+  S.h.clearR1();
+  if (S.existing && S.existing.r1 !== S.r1) S.h.addR1(S.existing.r1, "armed R1", "#b2b5be");
+  if (S.r1) S.h.addR1(S.r1, "R1", COL.r1, 0);
+}
+function update() {
+  drawLines();
+  const pat = $("pat").value, red = S.red.includes(pat);
+  $("r1d").textContent = S.r1_date || "–";
+  $("r1p").textContent = S.r1 ? fmt.px(S.r1) : "–";
+  const b = S.payload.bars, last = b[b.length - 1][4];
+  if (S.r1) {
+    const trig = Math.round((S.r1 + 0.01) * 100) / 100, adr = S.payload.adr;
+    const stop = adr ? trig * (1 - 0.75 * adr) : null, rps = stop ? trig - stop : null;
+    $("trig").innerHTML = `${fmt.px(trig)} <span style="color:#787b86">(or 30m high + 1¢)</span>` +
+      (last > trig ? ` <span class="warn">already above R1</span>` : ` · ${fmt.pct(trig / last - 1)} away`);
+    $("stop").textContent = stop ? `${fmt.px(stop)} (−${(0.75 * adr * 100).toFixed(1)}%)` : "–";
+  } else { $("trig").textContent = "–"; $("stop").textContent = "–"; }
+  const en = S.payload.earnings_next;
+  $("earn").innerHTML = en ? en : "none known";
+  $("arm").disabled = !(S.r1 && pat);
+  $("arm").textContent = red ? "Save as watch" : (S.existing ? "Update" : "Arm");
+}
+function msg(t, cls = "") { $("msg").textContent = t; $("msg").className = "msg " + cls; }
+
+async function doArm() {
+  try {
+    const body = {mode: MODE, ticker: T, asof: ASOF, r1: S.r1, r1_date: S.r1_date, pattern: $("pat").value};
+    if (S.existing) body.id = S.existing.id;
+    const it = await postJSON("/api/scr/arm", body);
+    msg(it.status === "watch" ? "Saved as watch only (red flag)." : `Armed: R1 ${fmt.px(it.r1)}, ${it.pattern}.`, "ok");
+    if (CHAN) CHAN.postMessage("changed");
+    await loadExisting();
+  } catch (e) { msg(e.message, "err"); }
+}
+async function doDisarm() {
+  if (!S.existing || !confirm("Disarm " + T + "?")) return;
+  await postJSON("/api/scr/disarm", {mode: MODE, id: S.existing.id});
+  if (CHAN) CHAN.postMessage("changed");
+  S.r1 = null; S.r1_date = null; $("pat").value = "";
+  msg("Disarmed.", "ok");
+  await loadExisting();
+}
+init().catch(e => msg("Error: " + e.message, "err"));
+</script>
+</body>
+</html>

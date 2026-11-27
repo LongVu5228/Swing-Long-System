@@ -28,3 +28,10 @@ Files/EP/Automation/Old Swing Short Scripts/
 *.pdf
 *.xlsx
 !Files/HTF/HTF_Scanner_Days_Master.xlsx
+
+# HTF: bulk market data and regenerable outputs (GBs / thousands of files -- keep out of git)
+Files/HTF/backtest_data/
+Files/HTF/backtest_outputs/
+Files/HTF/Advanced Backtesting/data_cache_intraday/
+Files/HTF/Advanced Backtesting/chart_exports/
+Files/HTF/rank_strength_results.csv

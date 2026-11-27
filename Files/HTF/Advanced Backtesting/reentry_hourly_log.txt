@@ -1,0 +1,116 @@
+277 flags, 97 tickers in intraday coverage
+  intraday 1/97 AA: 6162 bars
+  intraday 2/97 AAOI: 32897 bars
+  intraday 3/97 AAON: 2486 bars
+  intraday 4/97 AAP: 17601 bars
+  intraday 5/97 ABAT: 3822 bars
+  intraday 6/97 ABCL: 3276 bars
+  intraday 7/97 ABSI: 4134 bars
+  intraday 8/97 ABTC: 2175 bars
+  intraday 9/97 ABVEF: 0 bars
+  intraday 10/97 ABVX: 12145 bars
+  intraday 11/97 ACAD: 3743 bars
+  intraday 12/97 ACHC: 9975 bars
+  intraday 13/97 ACHR: 17948 bars
+  intraday 14/97 ACLS: 2465 bars
+  intraday 15/97 ACMR: 26865 bars
+  intraday 16/97 ADMA: 2617 bars
+  intraday 17/97 ADPT: 28675 bars
+  intraday 18/97 ADTN: 3354 bars
+  intraday 19/97 AEHR: 21905 bars
+  intraday 20/97 AEIS: 3614 bars
+  intraday 21/97 AEO: 3050 bars
+  intraday 22/97 AEVA: 2539 bars
+  intraday 23/97 AFJK: 696 bars
+  intraday 24/97 AFRM: 21579 bars
+  intraday 25/97 AG: 9438 bars
+  intraday 26/97 AGEN: 1552 bars
+  intraday 27/97 AGL: 30074 bars
+  intraday 28/97 AGPU: 4496 bars
+  intraday 29/97 AGRO: 3333 bars
+  intraday 30/97 AGX: 30553 bars
+  intraday 31/97 AI: 2383 bars
+  intraday 32/97 AIIO: 3083 bars
+  intraday 33/97 AIP: 3655 bars
+  intraday 34/97 AIRS: 6954 bars
+  intraday 35/97 AKAM: 2574 bars
+  intraday 36/97 ALAB: 36797 bars
+  intraday 37/97 ALB: 11942 bars
+  intraday 38/97 ALGM: 6474 bars
+  intraday 39/97 ALGT: 30735 bars
+  intraday 40/97 ALHC: 20215 bars
+  intraday 41/97 ALLO: 3354 bars
+  intraday 42/97 ALM: 11396 bars
+  intraday 43/97 ALMS: 10190 bars
+  intraday 44/97 ALTO: 2808 bars
+  intraday 45/97 AMC: 7956 bars
+  intraday 46/97 AMKR: 10686 bars
+  intraday 47/97 AMPG: 2418 bars
+  intraday 48/97 AMPL: 2496 bars
+  intraday 49/97 AMPX: 27818 bars
+  intraday 50/97 AMSC: 19200 bars
+  intraday 51/97 ANAB: 4563 bars
+  intraday 52/97 ANET: 1482 bars
+  intraday 53/97 ANNX: 8031 bars
+  intraday 54/97 ANRO: 15555 bars
+  intraday 55/97 ANTX: 4037 bars
+  intraday 56/97 AOSL: 4827 bars
+  intraday 57/97 APA: 8658 bars
+  intraday 58/97 APEI: 4303 bars
+  intraday 59/97 API: 7390 bars
+  intraday 60/97 APLD: 33677 bars
+  intraday 61/97 APP: 19473 bars
+  intraday 62/97 APPN: 16817 bars
+  intraday 63/97 APPS: 6318 bars
+  intraday 64/97 ARCT: 1864 bars
+  intraday 65/97 ARM: 4602 bars
+  intraday 66/97 ARQQ: 13252 bars
+  intraday 67/97 ARQT: 2504 bars
+  intraday 68/97 ARWR: 6391 bars
+  intraday 69/97 ARXS: 2757 bars
+  intraday 70/97 AS: 2305 bars
+  intraday 71/97 ASAN: 3432 bars
+  intraday 72/97 ASM: 13112 bars
+  intraday 73/97 ASST: 21795 bars
+  intraday 74/97 ASTI: 2262 bars
+  intraday 75/97 ASTS: 26259 bars
+  intraday 76/97 ASX: 4524 bars
+  intraday 77/97 ATAI: 17480 bars
+  intraday 78/97 ATAT: 17447 bars
+  intraday 79/97 ATEC: 5616 bars
+  intraday 80/97 ATEX: 7827 bars
+  intraday 81/97 ATOM: 2571 bars
+  intraday 82/97 ATRA: 2305 bars
+  intraday 83/97 AU: 2496 bars
+  intraday 84/97 AUGO: 4673 bars
+  intraday 85/97 AUPH: 2692 bars
+  intraday 86/97 AUR: 31337 bars
+  intraday 87/97 AVAH: 2418 bars
+  intraday 88/97 AVAV: 8443 bars
+  intraday 89/97 AXGN: 10470 bars
+  intraday 90/97 AXON: 2730 bars
+  intraday 91/97 AYA: 2573 bars
+  intraday 92/97 BAND: 3033 bars
+  intraday 93/97 BB: 34059 bars
+  intraday 94/97 BBAR: 8710 bars
+  intraday 95/97 BBIO: 2425 bars
+  intraday 96/97 BDSX: 7036 bars
+  intraday 97/97 BE: 32421 bars
+Traceback (most recent call last):
+  File "C:\Users\longv\Trading\Personal Wealth\Swing Long System\Files\HTF\Advanced Backtesting\quick_backtest_reentry_hourly.py", line 122, in <module>
+    main()
+  File "C:\Users\longv\Trading\Personal Wealth\Swing Long System\Files\HTF\Advanced Backtesting\quick_backtest_reentry_hourly.py", line 83, in main
+    r = sim(f)
+        ^^^^^^
+  File "C:\Users\longv\Trading\Personal Wealth\Swing Long System\Files\HTF\Advanced Backtesting\quick_backtest_reentry_hourly.py", line 81, in <lambda>
+    for mode, sim in (("hourly", lambda fl: hb.simulate(fl, bars, intraday_for(f.ticker, fl, intra_all))),
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\longv\Trading\Personal Wealth\Swing Long System\Files\HTF\Advanced Backtesting\quick_backtest_hourly.py", line 111, in simulate
+    win = intra[(intra["d"] > flag.setup_confirmed) & (intra["d"] <= flag.final_flag_end)]
+                 ~~~~~^^^^^
+  File "C:\Users\longv\Trading\Personal Wealth\Swing Long System\.venv\Lib\site-packages\pandas\core\frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\longv\Trading\Personal Wealth\Swing Long System\.venv\Lib\site-packages\pandas\core\indexes\range.py", line 525, in get_loc
+    raise KeyError(key)
+KeyError: 'd'

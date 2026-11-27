@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTF Blind Trainer</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+  :root { --bg:#ffffff; --panel:#f8f9fd; --line:#e0e3eb; --text:#131722; --muted:#787b86; --accent:#2962ff;
+          --up:#089981; --down:#f23645; --cyan:#00bcd4; --orange:#ff9800; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:13px/1.4 -apple-system,BlinkMacSystemFont,"Trebuchet MS",Roboto,Ubuntu,sans-serif;
+         height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  #toolbar { height:38px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; padding:0 10px; flex:none; }
+  #tbox { border:1px solid var(--line); border-radius:4px; padding:3px 10px; font-weight:600; min-width:110px; background:#f0f3fa; }
+  .tf { font-weight:600; padding:2px 6px; border-radius:4px; background:#f0f3fa; }
+  #toolbar .sp { flex:1; }
+  #body { flex:1; display:flex; min-height:0; }
+  #side { width:170px; background:var(--panel); border-right:1px solid var(--line); display:flex; flex-direction:column; flex:none; }
+  #side select { margin:6px 6px 0; padding:5px 6px; background:#fff; border:1px solid var(--line); border-radius:4px; }
+  #list { overflow-y:auto; flex:1; margin-top:6px; }
+  .item { padding:3px 8px; cursor:pointer; display:flex; justify-content:space-between; border-bottom:1px solid #eef0f5; }
+  .item:hover { background:#f0f3fa; } .item.sel { background:#e3eaff; }
+  .item .r { color:var(--muted); font-size:11px; }
+  .badge { font-size:10px; padding:0 4px; border-radius:3px; margin-left:4px; background:#08998122; color:#067a67; }
+  #chartwrap { position:relative; flex:1; min-width:0; background:#fff; }
+  #back { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+  #chart { position:absolute; inset:0; z-index:1; }
+  #overlay { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:2; }
+  #legend { position:absolute; left:10px; top:6px; z-index:3; pointer-events:none; font-size:13px; line-height:1.75; }
+  #legend .name { font-size:16px; } .src { color:var(--muted); } .o { color:var(--muted); }
+  .v-up { color:var(--up); } .v-dn { color:var(--down); } .red { color:var(--down); } .green { color:var(--up); }
+  #br { position:absolute; right:80px; z-index:3; pointer-events:none; font-size:14px; line-height:1.7; text-align:right; }
+  #br span { margin-left:22px; }
+  #panel { width:290px; background:var(--panel); border-left:1px solid var(--line); padding:10px; overflow-y:auto; flex:none; }
+  button { background:#fff; color:var(--text); border:1px solid var(--line); border-radius:4px; padding:5px 8px; cursor:pointer; font:inherit; }
+  button:hover { background:#f0f3fa; } button.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin:6px 0; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:6px 0; }
+  h4 { margin:14px 0 4px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+  kbd { background:#f0f3fa; border:1px solid #d1d4dc; border-radius:3px; padding:0 4px; font-size:11px; }
+  textarea { width:100%; height:48px; border:1px solid var(--line); border-radius:4px; font:inherit; padding:4px; }
+  #r1txt { font-weight:600; }
+  #save { width:100%; padding:8px; margin-top:10px; font-weight:600; }
+  #status { font-size:12px; margin-top:8px; color:var(--muted); min-height:18px; }
+  .help { color:var(--muted); font-size:12px; margin-top:12px; line-height:1.6; }
+  .warnbar { color:#c8102e; font-size:12px; }
+  label { color:var(--muted); font-size:12px; cursor:pointer; }
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span id="tbox">—</span><span class="tf">D</span>
+  <span class="warnbar" id="warn"></span>
+  <span class="sp"></span>
+  <label><input type="checkbox" id="showTk"> show ticker</label>
+  <span style="color:var(--muted)">Blind trainer · nothing after the confirmation day is loaded</span>
+</div>
+<div id="body">
+  <div id="side">
+    <select id="filt">
+      <option value="todoA">half A, not graded</option><option value="todo">all, not graded</option>
+      <option value="done">graded</option><option value="all">all</option>
+    </select>
+    <div id="prog" style="margin:6px 8px 0; font-size:12px; color:var(--muted)"></div>
+    <div id="list"></div>
+  </div>
+  <div id="chartwrap">
+    <canvas id="back"></canvas><div id="chart"></div><canvas id="overlay"></canvas>
+    <div id="legend"></div>
+    <div id="br"></div>
+  </div>
+  <div id="panel">
+    <div class="row"><button id="prev">◀ Prev <kbd>P</kbd></button><button id="next">Next <kbd>N</kbd> ▶</button><button id="fit">Fit <kbd>Z</kbd></button></div>
+    <h4>1 · Pattern</h4>
+    <div class="grid" id="pats"></div>
+    <h4>2 · R1 candle (line of least resistance)</h4>
+    <div>Click the candle whose high is the line. <span id="r1txt">—</span></div>
+    <h4>3 · Clean?</h4>
+    <div class="row" id="cleans">
+      <button data-c="1">1 Clean <kbd>Q</kbd></button><button data-c="2">2 Borderline <kbd>W</kbd></button><button data-c="3">3 Messy <kbd>X</kbd></button>
+    </div>
+    <h4>Notes</h4>
+    <textarea id="notes" placeholder="optional"></textarea>
+    <button id="save" class="on">Save &amp; next <kbd style="color:#131722">Enter</kbd></button>
+    <div id="status"></div>
+    <div class="help">
+      The chart ends on the <b>confirmation day</b> (dotted line): grade it as you would live, the morning after.
+      The server cuts the bars, scanner shading, earnings and market cap at that day, so nothing later can leak.<br>
+      Pattern <kbd>1</kbd>–<kbd>6</kbd>, <kbd>0</kbd> = not a setup. Click a candle for R1.
+      Clean <kbd>Q</kbd>/<kbd>W</kbd>/<kbd>X</kbd>. <kbd>Enter</kbd> saves and opens the next one.<br>
+      Answers go to <code>htf_trainer_queue.csv</code>; score with <code>score_trainer.py</code>.
+    </div>
+  </div>
+</div>
+<script>
+const PATS = [["Green HTF","1"],["Red HTF","2"],["Perfect HTF","3"],["Big Green Flag","4"],["Big Red Flag","5"],["Big Perfect Flag","6"],["No setup","0"]];
+const MA = [[10,"#9c27b0"],[20,"#ff9800"],[200,"#2962ff"]];
+let LIST = [], item = null, bars = [], byDate = {}, ans = {}, maVals = {}, athRun = [], adr = [], p123 = [], windows = null, earnings = [];
+const fmtD = t => typeof t === "string" ? t : (t && t.year ? `${t.year}-${String(t.month).padStart(2,"0")}-${String(t.day).padStart(2,"0")}` : "");
+
+const chart = LightweightCharts.createChart(document.getElementById("chart"), {
+  layout:{background:{type:"solid", color:"transparent"}, textColor:"#131722", fontSize:12},
+  localization:{dateFormat:"yyyy-MM-dd", timeFormatter: fmtD},
+  grid:{vertLines:{color:"#f0f3fa"}, horzLines:{color:"#f0f3fa"}},
+  crosshair:{mode:0, vertLine:{color:"#9598a1", style:3, labelBackgroundColor:"#131722"}, horzLine:{color:"#9598a1", style:3, labelBackgroundColor:"#131722"}},
+  rightPriceScale:{borderColor:"#e0e3eb", scaleMargins:{top:0.12, bottom:0.24}},
+  timeScale:{borderColor:"#e0e3eb", rightOffset:25, barSpacing:7}, autoSize:true });
+const candles = chart.addCandlestickSeries({upColor:"#089981", downColor:"#f23645", borderUpColor:"#089981", borderDownColor:"#f23645", wickUpColor:"#089981", wickDownColor:"#f23645"});
+const vol = chart.addHistogramSeries({priceScaleId:"vol", priceFormat:{type:"volume"}, lastValueVisible:false, priceLineVisible:false});
+chart.priceScale("vol").applyOptions({scaleMargins:{top:0.84, bottom:0}});
+const volMa = chart.addLineSeries({priceScaleId:"vol", color:"#b2b5be", lineWidth:1, lastValueVisible:false, priceLineVisible:false, crosshairMarkerVisible:false});
+const smas = MA.map(([n,c]) => ({n, c, s:chart.addLineSeries({color:c, lineWidth:1, lastValueVisible:false, priceLineVisible:false, crosshairMarkerVisible:false})}));
+const big = v => v >= 1000 ? (v/1000).toFixed(2) + "B" : v.toFixed(0) + "M";
+const vfmt = v => v >= 1e6 ? (v/1e6).toFixed(2) + "M" : v >= 1e3 ? (v/1e3).toFixed(1) + "K" : String(v);
+function sma(a, n) { const out = []; let s = 0; a.forEach((v,i) => { s += v; if (i >= n) s -= a[i-n]; out.push(i >= n-1 ? s/n : null); }); return out; }
+const showTk = () => document.getElementById("showTk").checked;
+const label = r => showTk() ? `${r.ticker} ${r.k}/${r.n}` : `#${r.id}`;
+
+async function loadList() { LIST = await (await fetch("/api/trainer/list")).json(); renderList(); }
+function visible() {
+  const f = document.getElementById("filt").value;
+  return LIST.filter(r => r.has_bars && (f === "all" || (f === "done" && r.done) || (f === "todo" && !r.done) || (f === "todoA" && !r.done && r.half === "A")));
+}
+function renderList() {
+  const A = LIST.filter(r => r.half === "A" && r.has_bars), dA = A.filter(r => r.done).length, d = LIST.filter(r => r.done).length;
+  document.getElementById("prog").textContent = `half A: ${dA} / ${A.length} graded · total ${d}`;
+  const el = document.getElementById("list"); el.innerHTML = "";
+  for (const r of visible()) {
+    const x = document.createElement("div"); x.className = "item" + (item && r.id === item.id ? " sel" : "");
+    x.innerHTML = `<span>${label(r)}${r.done ? '<span class="badge">✓</span>' : ""}</span><span class="r">${r.half}</span>`;
+    x.onclick = () => openItem(r.id); el.appendChild(x);
+  }
+  const s = el.querySelector(".sel"); if (s) s.scrollIntoView({block:"nearest"});
+}
+
+async function openItem(id) {
+  item = await (await fetch("/api/trainer/item?id=" + id)).json();
+  ans = {pattern:item.answer.pattern || "", r1_date:item.answer.r1_date || "", clean:item.answer.clean || "", notes:item.answer.notes || ""};
+  bars = item.bars.map(([d,o,h,l,c,v]) => ({time:d, open:o, high:h, low:l, close:c, volume:v || 0}));
+  byDate = {}; bars.forEach((b,i) => byDate[b.time] = i);
+  windows = item.windows; earnings = item.earnings; p123 = item.p123;
+  candles.setData(bars.map(({time,open,high,low,close}) => ({time,open,high,low,close})));
+  vol.setData(bars.map(b => ({time:b.time, value:b.volume, color: b.close >= b.open ? "#08998199" : "#f2364599"})));
+  volMa.setData(sma(bars.map(b => b.volume), 20).map((v,i) => v === null ? null : {time:bars[i].time, value:v}).filter(Boolean));
+  maVals = {};
+  for (const m of smas) { const a = sma(bars.map(b => b.close), m.n); maVals[m.n] = a;
+    m.s.setData(a.map((v,i) => v === null ? null : {time:bars[i].time, value:v}).filter(Boolean)); }
+  athRun = []; let mx = -Infinity; bars.forEach(b => { mx = Math.max(mx, b.high); athRun.push(mx); });
+  adr = bars.map((b,i) => { if (i < 13) return null; let s = 0; for (let k = i-13; k <= i; k++) s += bars[k].high / bars[k].low; return (s/14 - 1) * 100; });
+  document.getElementById("warn").textContent = item.bad_spans ? `⚠ bars may not match P123 around ${item.bad_spans} — skip if the chart looks wrong` : "";
+  document.getElementById("notes").value = ans.notes;
+  setTitle(); fit(); updateLegend(null); renderAnswer(); renderList();
+  status(bars.length ? (item.answer.pattern ? "already graded — edit and save again if you like" : "") : "no bars for this one — skip");
+}
+function setTitle() { if (item) document.getElementById("tbox").textContent = showTk() ? `${item.ticker} · flag ${item.k}` : `#${item.id}`; }
+function fit() {
+  if (!bars.length) return;
+  chart.priceScale("right").applyOptions({autoScale:true});
+  chart.timeScale().setVisibleLogicalRange({from: Math.max(0, bars.length - 160), to: bars.length + 25});
+}
+function renderAnswer() {
+  const pe = document.getElementById("pats"); pe.innerHTML = "";
+  for (const [p,k] of PATS) {
+    const b = document.createElement("button"); b.innerHTML = `${p} <kbd>${k}</kbd>`;
+    b.className = ans.pattern === p ? "on" : ""; b.onclick = () => { ans.pattern = p; renderAnswer(); }; pe.appendChild(b);
+  }
+  document.querySelectorAll("#cleans button").forEach(b => b.classList.toggle("on", ans.clean === b.dataset.c));
+  const r = ans.r1_date; const d = r ? `${r.slice(0,4)}-${r.slice(4,6)}-${r.slice(6,8)}` : "";
+  document.getElementById("r1txt").textContent = d && byDate[d] !== undefined ? `${d} @ ${bars[byDate[d]].high.toFixed(2)}` : "—";
+}
+function updateLegend(i) {
+  if (!bars.length) { document.getElementById("legend").innerHTML = ""; return; }
+  if (i === null || i === undefined) i = bars.length - 1;
+  const b = bars[i], p = i > 0 ? bars[i-1].close : b.open, ch = b.close - p, cls = ch >= 0 ? "v-up" : "v-dn", f = v => v.toFixed(v < 1 ? 4 : 2);
+  const mas = smas.map(m => maVals[m.n] && maVals[m.n][i] !== null ? `<span style="color:${m.c}">${f(maVals[m.n][i])}</span>` : "").join(" ");
+  document.getElementById("legend").innerHTML =
+    `<span class="name">${showTk() ? item.ticker : "#" + item.id}</span> <span class="src">· 1D · blind</span> &nbsp;` +
+    `<span class="o">O</span><span class="${cls}">${f(b.open)}</span> <span class="o">H</span><span class="${cls}">${f(b.high)}</span> ` +
+    `<span class="o">L</span><span class="${cls}">${f(b.low)}</span> <span class="o">C</span><span class="${cls}">${f(b.close)}</span> ` +
+    `<span class="${cls}">${ch >= 0 ? "+" : ""}${f(ch)} (${(ch / p * 100).toFixed(2)}%)</span><br>` +
+    `<span class="src">SMA 10 20 200</span> ${mas}<br><span class="src">HTF Scanner Days · Vol ${vfmt(b.volume)}</span>`;
+  let mc = null, adv = null; const d = b.time;
+  for (let k = p123.length - 1; k >= 0; k--) if (p123[k][0] <= d) { mc = p123[k][1]; adv = p123[k][2]; break; }
+  const a = adr[i], ath = (b.close / athRun[i] - 1) * 100, to = mc && adv ? adv / (mc * 1e6) * 100 : null;
+  const c = (ok, s) => `<span class="${ok ? "green" : "red"}">${s}</span>`;
+  document.getElementById("br").innerHTML =
+    c(a !== null && a >= 5, `ADR: ${a === null ? "–" : a.toFixed(2)} %`) + c(mc !== null && mc < 2000, `MCAP: ${mc === null ? "–" : big(mc)}`) + "<br>" +
+    c(ath > -10, `ATH: ${ath.toFixed(2)} %`) + c(to !== null && to >= 1, `TURNOVER: ${to === null ? "–" : to.toFixed(2)} %`);
+}
+chart.subscribeCrosshairMove(p => { const t = fmtD(p.time); updateLegend(t && byDate[t] !== undefined ? byDate[t] : null); });
+chart.subscribeClick(p => { const t = fmtD(p.time); if (!t || byDate[t] === undefined) return; ans.r1_date = t.replaceAll("-", ""); renderAnswer(); });
+
+async function save() {
+  if (!item || !bars.length) return go(1);
+  ans.notes = document.getElementById("notes").value;
+  if (!ans.pattern) return status("pick a pattern first (1–6, 0 = not a setup)");
+  if (ans.pattern !== "No setup" && !ans.r1_date) return status("click the R1 candle first");
+  await fetch("/api/trainer/save", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({id:item.id, ...ans})});
+  const r = LIST.find(x => x.id === item.id); if (r) r.done = true;
+  status("saved"); go(1, true);
+}
+function go(dir, afterSave=false) {
+  const vis = visible(); let i = vis.findIndex(r => r.id === item?.id);
+  if (afterSave && i < 0) { const all = LIST.filter(r => r.has_bars); const j = all.findIndex(r => r.id === item.id);
+    const n = all.slice(j + 1).find(r => vis.includes(r)); return n ? openItem(n.id) : renderList(); }
+  const n = vis[Math.min(vis.length - 1, Math.max(0, i < 0 ? 0 : i + dir))]; if (n) openItem(n.id);
+}
+function status(s) { document.getElementById("status").textContent = s; }
+document.getElementById("prev").onclick = () => go(-1);
+document.getElementById("next").onclick = () => go(1);
+document.getElementById("fit").onclick = fit;
+document.getElementById("save").onclick = save;
+document.getElementById("filt").onchange = renderList;
+document.getElementById("showTk").onchange = () => { setTitle(); updateLegend(null); renderList(); };
+document.querySelectorAll("#cleans button").forEach(b => b.onclick = () => { ans.clean = ans.clean === b.dataset.c ? "" : b.dataset.c; renderAnswer(); });
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;
+  const k = e.key.toLowerCase(), pk = PATS.find(([,c]) => c === k);
+  if (pk) { ans.pattern = pk[0]; renderAnswer(); }
+  else if (k === "q" || k === "w" || k === "x") { ans.clean = {q:"1", w:"2", x:"3"}[k]; renderAnswer(); }
+  else if (k === "enter") { e.preventDefault(); save(); }
+  else if (k === "n") go(1); else if (k === "p") go(-1); else if (k === "z") fit();
+});
+
+// overlay: scanner shading (behind), earnings tags, confirmation line, R1 line
+const cv = document.getElementById("overlay"), ctx = cv.getContext("2d"), bcv = document.getElementById("back"), bctx = bcv.getContext("2d");
+const X = t => chart.timeScale().timeToCoordinate(t), Y = p => candles.priceToCoordinate(p);
+function nearestIdx(d) { if (byDate[d] !== undefined) return byDate[d]; const i = bars.findIndex(b => b.time >= d); return i < 0 ? bars.length - 1 : i; }
+function draw() {
+  const wrap = document.getElementById("chartwrap"), w = wrap.clientWidth, h = wrap.clientHeight, dpr = window.devicePixelRatio || 1;
+  for (const c of [cv, bcv]) if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h); bctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.clearRect(0, 0, w, h);
+  const plotW = w - chart.priceScale("right").width(), plotH = h - chart.timeScale().height(), priceBottom = plotH * 0.80;
+  document.getElementById("br").style.top = (priceBottom - 64) + "px";
+  document.getElementById("br").style.right = (w - plotW + 14) + "px";
+  if (!bars.length) return requestAnimationFrame(draw);
+  const half = Math.max(0.5, chart.timeScale().options().barSpacing / 2);
+  bctx.save(); bctx.beginPath(); bctx.rect(0, 0, plotW, plotH); bctx.clip();
+  if (windows) [["1m","rgba(0,188,212,0.20)"],["3m","rgba(224,64,251,0.20)"],["6m","rgba(255,235,59,0.20)"]].forEach(([k,c]) => {
+    for (const [a,b] of windows[k] || []) { const xa = X(bars[nearestIdx(a)].time), xb = X(bars[Math.min(bars.length - 1, nearestIdx(b))].time);
+      if (xa === null && xb === null) continue; bctx.fillStyle = c; bctx.fillRect((xa ?? -half) - half, 0, ((xb ?? plotW) + half) - ((xa ?? -half) - half), priceBottom); }
+  });
+  bctx.restore();
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, plotW, plotH); ctx.clip();
+  ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
+  for (const d of earnings) { const xe = X(bars[nearestIdx(d)].time); if (xe === null) continue; const y0 = priceBottom - 22;
+    ctx.strokeStyle = "#f23645"; ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.moveTo(xe - 8, y0); ctx.lineTo(xe + 8, y0); ctx.lineTo(xe + 8, y0 + 12); ctx.lineTo(xe, y0 + 17); ctx.lineTo(xe - 8, y0 + 12); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#f23645"; ctx.fillText("E", xe, y0 + 10); }
+  // confirmation day = last bar
+  const xc = X(bars[bars.length - 1].time);
+  if (xc !== null) { ctx.strokeStyle = "#787b86"; ctx.lineWidth = 1; ctx.setLineDash([2,3]); ctx.beginPath(); ctx.moveTo(xc + half + 2, 0); ctx.lineTo(xc + half + 2, priceBottom); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = "#787b86"; ctx.textAlign = "left"; ctx.font = "11px sans-serif"; ctx.fillText("confirmed · future hidden", xc + half + 6, 14); }
+  // R1 line from the chosen candle to the right edge
+  const r = ans.r1_date, d = r ? `${r.slice(0,4)}-${r.slice(4,6)}-${r.slice(6,8)}` : null;
+  if (d && byDate[d] !== undefined) { const lvl = bars[byDate[d]].high, xr = X(d);
+    if (xr !== null) { ctx.strokeStyle = "#ff9800"; ctx.lineWidth = 2; ctx.setLineDash([2,3]); ctx.beginPath(); ctx.moveTo(xr, Y(lvl)); ctx.lineTo(plotW, Y(lvl)); ctx.stroke(); ctx.setLineDash([]); } }
+  ctx.restore();
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+loadList().then(() => { const f = visible()[0]; if (f) openItem(f.id); });
+</script>
+</body>
+</html>

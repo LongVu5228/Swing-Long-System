@@ -1,0 +1,47 @@
+[
+ {
+  "id": "CYPH-2026-09-21-204652",
+  "ticker": "CYPH",
+  "armed_on": "2026-09-21",
+  "created": "2026-11-24T20:46:52",
+  "r1": 4.02,
+  "r1_date": "2026-09-21",
+  "pattern": "Red HTF",
+  "status": "disarmed",
+  "updated": "2026-11-25T11:07:18",
+  "was": "watch"
+ },
+ {
+  "id": "CAPR-2026-09-21-110805",
+  "ticker": "CAPR",
+  "armed_on": "2026-09-21",
+  "created": "2026-11-25T11:08:05",
+  "r1": 11.0,
+  "r1_date": "2026-09-01",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T11:08:05"
+ },
+ {
+  "id": "HTFL-2026-09-21-111652",
+  "ticker": "HTFL",
+  "armed_on": "2026-09-21",
+  "created": "2026-11-25T11:16:52",
+  "r1": 52.2212,
+  "r1_date": "2026-09-18",
+  "pattern": "Green HTF",
+  "status": "armed",
+  "updated": "2026-11-25T11:16:58"
+ },
+ {
+  "id": "LITE-2026-09-21-112619",
+  "ticker": "LITE",
+  "armed_on": "2026-09-21",
+  "created": "2026-11-25T11:26:19",
+  "r1": 1049.53,
+  "r1_date": "2026-06-03",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T11:26:19"
+ }
+]

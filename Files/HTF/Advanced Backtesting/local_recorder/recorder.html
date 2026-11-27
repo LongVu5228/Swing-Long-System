@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTF Local Recorder</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+  :root { --bg:#ffffff; --panel:#f8f9fd; --line:#e0e3eb; --text:#131722; --muted:#787b86; --accent:#2962ff;
+          --up:#089981; --down:#f23645; --cyan:#00bcd4; --orange:#ff9800; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:13px/1.4 -apple-system,BlinkMacSystemFont,"Trebuchet MS",Roboto,Ubuntu,sans-serif;
+         height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  #toolbar { height:38px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; padding:0 10px; flex:none; }
+  #tbox { border:1px solid var(--line); border-radius:4px; padding:3px 10px; font-weight:600; min-width:110px; background:#f0f3fa; }
+  .tf { color:var(--text); font-weight:600; padding:2px 6px; border-radius:4px; background:#f0f3fa; }
+  #toolbar .sp { flex:1; }
+  #body { flex:1; display:flex; min-height:0; }
+  #side { width:200px; background:var(--panel); border-right:1px solid var(--line); display:flex; flex-direction:column; flex:none; }
+  #side input, #side select { margin:6px 6px 0; padding:5px 6px; background:#fff; color:var(--text); border:1px solid var(--line); border-radius:4px; }
+  #list { overflow-y:auto; flex:1; margin-top:6px; }
+  .item { padding:3px 8px; cursor:pointer; display:flex; justify-content:space-between; border-bottom:1px solid #eef0f5; }
+  .item:hover { background:#f0f3fa; } .item.sel { background:#e3eaff; }
+  .item .r { color:var(--muted); font-size:11px; }
+  .badge { font-size:10px; padding:0 4px; border-radius:3px; margin-left:4px; }
+  .b-done { background:#08998122; color:#067a67; } .b-none { background:#78787822; color:#555; } .b-sus { background:#f2364522; color:#c8102e; } .b-tv { background:#2962ff22; color:#1e4bd2; }
+  #chartwrap { position:relative; flex:1; min-width:0; }
+  #chartwrap { background:#fff; }
+  #back { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+  #chart { position:absolute; inset:0; z-index:1; }
+  #overlay { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:2; }
+  #legend { position:absolute; left:10px; top:6px; z-index:3; pointer-events:none; font-size:13px; line-height:1.75; }
+  #legend .name { font-size:16px; }
+  #legend .src { color:var(--muted); }
+  .o { color:var(--muted); } .v-up { color:var(--up); } .v-dn { color:var(--down); }
+  #bl { position:absolute; left:14px; z-index:3; pointer-events:none; font-size:14px; line-height:1.7; color:var(--cyan); }
+  #bl .next { color:var(--orange); }
+  #br { position:absolute; right:80px; z-index:3; pointer-events:none; font-size:14px; line-height:1.7; text-align:right; }
+  #br span { margin-left:22px; }
+  .red { color:var(--down); } .green { color:var(--up); }
+  #panel { width:285px; background:var(--panel); border-left:1px solid var(--line); padding:8px; overflow-y:auto; flex:none; }
+  button { background:#fff; color:var(--text); border:1px solid var(--line); border-radius:4px; padding:4px 8px; cursor:pointer; font:inherit; }
+  button:hover { background:#f0f3fa; } button.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .flag { background:#fff; border:1px solid var(--line); border-radius:6px; padding:6px; margin:6px 0; cursor:pointer; }
+  .flag.sel { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent); }
+  .flag { position:relative; } .del { position:absolute; right:6px; top:4px; padding:0 6px; color:#c8102e; border-color:transparent; background:transparent; }
+  .del:hover { background:#f2364522; }
+  .flag .fields { display:grid; grid-template-columns:62px 1fr; gap:1px 6px; margin-top:4px; font-size:12px; }
+  .fields b { color:var(--muted); font-weight:500; }
+  .prob { color:#c8102e; font-size:11px; }
+  select.pat { width:100%; margin-top:4px; background:#fff; color:var(--text); border:1px solid var(--line); padding:3px; border-radius:4px; }
+  #status { font-size:12px; margin-top:8px; color:var(--muted); }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin:6px 0; }
+  kbd { background:#f0f3fa; border:1px solid #d1d4dc; border-radius:3px; padding:0 4px; font-size:11px; }
+  .help { color:var(--muted); font-size:12px; margin-top:10px; line-height:1.6; }
+  .warnbar { color:#c8102e; font-size:12px; }
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span id="tbox">—</span><span class="tf">D</span>
+  <span class="warnbar" id="warn"></span>
+  <span class="sp"></span>
+  <span style="color:var(--muted)">HTF Layout · Massive daily</span>
+</div>
+<div id="body">
+  <div id="side">
+    <input id="search" placeholder="search ticker / row">
+    <select id="filt"><option value="next">to do: row 1217+ and delisted, not reviewed</option><option value="nextall">row 1217+ and delisted, all</option><option value="devall">dev range to DKNG, all</option><option value="dev">dev range to DKNG, not reviewed</option><option value="todo">all rows, not reviewed</option><option value="done">reviewed</option><option value="all">all rows</option></select>
+    <div id="prog" style="margin:6px 8px 0; font-size:12px; color:var(--muted)"></div>
+    <div id="list"></div>
+  </div>
+  <div id="chartwrap">
+    <canvas id="back"></canvas><div id="chart"></div><canvas id="overlay"></canvas>
+    <div id="legend"></div>
+    <div id="bl"></div>
+    <div id="br"></div>
+  </div>
+  <div id="panel">
+    <div class="row"><button id="prev">◀ Prev <kbd>P</kbd></button><button id="next">Next <kbd>N</kbd> ▶</button><button id="fit">Fit chart <kbd>Z</kbd></button></div>
+    <div class="row"><button id="addFlag">+ New flag <kbd>F</kbd></button><button id="noFlags">No flags here</button></div>
+    <div class="row" id="modes">
+      <button data-m="start">1. Start <kbd>S</kbd></button><button data-m="conf">2. Confirmed <kbd>C</kbd></button>
+      <button data-m="end">3. End <kbd>E</kbd></button><button data-m="r1">4. R1 candle <kbd>R</kbd></button>
+    </div>
+    <div id="flags"></div>
+    <div id="status"></div>
+    <div class="help">
+      Clicking the chart does nothing until you arm a field: <kbd>F</kbd> starts a new flag, or
+      <kbd>S</kbd>/<kbd>R</kbd>/<kbd>C</kbd>/<kbd>E</kbd> (or a button) re-sets one field of the selected flag.
+      While armed (blue button, crosshair cursor) each click fills the field and moves to the next empty one,
+      in the TradingView recorder's order: <b>1. Start</b> → <b>2. Confirmed</b> (HL or LL) → <b>3. End</b> / reclaim end
+      (= Confirmed for a failed lower low) → <b>4. R1 candle</b> (its high = the level). It stops by itself once all
+      four are set. <kbd>Esc</kbd> stops early.<br>
+      Pattern: <b>Auto</b> lets ingest classify it; <kbd>1</kbd>–<kbd>6</kbd> pick one, <kbd>0</kbd> = Auto.<br>
+      <kbd>Del</kbd> deletes the selected flag. <kbd>H</kbd> toggles the scanner's auto flagpole-high markers. Saves on every change; then run <code>ingest_exports.py</code>.
+    </div>
+  </div>
+</div>
+<script>
+const PATS = ["Auto","Green HTF","Red HTF","Perfect HTF","Big Green Flag","Big Red Flag","Big Perfect Flag"];
+const PCOL = {"Green HTF":"#089981","Big Green Flag":"#089981","Red HTF":"#f23645","Big Red Flag":"#f23645",
+              "Perfect HTF":"#9c27b0","Big Perfect Flag":"#9c27b0","Auto":"#787b86"};
+const ORDER = ["start","conf","end","r1"];        // same as the TradingView recorder: 1 Start, 2 Confirmed, 3 End, 4 R1 candle
+const MA = [[10,"#9c27b0",1],[20,"#ff9800",1],[200,"#2962ff",1]];
+let LIST = [], cur = null, info = null, bars = [], flags = [], sel = -1, mode = "start", armed = false, windows = null, byDate = {};
+let maVals = {}, p123 = [], earnings = [], athRun = [], adr = [], showHH = false;
+
+const chart = LightweightCharts.createChart(document.getElementById("chart"), {
+  layout:{background:{type:"solid", color:"transparent"}, textColor:"#131722", fontSize:12},
+  localization:{dateFormat:"yyyy-MM-dd", timeFormatter: t => typeof t === "string" ? t : (t && t.year ? `${t.year}-${String(t.month).padStart(2,"0")}-${String(t.day).padStart(2,"0")}` : "")},
+  grid:{vertLines:{color:"#f0f3fa"}, horzLines:{color:"#f0f3fa"}},
+  crosshair:{mode:0, vertLine:{color:"#9598a1", style:3, labelBackgroundColor:"#131722"},
+             horzLine:{color:"#9598a1", style:3, labelBackgroundColor:"#131722"}},
+  rightPriceScale:{borderColor:"#e0e3eb", scaleMargins:{top:0.12, bottom:0.24}},
+  timeScale:{borderColor:"#e0e3eb", rightOffset:12, barSpacing:7}, autoSize:true });
+const candles = chart.addCandlestickSeries({upColor:"#089981", downColor:"#f23645", borderUpColor:"#089981",
+  borderDownColor:"#f23645", wickUpColor:"#089981", wickDownColor:"#f23645"});
+const vol = chart.addHistogramSeries({priceScaleId:"vol", priceFormat:{type:"volume"}, lastValueVisible:false, priceLineVisible:false});
+chart.priceScale("vol").applyOptions({scaleMargins:{top:0.84, bottom:0}});
+const volMa = chart.addLineSeries({priceScaleId:"vol", color:"#b2b5be", lineWidth:1, lastValueVisible:false, priceLineVisible:false, crosshairMarkerVisible:false});
+const smas = MA.map(([n,c,w]) => ({n, c, s:chart.addLineSeries({color:c, lineWidth:w, lastValueVisible:false, priceLineVisible:false, crosshairMarkerVisible:false})}));
+
+const toStr = t => typeof t === "string" ? t :
+  (t && t.year ? `${t.year}-${String(t.month).padStart(2,"0")}-${String(t.day).padStart(2,"0")}` : null);
+const fmtUS = d => { const [y,m,dd] = d.split("-"); return `${+m}/${+dd}/${y}`; };
+const big = v => v >= 1000 ? (v/1000).toFixed(2) + "B" : v.toFixed(0) + "M";
+const vfmt = v => v >= 1e6 ? (v/1e6).toFixed(2) + "M" : v >= 1e3 ? (v/1e3).toFixed(1) + "K" : String(v);
+
+const TV_LAST_ROW = 1216;   // EQT: TradingView recorder used through this row; local recorder from here on
+async function loadList() { LIST = await (await fetch("/api/list")).json(); renderList(); }
+function visibleList() {
+  const q = document.getElementById("search").value.trim().toUpperCase(), f = document.getElementById("filt").value;
+  return LIST.filter(r => (!q || r.ticker.toUpperCase().includes(q) || String(r.row) === q) &&
+    (f === "all" || (f === "todo" && !r.reviewed) || (f === "done" && r.reviewed) ||
+     (f === "next" && !r.reviewed && (r.row > TV_LAST_ROW || r.delisted)) ||
+     (f === "nextall" && (r.row > TV_LAST_ROW || r.delisted)) ||
+     (f === "dev" && r.row <= 1052 && !r.reviewed) || (f === "devall" && r.row <= 1052)));
+}
+function renderList() {
+  const dev = LIST.filter(r => r.row <= 1052), dd = dev.filter(r => r.reviewed).length;
+  const nf = LIST.reduce((a, r) => a + (r.n_flags || 0), 0);
+  const nx = LIST.filter(r => r.row > TV_LAST_ROW || r.delisted), nd = nx.filter(r => r.reviewed).length;
+  document.getElementById("prog").textContent = `to do: ${nd} / ${nx.length} reviewed · dev ${dd} / ${dev.length} · ${nf} local flags`;
+  const el = document.getElementById("list"); el.innerHTML = "";
+  for (const r of visibleList()) {
+    const d = document.createElement("div"); d.className = "item" + (cur && r.ticker === cur ? " sel" : "");
+    let b = r.reviewed ? (r.n_flags ? `<span class="badge b-done">${r.n_flags}</span>` : `<span class="badge b-none">0</span>`) : "";
+    if (r.tv !== null && r.tv !== undefined) b += `<span class="badge b-tv" title="charted in TradingView">TV${r.tv > 0 ? " " + r.tv : ""}</span>`;
+    if (r.status !== "OK") b += `<span class="badge b-sus">${r.status}</span>`;
+    d.innerHTML = `<span>${r.ticker}${b}</span><span class="r">${r.row}</span>`;
+    d.onclick = () => openTicker(r.ticker); el.appendChild(d);
+  }
+  const s = el.querySelector(".sel"); if (s) s.scrollIntoView({block:"nearest"});
+}
+
+async function openTicker(t) {
+  const j = await (await fetch("/api/ticker?t=" + encodeURIComponent(t))).json();
+  cur = t; info = j.info; windows = j.windows; flags = j.flags || []; sel = flags.length ? 0 : -1; mode = "start"; armed = false;
+  p123 = j.p123 || []; earnings = j.earnings || [];
+  bars = j.bars.map(([d,o,h,l,c,v]) => ({time:d, open:o, high:h, low:l, close:c, volume:v || 0}));
+  byDate = {}; bars.forEach((b,i) => byDate[b.time] = i);
+  candles.setData(bars.map(({time,open,high,low,close}) => ({time,open,high,low,close})));
+  vol.setData(bars.map(b => ({time:b.time, value:b.volume, color: b.close >= b.open ? "#08998199" : "#f2364599"})));
+  volMa.setData(sma(bars.map(b => b.volume), 20).map((v,i) => v === null ? null : {time:bars[i].time, value:v}).filter(Boolean));
+  maVals = {};
+  for (const m of smas) {
+    const a = sma(bars.map(b => b.close), m.n); maVals[m.n] = a;
+    m.s.setData(a.map((v,i) => v === null ? null : {time:bars[i].time, value:v}).filter(Boolean));
+  }
+  athRun = []; let mx = -Infinity; bars.forEach(b => { mx = Math.max(mx, b.high); athRun.push(mx); });
+  adr = bars.map((b,i) => { if (i < 13) return null; let s = 0; for (let k = i-13; k <= i; k++) s += bars[k].high / bars[k].low; return (s/14 - 1) * 100; });
+  document.getElementById("tbox").textContent = t;
+  document.getElementById("warn").textContent = info.bad_spans
+    ? `⚠ bars don't match P123 around streak ${info.bad_spans} (renamed / reused symbol) — don't flag there`
+    : info.status !== "OK"
+    ? `⚠ data ${info.status}: P123 check failed (1M return diff ${info.p123_ret1m_median_diff ?? "n/a"}) — prices may be another company` : "";
+  fitChart(true);
+  renderBottom(); updateLegend(null); renderFlags(); renderList();
+  flags.forEach(f => classifyFlag(f));
+  status(j.reviewed ? `reviewed ${j.reviewed}` : "not reviewed yet");
+}
+// Fit: price auto-scale back on, and zoom to the selected flag (or the first scanner streak on open / no flag)
+function fitChart(onOpen=false) {
+  if (!bars.length) return;
+  chart.priceScale("right").applyOptions({autoScale:true});
+  const f = !onOpen && sel >= 0 ? flags[sel] : null;
+  if (f && f.start && byDate[f.start] !== undefined) {
+    const a = byDate[f.start], b = byDate[f.end || f.conf || f.start] ?? a;
+    const span = Math.max(20, Math.abs(b - a));
+    chart.timeScale().setVisibleLogicalRange({from: Math.max(0, Math.min(a, b) - 2 * span), to: Math.min(bars.length + 8, Math.max(a, b) + 2 * span)});
+  } else {
+    const first = (windows["1m"][0] || windows["3m"][0] || windows["6m"][0] || [])[0] || fmtISO(info.first_seen);
+    const fi = nearestIdx(first);
+    chart.timeScale().setVisibleLogicalRange({from: Math.max(0, fi - 130), to: Math.min(bars.length + 8, fi + 110)});
+  }
+}
+function sma(a, n) { const out = []; let s = 0; a.forEach((v,i) => { s += v; if (i >= n) s -= a[i-n]; out.push(i >= n-1 ? s/n : null); }); return out; }
+function fmtISO(s) { s = String(s); if (s.includes("/")) { const [m,d,y] = s.split("/"); return `${y}-${m.padStart(2,"0")}-${d.padStart(2,"0")}`; } return s.slice(0,10); }
+function nearestIdx(d) { if (byDate[d] !== undefined) return byDate[d]; const i = bars.findIndex(b => b.time >= d); return i < 0 ? bars.length - 1 : i; }
+
+function renderBottom() {
+  const nextRow = LIST[LIST.findIndex(r => r.ticker === cur) + 1];
+  document.getElementById("bl").innerHTML =
+    `First seen&nbsp; ${fmtUS(fmtISO(info.first_seen))} &nbsp;&nbsp; Last seen&nbsp; ${fmtUS(fmtISO(info.last_seen))}<br>` +
+    `Streaks&nbsp; ${info.n_streaks} &nbsp; (row ${info.list_row}) &nbsp;&nbsp; <span class="next">Next&nbsp; ${nextRow ? nextRow.ticker : "END"}</span>`;
+}
+function statsAt(i) {
+  if (i === null || i === undefined || i < 0) i = bars.length - 1;
+  const d = bars[i].time;
+  let mc = null, adv = null;
+  for (let k = p123.length - 1; k >= 0; k--) if (p123[k][0] <= d) { mc = p123[k][1]; adv = p123[k][2]; break; }
+  const a = adr[i], ath = (bars[i].close / athRun[i] - 1) * 100, to = mc && adv ? adv / (mc * 1e6) * 100 : null;
+  const c = (ok, s) => `<span class="${ok ? "green" : "red"}">${s}</span>`;
+  document.getElementById("br").innerHTML =
+    c(a !== null && a >= 5, `ADR: ${a === null ? "–" : a.toFixed(2)} %`) + c(mc !== null && mc < 2000, `MCAP: ${mc === null ? "–" : big(mc)}`) + "<br>" +
+    c(ath > -10, `ATH: ${ath.toFixed(2)} %`) + c(to !== null && to >= 1, `TURNOVER: ${to === null ? "–" : to.toFixed(2)} %`);
+}
+function updateLegend(i) {
+  if (!bars.length) return;
+  if (i === null || i === undefined) i = bars.length - 1;
+  const b = bars[i], p = i > 0 ? bars[i-1].close : b.open, ch = b.close - p, cls = ch >= 0 ? "v-up" : "v-dn";
+  const f = v => v.toFixed(v < 1 ? 4 : 2);
+  const mas = smas.map(m => maVals[m.n] && maVals[m.n][i] !== null ? `<span style="color:${m.c}">${f(maVals[m.n][i])}</span>` : "").join(" ");
+  document.getElementById("legend").innerHTML =
+    `<span class="name">${cur}</span> <span class="src">· 1D · Massive · delisted</span> &nbsp;` +
+    `<span class="o">O</span><span class="${cls}">${f(b.open)}</span> <span class="o">H</span><span class="${cls}">${f(b.high)}</span> ` +
+    `<span class="o">L</span><span class="${cls}">${f(b.low)}</span> <span class="o">C</span><span class="${cls}">${f(b.close)}</span> ` +
+    `<span class="${cls}">${ch >= 0 ? "+" : ""}${f(ch)} (${(ch / p * 100).toFixed(2)}%)</span><br>` +
+    `<span class="src">SMA 10 20 200</span> ${mas}<br>` +
+    `<span class="src">HTF Scanner Days · Vol ${vfmt(b.volume)}</span>`;
+  statsAt(i);
+}
+chart.subscribeCrosshairMove(p => { const t = toStr(p.time); updateLegend(t && byDate[t] !== undefined ? byDate[t] : null); });
+
+function renderFlags() {
+  const el = document.getElementById("flags"); el.innerHTML = "";
+  flags.forEach((f,k) => {
+    const d = document.createElement("div"); d.className = "flag" + (k === sel ? " sel" : "");
+    const r1p = f.r1 && byDate[f.r1] !== undefined ? bars[byDate[f.r1]].high.toFixed(2) : "";
+    const pr = problems(f);
+    d.innerHTML = `<button class="del" title="delete this flag">✕</button><b>Flag ${k+1}</b> ${pr.length ? `<span class="prob">${pr.join(" · ")}</span>` : ""}
+      <div class="fields"><b>1. Start</b><span>${f.start||"—"}</span><b>2. Conf</b><span>${f.conf||"—"}</span>
+      <b>3. End</b><span>${f.end||"—"}</span><b>4. R1</b><span>${f.r1||"—"} ${r1p ? "@ "+r1p : ""}</span></div>`;
+    const s = document.createElement("select"); s.className = "pat";
+    PATS.forEach(p => { const o = document.createElement("option"); o.value = p;
+      o.textContent = p === "Auto" ? (f.auto ? `Auto → ${f.auto}` : "Auto (set Start, Confirmed, End)") : p;
+      if ((f.pattern||"Auto") === p) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { f.pattern = s.value; save(); };
+    s.onclick = e => e.stopPropagation();
+    d.appendChild(s);
+    d.querySelector(".del").onclick = e => { e.stopPropagation(); deleteFlag(k); };
+    d.onclick = () => { sel = k; armed = false; renderFlags(); };
+    el.appendChild(d);
+  });
+  document.querySelectorAll("#modes button").forEach(b => b.classList.toggle("on", armed && sel >= 0 && b.dataset.m === mode));
+  document.getElementById("chart").style.cursor = armed ? "crosshair" : "";
+}
+async function classifyFlag(f) {
+  if (!(f.start && f.conf && f.end)) { f.auto = null; return; }
+  const r = await (await fetch("/api/classify", {method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ticker:cur, flag:{start:f.start, conf:f.conf, end:f.end, r1:f.r1}})})).json();
+  f.auto = r.pattern; renderFlags();
+}
+const shownPat = f => (f.pattern && f.pattern !== "Auto") ? f.pattern : (f.auto || "Auto");
+function deleteFlag(k) {
+  flags.splice(k, 1); sel = Math.min(sel, flags.length - 1); armed = false; renderFlags(); save();
+}
+function problems(f) {
+  const p = [];
+  if (!(f.start && f.conf && f.end)) p.push("incomplete");
+  if (f.start && f.conf && f.start > f.conf) p.push("start after confirm");
+  if (f.conf && f.end && f.conf > f.end) p.push("end before confirm");
+  if (f.r1 && f.conf && f.r1 > f.conf) p.push("R1 bar after confirm");
+  if (f.r1 && f.conf && byDate[f.r1] !== undefined && byDate[f.conf] !== undefined && byDate[f.conf] > byDate[f.r1] &&
+      bars[byDate[f.conf]].high >= bars[byDate[f.r1]].high) p.push("R1 already broken on confirm day");
+  return p;
+}
+
+// clicks only record while a field is armed (New flag, a field button, or S/R/C/E); otherwise they do nothing
+chart.subscribeClick(p => {
+  const t = toStr(p.time); if (!t || !cur || !armed || sel < 0) return;
+  const f = flags[sel]; f[mode] = t;
+  const nxt = ORDER.find(m => !f[m]);
+  if (nxt) mode = nxt; else armed = false;          // all four set -> stop recording
+  renderFlags(); save(); classifyFlag(f);
+});
+
+let saveTimer = null;
+function save(noFlags=false) {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    const r = await (await fetch("/api/save", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ticker:cur, flags, no_flags:noFlags})})).json();
+    const it = LIST.find(x => x.ticker === cur); if (it) { it.n_flags = flags.length; it.reviewed = flags.length > 0 || noFlags; }
+    renderList();
+    status(r.export ? `saved · ${r.export.split(/[\\/]/).pop()} in Downloads` : (r.removed ? "saved · no flags left, export removed from Downloads" : noFlags ? "saved: no flags" : "saved"));
+  }, 150);
+}
+function status(s) { document.getElementById("status").textContent = s; }
+
+function go(dir) {
+  const vis = visibleList(), i = vis.findIndex(r => r.ticker === cur);
+  const n = vis[Math.min(vis.length - 1, Math.max(0, (i < 0 ? 0 : i + dir)))]; if (n) openTicker(n.ticker);
+}
+document.getElementById("prev").onclick = () => go(-1);
+document.getElementById("fit").onclick = () => fitChart();
+document.getElementById("next").onclick = () => go(1);
+document.getElementById("addFlag").onclick = () => { flags.push({pattern:"Auto"}); sel = flags.length - 1; mode = "start"; armed = true; renderFlags(); };
+document.getElementById("noFlags").onclick = () => { if (flags.length && !confirm("Delete this ticker's flags and mark it 'no flags'?")) return; flags = []; sel = -1; renderFlags(); save(true); };
+document.querySelectorAll("#modes button").forEach(b => b.onclick = () => { if (sel < 0) return; if (armed && mode === b.dataset.m) armed = false; else { mode = b.dataset.m; armed = true; } renderFlags(); });
+document.getElementById("search").oninput = renderList;
+document.getElementById("filt").onchange = renderList;
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  const k = e.key.toLowerCase();
+  if (k === "f") document.getElementById("addFlag").click();
+  else if (["s","r","c","e"].includes(k) && sel >= 0) { mode = {s:"start", r:"r1", c:"conf", e:"end"}[k]; armed = true; renderFlags(); }
+  else if (k === "escape") { armed = false; renderFlags(); }
+  else if (k >= "0" && k <= "6" && k.length === 1 && sel >= 0) { flags[sel].pattern = PATS[+k]; renderFlags(); save(); }
+  else if ((k === "delete" || k === "backspace") && sel >= 0) { e.preventDefault(); deleteFlag(sel); }
+  else if (k === "n") go(1); else if (k === "p") go(-1); else if (k === "z") fitChart();
+  else if (k === "h") { showHH = !showHH; status(showHH ? "showing scanner flagpole highs (H to hide)" : "flagpole highs hidden"); }
+});
+
+// ---- overlay: scanner-day shading (TV bgcolor look), earnings, flag boxes, R1 lines ----
+const cv = document.getElementById("overlay"), ctx = cv.getContext("2d");
+const bcv = document.getElementById("back"), bctx = bcv.getContext("2d");
+const X = t => chart.timeScale().timeToCoordinate(t), Y = p => candles.priceToCoordinate(p);
+function bandX(a, b, half, w) {
+  const ia = nearestIdx(a), ib = Math.min(bars.length - 1, nearestIdx(b));
+  let xa = X(bars[ia].time), xb = X(bars[ib].time);
+  if (xa === null && xb === null) return null;
+  return [(xa ?? -half) - half, (xb ?? w + half) + half];
+}
+function draw() {
+  const wrap = document.getElementById("chartwrap");
+  const w = wrap.clientWidth, h = wrap.clientHeight, dpr = window.devicePixelRatio || 1;
+  for (const c of [cv, bcv]) if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+  bctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.clearRect(0, 0, w, h);
+  const plotW = w - chart.priceScale("right").width(), plotH = h - chart.timeScale().height();
+  const priceBottom = plotH * 0.80;
+  document.getElementById("bl").style.top = (priceBottom - 64) + "px";
+  document.getElementById("br").style.top = (priceBottom - 64) + "px";
+  document.getElementById("br").style.right = (w - plotW + 14) + "px";
+  if (!bars.length) return requestAnimationFrame(draw);
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, plotW, plotH); ctx.clip();
+  const half = Math.max(0.5, chart.timeScale().options().barSpacing / 2);
+  // scanner days: behind the candles, like TradingView bgcolor (layers blend where windows overlap)
+  bctx.save(); bctx.beginPath(); bctx.rect(0, 0, plotW, plotH); bctx.clip();
+  if (windows) [["1m","rgba(0,188,212,0.20)"],["3m","rgba(224,64,251,0.20)"],["6m","rgba(255,235,59,0.20)"]].forEach(([k,c]) => {
+    for (const [a,b] of windows[k] || []) { const bx = bandX(a, b, half, plotW); if (!bx) continue; bctx.fillStyle = c; bctx.fillRect(bx[0], 0, bx[1] - bx[0], priceBottom); }
+  });
+  bctx.restore();
+  // earnings "E" tags at the bottom of the price pane
+  ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
+  for (const d of earnings) {
+    const i = nearestIdx(d), xe = X(bars[i].time); if (xe === null) continue;
+    const y0 = priceBottom - 22; ctx.strokeStyle = "#f23645"; ctx.fillStyle = "#fff"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(xe - 8, y0); ctx.lineTo(xe + 8, y0); ctx.lineTo(xe + 8, y0 + 12); ctx.lineTo(xe, y0 + 17); ctx.lineTo(xe - 8, y0 + 12); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#f23645"; ctx.fillText("E", xe, y0 + 10);
+  }
+  ctx.textAlign = "left";
+  // flag boxes drawn like the TradingView recorder (generate_recorder.py): borderless box from Start to End,
+  // high/low of that span padded 1%, fill = pattern color at 90% transparency; dotted Confirmed line inside the
+  // box (70%); "N Pattern (auto)" label-down at the top center (30%, white text); R1 = dotted orange width 2
+  // from the R1 candle to End + the box's own length, not drawn for a lower low that never reclaimed.
+  const TVC = {green:"#4caf50", red:"#f23645", purple:"#9c27b0", gray:"#787b86"};
+  const rgba = (hex, transp) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${1 - transp / 100})`; };
+  const SHORT = {"Green HTF":"Green","Red HTF":"Red","Perfect HTF":"Perfect","Big Green Flag":"Big Green","Big Red Flag":"Big Red","Big Perfect Flag":"Big Perfect"};
+  flags.forEach((f,k) => {
+    if (!f.start || !(f.end || f.conf)) return;
+    let i0 = byDate[f.start], i1 = byDate[f.end || f.conf];
+    if (i0 === undefined || i1 === undefined) return;
+    if (i1 < i0) [i0, i1] = [i1, i0];
+    let hi = -Infinity, lo = Infinity;
+    for (let i = i0; i <= i1; i++) { hi = Math.max(hi, bars[i].high); lo = Math.min(lo, bars[i].low); }
+    const pad = (hi - lo) * 0.01, top = hi + pad, bot = lo - pad;
+    const pat = shownPat(f), auto = !(f.pattern && f.pattern !== "Auto");
+    const col = /Perfect/.test(pat) ? TVC.purple : /Green/.test(pat) ? TVC.green : /Red/.test(pat) ? TVC.red : TVC.gray;
+    const xa = X(bars[i0].time), xb = X(bars[i1].time);
+    if (xa === null || xb === null) return;
+    const yt = Y(top), yb = Y(bot);
+    ctx.fillStyle = rgba(col, 90); ctx.fillRect(xa, yt, xb - xa, yb - yt);
+    if (k === sel) { ctx.strokeStyle = rgba(col, 40); ctx.lineWidth = 1; ctx.setLineDash([2,2]); ctx.strokeRect(xa, yt, xb - xa, yb - yt); ctx.setLineDash([]); }
+    if (f.conf && byDate[f.conf] !== undefined) {
+      const xc = X(f.conf);
+      if (xc !== null) { ctx.strokeStyle = rgba(col, 70); ctx.lineWidth = 1; ctx.setLineDash([1,3]); ctx.beginPath(); ctx.moveTo(xc, yb); ctx.lineTo(xc, yt); ctx.stroke(); ctx.setLineDash([]); }
+    }
+    // label-down at the top center
+    const txt = `${k+1} ` + (pat === "Auto" ? "? pick a pattern" : (SHORT[pat] || pat) + (auto ? " (auto)" : ""));
+    ctx.font = "11px -apple-system,Segoe UI,sans-serif";
+    const tw = ctx.measureText(txt).width + 10, cx = (xa + xb) / 2, ly = yt - 6;
+    ctx.fillStyle = rgba(col, 30);
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(cx - tw / 2, ly - 18, tw, 18, 3) : ctx.rect(cx - tw / 2, ly - 18, tw, 18); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(cx - 5, ly); ctx.lineTo(cx + 5, ly); ctx.lineTo(cx, ly + 5); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText(txt, cx, ly - 5); ctx.textAlign = "left";
+    // R1
+    const isLL = /Red/.test(pat), noReclaim = f.end && f.conf && f.end === f.conf;
+    if (f.r1 && byDate[f.r1] !== undefined && !(isLL && noReclaim)) {
+      const lvl = bars[byDate[f.r1]].high;
+      const t0 = Date.parse(bars[i0].time), t1 = Date.parse(bars[i1].time), want = new Date(t1 + (t1 - t0)).toISOString().slice(0, 10);
+      let ie = bars.findIndex(b => b.time > want); ie = ie < 0 ? bars.length - 1 : Math.max(i1, ie - 1);
+      const xr = X(f.r1), xe = X(bars[ie].time);
+      if (xr !== null) { ctx.strokeStyle = "#ff9800"; ctx.lineWidth = 2; ctx.setLineDash([2,3]); ctx.beginPath(); ctx.moveTo(xr, Y(lvl)); ctx.lineTo(xe ?? plotW, Y(lvl)); ctx.stroke(); ctx.setLineDash([]); }
+    }
+  });
+  if (windows && showHH) for (const d of windows.hh || []) {
+    const i = byDate[d]; if (i === undefined) continue; const xh = X(d); if (xh === null) continue;
+    const yh = Y(bars[i].high); ctx.fillStyle = "#787b86";
+    ctx.beginPath(); ctx.moveTo(xh, yh - 5); ctx.lineTo(xh - 4, yh - 11); ctx.lineTo(xh + 4, yh - 11); ctx.fill();
+  }
+  ctx.restore();
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+loadList().then(() => { const first = visibleList()[0] || LIST[0]; if (first) openTicker(first.ticker); });
+</script>
+</body>
+</html>

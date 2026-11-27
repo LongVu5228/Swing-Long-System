@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTF Screener</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script src="/scr_common.js"></script>
+<style>
+  :root { --bg:#ffffff; --fg:#131722; --muted:#787b86; --line:#e0e3eb; --soft:#f0f3fa; --chip:#f0f3fa;
+          --accent:#2962ff; --green:#089981; --red:#f23645; --warn:#ff9800; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--fg);
+               font:13px -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu, sans-serif; }
+  body { display:flex; flex-direction:column; overflow:hidden; }
+  header { display:flex; align-items:center; gap:14px; padding:10px 16px 6px; flex-wrap:wrap; }
+  h1 { font-size:22px; margin:0; font-weight:700; }
+  .mode { font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px; background:#fff3e0; color:#e65100; }
+  .mode.live { background:#e8f5e9; color:#1b5e20; }
+  .datebox { display:flex; align-items:center; gap:4px; }
+  .datebox input { font:inherit; padding:4px 6px; border:1px solid var(--line); border-radius:6px; }
+  button { font:inherit; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--fg); border-radius:6px; padding:5px 10px; }
+  button:hover { background:var(--soft); }
+  button.on { background:#131722; color:#fff; border-color:#131722; }
+  .spy { margin-left:auto; padding:6px 12px; border-radius:6px; font-weight:600; }
+  .spy.ok { background:#e8f5e9; color:#1b5e20; } .spy.bad { background:#ffebee; color:#b71c1c; }
+  .tabs { display:flex; gap:6px; padding:4px 16px; flex-wrap:wrap; }
+  .tabs button { border-radius:16px; padding:5px 12px; }
+  .tabs button .n { color:var(--muted); margin-left:4px; font-size:11px; }
+  .tabs button.on .n { color:#b2b5be; }
+  .tabs .sep { width:1px; background:var(--line); margin:0 4px; }
+  .tabs .seg { display:inline-flex; }
+  .tabs .seg button { border-radius:0; }
+  .tabs .seg button:first-child { border-radius:16px 0 0 16px; }
+  .tabs .seg button:last-child { border-radius:0 16px 16px 0; border-left:0; }
+  .tabs .seg button.on { background:#2962ff; border-color:#2962ff; }
+  .toolbar { display:flex; align-items:center; gap:8px; padding:6px 16px 8px; border-bottom:1px solid var(--line); flex-wrap:nowrap; }
+  .toolbar > * { flex-shrink:0; }
+  .toolbar .hint { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex-shrink:1; }
+  .toolbar select { font:inherit; padding:4px 6px; border:1px solid var(--line); border-radius:6px; }
+  .legend { display:flex; gap:10px; color:var(--muted); font-size:12px; }
+  .legend i { display:inline-block; width:14px; height:2px; vertical-align:middle; margin-right:4px; }
+  .pager { margin-left:10px; display:flex; align-items:center; gap:6px; color:var(--muted); }
+  main { flex:1; display:flex; min-height:0; }
+  #grid { flex:1; display:grid; gap:8px; padding:8px; overflow:auto; min-width:0; }
+  .card { border:1px solid var(--line); border-radius:6px; display:flex; flex-direction:column; min-height:0; min-width:0; }
+  .card .hd { display:flex; align-items:center; flex-wrap:wrap; gap:4px 6px; padding:5px 8px; border-bottom:1px solid var(--soft); white-space:nowrap; overflow:hidden; }
+  .card .tk { font-weight:700; background:var(--chip); padding:2px 7px; border-radius:4px; color:var(--fg); text-decoration:none; }
+  .card .tk:hover { background:#dbe4ff; }
+  .card .meta { color:var(--muted); font-size:11px; overflow:hidden; text-overflow:ellipsis; }
+  .chip { font-size:10px; font-weight:700; padding:1px 5px; border-radius:3px; background:var(--chip); color:var(--muted); }
+  .chip.arm { background:#fce4ec; color:#c2185b; } .chip.watch { background:#fff3e0; color:#e65100; }
+  /* solid colored chips: which lists (1M/3M/6M) + the three numbers you read at a glance */
+  .chip.w1M { background:#e3ebff; color:#1e4fd8; } .chip.w3M { background:#efe8fb; color:#5e35b1; } .chip.w6M { background:#e0f2ef; color:#00695c; }
+  .chip.grad { opacity:0.5; }
+  .num { font-size:11px; font-weight:700; padding:1px 6px; border-radius:3px; white-space:nowrap; }
+  .num.gain { background:#e6f4f1; color:#087f6b; } .num.loss { background:#fdecee; color:#c62828; }
+  .num.cap { background:#eef0f3; color:#2a2e39; } .num.adr { background:#eef0f3; color:#2a2e39; }
+  .card .hd .nums { margin-left:auto; display:inline-flex; gap:4px; align-items:center; }
+  .card .hd .lists { display:inline-flex; gap:3px; margin-right:2px; }
+  .card .hd .badges { display:inline-flex; gap:3px; align-items:center; }
+  .card .hd .when { flex:1 1 0; min-width:0; white-space:nowrap; }   /* shrinks (ellipsis) so the number boxes stay on line 1 */
+  .card .hd .when { color:var(--muted); font-size:11px; overflow:hidden; text-overflow:ellipsis; }
+  /* tags: your own labels per ticker + the filter at the top right */
+  .tag { font-size:10px; font-weight:700; padding:1px 5px; border-radius:3px; background:#eef0f3; color:#434651; }
+  .tag.BG, .tag.SG { background:#e6f4f1; color:#087f6b; }          /* light green */
+  .tag.PF, .tag.BPF { background:#efe8fb; color:#5e35b1; }          /* purple */
+  .tag.DT { background:#fdecee; color:#c62828; }                     /* light red */
+  .tag.UT { background:#fff1e0; color:#b35c00; }
+  .tag.NA { background:#f0f1f3; color:#9598a1; text-decoration:line-through; }   /* N/A: not a setup right now */
+
+  .tagbtn { padding:0 5px !important; font-size:11px !important; }
+  .tagfilter { margin-left:auto; display:flex; gap:4px; align-items:center; color:var(--muted); font-size:12px; }
+  .tagfilter button { padding:2px 8px; font-size:12px; border-radius:12px; }
+  .tagfilter button.on { background:#131722; color:#fff; border-color:#131722; }
+  .tagmenu { position:fixed; z-index:50; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px;
+             box-shadow:0 4px 16px rgba(0,0,0,.12); display:flex; flex-wrap:wrap; gap:4px; width:220px; }
+  .tagmenu .hdr { width:100%; font-size:11px; color:var(--muted); margin-bottom:2px; }
+  .tagmenu button { padding:2px 8px; font-size:12px; border-radius:12px; }
+  .tagmenu button.on { background:#131722; color:#fff; border-color:#131722; }
+  .tagmenu input { width:100%; margin-top:4px; font:inherit; font-size:12px; padding:3px 6px; border:1px solid var(--line); border-radius:5px; }
+  .armmenu { position:fixed; z-index:60; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px;
+             box-shadow:0 4px 16px rgba(0,0,0,.14); width:250px; }
+  .armmenu .hdr { font-size:12px; margin-bottom:6px; }
+  .armmenu .pats { display:flex; flex-wrap:wrap; gap:4px; }
+  .armmenu button { padding:3px 8px; font-size:12px; border-radius:12px; }
+  .armmenu button.red { color:#b71c1c; }
+  .armmenu .foot { margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--muted); }
+  /* collapsed armed card: only the title row */
+  /* armed R1: 2-column grid of square cards (ticker + icons, pattern + days since the R1 candle, square chart) */
+  .sqgrid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px; }
+  .sq { border:1px solid var(--line); border-radius:6px; padding:0 0 4px; overflow:hidden; min-width:0; display:flex; flex-direction:column; }
+  .sq .sqhd { display:flex; align-items:center; gap:4px; }
+  #ptfs .mini-btn.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .sq .sqtop { padding:4px 6px 3px; margin-bottom:3px; }
+  .sq .sqhd a.tkr { font-weight:700; font-size:13px; color:inherit; text-decoration:none; overflow:hidden; text-overflow:ellipsis; }
+  .sq .sqhd a.tkr:hover { text-decoration:underline; }
+  .sq .ico { margin-left:auto; display:flex; gap:2px; }
+  .sq .ico a, .sq .ico button { font-size:11px; line-height:14px; padding:1px 5px; border:1px solid var(--line); border-radius:4px;
+                                background:#fff; color:var(--fg); text-decoration:none; cursor:pointer; }
+  .sq .ico a:hover, .sq .ico button:hover { background:var(--soft); }
+  .sq .sqsub { display:flex; align-items:center; gap:4px; font-size:11px; color:inherit; opacity:.9; margin-top:1px; white-space:nowrap; overflow:hidden; }
+  .sq .sqsub .pat { font-weight:700; }
+  .sq .sqchart { margin:0 4px; width:auto !important; }
+  .sq .sqchart { width:100%; aspect-ratio:1 / 1; position:relative; }
+  #armedBox > summary, #watchBox > summary, #histBox > summary { font-size:14px; }
+  .ac.collapsed .tiles, .ac.collapsed .mini { display:none; }
+  .ac.collapsed { padding-bottom:6px; }
+  .colbtn { border:0; background:none; padding:0 4px 0 0; font-size:14px; color:var(--fg); cursor:pointer; }
+  .chip.rm { cursor:pointer; } .chip.rm:hover { filter:brightness(0.92); text-decoration:line-through; }
+  .card .body { flex:1; min-height:0; position:relative; }
+  .card .msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); }
+  aside { width:380px; border-left:1px solid var(--line); overflow:auto; padding:10px 12px; flex-shrink:0; }
+  aside h2 { font-size:14px; margin:6px 0 8px; display:flex; align-items:center; gap:6px; }
+  aside h2 .n { color:var(--muted); font-weight:400; }
+  .ac .mini { height:180px; margin-top:6px; position:relative; border-top:1px solid var(--soft); }
+  .hint { color:var(--muted); font-size:11px; }
+  .ac { border:1px solid var(--line); border-radius:6px; padding:8px 10px; margin-bottom:8px; }
+  .ac .top { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+  .ac .top a { font-weight:700; font-size:14px; color:var(--fg); text-decoration:none; }
+  .ac .top a:hover { color:var(--accent); }
+  .ac .state { margin-left:auto; font-size:10px; font-weight:700; padding:2px 6px; border-radius:3px; background:var(--chip); }
+  .st-WAITING { background:#e3f2fd !important; color:#0d47a1; } .st-IN.TRADE, .st-INTRADE { background:#e8f5e9 !important; color:#1b5e20; }
+  .st-STOPPED { background:#ffebee !important; color:#b71c1c; } .st-EXPIRED, .st-DISARMED { color:var(--muted); }
+  .st-EXITED { background:#ede7f6 !important; color:#4527a0; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:1px 10px; font-size:12px; }
+  .kv span:nth-child(odd) { color:var(--muted); }
+  .warn { color:#e65100; font-weight:600; }
+  .tiles { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:4px; margin-top:4px; }
+  .tile { background:var(--soft); border-radius:5px; padding:3px 6px; display:flex; flex-direction:column; min-width:0; line-height:1.25; }
+  .tile .tl { font-size:10px; color:var(--muted); }
+  .tile b { font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tile .ts { font-size:10px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tile.warn { background:#fff1e0; } .tile.warn .ts, .tile.warn b { color:#b35c00; }
+  .mini-btn { font-size:11px; padding:1px 7px; border:1px solid var(--line); border-radius:4px; background:#fff; color:var(--fg);
+              text-decoration:none; cursor:pointer; line-height:16px; }
+  .mini-btn:hover { background:var(--soft); }
+  .ac .top .state + .mini-btn { margin-left:6px; }
+  .ac .top a.mini-btn { font-size:11px; font-weight:400; color:var(--fg); }
+  details summary { cursor:pointer; font-weight:600; margin:10px 0 6px; }
+  .empty { color:var(--muted); font-size:12px; padding:4px 0 8px; }
+  .note { color:var(--muted); font-size:11px; margin-top:8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>HTF Screener</h1>
+  <span id="mode" class="mode">REPLAY</span>
+  <div class="datebox">
+    <button id="prevDay" title="Previous session">◀</button>
+    <input id="date" type="date">
+    <button id="nextDay" title="Next session">▶</button>
+    <button id="latest">Latest</button>
+  </div>
+  <div id="spy" class="spy">SPY …</div>
+</header>
+<div class="tabs" id="tabs"></div>
+<div class="toolbar">
+  <select id="gridSel" title="Grid size">
+    <option value="3x2">3 × 2</option><option value="4x2" selected>4 × 2</option>
+    <option value="4x3">4 × 3</option><option value="5x3">5 × 3</option>
+  </select>
+  <span id="tfs"></span>
+  <button id="resetAll" title="Snap every chart back to the selected range">Reset zoom (all)</button>
+  <span class="legend"><span><i style="background:#2962ff"></i>SMA 10</span><span><i style="background:#ff9800"></i>SMA 20</span></span>
+  <span class="hint">Double-click a candle = arm with its high as R1 · Draw: Alt+T trendline · Alt+H horizontal · Del removes the line under the cursor · Esc cancels</span>
+  <div class="tagfilter" id="tagFilter"></div>
+  <div class="pager"><button id="pgPrev">‹</button><span id="pgInfo"></span><button id="pgNext">›</button></div>
+</div>
+<main>
+  <div id="grid"></div>
+  <aside id="panel">
+    <details id="armedBox" open><summary>Armed R1 <span class="n" id="nActive"></span><span id="ptfs" style="float:right"><button class="mini-btn" data-ptf="1M">1M</button> <button class="mini-btn" data-ptf="2M">2M</button> <button class="mini-btn" data-ptf="3M">3M</button> <button class="mini-btn" id="resetMini" title="Snap the panel charts back to the selected range">Reset zoom</button></span></summary><div id="active" class="sqgrid"></div></details>
+    <details id="watchBox"><summary>Watch only (red flags) <span class="n" id="nWatch"></span></summary><div id="watch" class="sqgrid"></div></details>
+    <details id="histBox"><summary>History, last 30 days <span class="n" id="nHist"></span></summary><div id="hist" class="sqgrid"></div></details>
+    <div class="note">Trade state is a daily-bar estimate until DAS is wired in. Buy-stop shown at R1 + 1¢;
+      at 10:00 it moves to the 30-minute high + 1¢ if that is higher.</div>
+  </aside>
+</main>
+<script>
+const TABS = [{key: "all", label: "All"}];   // "All" = unique tickers across the 9 lists of the current view
+for (const w of ["1M", "3M", "6M"]) for (const [b, lab] of [["small", "Small"], ["mid", "Mid"], ["large", "Large"]])
+  TABS.push({key: w.toLowerCase() + "_" + b, label: `${w} ${lab}`});
+TABS.push({key: "armed", label: "All armed"}, {key: "drawn", label: "Recently drawn"});
+const SPECIAL = new Set(["armed", "drawn"]);     // not tied to Today / Graduates / Backlog
+
+// view: today = on the list today | grads = on that list in the past ~3 months, not today | backlog = last on it more
+// than ~3 months ago (back to 2005, delisted names dropped). Once a ticker hits a scan it never leaves the screener.
+const VIEWS = [["today", "Today"], ["grads", "Graduates (3M)"], ["backlog", "Backlog"]];
+const S = {dates: [], date: null, data: null, armed: null, tab: "1m_small", tf: "6M", grid: "4x2", page: 0, charts: [],
+           cache: new Map(), view: "today", backlog: null, minis: [], panelSig: "", recent: [],
+           tags: {vocab: ["UT", "DT", "N/A"], tickers: {}}, filter: new Set(), tagMore: load("tagMore", "1") === "1"};   // all tags shown in the filter bar by default
+let PATTERNS = [], REDS = [];
+let COLLAPSED = new Set();
+try { COLLAPSED = new Set(JSON.parse(localStorage.getItem("scr.collapsed") || "[]")); } catch (e) {}
+const keepCollapsed = () => { try { localStorage.setItem("scr.collapsed", JSON.stringify([...COLLAPSED])); } catch (e) {} };
+const CHIP_PAT = p => ({"Big Green Flag": "Big G", "Perfect HTF": "Perf", "Big Perfect Flag": "Big Perf",
+                        "Big Red Flag": "Big R", "Green HTF": "Green", "Red HTF": "Red"})[p] || p;   // short label on ARMED chips
+const SHORT_PAT = p => (p || "").replace(" HTF", "").replace(" Flag", "");     // "Big Green Flag" -> "Big Green"
+const $ = id => document.getElementById(id);
+const mode = () => (S.data && S.data.live) ? "live" : "replay";
+
+function load(k, d) { try { return localStorage.getItem("scr." + k) || d; } catch (e) { return d; } }
+function keep(k, v) { try { localStorage.setItem("scr." + k, v); } catch (e) {} }
+
+async function init() {
+  const URLP = new URLSearchParams(location.search);
+  S.tf = load("tf", "6M"); S.grid = load("grid", "4x2"); S.tab = URLP.get("tab") || load("tab", "1m_small");
+  if (!TABS.some(t => t.key === S.tab)) S.tab = "1m_small";
+  S.view = URLP.get("view") || (URLP.get("grads") === "1" ? "grads" : load("view", "today"));
+  if (!VIEWS.some(v => v[0] === S.view)) S.view = "today";
+  $("gridSel").value = S.grid;
+  $("tfs").innerHTML = Object.keys(TF).filter(t => !TF[t].panelOnly).map(t => `<button data-tf="${t}">${t}</button>`).join(" ");
+  $("tfs").onclick = e => { const t = e.target.dataset.tf; if (t) { S.tf = t; keep("tf", t); markTF(); S.charts.forEach(c => c.h && c.h.setTF(t)); } };
+  markTF();
+  try { S.filter = new Set(JSON.parse(load("filter", "[]"))); } catch (e) {}
+  await loadTags();
+  const d = await getJSON("/api/scr/dates");
+  PATTERNS = d.patterns || []; REDS = d.red || [];
+  S.dates = d.dates;
+  $("date").min = d.dates[0]; $("date").max = d.latest;
+  await setDate(URLP.get("date") ? nearest(URLP.get("date")) : d.latest);
+  $("date").onchange = () => setDate(nearest($("date").value));
+  $("prevDay").onclick = () => step(-1); $("nextDay").onclick = () => step(1);
+  $("latest").onclick = () => setDate(S.dates[S.dates.length - 1]);
+  $("gridSel").onchange = () => { S.grid = $("gridSel").value; keep("grid", S.grid); S.page = 0; render(); };
+  $("resetAll").onclick = () => { S.charts.forEach(c => c.h && c.h.reset()); };
+  $("resetMini").onclick = e => { e.preventDefault(); e.stopPropagation(); S.minis.forEach(h => h.reset()); };
+  S.ptf = load("ptf", "1M"); if (!["1M", "2M", "3M"].includes(S.ptf)) S.ptf = "1M";
+  const markPTF = () => document.querySelectorAll("#ptfs [data-ptf]").forEach(b => b.classList.toggle("on", b.dataset.ptf === S.ptf));
+  markPTF();
+  $("ptfs").addEventListener("click", e => {
+    const t = e.target.dataset.ptf; if (!t) return;
+    e.preventDefault(); e.stopPropagation();
+    S.ptf = t; keep("ptf", t); markPTF(); S.minis.forEach(h => h.setTF(t));
+  });
+  window.addEventListener("resize", () => { if (scrollMode()) $("grid").style.gridAutoRows = rowHeight() + "px"; });
+  $("pgPrev").onclick = () => { if (S.page > 0) { S.page--; render(); } };
+  $("pgNext").onclick = () => { if ((S.page + 1) * perPage() < items().length) { S.page++; render(); } };
+  // a line drawn / edited here or in another tab -> refresh the "Recently drawn" list (re-render only if its tickers changed)
+  window.addEventListener("drawings-changed", async () => {
+    const before = S.recent.map(r => r.ticker).join(",");
+    await loadRecent(); renderTabs();
+    if (S.tab === "drawn" && S.recent.map(r => r.ticker).join(",") !== before) render();
+  });
+  if (CHAN) CHAN.onmessage = e => { if (e.data && e.data.type === "drawings") return;   // handled in scr_common.js
+ loadTags().then(() => { renderTagFilter(); return refreshArmed(); }).then(() => { if (S.tab === "armed") render(); else decorate(); }); };
+  window.addEventListener("focus", () => refreshArmed().then(decorate));
+  $("armedBox").open = load("armedOpen", "1") === "1";
+  $("armedBox").addEventListener("toggle", () => keep("armedOpen", $("armedBox").open ? "1" : "0"));
+  renderTagFilter();
+  $("tagFilter").onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.more) { S.tagMore = !S.tagMore; keep("tagMore", S.tagMore ? "1" : "0"); }
+    else if (b.dataset.clear) S.filter.clear();
+    else S.filter.has(b.dataset.f) ? S.filter.delete(b.dataset.f) : S.filter.add(b.dataset.f);
+    keep("filter", JSON.stringify([...S.filter]));
+    S.page = 0; renderTagFilter(); renderTabs(); render();
+  };
+  document.addEventListener("click", e => {          // tag button opens / closes the menu; a click elsewhere closes it
+    const tb = e.target.closest(".tagbtn");
+    if (tb) {
+      e.preventDefault(); e.stopPropagation();
+      const open = $("tagMenu");
+      if (open && open.dataset.for === tb.dataset.tag) closeTagMenu(); else openTagMenu(tb);
+      return;
+    }
+    if (!e.target.closest("#tagMenu")) closeTagMenu();
+    if (!e.target.closest("#armMenu")) closeArmMenu();
+  }, true);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") { closeTagMenu(); closeArmMenu(); } });
+  $("grid").addEventListener("click", async e => {
+    const b = e.target.closest(".mv"); if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    await postJSON("/api/scr/backlog_move", {ticker: b.dataset.mv, asof: S.date, undo: !!b.dataset.undo});
+    await reloadLists();
+  });
+  // WATCH / ARMED chip on a grid chart: click to remove from watch / disarm; the right panel refreshes
+  $("grid").addEventListener("click", async e => {
+    const c = e.target.closest(".chip.rm"); if (!c) return;
+    e.preventDefault(); e.stopPropagation();
+    const t = c.closest(".badges").dataset.t, w = c.dataset.kind === "watch";
+    if (!confirm(w ? `Remove ${t} from watch?` : `Disarm ${t}?`)) return;
+    await disarmNow(c.dataset.rm, t, w);
+  });
+}
+function markTF() { document.querySelectorAll("#tfs button").forEach(b => b.classList.toggle("on", b.dataset.tf === S.tf)); }
+function nearest(d) { const i = S.dates.findIndex(x => x >= d); return i < 0 ? S.dates[S.dates.length - 1] : S.dates[i]; }
+function step(n) { const i = S.dates.indexOf(S.date) + n; if (i >= 0 && i < S.dates.length) setDate(S.dates[i]); }
+
+async function setDate(d) {
+  S.date = d; $("date").value = d; S.page = 0; S.cache.clear(); S.backlog = null;
+  $("grid").innerHTML = `<div class="empty" style="padding:20px">Loading ${d} …</div>`;
+  S.data = await getJSON("/api/scr/lists?date=" + d);
+  $("mode").textContent = S.data.live ? "LIVE " + d : "REPLAY " + d;
+  $("mode").classList.toggle("live", !!S.data.live);
+  const sp = S.data.spy;
+  $("spy").className = "spy " + (sp ? (sp.above ? "ok" : "bad") : "");
+  $("spy").textContent = sp ? `SPY ${sp.close.toFixed(2)} vs 200d ${sp.sma200.toFixed(2)} (${fmt.pct(sp.pct)}) → new entries ${sp.above ? "ON" : "OFF"}`
+                            : "SPY: no data";
+  await refreshArmed();
+  await loadRecent();
+  if (S.view === "backlog") await loadBacklog();
+  renderTabs(); render();
+}
+async function reloadLists() {     // same date, same page: re-read Today / Graduates / Backlog after a move
+  const page = S.page;
+  S.data = await getJSON("/api/scr/lists?date=" + S.date);
+  S.backlog = null;
+  if (S.view === "backlog") await loadBacklog();
+  S.page = page; renderTabs(); render();
+}
+// ---- double-click a daily candle -> its high is R1 -> pick the flag pattern -> armed (red -> watch only)
+function enableDblArm(h, ticker) {
+  h.el.addEventListener("dblclick", e => {
+    if (DRAW.mode) return;
+    const r = h.el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    h.mouse = {x, y};
+    if (h.nearest && h.nearest() >= 0) return;                      // double-click on a drawing: not an R1 pick
+    if (TF[h.tf].weekly) { drawToast("Switch to a daily view to pick the R1 candle"); setTimeout(() => drawToast(""), 1800); return; }
+    const lg = h.chart.timeScale().coordinateToLogical(x);
+    if (lg == null) return;
+    const i = Math.round(lg);
+    if (i < 0 || i >= h.bars.length) return;                       // blank future area: no candle there
+    const bar = h.bars[i];
+    e.preventDefault(); e.stopPropagation();
+    openArmMenu(h, ticker, bar[0], bar[2], e.clientX, e.clientY);
+  });
+}
+function closeArmMenu() {
+  const m = $("armMenu");
+  if (m) { if (m._h && m._line) { try { m._h.candles.removePriceLine(m._line); } catch (err) {} } m.remove(); }
+}
+function openArmMenu(h, ticker, date, high, cx, cy) {
+  closeArmMenu(); closeTagMenu();
+  const existing = armedFor(ticker)[0];
+  const m = document.createElement("div"); m.className = "armmenu"; m.id = "armMenu";
+  m.innerHTML = `<div class="hdr"><b>${existing ? "Update" : "Arm"} ${ticker}</b> · R1 <b>${fmt.px(high)}</b>` +
+    ` <span style="color:#787b86">(${date})</span></div>` +
+    `<div class="pats">${PATTERNS.map(p => `<button data-p="${p}" class="${REDS.includes(p) ? "red" : ""}"` +
+      ` title="${REDS.includes(p) ? "red pattern: saved as watch only" : "arm"}">${SHORT_PAT(p)}</button>`).join("")}</div>` +
+    `<div class="foot"><span>red = watch only</span><button data-x="1">Cancel</button></div>`;
+  document.body.appendChild(m);
+  m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, cx - m.offsetWidth / 2)) + "px";
+  m.style.top = Math.max(8, Math.min(window.innerHeight - m.offsetHeight - 8, cy + 12)) + "px";
+  m._h = h;
+  m._line = h.candles.createPriceLine({price: high, color: COL.r1, lineWidth: 1, lineStyle: 2, axisLabelVisible: true, title: "R1?"});
+  m.onclick = async ev => {
+    const b = ev.target.closest("button"); if (!b) return;
+    if (b.dataset.x) return closeArmMenu();
+    const body = {mode: mode(), ticker, asof: S.date, r1: high, r1_date: date, pattern: b.dataset.p};
+    if (existing) body.id = existing.id;
+    try {
+      const it = await postJSON("/api/scr/arm", body);
+      closeArmMenu();
+      drawToast(it.status === "watch" ? `${ticker} saved as watch (red flag)` : `${ticker} armed: R1 ${fmt.px(it.r1)}, ${it.pattern}`);
+      setTimeout(() => drawToast(""), 1800);
+      await loadTags(); renderTagFilter();          // the pattern was added as a tag on the server
+      await refreshArmed(); decorate();
+      if (S.tab === "armed" || S.filter.size) render();
+      if (CHAN) CHAN.postMessage("changed");
+    } catch (err) { drawToast("Arm failed: " + err.message); setTimeout(() => drawToast(""), 2500); }
+  };
+}
+async function loadTags() { try { S.tags = await getJSON("/api/scr/tags"); } catch (e) {} }
+function tagsOf(t) { return S.tags.tickers[t] || []; }
+function passes(t) {          // tag filter: keep a ticker that has ANY selected tag ("Armed" = armed right now)
+  if (!S.filter.size) return true;
+  if (S.filter.has("Armed") && S.armed && S.armed.active.some(a => a.ticker === t)) return true;
+  if (S.filter.has("Untagged") && !tagsOf(t).length) return true;      // quasi-tag: tickers you haven't tagged yet
+  return tagsOf(t).some(x => S.filter.has(x));
+}
+function renderTagFilter() {
+  const v = S.tags.vocab, main = v.slice(0, 3), extra = v.slice(3);
+  const btn = t => `<button data-f="${t}" class="${S.filter.has(t) ? "on" : ""}">${t}</button>`;
+  const showExtra = S.tagMore || extra.some(t => S.filter.has(t));
+  $("tagFilter").innerHTML = `<span>Tags:</span>` + btn("Armed") + main.map(btn).join("") +
+    (extra.length && showExtra ? extra.map(btn).join("") : "") + btn("Untagged") +           // Untagged: last tag on the right
+    (extra.length ? `<button data-more="1" title="${showExtra ? "Hide" : "Show"} your other tags">${showExtra ? "‹" : "+" + extra.length}</button>` : "") +
+    (S.filter.size ? `<button data-clear="1" title="Clear the tag filter">✕</button>` : "");
+}
+async function saveTags(t, list) {        // saved right away; the grid redraws when the tag menu closes
+  S.tags = await postJSON("/api/scr/tags", {ticker: t, tags: list});
+  S.tagsDirty = true;
+}
+function flushTags() {
+  if (!S.tagsDirty) return;
+  S.tagsDirty = false;
+  renderTagFilter(); decorate();
+  if (S.filter.size) { renderTabs(); render(); }
+}
+function openTagMenu(btn, keepDirty) {
+  closeTagMenu(keepDirty);
+  const t = btn.dataset.tag, have = new Set(tagsOf(t));
+  const m = document.createElement("div"); m.className = "tagmenu"; m.id = "tagMenu"; m.dataset.for = t;
+  m.innerHTML = `<div class="hdr">Tags for <b>${t}</b> (click to toggle)</div>` +
+    S.tags.vocab.map(x => `<button data-t="${x}" class="${have.has(x) ? "on" : ""}">${x}</button>`).join("") +
+    `<input placeholder="new tag + Enter" maxlength="12">`;
+  document.body.appendChild(m);
+  const r = btn.getBoundingClientRect();
+  m.style.top = Math.min(window.innerHeight - m.offsetHeight - 8, r.bottom + 4) + "px";
+  m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.right - m.offsetWidth)) + "px";
+  m.onclick = async e => {
+    const b = e.target.closest("button[data-t]"); if (!b) return;
+    b.classList.toggle("on");
+    await saveTags(t, [...m.querySelectorAll("button.on")].map(x => x.dataset.t));
+  };
+  m.querySelector("input").onkeydown = async e => {
+    if (e.key === "Escape") return closeTagMenu();
+    if (e.key !== "Enter") return;
+    const nt = e.target.value.trim().replace(/[^A-Za-z0-9_\/-]/g, "").slice(0, 12);
+    if (!nt) return;
+    await saveTags(t, [...new Set([...tagsOf(t), nt])]);
+    openTagMenu(btn, true);                 // re-open with the new tag, still without redrawing the grid
+  };
+}
+function closeTagMenu(keepDirty) { const m = $("tagMenu"); if (m) m.remove(); if (!keepDirty) flushTags(); }
+async function loadRecent() {
+  try { S.recent = await getJSON("/api/scr/drawings_recent?days=30"); } catch (e) { S.recent = []; }
+}
+async function loadBacklog() {
+  if (S.backlog && S.backlog.date === S.date) return;
+  $("grid").innerHTML = `<div class="empty" style="padding:20px">Loading backlog for ${S.date} …</div>`;
+  S.backlog = await getJSON("/api/scr/backlog?date=" + S.date);
+}
+async function refreshArmed() {
+  S.armed = await getJSON(`/api/scr/armed?mode=${mode()}&asof=${S.date}`);
+  renderPanel(); renderTabs();
+}
+function lookup(t) {          // the ticker's numbers from today's lists / graduates, if it is on one
+  if (!S.data) return null;
+  for (const src of [S.data.lists, S.data.graduates])
+    for (const v of Object.values(src)) { const r = v.find(x => x.ticker === t); if (r) return r; }
+  return null;
+}
+function listFor(k) {
+  if (!S.data) return [];
+  if (k === "all") {        // unique across the 9 lists: Today in left-to-right list order, Graduates / Backlog newest first
+    const seen = new Map();
+    for (const t of TABS) {
+      if (t.key === "all" || SPECIAL.has(t.key)) continue;
+      for (const r of listFor(t.key)) {
+        const o = seen.get(r.ticker);
+        if (!o) seen.set(r.ticker, r);
+        else if (r.last_seen && r.last_seen > o.last_seen) seen.set(r.ticker, {...r, days_on: Math.max(r.days_on, o.days_on)});
+      }
+    }
+    const out = [...seen.values()];
+    if (S.view !== "today") out.sort((a, b) => (b.last_seen || "").localeCompare(a.last_seen || ""));
+    return out;
+  }
+  if (S.view === "grads") return S.data.graduates[k] || [];
+  if (S.view === "backlog") return S.backlog ? S.backlog.backlog[k] || [] : [];
+  return S.data.lists[k] || [];
+}
+function items() { return itemsRaw().filter(r => passes(r.ticker)); }
+function itemsRaw() {
+  if (!S.data) return [];
+  if (S.tab === "armed") return (S.armed ? S.armed.active : []).map(a => ({ticker: a.ticker, armed: a}));
+  if (S.tab === "drawn") return S.recent.map(r => ({...(lookup(r.ticker) || {}), ticker: r.ticker, drawn: r}));
+  return listFor(S.tab);
+}
+function renderTabs() {
+  const n = k => (k === "armed" ? (S.armed ? S.armed.active.map(a => a.ticker) : []) : k === "drawn" ? S.recent.map(r => r.ticker)
+                  : listFor(k).map(r => r.ticker)).filter(passes).length;
+  const tips = {today: "On the list today", grads: "On that list in the past ~3 months, on no list today",
+                backlog: "Last on that list more than ~3 months ago (delisted names dropped)"};
+  const seg = `<span class="seg">${VIEWS.map(([v, lab]) =>
+      `<button data-v="${v}" class="${S.view === v ? "on" : ""}" title="${tips[v]}">${lab}</button>`).join("")}</span>` +
+    '<span class="sep"></span>';
+  $("tabs").innerHTML = seg + TABS.map((t, i) => (i === 1 || i === 10 ? '<span class="sep"></span>' : "") +
+    `<button data-k="${t.key}" class="${t.key === S.tab ? "on" : ""}">${t.label}` +
+    `<span class="n">${S.data && (S.view !== "backlog" || S.backlog || SPECIAL.has(t.key)) ? n(t.key) : ""}</span></button>`).join("");
+  $("tabs").onclick = async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.v) {
+      S.view = b.dataset.v; keep("view", S.view); if (SPECIAL.has(S.tab)) S.tab = "1m_small";
+      if (S.view === "backlog") await loadBacklog();
+    } else { S.tab = b.dataset.k; keep("tab", S.tab); }
+    S.page = 0; renderTabs(); render();
+  };
+}
+function perPage() { const [c, r] = S.grid.split("x").map(Number); return c * r; }
+
+// One scrolling grid (no pages): the grid size sets how many rows fit on one screen. Charts are built only when a card
+// scrolls near the view and released once it is far off-screen, so a 1,500-ticker backlog scrolls as smoothly as 16.
+function rowHeight() {
+  const rows = +S.grid.split("x")[1], g = $("grid");
+  return Math.max(210, Math.floor((g.clientHeight - 8 * (rows + 1)) / rows));
+}
+function unloadChart(slot) {
+  if (!slot.h) return;
+  slot.h.detach && slot.h.detach(); slot.h.chart.remove(); slot.h = null;
+  slot.card.querySelector(".body").innerHTML = `<div class="msg">…</div>`;
+}
+// Today / All armed / Recently drawn scroll; Graduates and Backlog (long lists) use page arrows
+function scrollMode() { return (S.view === "today" && S.tab !== "all") || SPECIAL.has(S.tab); }   // "All" pages left / right
+function render() {
+  if (S.obs) S.obs.disconnect();
+  S.charts.forEach(unloadChart); S.charts = [];
+  const [cols, rows] = S.grid.split("x").map(Number);
+  const g = $("grid"), scroll = scrollMode();
+  g.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+  g.style.gridTemplateRows = scroll ? "" : `repeat(${rows}, minmax(210px, 1fr))`;
+  g.style.gridAutoRows = scroll ? rowHeight() + "px" : "";
+  g.scrollTop = 0;
+  let all = items();
+  const pp = perPage();
+  if (!scroll && S.page * pp >= all.length) S.page = Math.max(0, Math.ceil(all.length / pp) - 1);
+  $("pgPrev").style.display = $("pgNext").style.display = scroll ? "none" : "";
+  $("pgInfo").textContent = scroll ? `${all.length} ticker${all.length === 1 ? "" : "s"}`
+    : all.length ? `${S.page * pp + 1}–${Math.min(all.length, S.page * pp + pp)} of ${all.length}` : "0";
+  if (!scroll) all = all.slice(S.page * pp, S.page * pp + pp);
+  if (!all.length) {
+    g.innerHTML = `<div class="empty" style="padding:20px">${S.filter.size ? "No tickers here with the selected tags." : S.tab === "drawn" ? "No drawings in the last 30 days." : "Nothing on this list for " + S.date + "."}</div>`;
+    return;
+  }
+  g.innerHTML = "";
+  S.obs = new IntersectionObserver(es => es.forEach(e => {
+    const slot = e.target._slot;
+    slot.visible = e.isIntersecting;
+    if (e.isIntersecting) loadChart(slot); else unloadChart(slot);
+  }), {root: g, rootMargin: "300px 0px"});
+  for (const it of all) {
+    const card = document.createElement("div"); card.className = "card";
+    card.innerHTML = `<div class="hd">${header(it)}</div><div class="body"><div class="msg">…</div></div>`;
+    g.appendChild(card);
+    const slot = {ticker: it.ticker, card, h: null, visible: false, loading: false};
+    card._slot = slot;
+    S.charts.push(slot);
+    S.obs.observe(card);
+  }
+  decorate();
+}
+function header(it) {
+  const url = `/chart?t=${encodeURIComponent(it.ticker)}&asof=${S.date}&mode=${mode()}`;
+  // left: ticker, list chips, WATCH/ARMED (and "last on" in Graduates / Backlog); right: gain, market cap, ADR
+  const tagBtn = `<button class="mini-btn tagbtn" data-tag="${it.ticker}" title="Tag ${it.ticker} (UT / DT / your own)">🏷</button>`;
+  // left: ticker, ARMED / WATCH, your tags  |  right: 1M / 3M / 6M lists, market cap, ADR, tag button
+  const nums = x => `<span class="nums"><span class="lists" data-t="${it.ticker}"></span>` + (x.mktcap != null ? `<span class="num cap">${fmt.cap(x.mktcap)}</span>` : "") +
+                    (x.adr != null ? `<span class="num adr" title="ADR (average daily range)">${(x.adr < 1 ? x.adr * 100 : x.adr).toFixed(1)}%</span>` : "") + tagBtn + `</span>`;
+  let meta;
+  if (S.tab === "drawn") meta = `<span class="when" title="last drawing ${it.drawn.last_drawn.replace("T", " ")}">drawn ${it.drawn.last_drawn.slice(5, 10)} · ${it.drawn.n} line${it.drawn.n === 1 ? "" : "s"}</span>` +
+                                nums(it);
+  else if (S.tab === "armed") meta = `<span class="meta">R1 ${fmt.px(it.armed.r1)} · armed ${it.armed.armed_on.slice(5)}</span>` + nums(it.armed);
+  else if (S.view !== "today") meta = `<span class="when" title="last on the list ${it.last_seen}, ${it.days_on} days on it">last ${it.last_seen.slice(2)} · ${it.days_on}d</span>` + nums(it);
+  else meta = nums(it);
+  // Graduates: send a ticker you don't expect to set up soon to the Backlog (it comes back by itself if it hits a scan
+  // again); Backlog: undo for the ones you moved
+  let mv = "";
+  if (!SPECIAL.has(S.tab) && S.view === "grads") mv = `<button class="mini-btn mv" data-mv="${it.ticker}" title="Move to Backlog until it hits a scan again">→ Backlog</button>`;
+  if (!SPECIAL.has(S.tab) && S.view === "backlog" && S.backlog && S.backlog.moved.includes(it.ticker))
+    mv = `<button class="mini-btn mv" data-mv="${it.ticker}" data-undo="1" title="Back to Graduates">↩ Graduates</button>`;
+  return `<a class="tk" href="${url}" target="_blank" rel="noopener">${it.ticker}</a><span class="badges" data-t="${it.ticker}"></span>` + mv + meta;
+}
+async function loadChart(slot) {
+  if (slot.h || slot.loading) return;
+  slot.loading = true;
+  const body = slot.card.querySelector(".body");
+  try {
+    let p = S.cache.get(slot.ticker);
+    if (!p) { p = await getJSON(`/api/scr/bars?t=${encodeURIComponent(slot.ticker)}&asof=${S.date}`); S.cache.set(slot.ticker, p); }
+    await drawingsLoad([slot.ticker]);
+    if (!S.charts.includes(slot) || !slot.visible || slot.h) return;   // list changed / scrolled away while loading
+    body.innerHTML = "";
+    slot.h = buildChart(body, p, S.tf, {small: true});
+    attachDrawings(slot.h, slot.ticker);
+    enableDblArm(slot.h, slot.ticker);
+    drawArmed(slot);
+  } catch (e) { body.innerHTML = `<div class="msg">no bars (${e.message})</div>`; }
+  finally { slot.loading = false; }
+}
+function armedFor(t) { return S.armed ? S.armed.active.concat(S.armed.watch).filter(a => a.ticker === t) : []; }
+function drawArmed(slot) {
+  if (!slot.h) return;
+  slot.h.clearR1();
+  for (const a of armedFor(slot.ticker)) slot.h.addR1(a.r1, a.status === "watch" ? "watch" : "R1", a.status === "watch" ? "#ff9800" : COL.r1);
+}
+function decorate() {
+  const badges = S.data ? S.data.badges : {};
+  const gb = S.view === "backlog" ? (S.backlog ? S.backlog.bbadges : {}) : (S.data ? S.data.gbadges || {} : {});
+  document.querySelectorAll(".lists").forEach(el => {       // right side: which lists (today / was on)
+    const t = el.dataset.t;
+    el.innerHTML = (badges[t] || []).map(w => `<span class="chip w${w}" title="on the ${w} list today">${w}</span>`).join(" ") +
+      (badges[t] ? "" : (gb[t] || []).map(w => `<span class="chip w${w} grad" title="was on the ${w} list">${w}</span>`).join(" "));
+  });
+  document.querySelectorAll(".badges").forEach(el => {     // left side, right after the ticker: ARMED / WATCH, then your tags
+    const t = el.dataset.t, a = armedFor(t);
+    el.innerHTML = a.map(x => ` <span class="chip ${x.status === "watch" ? "watch" : "arm"} rm" data-rm="${x.id}" data-kind="${x.status}"` +
+                 ` title="${x.pattern}, R1 ${fmt.px(x.r1)} -- click to ${x.status === "watch" ? "remove from watch" : "disarm"}">` +
+                 `${x.status === "watch" ? "WATCH" : "ARMED"} ${CHIP_PAT(x.pattern)} ✕</span>`).join("") +
+      tagsOf(t).map(x => ` <span class="tag ${x.replace("/", "")}">${x}</span>`).join("");
+  });
+  S.charts.forEach(drawArmed);
+}
+
+function card(a, kind) {
+  return `<div class="ac ${kind === "active" && COLLAPSED.has(a.id) ? "collapsed" : ""}" data-id="${a.id}"><div class="txt">${cardText(a, kind)}</div>` +
+         (kind === "active" ? `<div class="mini"></div>` : "") + `</div>`;
+}
+function cardText(a, kind) {
+  // compact tiles (label on top, value below) instead of label/value lines; Open / Disarm sit in the top row
+  const url = `/chart?t=${encodeURIComponent(a.ticker)}&asof=${S.date}&mode=${mode()}`;
+  const st = kind === "watch" ? "WATCH" : (a.state || "WAITING");
+  const md = d => d ? d.slice(5) : "–";                      // 2026-10-12 -> 10-12
+  const tiles = [];                                          // [label, value, sub, title, cls]
+  tiles.push(["R1", fmt.px(a.r1), md(a.r1_date), `R1 candle ${a.r1_date}`]);
+  tiles.push(["Last", fmt.px(a.last), a.pct_to_r1 >= 0 ? fmt.pct(a.pct_to_r1) + " to R1" : "above R1"]);
+  if (kind === "active" && st === "WAITING") {
+    tiles.push(["Stop", fmt.px(a.stop), a.stop_pct == null ? "" : "−" + (a.stop_pct * 100).toFixed(1) + "%", "0.75 ADR below the buy-stop at R1 + 1¢"]);
+  }
+  if (a.entry_date) tiles.push(["Entry", fmt.px(a.fill), md(a.entry_date) + " est.", `entry ${a.entry_date} (daily-bar estimate)`]);
+  if (a.open_R != null) tiles.push(["Open", (a.open_R >= 0 ? "+" : "") + a.open_R + "R", "est."]);
+  if (a.R != null) tiles.push(["Result", (a.R >= 0 ? "+" : "") + a.R + "R", md(a.closed_on) + (a.note ? " " + a.note : ""), "daily-bar estimate"]);
+  tiles.push(["ADR", a.adr == null ? "–" : (a.adr * 100).toFixed(1) + "%", a.mktcap == null ? "" : fmt.cap(a.mktcap) + (a.bucket ? " " + a.bucket : "")]);
+  tiles.push(["Earnings", a.earnings_next ? md(a.earnings_next) : "none", a.earnings_in_window ? "within 10 days!" : "",
+              a.earnings_next || "no report date known", a.earnings_in_window ? "warn" : ""]);
+  const acts = kind === "hist" ? "" :
+    `<a href="${url}" target="_blank" rel="noopener" class="mini-btn" title="Open the full chart">Open</a>` +
+    `<button class="mini-btn" data-dis="${a.id}" title="Disarm">✕</button>`;
+  const col = kind === "active" ? `<button class="colbtn" data-col="${a.id}" title="Collapse / expand">${COLLAPSED.has(a.id) ? "▸" : "▾"}</button>` : "";
+  return `<div class="top">${col}<a href="${url}" target="_blank" rel="noopener">${a.ticker}</a>` +
+         `<span class="chip" style="color:${PAT_COLOR[a.pattern] || "#787b86"}">${a.pattern}</span>` +
+         `<span class="state st-${st.replace(" ", "")}">${st}</span>${acts}</div>` +
+         `<div class="tiles">${tiles.map(([k, v, sub, title, cls]) =>
+            `<div class="tile ${cls || ""}" title="${title || ""}"><span class="tl">${k}</span><b>${v}</b>${sub ? `<span class="ts">${sub}</span>` : ""}</div>`).join("")}</div>`;
+}
+// panel pattern pills: big = dark, small = light (green = Green flags, purple = Perfect flags)
+const SQ_PAT = {"Big Green Flag": "background:#1b5e20;color:#fff", "Green HTF": "background:#c8e6c9;color:#1b5e20",
+                "Big Perfect Flag": "background:#4a2a8c;color:#fff", "Perfect HTF": "background:#e4d7f7;color:#5e35b1",
+                "Big Red Flag": "background:#b71c1c;color:#fff", "Red HTF": "background:#fbd5d5;color:#b71c1c"};
+function sqCard(a, kind = "active") {
+  const url = `/chart?t=${encodeURIComponent(a.ticker)}&asof=${S.date}&mode=${mode()}`;
+  return `<div class="sq" data-id="${a.id}" title="R1 ${fmt.px(a.r1)} (${a.r1_date}) · ${a.pattern}">` +
+    `<div class="sqtop" style="${SQ_PAT[a.pattern] || "background:#eceff1;color:#434651"}">` +
+    `<div class="sqhd"><a class="tkr" href="${url}" target="_blank" rel="noopener">${a.ticker}</a>` +
+    `<span class="ico"><a href="${url}" target="_blank" rel="noopener" title="Open the full chart">↗</a>` +
+    (kind === "hist" ? "" : `<button data-dis="${a.id}" title="${kind === "watch" ? "Remove from watch" : "Disarm"}">✕</button>`) + `</span></div>` +
+    `<div class="sqsub"><span class="pat">${SHORT_PAT(a.pattern)}</span>` +
+    `<span>· R1 ${a.r1_days ?? "–"}d</span>` +
+    `<span style="margin-left:auto">${kind === "hist" ? histNote(a) : a.pct_to_r1 == null ? "" : (a.pct_to_r1 * 100).toFixed(1) + "%"}</span>` + `</div></div><div class="sqchart"></div></div>`;
+}
+function histNote(a) {               // history: the estimated result, or when it was disarmed
+  const md = d => d ? d.slice(5, 10) : "";
+  if (a.R != null) return `${a.R >= 0 ? "+" : ""}${a.R}R ${md(a.closed_on)}`;
+  return `disarmed ${md(a.updated)}`;
+}
+async function disarmNow(id, ticker, watch) {
+  // instant: take it off the page first, then tell the server (the full refresh follows in the background)
+  if (S.armed) { S.armed.active = S.armed.active.filter(a => a.id !== id); S.armed.watch = S.armed.watch.filter(a => a.id !== id); }
+  decorate(); renderPanel(); renderTabs();
+  if (S.tab === "armed" || S.filter.has("Armed")) render();
+  drawToast(watch ? `${ticker} removed from watch` : `${ticker} disarmed`); setTimeout(() => drawToast(""), 1500);
+  await postJSON("/api/scr/disarm", {mode: mode(), id});
+  if (CHAN) CHAN.postMessage("changed");
+  refreshArmed().then(decorate);
+}
+function renderPanel() {
+  const A = S.armed;
+  $("nActive").textContent = A.active.length; $("nWatch").textContent = A.watch.length; $("nHist").textContent = A.history.length;
+  // mini charts are rebuilt only when the set of armed flags (or the date) changes; otherwise just the text refreshes,
+  // so zoom and drawings-in-progress survive the refresh that runs every time the window regains focus
+  // closest to R1 first (by |distance| from the last close; no price yet -> bottom)
+  const dist = a => a.pct_to_r1 == null ? Infinity : Math.abs(a.pct_to_r1);
+  A.active.sort((x, y) => dist(x) - dist(y));
+  A.watch.sort((x, y) => dist(x) - dist(y));
+  const sigOf = L => L.map(a => a.id + ":" + a.r1 + ":" + a.pattern + ":" + (a.R ?? "")).join(",");
+  const sig = S.date + "|" + sigOf(A.active) + "|" + sigOf(A.watch) + "|" + sigOf(A.history);
+  if (sig !== S.panelSig) {
+    S.minis.forEach(h => { h.detach(); h.chart.remove(); }); S.minis = [];
+    $("active").innerHTML = A.active.length ? A.active.map(sqCard).join("") :
+      `<div class="empty" style="grid-column:1 / -1">Nothing armed. Double-click a candle on any chart to arm it.</div>`;
+    $("watch").innerHTML = A.watch.map(a => sqCard(a, "watch")).join("") || `<div class="empty" style="grid-column:1 / -1">none</div>`;
+    $("hist").innerHTML = A.history.map(a => sqCard(a, "hist")).join("") || `<div class="empty" style="grid-column:1 / -1">none</div>`;
+    S.panelSig = sig;
+    A.active.concat(A.watch, A.history).forEach(buildMini);
+  }
+  $("panel").onclick = async e => {
+    const b = e.target.closest("[data-dis]"); if (!b) return;
+    const it = A.active.concat(A.watch).find(a => a.id === b.dataset.dis);
+    if (it && confirm(`Disarm ${it.ticker}?`)) await disarmNow(it.id, it.ticker, it.status === "watch");
+  };
+}
+async function buildMini(a) {
+  const el = document.querySelector(`.sq[data-id="${CSS.escape(a.id)}"] .sqchart`);
+  if (!el) return;
+  try {
+    let p = S.cache.get(a.ticker);
+    if (!p) { p = await getJSON(`/api/scr/bars?t=${encodeURIComponent(a.ticker)}&asof=${S.date}`); S.cache.set(a.ticker, p); }
+    await drawingsLoad([a.ticker]);
+    if (!el.isConnected) return;
+    const h = buildChart(el, p, S.ptf || "1M", {small: true});
+    h.addR1(a.r1, "R1");
+    attachDrawings(h, a.ticker);
+    enableDblArm(h, a.ticker);
+    S.minis.push(h);
+  } catch (e) { el.innerHTML = `<div class="empty">no bars</div>`; }
+}
+init().catch(e => { $("grid").innerHTML = `<div class="empty" style="padding:20px">Error: ${e.message}</div>`; });
+</script>
+</body>
+</html>

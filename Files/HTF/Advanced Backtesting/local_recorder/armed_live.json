@@ -1,0 +1,135 @@
+[
+ {
+  "id": "FUN-2026-11-24-131003",
+  "ticker": "FUN",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:10:03",
+  "r1": 12.31,
+  "r1_date": "2026-11-16",
+  "pattern": "Perfect HTF",
+  "status": "armed",
+  "updated": "2026-11-25T13:10:03"
+ },
+ {
+  "id": "INO-2026-11-24-131438",
+  "ticker": "INO",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:14:38",
+  "r1": 2.17,
+  "r1_date": "2026-11-02",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T13:14:38"
+ },
+ {
+  "id": "CGON-2026-11-24-132704",
+  "ticker": "CGON",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:27:04",
+  "r1": 93.95,
+  "r1_date": "2026-11-16",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T13:27:04"
+ },
+ {
+  "id": "ALGT-2026-11-24-133324",
+  "ticker": "ALGT",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:33:24",
+  "r1": 98.7,
+  "r1_date": "2026-11-09",
+  "pattern": "Green HTF",
+  "status": "disarmed",
+  "updated": "2026-11-26T08:45:13",
+  "was": "disarmed"
+ },
+ {
+  "id": "COTY-2026-11-24-133730",
+  "ticker": "COTY",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:37:30",
+  "r1": 4.365,
+  "r1_date": "2026-11-10",
+  "pattern": "Perfect HTF",
+  "status": "armed",
+  "updated": "2026-11-25T13:37:30"
+ },
+ {
+  "id": "RSKD-2026-11-24-134318",
+  "ticker": "RSKD",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:43:18",
+  "r1": 11.13,
+  "r1_date": "2026-11-11",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T13:43:18"
+ },
+ {
+  "id": "AMPL-2026-11-24-134433",
+  "ticker": "AMPL",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:44:33",
+  "r1": 18.85,
+  "r1_date": "2026-11-05",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T13:44:33"
+ },
+ {
+  "id": "ADPT-2026-11-24-134532",
+  "ticker": "ADPT",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:45:32",
+  "r1": 32.21,
+  "r1_date": "2026-11-11",
+  "pattern": "Big Green Flag",
+  "status": "armed",
+  "updated": "2026-11-25T13:45:32"
+ },
+ {
+  "id": "SG-2026-11-24-134636",
+  "ticker": "SG",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:46:36",
+  "r1": 13.89,
+  "r1_date": "2026-11-10",
+  "pattern": "Perfect HTF",
+  "status": "armed",
+  "updated": "2026-11-25T13:46:36"
+ },
+ {
+  "id": "BOBS-2026-11-24-134647",
+  "ticker": "BOBS",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:46:47",
+  "r1": 21.19,
+  "r1_date": "2026-11-18",
+  "pattern": "Perfect HTF",
+  "status": "armed",
+  "updated": "2026-11-25T13:46:47"
+ },
+ {
+  "id": "ATEN-2026-11-24-134653",
+  "ticker": "ATEN",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:46:53",
+  "r1": 33.965,
+  "r1_date": "2026-11-19",
+  "pattern": "Perfect HTF",
+  "status": "armed",
+  "updated": "2026-11-25T13:46:53"
+ },
+ {
+  "id": "AZTA-2026-11-24-134702",
+  "ticker": "AZTA",
+  "armed_on": "2026-11-24",
+  "created": "2026-11-25T13:47:02",
+  "r1": 50.055,
+  "r1_date": "2026-11-11",
+  "pattern": "Perfect HTF",
+  "status": "armed",
+  "updated": "2026-11-25T13:47:02"
+ }
+]

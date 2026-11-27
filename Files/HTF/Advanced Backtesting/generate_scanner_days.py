@@ -1,15 +1,16 @@
 """
 Emits Pine overlay(s) that shade every bar inside an HTF scanner streak for the ticker on the
 chart. Each return window (1M / 3M / 6M) gets its own color layer (aqua / fuchsia / yellow);
-overlapping windows blend since the layers stack. Includes a bottom-left legend table, and
+overlapping windows blend since the layers stack. A bottom-left panel shows the ticker's row
+on the HTF ticker list, first/last seen, streak count and the next ticker; and
 per-window 1/0 flags exposed via display.data_window for hover lookup.
 
 Sources: one review CSV per window (status == OK rows, i.e. the "Data Filtered" set). One
 range per row: first_qualifying_date .. last_qualifying_date. Windows whose CSV doesn't exist
 yet are skipped, so this runs fine with just 1M.
 
-Encoding, per ticker:  ";AA:210303-210513,220121-220404|230101-230301|"
-The three pipe-separated fields are 1M | 3M | 6M ranges (empty if none). YYMMDD dates.
+Encoding, per ticker:  ";AA:210303-210513,220121-220404|230101-230301||2,200612,260323,6,AAAP"
+Pipe-separated: 1M | 3M | 6M ranges (empty if none), then the ticker-list info. YYMMDD dates.
 
 Pine constraints that shaped the script (all hit for real on 2026-09-18): "The if statement
 is too long" fires when a big string constant is inlined into ANY conditional, and `var x =
@@ -36,6 +37,22 @@ SOURCES = {
 }
 
 PIECE = 3000  # max chars per string literal; split only at ticker boundaries
+# The ticker list you work down (Google Sheet "Raw HTFs" tab = this file, same row order).
+LIST = os.path.join(HTF, "htf_scanner_master_by_ticker.csv")
+
+
+def load_list_info() -> dict:
+    """chart_symbol -> "row,first,last,n_streaks,next" entries ("~"-joined when one chart
+    symbol covers several list rows, e.g. CNR and the delisted CNR.5^22). Row = the sheet row
+    (header is row 1); next = the chart symbol on the following row."""
+    b = pd.read_csv(LIST)
+    nxt = b.chart_symbol.shift(-1).fillna("END")
+    out = {}
+    for i, r in enumerate(b.itertuples()):
+        ymd = lambda v: pd.Timestamp(v).strftime("%y%m%d")
+        out.setdefault(r.chart_symbol, []).append(
+            f"{i + 2},{ymd(r.first_seen)},{ymd(r.last_seen)},{int(r.n_streaks)},{nxt.iloc[i]}")
+    return {k: "~".join(v) for k, v in out.items()}
 
 
 def yymmdd(s: str) -> str:
@@ -54,9 +71,9 @@ def load_ranges(path: str) -> dict:
     return out
 
 
-def encode_ticker(tkr: str, per_window: dict) -> str:
+def encode_ticker(tkr: str, per_window: dict, info: dict) -> str:
     fields = [",".join(per_window.get(w, {}).get(tkr, [])) for w in WINDOWS]
-    return f";{tkr}:" + "|".join(fields)
+    return f";{tkr}:" + "|".join(fields + [info.get(tkr, "")])
 
 
 def split_pieces(data: str) -> list:
@@ -105,7 +122,7 @@ cut(string src, string k) =>
 key = ";" + syminfo.ticker + ":"
 {finds}
 seg = {joined}
-segp = seg == "" ? "||" : seg   // absent ticker still yields three empty fields
+segp = seg == "" ? "|||" : seg   // absent ticker still yields four empty fields
 
 // Appending "-" guarantees split yields >= 2 elements; an empty field pushes one na pair
 // that never matches. Keeps this free of `if`.
@@ -158,45 +175,36 @@ plot(hit3m ? 1 : 0, title = "3M hit", display = display.data_window)
 plot(hit6m ? 1 : 0, title = "6M hit", display = display.data_window)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//// LEGEND
+//// TICKER LIST PANEL (replaced the 1M/3M/6M color legend, 2026-11-10)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Legend text colors are deliberately NOT the actual (heavily transparent) on-chart swatch
-// colors -- at high layerTransparency those are too washed out to read as text. Single-window
-// entries use the pure input color; overlap entries blend the two pure colors at a fixed,
-// legend-only mix so they stay bright regardless of layerTransparency.
-blend(base, fg, transp) =>
-    a = (100 - transp) / 100.0
-    r = math.round(color.r(base) * (1 - a) + color.r(fg) * a)
-    g = math.round(color.g(base) * (1 - a) + color.g(fg) * a)
-    b = math.round(color.b(base) * (1 - a) + color.b(fg) * a)
-    color.rgb(r, g, b)
+// Where this ticker sits on the HTF ticker list, so you don't have to flip to the sheet:
+// first / last seen on the scanner, number of streaks, and the next ticker to chart.
+// Field 4 of the segment: "row,firstYYMMDD,lastYYMMDD,n_streaks,next", "~" between list rows
+// that share this chart symbol.
+panelSize = input.string("normal", "Panel text size", options = ["small", "normal", "large"])
+fmt(string yymmdd) =>
+    v = int(str.tonumber(yymmdd))
+    str.tostring(int(v / 100) % 100) + "/" + str.tostring(v % 100) + "/" + str.tostring(2000 + int(v / 10000))
 
-legendMix = 50
-lc1m3m = blend(color1m, color3m, legendMix)
-lc1m6m = blend(color1m, color6m, legendMix)
-lc3m6m = blend(color3m, color6m, legendMix)
-lcAll  = blend(lc1m3m, color6m, legendMix)
-
-var table legend = table.new(
-     position.bottom_left,
-     4,
-     3,
-     bgcolor = color.new(color.white, 100),
-     border_width = 0
- )
-
+var table panel = table.new(position.bottom_left, 2, 6, bgcolor = color.new(color.white, 100), border_width = 0)
 if barstate.islast
-    table.cell(legend, 0, 0, "1M only", text_color = color1m, text_size = size.normal)
-    table.cell(legend, 1, 0, "3M only", text_color = color3m, text_size = size.normal)
-    table.cell(legend, 2, 0, "6M only", text_color = color6m, text_size = size.normal)
-    table.cell(legend, 3, 0, "1M+3M+6M", text_color = lcAll, text_size = size.normal)
-    table.cell(legend, 0, 1, "1M+3M", text_color = lc1m3m, text_size = size.normal)
-    table.cell(legend, 1, 1, "1M+6M", text_color = lc1m6m, text_size = size.normal)
-    table.cell(legend, 2, 1, "3M+6M", text_color = lc3m6m, text_size = size.normal)
-    table.cell(legend, 0, 2, " ", text_color = color.new(color.white, 100))
-    table.cell(legend, 1, 2, " ", text_color = color.new(color.white, 100))
-    table.cell(legend, 2, 2, " ", text_color = color.new(color.white, 100))
-    table.merge_cells(legend, 3, 0, 3, 1)
+    ts = panelSize == "small" ? size.small : panelSize == "large" ? size.large : size.normal
+    info = array.get(str.split(segp, "|"), 3)
+    rows = str.split(info, "~")
+    r = 0
+    if info == ""
+        table.cell(panel, 0, 0, syminfo.ticker + " is not on the HTF ticker list", text_color = color.gray, text_size = ts)
+    else
+        k = 0
+        while k < array.size(rows)
+            f = str.split(array.get(rows, k), ",")
+            // 2x2: first | last seen, then streaks (+ list row) | next ticker
+            table.cell(panel, 0, r, "First seen  " + fmt(array.get(f, 1)), text_color = color.aqua, text_size = ts, text_halign = text.align_left)
+            table.cell(panel, 1, r, "Last seen  " + fmt(array.get(f, 2)), text_color = color.aqua, text_size = ts, text_halign = text.align_left)
+            table.cell(panel, 0, r + 1, "Streaks  " + array.get(f, 3) + "   (row " + array.get(f, 0) + ")", text_color = color.aqua, text_size = ts, text_halign = text.align_left)
+            table.cell(panel, 1, r + 1, "Next  " + array.get(f, 4), text_color = color.orange, text_size = ts, text_halign = text.align_left)
+            r += 2
+            k += 1
 '''
 
 
@@ -215,12 +223,13 @@ def main():
         else:
             print(f"{w}: no review CSV yet at {os.path.basename(path)} -- skipped")
 
-    tickers = sorted(set().union(*(set(d) for d in per_window.values())))
+    info = load_list_info()
+    tickers = sorted(set().union(*(set(d) for d in per_window.values())) | set(info))
 
     limit = int(args.max_kb * 1024)
     chunks, cur, cur_first, cur_last = [], "", None, None
     for tkr in tickers:
-        seg = encode_ticker(tkr, per_window)
+        seg = encode_ticker(tkr, per_window, info)
         if cur and len(cur) + len(seg) > limit:
             chunks.append((cur_first, cur_last, cur))
             cur, cur_first = "", None
