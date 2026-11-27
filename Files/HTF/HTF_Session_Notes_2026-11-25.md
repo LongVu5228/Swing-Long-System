@@ -55,7 +55,9 @@ P123 pull, then the bars update.
   plus custom tags. Arming auto-adds SG/BG/PF/BPF; red patterns add no tag. The tag filter is one "Tags ▾" dropdown
   (2026-11-27): checkboxes for Armed / Unarmed (status), every tag, and Untagged, plus "Must have all tags". Off means
   ANY checked entry matches; on means a ticker needs ALL of them. It shows a live count, and the grid redraws when the
-  menu closes. Both choices are remembered (localStorage `filter` / `filterAll`).
+  menu closes. An **Exclude** column beside it lists the same entries; a ticker with ANY excluded entry is hidden,
+  applied on top of Include. Checking an entry in one column unchecks it in the other. All of it is remembered
+  (localStorage `filter` / `filterEx` / `filterAll`).
 - **Drawings** (`drawings.json`). Alt+T trendline, Alt+H horizontal line. Click a line to select it, Delete removes it,
   drag moves an end point or the whole line. Lines can end in the blank future area. They are synced across every chart
   of the ticker.

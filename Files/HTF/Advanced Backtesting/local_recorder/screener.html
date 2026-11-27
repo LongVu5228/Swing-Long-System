@@ -82,6 +82,12 @@
   .tagfilter #fClr { padding:2px 7px; font-size:12px; border-radius:12px; }
   #fMenu { position:absolute; right:0; top:calc(100% + 4px); z-index:60; background:#fff; border:1px solid var(--line);
            border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,.15); padding:8px; min-width:210px; color:var(--fg); font-size:12px; }
+  #fMenu .cols { display:flex; gap:10px; }
+  #fMenu .col { min-width:150px; }
+  #fMenu .col.ex { border-left:1px solid var(--line); padding-left:10px; }
+  #fMenu .hd { font-weight:600; margin:0 2px 2px; }
+  #fMenu .col.ex .hd { color:#c62828; }
+  #fMenu .col.ex input:checked + .tag { text-decoration:line-through; }
   #fMenu .grp { color:var(--muted); font-size:11px; margin:6px 2px 2px; text-transform:uppercase; letter-spacing:.04em; }
   #fMenu label { display:flex; align-items:center; gap:6px; padding:3px 4px; border-radius:4px; cursor:pointer; }
   #fMenu label:hover { background:#f0f3fa; }
@@ -207,7 +213,7 @@ const SPECIAL = new Set(["armed", "drawn"]);     // not tied to Today / Graduate
 const VIEWS = [["today", "Today"], ["grads", "Graduates (3M)"], ["backlog", "Backlog"]];
 const S = {dates: [], date: null, data: null, armed: null, tab: "1m_small", tf: "6M", grid: "4x2", page: 0, charts: [],
            cache: new Map(), view: "today", backlog: null, minis: [], panelSig: "", recent: [],
-           tags: {vocab: ["UT", "DT", "N/A"], tickers: {}}, filter: new Set(), tagMore: load("tagMore", "1") === "1", filterAll: load("filterAll", "0") === "1"};   // all tags shown in the filter bar by default
+           tags: {vocab: ["UT", "DT", "N/A"], tickers: {}}, filter: new Set(), exclude: new Set(), tagMore: load("tagMore", "1") === "1", filterAll: load("filterAll", "0") === "1"};   // all tags shown in the filter bar by default
 let PATTERNS = [], REDS = [];
 let COLLAPSED = new Set();
 try { COLLAPSED = new Set(JSON.parse(localStorage.getItem("scr.collapsed") || "[]")); } catch (e) {}
@@ -233,6 +239,7 @@ async function init() {
   $("tfs").onclick = e => { const t = e.target.dataset.tf; if (t) { S.tf = t; keep("tf", t); markTF(); S.charts.forEach(c => c.h && c.h.setTF(t)); } };
   markTF();
   try { S.filter = new Set(JSON.parse(load("filter", "[]"))); } catch (e) {}
+  S.exclude = new Set(); try { S.exclude = new Set(JSON.parse(load("filterEx", "[]"))); } catch (e) {}
   await loadTags();
   const d = await getJSON("/api/scr/dates");
   PATTERNS = d.patterns || []; REDS = d.red || [];
@@ -270,14 +277,15 @@ async function init() {
   renderTagFilter();
   $("tagFilter").addEventListener("click", e => {
     if (e.target.closest("#fBtn")) { $("fMenu") ? closeFilterMenu() : openFilterMenu(); return; }
-    if (e.target.closest("#fClr")) { S.filter.clear(); saveFilter(); closeFilterMenu(true); return; }
-    if (e.target.closest("#fMenu [data-none]")) { S.filter.clear(); saveFilter(); syncFilterMenu(); }
+    if (e.target.closest("#fClr")) { S.filter.clear(); S.exclude.clear(); saveFilter(); closeFilterMenu(true); return; }
+    if (e.target.closest("#fMenu [data-none]")) { S.filter.clear(); S.exclude.clear(); saveFilter(); syncFilterMenu(); }
     if (e.target.closest("#fMenu [data-done]")) closeFilterMenu();
   });
   $("tagFilter").addEventListener("change", e => {
     const c = e.target;
     if (c.dataset.all) S.filterAll = c.checked;
-    else if (c.dataset.f) c.checked ? S.filter.add(c.dataset.f) : S.filter.delete(c.dataset.f);
+    else if (c.dataset.f) { if (c.checked) { S.filter.add(c.dataset.f); S.exclude.delete(c.dataset.f); } else S.filter.delete(c.dataset.f); }
+    else if (c.dataset.x) { if (c.checked) { S.exclude.add(c.dataset.x); S.filter.delete(c.dataset.x); } else S.exclude.delete(c.dataset.x); }
     saveFilter(); syncFilterMenu();
   });
   document.addEventListener("click", e => { if ($("fMenu") && !e.target.closest("#tagFilter")) closeFilterMenu(); });
@@ -393,7 +401,7 @@ function openArmMenu(h, ticker, date, high, cx, cy) {
       setTimeout(() => drawToast(""), 1800);
       await loadTags(); renderTagFilter();          // the pattern was added as a tag on the server
       await refreshArmed(); decorate();
-      if (S.tab === "armed" || S.filter.size) render();
+      if (S.tab === "armed" || filterOn()) render();
       if (CHAN) CHAN.postMessage("changed");
     } catch (err) { drawToast("Arm failed: " + err.message); setTimeout(() => drawToast(""), 2500); }
   };
@@ -407,48 +415,57 @@ function hasF(t, f) {          // does ticker t match one filter entry? Armed / 
   if (f === "Untagged") return !tagsOf(t).length;
   return tagsOf(t).includes(f);
 }
-function passes(t) {          // tag filter: ANY selected entry, or ALL of them when "Must have all tags" is on
+function filterOn() { return !!(S.filter.size || (S.exclude && S.exclude.size)); }
+function passes(t) {          // include: ANY checked entry (ALL with "Must have all tags"); exclude: hide if it has ANY excluded entry
+  if (S.exclude && [...S.exclude].some(x => hasF(t, x))) return false;
   if (!S.filter.size) return true;
   const f = [...S.filter];
   return S.filterAll ? f.every(x => hasF(t, x)) : f.some(x => hasF(t, x));
 }
 // ---- tag filter: one dropdown with a checkbox per tag + "Must have all tags"; the grid redraws when it closes
-function saveFilter() { keep("filter", JSON.stringify([...S.filter])); keep("filterAll", S.filterAll ? "1" : "0"); }
+function saveFilter() { keep("filter", JSON.stringify([...S.filter])); keep("filterEx", JSON.stringify([...S.exclude])); keep("filterAll", S.filterAll ? "1" : "0"); }
+function filterSig() { return JSON.stringify([[...S.filter].sort(), [...S.exclude].sort(), S.filterAll]); }
 function filterLabel() {
-  if (!S.filter.size) return "Tags: any ▾";
-  return "Tags: " + [...S.filter].join(S.filterAll ? " + " : " / ") + " ▾";
+  if (!filterOn()) return "Tags: any ▾";
+  const inc = S.filter.size ? [...S.filter].join(S.filterAll ? " + " : " / ") : "any";
+  return "Tags: " + inc + (S.exclude.size ? " − not " + [...S.exclude].join(", ") : "") + " ▾";
 }
 function renderTagFilter() {
   const open = !!$("fMenu");
-  $("tagFilter").innerHTML = `<button id="fBtn" class="${S.filter.size ? "on" : ""}" title="${S.filter.size
-      ? (S.filterAll ? "Showing tickers with ALL of: " : "Showing tickers with ANY of: ") + [...S.filter].join(", ") : "Filter the grid by tags"}">${filterLabel()}</button>` +
-    (S.filter.size ? `<button id="fClr" title="Clear the tag filter">✕</button>` : "");
+  const tip = !filterOn() ? "Filter the grid by tags" :
+    (S.filter.size ? (S.filterAll ? "Showing tickers with ALL of: " : "Showing tickers with ANY of: ") + [...S.filter].join(", ") : "All tickers") +
+    (S.exclude.size ? " — excluding any with: " + [...S.exclude].join(", ") : "");
+  $("tagFilter").innerHTML = `<button id="fBtn" class="${filterOn() ? "on" : ""}" title="${tip}">${filterLabel()}</button>` +
+    (filterOn() ? `<button id="fClr" title="Clear the tag filter">✕</button>` : "");
   if (open) openFilterMenu(true);
 }
 function openFilterMenu(keepSig) {
   if (!$("fMenu")) $("tagFilter").insertAdjacentHTML("beforeend", `<div id="fMenu"></div>`);
-  if (!keepSig) S.filterOpenSig = JSON.stringify([[...S.filter].sort(), S.filterAll]);
-  const box = t => `<label><input type="checkbox" data-f="${t}" ${S.filter.has(t) ? "checked" : ""}>` +
-                   `<span class="tag ${t.replace("/", "")}">${t}</span></label>`;
+  if (!keepSig) S.filterOpenSig = filterSig();
+  const box = (t, k, set) => `<label><input type="checkbox" data-${k}="${t}" ${set.has(t) ? "checked" : ""}>` +
+                             `<span class="tag ${t.replace("/", "")}">${t}</span></label>`;
   const vocab = S.tags.vocab.filter(t => !["Armed", "Unarmed", "Untagged"].includes(t));
-  $("fMenu").innerHTML =
-    `<div class="grp">Status</div>` + box("Armed") + box("Unarmed") +
-    `<div class="grp">Tags</div>` + vocab.map(box).join("") + box("Untagged") +
+  const col = (k, set) => `<div class="grp">Status</div>` + box("Armed", k, set) + box("Unarmed", k, set) +
+    `<div class="grp">Tags</div>` + vocab.map(t => box(t, k, set)).join("") + box("Untagged", k, set);
+  $("fMenu").innerHTML = `<div class="cols">` +
+    `<div class="col"><div class="hd">Include</div>` + col("f", S.filter) +
     `<label class="all" title="Off: a ticker shows if it has ANY checked tag. On: it must have EVERY checked tag.">` +
-    `<input type="checkbox" data-all="1" ${S.filterAll ? "checked" : ""}> Must have all tags</label>` +
+    `<input type="checkbox" data-all="1" ${S.filterAll ? "checked" : ""}> Must have all tags</label></div>` +
+    `<div class="col ex" title="Hide every ticker that has ANY of these"><div class="hd">Exclude</div>` + col("x", S.exclude) + `</div></div>` +
     `<div class="foot"><span id="fCount"></span><span><button data-none="1">Clear</button> <button data-done="1">Done</button></span></div>`;
   syncFilterMenu();
 }
 function syncFilterMenu() {          // live label + match count while the menu is open (no grid redraw yet)
-  const b = $("fBtn"); if (b) { b.textContent = filterLabel(); b.classList.toggle("on", !!S.filter.size); }
+  const b = $("fBtn"); if (b) { b.textContent = filterLabel(); b.classList.toggle("on", filterOn()); }
   if (!$("fMenu")) return;
   $("fMenu").querySelectorAll("[data-f]").forEach(c => c.checked = S.filter.has(c.dataset.f));
+  $("fMenu").querySelectorAll("[data-x]").forEach(c => c.checked = S.exclude.has(c.dataset.x));
   let n = 0; try { n = itemsRaw().filter(x => passes(x.ticker) && qMatch(x.ticker)).length; } catch (e) {}
   $("fCount").textContent = `${n} on this tab`;
 }
 function closeFilterMenu(force) {
   const m = $("fMenu"); if (m) m.remove();
-  const changed = force || S.filterOpenSig !== JSON.stringify([[...S.filter].sort(), S.filterAll]);
+  const changed = force || S.filterOpenSig !== filterSig();
   renderTagFilter();
   if (changed) { S.page = 0; renderTabs(); render(); }
 }
@@ -460,7 +477,7 @@ function flushTags() {
   if (!S.tagsDirty) return;
   S.tagsDirty = false;
   renderTagFilter(); decorate();
-  if (S.filter.size) { renderTabs(); render(); }
+  if (filterOn()) { renderTabs(); render(); }
 }
 function openTagMenu(btn, keepDirty) {
   closeTagMenu(keepDirty);
@@ -615,7 +632,7 @@ function render() {
   if (!all.length && S.q) {
     const w = whereIs(S.q), tab = (TABS.find(t => t.key === S.tab) || {}).label, vl = VIEWS.find(v => v[0] === S.view)[1];
     g.innerHTML = `<div class="empty found" style="padding:20px"><b>${S.q}</b> is not on ${tab} (${vl}) for ${S.date}` +
-      (S.filter.size ? " with the selected tags" : "") + ".<br><br>" +
+      (filterOn() ? " with the selected tags" : "") + ".<br><br>" +
       (w.length ? "It is on: " + w.map(([v, k, lab]) => `<button data-gov="${v}" data-gok="${k}">${lab}</button>`).join("")
                 : `Not on any list${S.backlog ? "" : " in Today / Graduates (open Backlog once to search it too)"}.`) + "</div>";
     g.querySelectorAll("[data-gov]").forEach(b => b.onclick = async () => {
@@ -626,7 +643,7 @@ function render() {
     return;
   }
   if (!all.length) {
-    g.innerHTML = `<div class="empty" style="padding:20px">${S.filter.size ? "No tickers here with the selected tags." : S.tab === "drawn" ? "No drawings in the last 30 days." : "Nothing on this list for " + S.date + "."}</div>`;
+    g.innerHTML = `<div class="empty" style="padding:20px">${filterOn() ? "No tickers here with the selected tags." : S.tab === "drawn" ? "No drawings in the last 30 days." : "Nothing on this list for " + S.date + "."}</div>`;
     return;
   }
   g.innerHTML = "";
@@ -763,7 +780,7 @@ async function disarmNow(id, ticker, watch) {
   // instant: take it off the page first, then tell the server (the full refresh follows in the background)
   if (S.armed) { S.armed.active = S.armed.active.filter(a => a.id !== id); S.armed.watch = S.armed.watch.filter(a => a.id !== id); }
   decorate(); renderPanel(); renderTabs();
-  if (S.tab === "armed" || S.filter.has("Armed") || S.filter.has("Unarmed")) render();
+  if (S.tab === "armed" || filterOn()) render();
   drawToast(watch ? `${ticker} removed from watch` : `${ticker} disarmed`); setTimeout(() => drawToast(""), 1500);
   await postJSON("/api/scr/disarm", {mode: mode(), id});
   if (CHAN) CHAN.postMessage("changed");
