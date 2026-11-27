@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTF Daily Summary</title>
+<script src="/scr_common.js"></script>
+<style>
+  :root { --bg:#ffffff; --fg:#131722; --muted:#787b86; --line:#e0e3eb; --soft:#f0f3fa; --chip:#f0f3fa;
+          --accent:#2962ff; --green:#089981; --red:#f23645; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--fg);
+               font:13px -apple-system, BlinkMacSystemFont, "Trebuchet MS", Roboto, Ubuntu, sans-serif; }
+  body { display:flex; flex-direction:column; overflow:hidden; }
+  header { display:flex; align-items:center; gap:12px; padding:10px 16px 6px; flex-wrap:wrap; }
+  h1 { font-size:22px; margin:0; font-weight:700; }
+  a { color:inherit; }
+  button, select, input { font:inherit; }
+  button { cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--fg); border-radius:6px; padding:5px 10px; }
+  button:hover { background:var(--soft); }
+  button:disabled { opacity:.4; cursor:default; }
+  .datebox { display:flex; align-items:center; gap:4px; }
+  .datebox input, select { padding:4px 6px; border:1px solid var(--line); border-radius:6px; }
+  .back { text-decoration:none; padding:5px 10px; border:1px solid var(--line); border-radius:16px; }
+  .back:hover { background:var(--soft); }
+  .muted { color:var(--muted); font-size:12px; }
+  .strip { display:flex; gap:8px; padding:6px 16px 10px; flex-wrap:wrap; border-bottom:1px solid var(--line); }
+  .stat { border:1px solid var(--line); border-radius:8px; padding:6px 12px; min-width:110px; }
+  .stat b { display:block; font-size:20px; }
+  .stat span { color:var(--muted); font-size:11px; }
+  .trades { padding:8px 16px; border-bottom:1px solid var(--line); display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+  .trades .t { border:1px solid var(--line); border-radius:6px; padding:3px 8px; }
+  .trades .t.Triggered { background:#e3ebff; } .trades .t.Stopped { background:#fdecee; }
+  .trades .t.Exited { background:#e6f4f1; } .trades .t.Partial { background:#fff8e1; }
+  main { flex:1; min-height:0; display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:10px; padding:10px 16px; }
+  .col { border:1px solid var(--line); border-radius:8px; display:flex; flex-direction:column; min-height:0; }
+  .col h2 { margin:0; font-size:13px; padding:8px 10px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:6px; }
+  .col h2 .n { color:var(--muted); font-weight:400; }
+  .col h2 .avg { margin-left:auto; font-size:11px; font-weight:700; }
+  .col .sub { color:var(--muted); font-size:11px; padding:4px 10px 0; }
+  .col .rows { overflow:auto; padding:4px 6px 8px; }
+  .row { display:flex; align-items:center; gap:5px; padding:4px; border-radius:5px; white-space:nowrap; }
+  .row:hover { background:var(--soft); }
+  .row a.tk { font-weight:700; text-decoration:none; min-width:52px; }
+  .row a.tk:hover { color:var(--accent); }
+  .chip { font-size:10px; font-weight:700; padding:1px 4px; border-radius:3px; background:var(--chip); color:var(--muted); }
+  .chip.w1M { background:#e3ebff; color:#1e4fd8; } .chip.w3M { background:#efe8fb; color:#5e35b1; } .chip.w6M { background:#e0f2ef; color:#00695c; }
+  .row .f { margin-left:auto; display:flex; gap:6px; align-items:baseline; }
+  .pct { font-weight:700; font-size:12px; min-width:48px; text-align:right; }
+  .up { color:var(--green); } .dn { color:var(--red); }
+  .ru { color:var(--muted); font-size:11px; min-width:44px; text-align:right; }
+  .empty { color:var(--muted); padding:10px; }
+  @media (max-width: 1100px) { main { grid-template-columns:repeat(2, minmax(0, 1fr)); overflow:auto; } .col { max-height:420px; } }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="/screener" id="backLink">← Screener</a>
+  <h1>Daily summary</h1>
+  <div class="datebox">
+    <button id="prev" title="Previous session (←)">◀</button>
+    <input id="date" type="date">
+    <button id="next" title="Next session (→)">▶</button>
+    <button id="latest">Latest</button>
+  </div>
+  <label class="muted">Armed list
+    <select id="mode"><option value="live">Live</option><option value="replay">Practice</option></select></label>
+  <span class="muted" id="thru"></span>
+</header>
+<div class="strip" id="strip"></div>
+<div class="trades" id="trades"></div>
+<main id="cols"></main>
+<script>
+const $ = id => document.getElementById(id);
+const load = (k, d) => { try { return localStorage.getItem("sum_" + k) ?? d; } catch (e) { return d; } };
+const keep = (k, v) => { try { localStorage.setItem("sum_" + k, v); } catch (e) {} };
+const COLS = [
+  ["new", "New", "On a Today list for the first time ever"],
+  ["back_grad", "Back from Graduates", "Off the lists within the last 63 sessions, back on Today"],
+  ["back_backlog", "Back from Backlog", "Off the lists for more than 63 sessions (or moved by hand), back on Today"],
+  ["out_grad", "Today → Graduates", "On Today yesterday, on no list today"],
+  ["aged", "Graduates → Backlog", "Last list day fell out of the 63-session window (or you moved it)"],
+];
+const S = {dates: [], date: null, mode: load("mode", "live")};
+const pct = v => v == null ? "–" : (v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%";
+const cls = v => v == null ? "" : v >= 0 ? "up" : "dn";
+const chips = ls => (ls || []).map(l => { const [w, b] = l.split(" "); return `<span class="chip w${w}">${w} ${b.slice(0, 2)}</span>`; }).join("");
+const chartUrl = t => `/chart?t=${encodeURIComponent(t)}&asof=${S.date}&mode=${S.mode}`;
+
+async function show(d) {
+  S.date = d; $("date").value = d; keep("date", d);
+  history.replaceState(null, "", `/summary?date=${d}`);
+  $("backLink").href = `/screener?date=${d}`;
+  $("cols").innerHTML = `<div class="empty">Loading ${d} …</div>`;
+  let s;
+  try { s = await getJSON(`/api/scr/summary?date=${d}&mode=${S.mode}`); }
+  catch (e) { $("cols").innerHTML = `<div class="empty">Error: ${e.message}</div>`; return; }
+  if (S.date !== d) return;
+  $("prev").disabled = !s.prev; $("next").disabled = !s.next;
+  S.prev = s.prev; S.next = s.next;
+  $("thru").textContent = d === s.upto ? "Latest day: follow-up starts tomorrow" : `Follow-up: close ${d} → close ${s.upto}`;
+  const c = s.counts;
+  const stats = [["today", "On Today", c.today], ["new", "New", c.new], ["back", "Back on Today", c.back_grad + c.back_backlog],
+                 ["out", "Today → Grads", c.out_grad], ["aged", "Grads → Backlog", c.aged], ["trades", "Trade events", c.trades]];
+  $("strip").innerHTML = stats.map(([k, lab, v]) => `<div class="stat"><b>${v}</b><span>${lab}</span></div>`).join("");
+  const T = s.groups.trades;
+  $("trades").innerHTML = `<b style="margin-right:4px">Trades</b>` + (T.length ? T.map(t =>
+      `<span class="t ${t.kind.split(" ")[0]}"><a href="${chartUrl(t.ticker)}" target="_blank" rel="noopener"><b>${t.ticker}</b></a> ` +
+      `${t.kind}${t.R != null ? ` ${t.R >= 0 ? "+" : ""}${t.R}R` : ""}${t.note ? " (" + t.note + ")" : ""}` +
+      `${t.fill ? ` <span class="muted">@ ${fmt.px(t.fill)}</span>` : ""}</span>`).join("")
+    : `<span class="muted">No armed ticker triggered, hit +20% or closed this day (daily-bar estimate).</span>`);
+  $("cols").innerHTML = COLS.map(([k, lab, tip]) => {
+    const rows = s.groups[k];
+    const vals = rows.map(r => r.chg).filter(v => v != null);
+    const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+    return `<div class="col"><h2 title="${tip}">${lab} <span class="n">${rows.length}</span>` +
+      `<span class="avg ${cls(avg)}" title="Average % since ${d}">${avg == null ? "" : "avg " + pct(avg)}</span></h2>` +
+      `<div class="sub">${tip}</div><div class="rows">` +
+      (rows.length ? rows.map(r => `<div class="row" title="${r.last_seen ? "last on a list " + r.last_seen : ""}${r.why ? " · " + r.why : ""}">` +
+        `<a class="tk" href="${chartUrl(r.ticker)}" target="_blank" rel="noopener">${r.ticker}</a>${chips(r.lists)}` +
+        (r.why === "moved by hand" ? `<span class="chip">by hand</span>` : "") +
+        `<span class="f"><span class="pct ${cls(r.chg)}" title="Close ${d} → close ${r.through || ""}">${pct(r.chg)}</span>` +
+        `<span class="ru" title="Best high since ${d}">${r.runup == null ? "" : "↑" + Math.max(0, r.runup * 100).toFixed(0) + "%"}</span></span></div>`).join("")
+        : `<div class="empty">none</div>`) + `</div></div>`;
+  }).join("");
+}
+
+async function init() {
+  const D = await getJSON("/api/scr/dates");
+  S.dates = D.dates;
+  $("date").min = S.dates[0]; $("date").max = D.latest;
+  $("mode").value = S.mode;
+  const want = new URLSearchParams(location.search).get("date") || load("date", D.latest);
+  const pick = d => { const i = S.dates.findIndex(x => x >= d); return i < 0 ? D.latest : S.dates[i]; };
+  $("prev").onclick = () => S.prev && show(S.prev);
+  $("next").onclick = () => S.next && show(S.next);
+  $("latest").onclick = () => show(D.latest);
+  $("date").onchange = () => $("date").value && show(pick($("date").value));
+  $("mode").onchange = () => { S.mode = $("mode").value; keep("mode", S.mode); show(S.date); };
+  document.addEventListener("keydown", e => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+    if (e.key === "ArrowLeft" && S.prev) show(S.prev);
+    if (e.key === "ArrowRight" && S.next) show(S.next);
+  });
+  await show(pick(want));
+}
+init().catch(e => { $("cols").innerHTML = `<div class="empty">Error: ${e.message}</div>`; });
+</script>
+</body>
+</html>

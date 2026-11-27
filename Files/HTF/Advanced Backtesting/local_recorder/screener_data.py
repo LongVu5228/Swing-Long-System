@@ -795,3 +795,148 @@ def clean(o):
     if isinstance(o, (np.integer, np.bool_)):
         return o.item()
     return o
+
+
+# ------------------------------------------------------------------ daily summary (per scan day: who moved where)
+LIST_LABEL = {f"{w}_{b}": f"{w.upper()} {b.capitalize()}" for w in WINDOWS for b, _, _ in BUCKETS}
+
+
+def _on_lists(day):
+    """{ticker: ["1M Small", ...]} for the Today lists (rank <= TOP_N) of one scan day."""
+    r = _rows_for(day)
+    out = {}
+    if r is None or r.empty:
+        return out
+    for w in WINDOWS:
+        col = f"rank_{w}"
+        if col not in r:
+            continue
+        for row in r[r[col].notna()].itertuples():
+            out.setdefault(row.ticker, []).append(LIST_LABEL[f"{w}_{row.bucket}"])
+    return out
+
+
+def _grad_from(day):
+    pos = TD.searchsorted(pd.Timestamp(day))
+    return d10(TD[max(0, pos - GRAD_SESSIONS)].date())
+
+
+def _follow(tickers, day, upto):
+    """% from the close on `day` to the close on `upto`, plus the best high in between (run-up), from the store."""
+    out = {}
+    if not tickers or day >= upto:
+        return out
+    base = {t: re.split(r"[.^]", t)[0] for t in tickers}
+    frames = []
+    for y in range(int(day[:4]), int(upto[:4]) + 1):
+        p = os.path.join(DATA, "market_daily", f"{y}.parquet")
+        if os.path.exists(p):
+            frames.append(pd.read_parquet(p, columns=["date", "ticker", "high", "close"],
+                                          filters=[("ticker", "in", sorted(set(base.values())))]))
+    if not frames:
+        return out
+    m = pd.concat(frames)
+    m = m[(m.date >= day) & (m.date <= upto)].sort_values("date")
+    for t, b in base.items():
+        g = m[m.ticker == b]
+        if len(g) < 2 or g.date.iloc[0] != day:
+            continue
+        c0 = float(g.close.iloc[0])
+        if c0 <= 0:
+            continue
+        out[t] = {"chg": float(g.close.iloc[-1]) / c0 - 1, "runup": float(g.high.iloc[1:].max()) / c0 - 1,
+                  "through": g.date.iloc[-1]}
+    return out
+
+
+_SCACHE = {}
+
+
+def day_summary(day, mode="live"):
+    ds = scan_dates()
+    if day not in ds:
+        raise ValueError("not a scan day")
+    upto = ds[-1]
+    key = (day, mode, upto, _raw_sig(), os.path.getmtime(MOVED) if os.path.exists(MOVED) else 0,
+           os.path.getmtime(ARMED[mode]) if os.path.exists(ARMED[mode]) else 0)
+    if key not in _SCACHE:
+        if len(_SCACHE) > 60:
+            _SCACHE.clear()
+        _SCACHE[key] = _day_summary(day, mode, upto, ds)
+    return _SCACHE[key]
+
+
+def _day_summary(day, mode, upto, ds):
+    i = ds.index(day)
+    prev = ds[i - 1] if i else None
+    now, before = _on_lists(day), (_on_lists(prev) if prev else {})
+    first_d, first_p = _grad_from(day), (_grad_from(prev) if prev else None)
+    a = _all_lists()
+    past = a[a.date < day]
+    last_seen = past.groupby("ticker").date.max()
+    moved = _moved_all()
+
+    new_first, back_grad, back_backlog, out_grad, aged = [], [], [], [], []
+    for t, lists in now.items():
+        if t in before:
+            continue
+        ls = last_seen.get(t)
+        row = {"ticker": t, "lists": lists}
+        if ls is None:
+            new_first.append(row)
+        else:
+            row["last_seen"] = ls
+            mv = moved.get(t)
+            sent_back = mv and mv["asof"] < day and ls <= mv["asof"]
+            (back_grad if ls >= first_d and not sent_back else back_backlog).append(row)
+    for t, lists in before.items():
+        if t not in now:
+            out_grad.append({"ticker": t, "lists": lists})
+    if first_p:
+        # aged out: last list day fell out of the 63-session window today (and it isn't back today)
+        for t, ls in last_seen.items():
+            if first_p <= ls < first_d and t not in now and not _gone(t, day):
+                aged.append({"ticker": t, "last_seen": ls, "why": "63 sessions"})
+    for t, v in moved.items():
+        if v["asof"] == day and t not in now:
+            aged.append({"ticker": t, "last_seen": last_seen.get(t), "why": "moved by hand"})
+
+    # trade events from the armed list (daily-bar estimates)
+    trades = []
+    for it in _load(mode):
+        if it["armed_on"] > day or it.get("status") == "watch" or (it.get("status") == "disarmed" and it.get("was") == "watch"):
+            continue
+        if it.get("status") == "disarmed" and it.get("updated", "")[:10] < day:
+            continue                                    # disarmed before this day: no longer working
+        df = bars_for(it["ticker"], upto)
+        if df is None or df.empty:
+            continue
+        d = df[df.date <= day].reset_index(drop=True)
+        if d.empty or d.date.iloc[-1] != day:
+            continue
+        st = _trade_state(d, it, adr14(df), day, None)   # same ADR as the armed panel
+        base = {"ticker": it["ticker"], "pattern": it["pattern"], "r1": it["r1"]}
+        if st.get("entry_date") == day:
+            trades.append(dict(base, kind="Triggered", fill=st["fill"]))
+        if st.get("entry_date") and st.get("entry_date") < day and st["state"] in ("IN TRADE", "STOPPED", "EXITED"):
+            fill = st["fill"]
+            seg = d[(d.date > st["entry_date"]) & (d.date <= day)]
+            hit20 = seg[seg.high >= fill * 1.20]
+            prior = d[(d.date >= st["entry_date"]) & (d.date < day)]
+            if len(hit20) and hit20.date.iloc[0] == day and not (prior.high >= fill * 1.20).any():
+                trades.append(dict(base, kind="Partial +20%", fill=fill))
+        if st.get("closed_on") == day:
+            trades.append(dict(base, kind="Stopped" if st["state"] == "STOPPED" else "Exited", fill=st.get("fill"),
+                               R=st.get("R"), note=st.get("note")))
+
+    groups = {"new": new_first, "back_grad": back_grad, "back_backlog": back_backlog, "out_grad": out_grad,
+              "aged": aged, "trades": trades}
+    fol = _follow(sorted({r["ticker"] for g in groups.values() for r in g}), day, upto)
+    for g in groups.values():
+        for r in g:
+            r.update(fol.get(r["ticker"], {}))
+        g.sort(key=lambda r: -(r.get("chg") if r.get("chg") is not None else -9))
+    counts = {k: len(v) for k, v in groups.items()}
+    counts["today"] = len(now)
+    return {"date": day, "prev": prev, "next": ds[i + 1] if i + 1 < len(ds) else None, "upto": upto,
+            "counts": counts, "groups": groups}

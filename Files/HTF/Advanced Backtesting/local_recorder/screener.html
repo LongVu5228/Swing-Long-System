@@ -466,13 +466,15 @@ function renderTabs() {
   const tips = {today: "On the list today", grads: "On that list in the past ~3 months, on no list today",
                 backlog: "Last on that list more than ~3 months ago (delisted names dropped)"};
   const seg = `<span class="seg">${VIEWS.map(([v, lab]) =>
-      `<button data-v="${v}" class="${S.view === v ? "on" : ""}" title="${tips[v]}">${lab}</button>`).join("")}</span>` +
+      `<button data-v="${v}" class="${S.view === v ? "on" : ""}" title="${tips[v]}">${lab}</button>`).join("")}` +
+    `<button data-go="summary" title="Per-day summary: who came onto Today, who graduated, who aged into the backlog, trade events">Summary</button></span>` +
     '<span class="sep"></span>';
   $("tabs").innerHTML = seg + TABS.map((t, i) => (i === 1 || i === 10 ? '<span class="sep"></span>' : "") +
     `<button data-k="${t.key}" class="${t.key === S.tab ? "on" : ""}">${t.label}` +
     `<span class="n">${S.data && (S.view !== "backlog" || S.backlog || SPECIAL.has(t.key)) ? n(t.key) : ""}</span></button>`).join("");
   $("tabs").onclick = async e => {
     const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.go) { location.href = `/summary?date=${S.date}`; return; }
     if (b.dataset.v) {
       S.view = b.dataset.v; keep("view", S.view); if (SPECIAL.has(S.tab)) S.tab = "1m_small";
       if (S.view === "backlog") await loadBacklog();

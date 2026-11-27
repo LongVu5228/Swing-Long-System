@@ -349,7 +349,7 @@ class H(BaseHTTPRequestHandler):
     def _screener_get(self, u, q):
         """Live / replay screener (screener.html, chart.html; data in screener_data.py)."""
         import screener_data as SD
-        if u.path in ("/screener", "/chart"):
+        if u.path in ("/screener", "/chart", "/summary"):
             with open(os.path.join(HERE, u.path[1:] + ".html"), "rb") as fh:
                 return self._send(200, fh.read(), "text/html; charset=utf-8")
         if u.path == "/scr_common.js":
@@ -375,6 +375,11 @@ class H(BaseHTTPRequestHandler):
         if u.path == "/api/scr/drawings":
             ts = [t for t in q.get("t", "").split(",") if t][:200]
             return self._send(200, SD.drawings_get(ts))
+        if u.path == "/api/scr/summary":
+            try:
+                return self._send(200, SD.clean(SD.day_summary(q.get("date") or SD.scan_dates()[-1], q.get("mode", "live"))))
+            except ValueError as e:
+                return self._send(400, {"error": str(e)})
         if u.path == "/api/scr/armed":
             return self._send(200, SD.clean(SD.armed_view(q.get("mode", "replay"), q.get("asof") or SD.scan_dates()[-1])))
         return None
@@ -410,7 +415,7 @@ class H(BaseHTTPRequestHandler):
     def do_GET(self):
         u = urlparse(self.path)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
-        if u.path in ("/screener", "/chart", "/scr_common.js") or u.path.startswith("/api/scr/"):
+        if u.path in ("/screener", "/chart", "/summary", "/scr_common.js") or u.path.startswith("/api/scr/"):
             if self._screener_get(u, q) is None:
                 self._send(404, {"error": "not found"})
             return
