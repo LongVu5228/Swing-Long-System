@@ -138,6 +138,21 @@ function buildChart(el, payload, tf, opts = {}) {
     candles.setMarkers(marks);
   }
   h.setTF(tf);
+  // A chart built before its box has a width ignores the range set above and falls back to the default bar spacing
+  // (~50 bars, which looked like "3M" whatever button was selected). Re-apply the selected range once the box is
+  // actually laid out (only until the user zooms / scrolls it themselves).
+  let touched = false;
+  el.addEventListener("wheel", () => { touched = true; }, {passive: true});
+  el.addEventListener("pointerdown", () => { touched = true; });
+  let lastW = el.clientWidth;
+  const ro = new ResizeObserver(() => {
+    const w = el.clientWidth;
+    if (!el.isConnected) return ro.disconnect();
+    if (w > 0 && w !== lastW && !touched) requestAnimationFrame(() => h.reset());
+    lastW = w;
+  });
+  ro.observe(el);
+  requestAnimationFrame(() => { if (!touched && el.clientWidth > 0) h.reset(); });
   return h;
 }
 
