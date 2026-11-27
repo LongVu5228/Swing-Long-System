@@ -51,8 +51,10 @@ P123 pull, then the bars update.
 - **Card header.** Left: ticker, then the ARMED/WATCH chip with a short pattern name (Big G / Perf / Big Perf / Green),
   then tags. Right: the 1M/3M/6M chips, market cap, ADR % and the 🏷 button.
 - **Tags** (stored in `tags.json`): UT orange, DT light red, BG/SG light green, PF/BPF purple, N/A gray struck-through,
-  plus custom tags. Arming auto-adds SG/BG/PF/BPF; red patterns add no tag. The filter bar shows Armed, the tags, then
-  Untagged, matching any of the selected ones.
+  plus custom tags. Arming auto-adds SG/BG/PF/BPF; red patterns add no tag. The tag filter is one "Tags ▾" dropdown
+  (2026-11-27): checkboxes for Armed / Unarmed (status), every tag, and Untagged, plus "Must have all tags". Off means
+  ANY checked entry matches; on means a ticker needs ALL of them. It shows a live count, and the grid redraws when the
+  menu closes. Both choices are remembered (localStorage `filter` / `filterAll`).
 - **Drawings** (`drawings.json`). Alt+T trendline, Alt+H horizontal line. Click a line to select it, Delete removes it,
   drag moves an end point or the whole line. Lines can end in the blank future area. They are synced across every chart
   of the ticker.

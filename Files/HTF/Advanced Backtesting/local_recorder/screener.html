@@ -74,9 +74,18 @@
   .tag.NA { background:#f0f1f3; color:#9598a1; text-decoration:line-through; }   /* N/A: not a setup right now */
 
   .tagbtn { padding:0 5px !important; font-size:11px !important; }
-  .tagfilter { margin-left:auto; display:flex; gap:4px; align-items:center; color:var(--muted); font-size:12px; }
-  .tagfilter button { padding:2px 8px; font-size:12px; border-radius:12px; }
-  .tagfilter button.on { background:#131722; color:#fff; border-color:#131722; }
+  .tagfilter { margin-left:auto; position:relative; display:flex; gap:4px; align-items:center; color:var(--muted); font-size:12px; }
+  .tagfilter #fBtn { padding:3px 10px; font-size:12px; border-radius:12px; max-width:340px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .tagfilter #fBtn.on { background:#131722; color:#fff; border-color:#131722; }
+  .tagfilter #fClr { padding:2px 7px; font-size:12px; border-radius:12px; }
+  #fMenu { position:absolute; right:0; top:calc(100% + 4px); z-index:60; background:#fff; border:1px solid var(--line);
+           border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,.15); padding:8px; min-width:210px; color:var(--fg); font-size:12px; }
+  #fMenu .grp { color:var(--muted); font-size:11px; margin:6px 2px 2px; text-transform:uppercase; letter-spacing:.04em; }
+  #fMenu label { display:flex; align-items:center; gap:6px; padding:3px 4px; border-radius:4px; cursor:pointer; }
+  #fMenu label:hover { background:#f0f3fa; }
+  #fMenu .all { border-top:1px solid var(--line); margin-top:6px; padding-top:7px; font-weight:600; }
+  #fMenu .foot { display:flex; justify-content:space-between; align-items:center; margin-top:6px; color:var(--muted); }
+  #fMenu .foot button { padding:2px 8px; font-size:12px; }
   .tagmenu { position:fixed; z-index:50; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px;
              box-shadow:0 4px 16px rgba(0,0,0,.12); display:flex; flex-wrap:wrap; gap:4px; width:220px; }
   .tagmenu .hdr { width:100%; font-size:11px; color:var(--muted); margin-bottom:2px; }
@@ -196,7 +205,7 @@ const SPECIAL = new Set(["armed", "drawn"]);     // not tied to Today / Graduate
 const VIEWS = [["today", "Today"], ["grads", "Graduates (3M)"], ["backlog", "Backlog"]];
 const S = {dates: [], date: null, data: null, armed: null, tab: "1m_small", tf: "6M", grid: "4x2", page: 0, charts: [],
            cache: new Map(), view: "today", backlog: null, minis: [], panelSig: "", recent: [],
-           tags: {vocab: ["UT", "DT", "N/A"], tickers: {}}, filter: new Set(), tagMore: load("tagMore", "1") === "1"};   // all tags shown in the filter bar by default
+           tags: {vocab: ["UT", "DT", "N/A"], tickers: {}}, filter: new Set(), tagMore: load("tagMore", "1") === "1", filterAll: load("filterAll", "0") === "1"};   // all tags shown in the filter bar by default
 let PATTERNS = [], REDS = [];
 let COLLAPSED = new Set();
 try { COLLAPSED = new Set(JSON.parse(localStorage.getItem("scr.collapsed") || "[]")); } catch (e) {}
@@ -256,14 +265,20 @@ async function init() {
   $("armedBox").open = load("armedOpen", "1") === "1";
   $("armedBox").addEventListener("toggle", () => keep("armedOpen", $("armedBox").open ? "1" : "0"));
   renderTagFilter();
-  $("tagFilter").onclick = e => {
-    const b = e.target.closest("button"); if (!b) return;
-    if (b.dataset.more) { S.tagMore = !S.tagMore; keep("tagMore", S.tagMore ? "1" : "0"); }
-    else if (b.dataset.clear) S.filter.clear();
-    else S.filter.has(b.dataset.f) ? S.filter.delete(b.dataset.f) : S.filter.add(b.dataset.f);
-    keep("filter", JSON.stringify([...S.filter]));
-    S.page = 0; renderTagFilter(); renderTabs(); render();
-  };
+  $("tagFilter").addEventListener("click", e => {
+    if (e.target.closest("#fBtn")) { $("fMenu") ? closeFilterMenu() : openFilterMenu(); return; }
+    if (e.target.closest("#fClr")) { S.filter.clear(); saveFilter(); closeFilterMenu(true); return; }
+    if (e.target.closest("#fMenu [data-none]")) { S.filter.clear(); saveFilter(); syncFilterMenu(); }
+    if (e.target.closest("#fMenu [data-done]")) closeFilterMenu();
+  });
+  $("tagFilter").addEventListener("change", e => {
+    const c = e.target;
+    if (c.dataset.all) S.filterAll = c.checked;
+    else if (c.dataset.f) c.checked ? S.filter.add(c.dataset.f) : S.filter.delete(c.dataset.f);
+    saveFilter(); syncFilterMenu();
+  });
+  document.addEventListener("click", e => { if ($("fMenu") && !e.target.closest("#tagFilter")) closeFilterMenu(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && $("fMenu")) closeFilterMenu(); });
   document.addEventListener("click", e => {          // tag button opens / closes the menu; a click elsewhere closes it
     const tb = e.target.closest(".tagbtn");
     if (tb) {
@@ -382,21 +397,57 @@ function openArmMenu(h, ticker, date, high, cx, cy) {
 }
 async function loadTags() { try { S.tags = await getJSON("/api/scr/tags"); } catch (e) {} }
 function tagsOf(t) { return S.tags.tickers[t] || []; }
-function passes(t) {          // tag filter: keep a ticker that has ANY selected tag ("Armed" = armed right now)
+function hasF(t, f) {          // does ticker t match one filter entry? Armed / Unarmed / Untagged are quasi-tags
+  const armed = !!(S.armed && S.armed.active.some(a => a.ticker === t));
+  if (f === "Armed") return armed;
+  if (f === "Unarmed") return !armed;
+  if (f === "Untagged") return !tagsOf(t).length;
+  return tagsOf(t).includes(f);
+}
+function passes(t) {          // tag filter: ANY selected entry, or ALL of them when "Must have all tags" is on
   if (!S.filter.size) return true;
-  if (S.filter.has("Armed") && S.armed && S.armed.active.some(a => a.ticker === t)) return true;
-  if (S.filter.has("Unarmed") && !(S.armed && S.armed.active.some(a => a.ticker === t))) return true;   // quasi-tag: not armed R1 right now
-  if (S.filter.has("Untagged") && !tagsOf(t).length) return true;      // quasi-tag: tickers you haven't tagged yet
-  return tagsOf(t).some(x => S.filter.has(x));
+  const f = [...S.filter];
+  return S.filterAll ? f.every(x => hasF(t, x)) : f.some(x => hasF(t, x));
+}
+// ---- tag filter: one dropdown with a checkbox per tag + "Must have all tags"; the grid redraws when it closes
+function saveFilter() { keep("filter", JSON.stringify([...S.filter])); keep("filterAll", S.filterAll ? "1" : "0"); }
+function filterLabel() {
+  if (!S.filter.size) return "Tags: any ▾";
+  return "Tags: " + [...S.filter].join(S.filterAll ? " + " : " / ") + " ▾";
 }
 function renderTagFilter() {
-  const v = S.tags.vocab, main = v.slice(0, 3), extra = v.slice(3);
-  const btn = t => `<button data-f="${t}" class="${S.filter.has(t) ? "on" : ""}">${t}</button>`;
-  const showExtra = S.tagMore || extra.some(t => S.filter.has(t));
-  $("tagFilter").innerHTML = `<span>Tags:</span>` + btn("Armed") + btn("Unarmed") + main.map(btn).join("") +
-    (extra.length && showExtra ? extra.map(btn).join("") : "") + btn("Untagged") +           // Untagged: last tag on the right
-    (extra.length ? `<button data-more="1" title="${showExtra ? "Hide" : "Show"} your other tags">${showExtra ? "‹" : "+" + extra.length}</button>` : "") +
-    (S.filter.size ? `<button data-clear="1" title="Clear the tag filter">✕</button>` : "");
+  const open = !!$("fMenu");
+  $("tagFilter").innerHTML = `<button id="fBtn" class="${S.filter.size ? "on" : ""}" title="${S.filter.size
+      ? (S.filterAll ? "Showing tickers with ALL of: " : "Showing tickers with ANY of: ") + [...S.filter].join(", ") : "Filter the grid by tags"}">${filterLabel()}</button>` +
+    (S.filter.size ? `<button id="fClr" title="Clear the tag filter">✕</button>` : "");
+  if (open) openFilterMenu(true);
+}
+function openFilterMenu(keepSig) {
+  if (!$("fMenu")) $("tagFilter").insertAdjacentHTML("beforeend", `<div id="fMenu"></div>`);
+  if (!keepSig) S.filterOpenSig = JSON.stringify([[...S.filter].sort(), S.filterAll]);
+  const box = t => `<label><input type="checkbox" data-f="${t}" ${S.filter.has(t) ? "checked" : ""}>` +
+                   `<span class="tag ${t.replace("/", "")}">${t}</span></label>`;
+  const vocab = S.tags.vocab.filter(t => !["Armed", "Unarmed", "Untagged"].includes(t));
+  $("fMenu").innerHTML =
+    `<div class="grp">Status</div>` + box("Armed") + box("Unarmed") +
+    `<div class="grp">Tags</div>` + vocab.map(box).join("") + box("Untagged") +
+    `<label class="all" title="Off: a ticker shows if it has ANY checked tag. On: it must have EVERY checked tag.">` +
+    `<input type="checkbox" data-all="1" ${S.filterAll ? "checked" : ""}> Must have all tags</label>` +
+    `<div class="foot"><span id="fCount"></span><span><button data-none="1">Clear</button> <button data-done="1">Done</button></span></div>`;
+  syncFilterMenu();
+}
+function syncFilterMenu() {          // live label + match count while the menu is open (no grid redraw yet)
+  const b = $("fBtn"); if (b) { b.textContent = filterLabel(); b.classList.toggle("on", !!S.filter.size); }
+  if (!$("fMenu")) return;
+  $("fMenu").querySelectorAll("[data-f]").forEach(c => c.checked = S.filter.has(c.dataset.f));
+  let n = 0; try { n = itemsRaw().filter(x => passes(x.ticker) && qMatch(x.ticker)).length; } catch (e) {}
+  $("fCount").textContent = `${n} on this tab`;
+}
+function closeFilterMenu(force) {
+  const m = $("fMenu"); if (m) m.remove();
+  const changed = force || S.filterOpenSig !== JSON.stringify([[...S.filter].sort(), S.filterAll]);
+  renderTagFilter();
+  if (changed) { S.page = 0; renderTabs(); render(); }
 }
 async function saveTags(t, list) {        // saved right away; the grid redraws when the tag menu closes
   S.tags = await postJSON("/api/scr/tags", {ticker: t, tags: list});
