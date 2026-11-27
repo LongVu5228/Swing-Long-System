@@ -385,6 +385,7 @@ function tagsOf(t) { return S.tags.tickers[t] || []; }
 function passes(t) {          // tag filter: keep a ticker that has ANY selected tag ("Armed" = armed right now)
   if (!S.filter.size) return true;
   if (S.filter.has("Armed") && S.armed && S.armed.active.some(a => a.ticker === t)) return true;
+  if (S.filter.has("Unarmed") && !(S.armed && S.armed.active.some(a => a.ticker === t))) return true;   // quasi-tag: not armed R1 right now
   if (S.filter.has("Untagged") && !tagsOf(t).length) return true;      // quasi-tag: tickers you haven't tagged yet
   return tagsOf(t).some(x => S.filter.has(x));
 }
@@ -392,7 +393,7 @@ function renderTagFilter() {
   const v = S.tags.vocab, main = v.slice(0, 3), extra = v.slice(3);
   const btn = t => `<button data-f="${t}" class="${S.filter.has(t) ? "on" : ""}">${t}</button>`;
   const showExtra = S.tagMore || extra.some(t => S.filter.has(t));
-  $("tagFilter").innerHTML = `<span>Tags:</span>` + btn("Armed") + main.map(btn).join("") +
+  $("tagFilter").innerHTML = `<span>Tags:</span>` + btn("Armed") + btn("Unarmed") + main.map(btn).join("") +
     (extra.length && showExtra ? extra.map(btn).join("") : "") + btn("Untagged") +           // Untagged: last tag on the right
     (extra.length ? `<button data-more="1" title="${showExtra ? "Hide" : "Show"} your other tags">${showExtra ? "‹" : "+" + extra.length}</button>` : "") +
     (S.filter.size ? `<button data-clear="1" title="Clear the tag filter">✕</button>` : "");
@@ -703,7 +704,7 @@ async function disarmNow(id, ticker, watch) {
   // instant: take it off the page first, then tell the server (the full refresh follows in the background)
   if (S.armed) { S.armed.active = S.armed.active.filter(a => a.id !== id); S.armed.watch = S.armed.watch.filter(a => a.id !== id); }
   decorate(); renderPanel(); renderTabs();
-  if (S.tab === "armed" || S.filter.has("Armed")) render();
+  if (S.tab === "armed" || S.filter.has("Armed") || S.filter.has("Unarmed")) render();
   drawToast(watch ? `${ticker} removed from watch` : `${ticker} disarmed`); setTimeout(() => drawToast(""), 1500);
   await postJSON("/api/scr/disarm", {mode: mode(), id});
   if (CHAN) CHAN.postMessage("changed");
